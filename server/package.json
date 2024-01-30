@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "morgan": "^1.10.0",
+    "mssql": "^10.0.2",
     "mysql2": "^3.9.1"
   },
   "devDependencies": {
