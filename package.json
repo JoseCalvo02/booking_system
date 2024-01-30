@@ -1,7 +1,7 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sistema de reservas para un salón de pintura de uñas. Este proyecto, desarrollado como parte de un trabajo final universitario, permite a los clientes reservar citas para servicios de manicura, pedicura y otros tratamientos de belleza. El sistema ofrece una interfaz fácil de usar tanto para los clientes como para el personal del salón, incluyendo funciones de reserva, gestión de citas, y seguimiento de servicios realizados.",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -9,6 +9,6 @@
     "server": "npm start --prefix server"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jose Calvo y Mario Cordero",
   "license": "ISC"
 }
