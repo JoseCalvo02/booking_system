@@ -10,4 +10,3 @@ export const dbConfig = {
         trustServerCertificate: true // Si es necesario, establece esto en true para conexiones seguras
     },
 };
- 

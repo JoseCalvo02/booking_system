@@ -5,6 +5,14 @@ import sql from "mssql";
 
 const app = express();
 
-app.listen(PORT);
-console.log(`Server is listening on port  ${PORT}`);
-sql.connect(dbConfig).then(() =>{console.log('Conexion exitosa')}).catch((console.error('Error al conectarse')));
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+    // Intenta conectarte a la base de datos una vez que el servidor esté en marcha
+    sql.connect(dbConfig)
+        .then(() => {
+            console.log('Conexión exitosa');
+        })
+        .catch(error => {
+            console.error('Error al conectarse:', error); // Corrección aquí: error en lugar de console.error('Error al conectarse')
+        });
+});
