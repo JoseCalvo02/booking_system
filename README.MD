@@ -1,4 +1,4 @@
-# Guía para Crear un Proyecto MERN
+# Guía para crear el proyecto
 Esta guía proporciona instrucciones detalladas sobre cómo se creo el proyecto utilizando una estructura de directorios separada para el cliente y el servidor.
 
 ## Pasos para Crear el Proyecto
