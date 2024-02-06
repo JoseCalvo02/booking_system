@@ -14,9 +14,9 @@ body::-webkit-scrollbar-track{
 }
 
 body::-webkit-scrollbar-thumb{
-  background: #111827;
+  background: theme('colors.primary');
 }
 
 body {
-  background-color: #000300;
+  background-color: #f6f6f9;
 }
