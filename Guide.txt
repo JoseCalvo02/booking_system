@@ -1,2 +1,5 @@
 Comando para estructura React:
 "rfc"
+
+Comando para escribir multiples lineas:
+ALT + Shift

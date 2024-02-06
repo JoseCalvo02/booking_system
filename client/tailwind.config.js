@@ -6,11 +6,12 @@ export default {
         // p = primary _ s = secondary _ h = hover
         colors: {
             p: '#6495ed',
-            w: '#fff', //white
-            g: '#b6b6b6', //grey
-            text: {
+            w: '#fff',
+            g: '#b6b6b6',
+            t: { //Colores para texto
                 p: '#b6b6b6',
                 s: '#ececec',
+                gr: '#00df9a',
             }
         },
     },
