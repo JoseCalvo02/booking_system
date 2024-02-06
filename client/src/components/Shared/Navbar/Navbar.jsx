@@ -30,11 +30,11 @@ function Navbar() {
             <h1 className="w-full text-2xl font-bold text-primary">FABI Studio Nails.</h1>
 
             <ul className="hidden uppercase md:flex">
-                <li className="p-4 hover:text-gray-400">Home</li>
-                <li className="p-4 hover:text-gray-400">Company</li>
-                <li className="p-4 hover:text-gray-400">Signup</li>
-                <li className="p-4 hover:text-gray-400">Login</li>
-                <li className="p-4 hover:text-gray-400">Contact</li>
+                <li className="p-4 transition-colors duration-500 hover:text-gray-400">Home</li>
+                <li className="p-4 transition-colors duration-500 hover:text-gray-400">Company</li>
+                <li className="p-4 transition-colors duration-500 hover:text-gray-400">Signup</li>
+                <li className="p-4 transition-colors duration-500 hover:text-gray-400">Login</li>
+                <li className="p-4 transition-colors duration-500 hover:text-gray-400">Contact</li>
             </ul>
 
             <div className='sm:hidden' onClick={handleNav}>
@@ -46,11 +46,11 @@ function Navbar() {
                 <h1 className="w-full m-4 text-2xl font-bold text-primary">FABI Studio Nails.</h1>
 
                 <ul className='p-4 uppercase'>
-                    <li className="p-4 border-b border-gray-600 hover:text-gray-400">Home</li>
-                    <li className="p-4 border-b border-gray-600 hover:text-gray-400">Company</li>
-                    <li className="p-4 border-b border-gray-600 hover:text-gray-400">Signup</li>
-                    <li className="p-4 border-b border-gray-600 hover:text-gray-400">Login</li>
-                    <li className="p-4 hover:text-gray-400 ">Contact</li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-gray-400">Home</li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-gray-400">Company</li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-gray-400">Signup</li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-gray-400">Login</li>
+                    <li className="p-4 transition-colors duration-500 hover:text-gray-400 ">Contact</li>
                 </ul>
             </div>
         </nav>
