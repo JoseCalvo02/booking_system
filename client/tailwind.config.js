@@ -5,9 +5,9 @@ export default {
     extend: {
         // Lista de colores
         colors: {
-            primary: '#40A2D8',
-            primary_h: '#0B60B0',
-            nav_bg: '#23232e',
+            primary: '#00df9a',
+            primary_h: '#008066',
+            bg_black: '#23232e',
             w: '#fff',
             g: '#b6b6b6',
             t: { //Colores para texto
