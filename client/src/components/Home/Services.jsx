@@ -16,7 +16,7 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>1 Granted User</p>
                         <p className='py-2 mx-8 border-b'>Send up to 2 GB</p>
                     </div>
-                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Start Trial</button>
+                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Start Trial</button>
                 </div>
                 {/* Segunda tarjeta */}
                 <div className='flex flex-col w-full p-4 my-8 text-white duration-300 bg-black rounded-lg shadow-2xl md:my-0 hover:scale-105'>
@@ -28,7 +28,7 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>1 Granted User</p>
                         <p className='py-2 mx-8 border-b'>Send up to 2 GB</p>
                     </div>
-                    <button className='bg-primary text-black w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Start Trial</button>
+                    <button className='bg-primary text-white w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Start Trial</button>
                 </div>
                 {/* Tercer tarjeta */}
                 <div className='flex flex-col w-full p-4 my-4 text-white duration-300 rounded-lg shadow-2xl hover:scale-105'>
@@ -40,7 +40,7 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>1 Granted User</p>
                         <p className='py-2 mx-8 border-b'>Send up to 2 GB</p>
                     </div>
-                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3'>Start Trial</button>
+                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Start Trial</button>
                 </div>
             </div>
         </div>

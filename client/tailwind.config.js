@@ -5,16 +5,15 @@ export default {
     extend: {
         // Lista de colores
         colors: {
-            primary: '#00df9a',
-            primary_h: '#008066',
+            primary: '#366ED8',
+            primary_h: '#064ACB',
             bg_black: '#23232e',
+            gre: '#00df9a',
+            gre_hover: '#008066',
             w: '#fff',
             g: '#b6b6b6',
-            t: { //Colores para texto
+            eje: { //Ejemplo de una clase dentro de los colores
                 p: '#b6b6b6',
-                s: '#ececec',
-                gr: '#00df9a',
-                gr_hover: '#008066',
             }
         },
     },
