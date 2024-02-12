@@ -9,7 +9,7 @@ export default {
             primary_h: '#064ACB',
             bg_black: '#23232e',
             gre: '#00df9a',
-            gre_hover: '#008066',
+            gre_h: '#008066',
             w: '#fff',
             g: '#b6b6b6',
             eje: { //Ejemplo de una clase dentro de los colores
