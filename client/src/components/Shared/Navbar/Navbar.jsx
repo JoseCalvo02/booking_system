@@ -33,9 +33,8 @@ function Navbar() {
 
             <ul className="hidden uppercase md:flex">
                 <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/">Home</NavLink></li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#about-us">About</a></li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary">Signup</li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary">Login</li>
+                <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/login">Login</NavLink></li>
+                <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/signup">Signup</NavLink></li>
                 <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us">Contact</a></li>
             </ul>
 
@@ -48,10 +47,9 @@ function Navbar() {
                 <h1 className="w-full m-4 text-2xl font-bold text-primary">FABI Studio Nails.</h1>
 
                 <ul className='p-4 uppercase'>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary">Home</li>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><a href="#about-us" onClick={closeNav}>About</a></li>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary">Signup</li>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary">Login</li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/">Home</NavLink></li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/login">Login</NavLink></li>
+                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/signup">Signup</NavLink></li>
                     <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us" onClick={closeNav}>Contact</a></li>
                 </ul>
             </div>

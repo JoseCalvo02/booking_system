@@ -13,9 +13,7 @@ export default function Home() {
             <Navbar />
             <Hero />
             <Services />
-            <section id="about-us">
-                <AboutUs />
-            </section>
+            <AboutUs />
             <section id="contact-us">
                 <ContactUs />
             </section>
