@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 // Importar Pages
 import Home from "./pages/Home/Home"
 import NotFound from "./pages/Layout/NotFound";
-import Login from "./pages/Auth/Login"
-import Signup from "./pages/Auth/Signup"
+import Auth from "./pages/Auth/Auth"
 
 function App() {
     return (
@@ -14,8 +13,7 @@ function App() {
                     Define las rutas y los componentes asociados. Por ejemplo, cuando la URL es "/", se renderiza el componente Home.
                 */}
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/auth" element={<Auth />} />
                 {/*
                     La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores.
                 */}

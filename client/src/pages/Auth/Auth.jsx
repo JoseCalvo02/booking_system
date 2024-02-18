@@ -1,4 +1,6 @@
 import React, { useState }  from 'react'
+import { useLocation } from 'react-router-dom';
+
 import Navbar from '../../components/Shared/Navbar/Navbar';
 
 const customStyles = {
@@ -8,8 +10,11 @@ const customStyles = {
     button: 'rounded-[20px] border border-solid border-primary_h bg-primary_h text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
 };
 
-export default function Login() {
-    const [signIn, setSignIn] = React.useState(true);
+export default function Auth() {
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const signInParam = params.get('signIn');
+    const [signIn, setSignIn] = React.useState(signInParam === 'true');
 
     const toggleSignIn = () => {
         setSignIn(!signIn);
@@ -17,9 +22,10 @@ export default function Login() {
 
     return (
         <section>
+            <Navbar />
 
-            <div className='bg-[#f6f5f7] flex justify-center items-center flex-col h-screen mt-[-20px] mb-[50px]'>
-                <div className='relative max-h-full overflow-hidden shadow-lg bg-white rounded-lg min-h-[550px] w-[678px]'>
+            <div className='bg-[#f6f5f7] flex justify-center items-center flex-col h-[93vh]'>
+                <div className='relative max-h-full overflow-hidden shadow-lg bg-white rounded-lg min-h-[550px] w-[720px]'>
 
                     {/* SignUp container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 ${signIn ? 'opacity-0 z-0' : 'opacity-100 z-10 transform translate-x-full'}`}>

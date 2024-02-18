@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-function Navbar() {
+export default function Navbar() {
     const [nav, setNav] = useState(true);
+
+    const location = useLocation();
+    const currentPage = location.pathname;
 
     useEffect(() => {
         const handleResize = () => {
@@ -33,9 +36,15 @@ function Navbar() {
 
             <ul className="hidden uppercase md:flex">
                 <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/">Home</NavLink></li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/login">Login</NavLink></li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/signup">Signup</NavLink></li>
-                <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us">Contact</a></li>
+                {currentPage !== "/auth" &&
+                    <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/auth?signIn=true">Login</NavLink></li>
+                }
+                {currentPage !== "/auth" &&
+                    <li className="p-4 transition-colors duration-500 hover:text-primary"><NavLink to="/auth?signIn=false">Signup</NavLink></li>
+                }
+                {currentPage !== "/auth" &&
+                    <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us">Contact</a></li>
+                }
             </ul>
 
             <div className='sm:hidden' onClick={handleNav}>
@@ -48,13 +57,17 @@ function Navbar() {
 
                 <ul className='p-4 uppercase'>
                     <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/">Home</NavLink></li>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/login">Login</NavLink></li>
-                    <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/signup">Signup</NavLink></li>
-                    <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us" onClick={closeNav}>Contact</a></li>
+                    {currentPage !== "/auth" &&
+                        <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/auth?signIn=true">Login</NavLink></li>
+                    }
+                    {currentPage !== "/auth" &&
+                        <li className="p-4 transition-colors duration-500 border-b border-gray-600 hover:text-primary"><NavLink to="/auth?signIn=false">Signup</NavLink></li>
+                    }
+                    {currentPage !== "/auth" &&
+                        <li className="p-4 transition-colors duration-500 hover:text-primary"><a href="#contact-us" onClick={closeNav}>Contact</a></li>
+                    }
                 </ul>
             </div>
         </nav>
     )
 }
-
-export default Navbar;
