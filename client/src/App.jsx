@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Importar Pages
 import Home from "./pages/Home/Home"
 import NotFound from "./pages/Layout/NotFound";
@@ -19,6 +22,8 @@ function App() {
                 */}
                 <Route path="*" element={<NotFound/>} />
             </Routes>
+            {/* Agrega el ToastContainer aquí para que esté disponible en toda la aplicación. */}
+            <ToastContainer />
         </>
     )
 }

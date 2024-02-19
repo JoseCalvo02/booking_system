@@ -1,15 +1,13 @@
 import React, { useState }  from 'react'
 import { useLocation } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+//Componentes y funciones
 import Navbar from '../../components/Shared/Navbar/Navbar';
+import { validateForm } from './helpers/formValidation';
+import { handleSubmit } from './helpers/formSubmission';
 
-const customStyles = {
-    h1: 'm-0 text-2xl font-bold',
-    input: 'bg-[#eee] border-none py-3 px-4 w-full my-2 mx-0 rounded-md focus:outline-primary',
-    form: 'flex flex-col items-center justify-center py-0 px-[50px] h-full text-center',
-    button: 'rounded-[20px] border border-solid border-primary_h bg-primary_h text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
-};
-
+//Componente Page "Auth"
 export default function Auth() {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
@@ -18,28 +16,52 @@ export default function Auth() {
 
     const toggleSignIn = () => {
         setSignIn(!signIn);
-      };
+    };
+
+    const initialValues = {
+        name: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        address: '',
+        password: '',
+        confirmPassword: '',
+    };
 
     return (
-        <section>
+        <div>
             <Navbar />
 
+            {/* Auth page container */}
             <div className='bg-[#f6f5f7] flex justify-center items-center flex-col h-[93vh]'>
-                <div className='relative max-h-full overflow-hidden shadow-lg bg-white rounded-lg min-h-[550px] w-[720px]'>
+                <div className='relative max-h-full overflow-hidden shadow-2xl bg-white rounded-lg min-h-[700px] w-[850px] hover:shadow-none'>
 
                     {/* SignUp container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 ${signIn ? 'opacity-0 z-0' : 'opacity-100 z-10 transform translate-x-full'}`}>
-                        <form className={customStyles.form} action="">
-                            <h1 className={customStyles.h1}>Create account</h1>
-                            <input className={customStyles.input + ' focus:outline-primary'} type="text" placeholder='Name'/>
-                            <input className={customStyles.input} type="text" placeholder='Last Name'/>
-                            <input className={customStyles.input} type="phone" placeholder='Phone'/>
-                            <input className={customStyles.input} type="email" placeholder='Email'/>
-                            <input className={customStyles.input} type="text" placeholder='Address'/>
-                            <input className={customStyles.input} type="password" placeholder='Password'/>
-                            <input className={customStyles.input} type="password" placeholder='Password again'/>
-                            <button className={customStyles.button + ' mt-4'}>Signup</button>
-                        </form>
+
+                        {/* Signup Form*/}
+                        <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleSubmit}>
+                            {({ isSubmitting }) => (
+                                <Form className={customStyles.form}>
+                                    <h1 className={customStyles.h1}>Create account</h1>
+                                    <Field className={customStyles.input} type="text" name="name" placeholder="Name"/>
+                                    <ErrorMessage name="name" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="text" name="lastName" placeholder="Last Name"/>
+                                    <ErrorMessage name="lastName" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="phone" name="phone" placeholder="Phone"/>
+                                    <ErrorMessage name="phone" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="email" name="email" placeholder="Email"/>
+                                    <ErrorMessage name="email" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="text" name="address" placeholder="Address"/>
+                                    <ErrorMessage name="address" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="password" name="password" placeholder="Password"/>
+                                    <ErrorMessage name="password" component="div" className='m-0 text-xs text-red-600'/>
+                                    <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Password again"/>
+                                    <ErrorMessage name="confirmPassword" component="div" className='m-0 text-xs text-red-600'/>
+                                    <button className={customStyles.button + ' mt-4'} type="submit" disabled={isSubmitting}>Signup</button>
+                                </Form>
+                            )}
+                        </Formik>
                     </div>
 
                     {/* LogIn container */}
@@ -77,6 +99,14 @@ export default function Auth() {
                 </div>
             </div>
 
-        </section>
+        </div>
     );
 }
+
+//Global Styles
+const customStyles = {
+    h1: 'm-0 text-2xl font-bold',
+    input: 'bg-[#eee] border-none py-3 px-4 w-full my-2 mx-0 rounded-md focus:outline-primary',
+    form: 'flex flex-col items-center justify-center py-0 px-[50px] h-full text-center',
+    button: 'rounded-[20px] border border-solid border-primary_h bg-primary_h text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
+};

@@ -1,9 +1,9 @@
 // Dependencias
 import express from "express";
+import cors from "cors";
 import sql from "mssql";
 import morgan from "morgan";
 
-import { PORT } from "./config/config.js";
 import { dbConfig } from "./config/dbConfig.js";
 
 // Rutas
@@ -11,10 +11,14 @@ import authRoutes from "./routes/authRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 
+const PORT = 3000;
+
 const app = express();
 
-// Configurar Morgan como middleware para el registro de solicitudes
-app.use(morgan("dev"));
+//Middlewares
+app.use(cors()); // Middleware de CORS
+app.use(express.json()); // Para analizar el cuerpo de la solicitud en formato JSON
+app.use(morgan("dev")); // Morgan como middleware para el registro de solicitudes
 
 // Intenta conectarte a la base de datos una vez que el servidor esté en marcha
 sql.connect(dbConfig)
