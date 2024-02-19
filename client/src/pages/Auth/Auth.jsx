@@ -35,6 +35,7 @@ export default function Auth() {
                             <input className={customStyles.input} type="text" placeholder='Last Name'/>
                             <input className={customStyles.input} type="phone" placeholder='Phone'/>
                             <input className={customStyles.input} type="email" placeholder='Email'/>
+                            <input className={customStyles.input} type="text" placeholder='Address'/>
                             <input className={customStyles.input} type="password" placeholder='Password'/>
                             <input className={customStyles.input} type="password" placeholder='Password again'/>
                             <button className={customStyles.button + ' mt-4'}>Signup</button>
