@@ -1,6 +1,7 @@
 import React, { useState }  from 'react'
 import { useLocation } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { toast } from 'react-toastify'; // Importar la función de notificación
 
 //Componentes y funciones
 import Navbar from '../../components/Shared/Navbar/Navbar';
@@ -28,6 +29,26 @@ export default function Auth() {
         confirmPassword: '',
     };
 
+    // Función para manejar el envío del formulario
+    const handleFormSubmit = async (values, formikHelpers) => {
+        // Función para mostrar notificaciones
+        const notify = (type, message) => {
+            if (type === 'success') {
+                toast.success(message);
+            } else if (type === 'error') {
+                toast.error(message);
+            }
+        };
+
+        try {
+            // Enviar solicitud de registro de usuario y manejar la respuesta
+            await handleSubmit(values, formikHelpers, notify);
+        } catch (error) {
+            // Error al manejar la solicitud, ya se ha mostrado la notificación correspondiente en handleSubmit
+            console.error('Error al manejar la solicitud:', error);
+        }
+    };
+
     return (
         <div>
             <Navbar />
@@ -40,7 +61,7 @@ export default function Auth() {
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 ${signIn ? 'opacity-0 z-0' : 'opacity-100 z-10 transform translate-x-full'}`}>
 
                         {/* Signup Form*/}
-                        <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleSubmit}>
+                        <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleFormSubmit}>
                             {({ isSubmitting }) => (
                                 <Form className={customStyles.form}>
                                     <h1 className={customStyles.h1}>Create account</h1>

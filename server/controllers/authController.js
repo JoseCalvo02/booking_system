@@ -30,12 +30,13 @@ export const createUser = async (req, res) => {
                                             .query(emailCheckQuery); // ejecuta la consulta SQL
         const existingEmailCount = emailCheckResult.recordset[0].count;
         if (existingEmailCount > 0) {
+            console.log('correo duplicado')
             // Si ya existe un usuario con el mismo correo electrónico, devuelve un error
             return res.status(400).json({ error: 'El correo electrónico ya está en uso' });
         }
 
         // Consulta SQL para ingresar un usuario nuevo
-        const insertUserQuery = `INSERT INTO Clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado) 
+        const insertUserQuery = `INSERT INTO Clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado)
                                  VALUES (@name, @lastName, @email, @phone, @address, @earnedPoints, @redeemedPoints, @password, @rolClient, @statusClient)`;
 
         // Ejecuta la consulta SQL con los parámetros proporcionados
