@@ -96,7 +96,6 @@ export const loginUser = async (req, res) => {
         }
 
         // Verificar los roles del usuario
-        // Supongamos que los roles están almacenados en la tabla Roles con un campo nombreRol
         const rolesQuery = `SELECT r.nombreRol FROM Roles r 
                             INNER JOIN Clientes c ON c.rolID = r.rolID 
                             WHERE c.clienteID = @userID`;
