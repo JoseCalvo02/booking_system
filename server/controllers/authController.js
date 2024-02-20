@@ -35,7 +35,7 @@ export const createUser = async (req, res) => {
         }
 
         // Consulta SQL para ingresar un usuario nuevo
-        const insertUserQuery = `INSERT INTO Clientes (nombre, apellido, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado) 
+        const insertUserQuery = `INSERT INTO Clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado) 
                                  VALUES (@name, @lastName, @email, @phone, @address, @earnedPoints, @redeemedPoints, @password, @rolClient, @statusClient)`;
 
         // Ejecuta la consulta SQL con los parámetros proporcionados
