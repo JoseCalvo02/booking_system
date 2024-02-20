@@ -66,24 +66,28 @@ export const createUser = async (req, res) => {
 
 // Función para loguearse al sistema
 export const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body; // Obtener el correo electrónico y la contraseña del cuerpo de la solicitud
 
-    const pool = await sql.connect(dbConfig);
+    const pool = await sql.connect(db); // Crear una conexión a la base de datos
 
     try {
-        // Verifica si el correo y la contraseña coinciden con un usuario en la base de datos
-        const userQuery = `SELECT * FROM Clientes WHERE correo = @email 
-                           AND contraseña = @password`;
-        const userResult = await pool.request()
+        // Verificar si el correo electrónico existe en la base de datos
+        const emailCheckQuery = 'SELECT * FROM Clientes WHERE correo = @email';
+        const emailCheckResult = await pool.request()
             .input('email', sql.VarChar(50), email)
-            .input('password', sql.VarChar(50), password)
-            .query(userQuery);
+            .query(emailCheckQuery);
 
-        const user = userResult.recordset[0]; // Toma el primer usuario (si existe)
+        const user = emailCheckResult.recordset[0]; // Tomar el primer usuario encontrado (si existe)
 
         if (!user) {
-            // Si no se encuentra ningún usuario con las credenciales proporcionadas, devolver un error
-            return res.status(400).json({ error: 'Correo electrónico o contraseña incorrectos' });
+            // Si el correo electrónico no existe en la base de datos, devolver un mensaje de correo no encontrado
+            return res.status(400).json({ error: 'El correo electrónico no existe Por favor, crea una cuenta.' });
+        }
+
+        // Verificar si la contraseña coincide
+        if (user.contraseña !== password) {
+            // Si la contraseña no coincide, devolver un mensaje de contraseña incorrecta
+            return res.status(400).json({ error: 'Contraseña incorrecta' });
         }
 
         // Verifica el estado del usuario
