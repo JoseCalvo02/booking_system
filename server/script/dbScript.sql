@@ -1,7 +1,7 @@
 /****** -------------------------------------	Proyecto FabiStudioNails Creado por: Mario Cordero/Jose Calvo / 18/02/2024---------------------------------- ******/
 
 /****** -------------------------------------	Table Roles	---------------------------------- ******/
-Create Table Roles (
+Create Table roles (
 	rolID INT PRIMARY KEY IDENTITY(1,1),
 	nombreRol varchar(25)
 );
@@ -11,7 +11,7 @@ INSERT INTO Roles (nombreRol)
 VALUES ('Administrador'), ('Estilista'), ('Cliente');
 
 /****** -------------------------------------	Table Clientes	---------------------------------- ******/
-create table Clientes (
+create table clientes (
 	clienteID INT PRIMARY KEY IDENTITY(1,1),
 	nombre varchar(50),
 	apellidos varchar(50),
@@ -28,7 +28,7 @@ create table Clientes (
 ALTER TABLE Clientes ADD CONSTRAINT fk_rolID FOREIGN KEY(rolID) REFERENCES Roles(rolID) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /****** -------------------------------------	Table Administradores	---------------------------------- ******/
-create table Administradores (
+create table administradores (
 	adminID INT PRIMARY KEY IDENTITY(1,1),
 	nombre varchar(50),
 	apellidos varchar(50),
@@ -40,7 +40,7 @@ create table Administradores (
 ALTER TABLE Administradores ADD CONSTRAINT fk_rolID_2 FOREIGN KEY(rolID) REFERENCES Roles(rolID) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /****** -------------------------------------	Table Estilistas	---------------------------------- ******/
-create table Estilistas (
+create table estilistas (
 	estilistaID INT PRIMARY KEY IDENTITY(1,1),
 	nombre varchar(50),
 	apellidos varchar(50),
@@ -135,3 +135,108 @@ ALTER TABLE citasReagendadas ADD CONSTRAINT fk_citaID FOREIGN KEY(citaID) REFERE
 );
 
 ALTER TABLE bloqueoHorarios ADD CONSTRAINT fk_estilistaID_3 FOREIGN KEY(estilistaID) REFERENCES estilistas(estilistaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+ -------------------------------------	Table historialCuentas	---------------------------------- ******/
+create table historialCuenta (
+	historialID INT PRIMARY KEY IDENTITY(1,1),
+	clienteID INT,
+	serviciosUtilizados INT,
+	ultimaConexion DATETIME
+);
+
+ALTER TABLE historialCuenta ADD CONSTRAINT fk_clienteID_2 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table puntosClientes	---------------------------------- ******/
+create table puntosClientes(
+	puntosID INT PRIMARY KEY IDENTITY(1,1),
+	clienteID INT,
+	saldoPuntos INT
+);
+
+ALTER TABLE puntosClientes ADD CONSTRAINT fk_clienteID_3 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table recompensas	---------------------------------- ******/
+create table recompensas(
+	recompensaID INT PRIMARY KEY IDENTITY(1,1),
+	servicioID INT,
+	puntosRecompensa INT
+);
+
+ALTER TABLE recompensas ADD CONSTRAINT fk_servicioID_3 FOREIGN KEY(servicioID) REFERENCES catalogo(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table historialCuentas	---------------------------------- ******/
+create table historialClientes(
+	historialID INT PRIMARY KEY IDENTITY(1,1),
+	clienteID INT,
+	nombreCliente varchar(50),  
+	fechaRegistro DATETIME,
+	ultimoServicioID INT
+);
+ 
+ALTER TABLE historialClientes ADD CONSTRAINT fk_clienteID_4 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE historialClientes ADD CONSTRAINT fk_servicioID_4 FOREIGN KEY(ultimoServicioID) REFERENCES catalogo(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table historialCitas	---------------------------------- ******/
+
+create table historialCitas(
+	historialID INT PRIMARY KEY IDENTITY(1,1),
+	citaID INT,
+	clienteID INT,
+	estilistaID INT,
+	fechaCita DATETIME,
+	servicioID INT
+);
+
+ALTER TABLE historialCitas ADD CONSTRAINT fk_citaID_2 FOREIGN KEY(citaID) REFERENCES citas(citaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE historialCitas ADD CONSTRAINT fk_clienteID_5 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE historialCitas ADD CONSTRAINT fk_estilistaID_4 FOREIGN KEY(estilistaID) REFERENCES estilistas(estilistaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE historialCuentas ADD CONSTRAINT fk_servicioID_5 FOREIGN KEY(ultimoServicioID) REFERENCES catalogo(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table reporteClientesCitas	---------------------------------- ******/
+create table reporteClientesCitas(
+	reporteID INT PRIMARY KEY IDENTITY(1,1),
+	clienteID INT,
+	citaID INT,
+	nombreCliente VARCHAR(50),
+	fechaCita DATETIME,
+	servicioID INT
+);
+
+ALTER TABLE reporteClientesCitas ADD CONSTRAINT fk_clienteID_6 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE reporteClientesCitas ADD CONSTRAINT fk_citaID_3 FOREIGN KEY(citaID) REFERENCES citas(citaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE reporteClientesCitas ADD CONSTRAINT fk_servicioID_6 FOREIGN KEY(ServicioID) REFERENCES catalogo(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table reportehorarioEstilistas	---------------------------------- ******/
+create table reporteHorarioEstilistas(
+	reporteID INT PRIMARY KEY IDENTITY(1,1),
+	estilistaID INT,
+	diaSemana VARCHAR(20),
+	horaInicio TIME,
+	horaFinal TIME
+);
+
+ALTER TABLE reporteHorarioEstilistas ADD CONSTRAINT fk_estilistaID_5 FOREIGN KEY(estilistaID) REFERENCES estilistas(estilistaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table ReporteCitasPendientes	---------------------------------- ******/
+create table reporteCitasPendientes(
+	reporteID INT PRIMARY KEY IDENTITY(1,1),
+	citaID INT,
+	clienteID INT,
+	fechaCita DATETIME,
+	estilistaID INT
+);
+
+ALTER TABLE reporteCitasPendientes ADD CONSTRAINT fk_citaID_4 FOREIGN KEY(citaID) REFERENCES citas(citaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE reporteCitasPendientes ADD CONSTRAINT fk_clienteID_7 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE reporteCitasPendientes ADD CONSTRAINT fk_estilistaID_6 FOREIGN KEY(estilistaID) REFERENCES estilistas(estilistaID) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-------------------------------------	Table historialGastoPuntos	---------------------------------- ******/
+create table historialGastoPuntos(
+	gastoID INT PRIMARY KEY IDENTITY(1,1),
+	clienteID INT,
+	puntosGastados INT,
+	fecha DATETIME,
+	descripcionGasto VARCHAR(150)
+);
+
+ALTER TABLE historialGastoPuntos ADD CONSTRAINT fk_clienteID_8 FOREIGN KEY(clienteID) REFERENCES clientes(clienteID) ON DELETE NO ACTION ON UPDATE NO ACTION;

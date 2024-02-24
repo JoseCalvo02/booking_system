@@ -24,7 +24,7 @@ export const createUser = async (req, res) => {
 
     try{
         // Verifica si ya existe un usuario con el mismo correo electrónico
-        const emailCheckQuery = 'SELECT COUNT(*) AS count FROM Clientes WHERE correo = @email';
+        const emailCheckQuery = 'SELECT COUNT(*) AS count FROM clientes WHERE correo = @email';
         const emailCheckResult = await pool.request()
                                             .input('email', sql.VarChar(50), email) //input nos envia los parametros de entrada al query
                                             .query(emailCheckQuery); // ejecuta la consulta SQL
@@ -36,7 +36,7 @@ export const createUser = async (req, res) => {
         }
 
         // Consulta SQL para ingresar un usuario nuevo
-        const insertUserQuery = `INSERT INTO Clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado)
+        const insertUserQuery = `INSERT INTO clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado)
                                  VALUES (@name, @lastName, @email, @phone, @address, @earnedPoints, @redeemedPoints, @password, @rolClient, @statusClient)`;
 
         // Ejecuta la consulta SQL con los parámetros proporcionados
@@ -72,7 +72,7 @@ export const loginUser = async (req, res) => {
 
     try {
         // Verificar si el correo electrónico existe en la base de datos
-        const emailCheckQuery = 'SELECT * FROM Clientes WHERE correo = @email';
+        const emailCheckQuery = 'SELECT * FROM clientes WHERE correo = @email';
         const emailCheckResult = await pool.request()
             .input('email', sql.VarChar(50), email)
             .query(emailCheckQuery);
@@ -96,8 +96,8 @@ export const loginUser = async (req, res) => {
         }
 
         // Verificar los roles del usuario
-        const rolesQuery = `SELECT r.nombreRol FROM Roles r 
-                            INNER JOIN Clientes c ON c.rolID = r.rolID 
+        const rolesQuery = `SELECT r.nombreRol FROM roles r 
+                            INNER JOIN clientes c ON c.rolID = r.rolID 
                             WHERE c.clienteID = @userID`;
         const rolesResult = await pool.request()
             .input('userID', sql.Int, user.clienteID)
