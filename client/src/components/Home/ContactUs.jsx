@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ContactUs() {
     return (
-        <div className='w-full px-4 py-16 text-white bg-bg_black'>
+        <div className='w-full px-4 py-16 text-white bg-gray-900'>
             <div className='max-w-[1240px] mx-auto grid lg:grid-cols-3'>
                 <div className='my-4 lg:col-span-2'>
                     <h1 className='py-2 text-2xl font-bold md:text-4xl sm:text-3xl'>

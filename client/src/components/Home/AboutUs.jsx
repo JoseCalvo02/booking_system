@@ -16,7 +16,7 @@ export default function AboutUs() {
                         <p className='font-bold uppercase text-primary'>Lorem ipsum dolor sit amet.</p>
                         <h1 className='py-2 text-2xl font-bold md:text-4xl sm:text-3xl'>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</h1>
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores enim voluptatem maiores veniam excepturi, obcaecati aut provident corrupti tempore nostrum hic, quod harum fugiat quam est iure dignissimos ratione distinctio?</p>
-                        <button className='bg-bg_black hover:bg-black w-[150px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-white'>Comenzemos</button>
+                        <button className='bg-gray-900 hover:bg-black w-[150px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-white'>Comenzemos</button>
                     </div>
                 </div>
             </div>

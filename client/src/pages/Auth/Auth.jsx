@@ -79,7 +79,7 @@ export default function Auth() {
                                     <ErrorMessage name="password" component="div" className='m-0 text-xs text-red-600'/>
                                     <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Password again"/>
                                     <ErrorMessage name="confirmPassword" component="div" className='m-0 text-xs text-red-600'/>
-                                    <button className={customStyles.button + ' mt-4'} type="submit" disabled={isSubmitting}>Signup</button>
+                                    <button className={customStyles.button + ' mt-4 hover:bg-primary_h'} type="submit" disabled={isSubmitting}>Signup</button>
                                 </Form>
                             )}
                         </Formik>
@@ -92,12 +92,12 @@ export default function Auth() {
                             <input className={customStyles.input} type="email" placeholder='Email'/>
                             <input className={customStyles.input} type="password" placeholder='Password'/>
                             <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Forgot your password?</a>
-                            <button className={customStyles.button}>Login</button>
+                            <button className={customStyles.button + ' hover:bg-primary_h'}>Login</button>
                         </form>
                     </div>
 
                     {/* Overlay container */}
-                    <div className={`absolute top-0 w-1/2 h-full overflow-hidden transition-transform duration-700 ease-in-out left-1/2 z-[100] ${signIn ? '' : 'transform -translate-x-full'}`}>
+                    <div className={`absolute top-0 w-1/2 h-full overflow-hidden transition-transform duration-700 ease-in-out left-1/2 z-10 ${signIn ? '' : 'transform -translate-x-full'}`}>
                         {/* Overlay Panel */}
                         <div className={`bg-gradient-to-r from-primary to-primary_h relative -left-full text-white h-full w-[200%] transition-transform ease-in-out duration-700 ${signIn ? ' transform translate-x-0' : 'transform translate-x-1/2'}`}>
 
@@ -129,5 +129,5 @@ const customStyles = {
     h1: 'm-0 text-2xl font-bold',
     input: 'bg-[#eee] border-none py-3 px-4 w-full my-2 mx-0 rounded-md focus:outline-primary',
     form: 'flex flex-col items-center justify-center py-0 px-[50px] h-full text-center',
-    button: 'rounded-[20px] border border-solid border-primary_h bg-primary_h text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
+    button: 'rounded-[20px] border border-solid border-primary_h bg-primary text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
 };

@@ -7,7 +7,6 @@ export default {
         colors: {
             primary: '#366ED8',
             primary_h: '#064ACB',
-            bg_black: '#23232e',
             gre: '#00df9a',
             gre_h: '#008066',
             w: '#fff',
