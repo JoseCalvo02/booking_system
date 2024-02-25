@@ -1,4 +1,4 @@
-// General styles used in Auth.jsx
+// General styles used in Auth.jsx and forms
 const customStyles = {
     h1: 'm-0 text-2xl font-bold',
     input: 'bg-[#eee] border-none py-3 px-4 w-full my-2 mx-0 rounded-md focus:outline-primary',
