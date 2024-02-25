@@ -24,3 +24,7 @@ export const handleSubmit = async (values, { setSubmitting }, notify) => {
         setSubmitting(false);
     }
 };
+
+export const handleLoginSubmit = async () => {
+
+};

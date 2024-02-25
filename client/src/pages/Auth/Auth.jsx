@@ -1,12 +1,16 @@
+// Paquetes y bibliotecas externas
 import React, { useState }  from 'react'
 import { useLocation } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { toast } from 'react-toastify'; // Importar la función de notificación
-
-//Componentes y funciones
+import { toast } from 'react-toastify';
+// Componentes
 import Navbar from '../../components/Shared/Navbar/Navbar';
-import { validateForm } from './helpers/formValidation';
-import { handleSubmit } from './helpers/formSubmission';
+// Funciones y helpers
+import { validateForm, validateLoginForm } from './helpers/formValidation';
+import { handleSubmit, handleLoginSubmit } from './helpers/formSubmission';
+// Estilos personalizados
+import customStyles from '../../config/customStyles';
+
 
 //Componente Page "Auth"
 export default function Auth() {
@@ -29,8 +33,8 @@ export default function Auth() {
         confirmPassword: '',
     };
 
-    // Función para manejar el envío del formulario
-    const handleFormSubmit = async (values, formikHelpers) => {
+    // Función para manejar el envío del formulario de signup
+    const handleSignupForm = async (values, formikHelpers) => {
         // Función para mostrar notificaciones
         const notify = (type, message) => {
             if (type === 'success') {
@@ -40,13 +44,8 @@ export default function Auth() {
             }
         };
 
-        try {
-            // Enviar solicitud de registro de usuario y manejar la respuesta
-            await handleSubmit(values, formikHelpers, notify);
-        } catch (error) {
-            // Error al manejar la solicitud, ya se ha mostrado la notificación correspondiente en handleSubmit
-            console.error('Error al manejar la solicitud:', error);
-        }
+        // Enviar solicitud de registro de usuario y manejar la respuesta
+        await handleSubmit(values, formikHelpers, notify);
     };
 
     return (
@@ -54,31 +53,30 @@ export default function Auth() {
             <Navbar />
 
             {/* Auth page container */}
-            <div className='bg-[#f6f5f7] flex justify-center items-center flex-col h-[93vh]'>
+            <div className='bg-[#f6f5f7] flex justify-center items-center flex-col h-[100vh]'>
                 <div className='relative max-h-full overflow-hidden shadow-2xl bg-white rounded-lg min-h-[700px] w-[850px] hover:shadow-none'>
 
                     {/* SignUp container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 ${signIn ? 'opacity-0 z-0' : 'opacity-100 z-10 transform translate-x-full'}`}>
-
                         {/* Signup Form*/}
-                        <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleFormSubmit}>
+                        <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleSignupForm}>
                             {({ isSubmitting }) => (
                                 <Form className={customStyles.form}>
                                     <h1 className={customStyles.h1}>Create account</h1>
                                     <Field className={customStyles.input} type="text" name="name" placeholder="Name"/>
-                                    <ErrorMessage name="name" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="name" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="text" name="lastName" placeholder="Last Name"/>
-                                    <ErrorMessage name="lastName" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="lastName" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="phone" name="phone" placeholder="Phone"/>
-                                    <ErrorMessage name="phone" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="phone" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="email" name="email" placeholder="Email"/>
-                                    <ErrorMessage name="email" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="email" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="text" name="address" placeholder="Address"/>
-                                    <ErrorMessage name="address" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="address" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="password" name="password" placeholder="Password"/>
-                                    <ErrorMessage name="password" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="password" component="div" className={customStyles.error}/>
                                     <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Password again"/>
-                                    <ErrorMessage name="confirmPassword" component="div" className='m-0 text-xs text-red-600'/>
+                                    <ErrorMessage name="confirmPassword" component="div" className={customStyles.error}/>
                                     <button className={customStyles.button + ' mt-4 hover:bg-primary_h'} type="submit" disabled={isSubmitting}>Signup</button>
                                 </Form>
                             )}
@@ -87,13 +85,17 @@ export default function Auth() {
 
                     {/* LogIn container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 z-2 ${signIn ? 'opacity-100' : 'opacity-0 transform translate-x-full'}`}>
-                        <form className={customStyles.form} action="">
-                            <h1 className={customStyles.h1}>Access account</h1>
-                            <input className={customStyles.input} type="email" placeholder='Email'/>
-                            <input className={customStyles.input} type="password" placeholder='Password'/>
-                            <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Forgot your password?</a>
-                            <button className={customStyles.button + ' hover:bg-primary_h'}>Login</button>
-                        </form>
+                        <Formik initialValues={initialValues} validate={validateLoginForm} onSubmit={handleLoginSubmit}>
+                            <Form className={customStyles.form} action="">
+                                <h1 className={customStyles.h1}>Access account</h1>
+                                <Field className={customStyles.input} type="email" name="email" placeholder='Email'/>
+                                <ErrorMessage name="email" component="div" className={customStyles.error}/>
+                                <Field className={customStyles.input} type="password" name="password" placeholder='Password'/>
+                                <ErrorMessage name="password" component="div" className={customStyles.error}/>
+                                <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Forgot your password?</a>
+                                <button className={customStyles.button + ' hover:bg-primary_h'}>Login</button>
+                            </Form>
+                        </Formik >
                     </div>
 
                     {/* Overlay container */}
@@ -118,16 +120,9 @@ export default function Auth() {
                     </div>{/*End of Overlay container */}
 
                 </div>
-            </div>
+            </div>{/*End of Auth page container */}
 
         </div>
     );
 }
 
-//Global Styles
-const customStyles = {
-    h1: 'm-0 text-2xl font-bold',
-    input: 'bg-[#eee] border-none py-3 px-4 w-full my-2 mx-0 rounded-md focus:outline-primary',
-    form: 'flex flex-col items-center justify-center py-0 px-[50px] h-full text-center',
-    button: 'rounded-[20px] border border-solid border-primary_h bg-primary text-white font-bold text-xs py-3 px-11 tracking-[1px] uppercase transition-transform duration-75 ease-in focus:outline-none active:scale-95'
-};
