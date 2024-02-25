@@ -68,7 +68,7 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     const { email, password } = req.body; // Obtener el correo electrónico y la contraseña del cuerpo de la solicitud
 
-    const pool = await sql.connect(db); // Crear una conexión a la base de datos
+    const pool = await sql.connect(dbConfig); // Crear una conexión a la base de datos
 
     try {
         // Verificar si el correo electrónico existe en la base de datos
@@ -96,8 +96,8 @@ export const loginUser = async (req, res) => {
         }
 
         // Verificar los roles del usuario
-        const rolesQuery = `SELECT r.nombreRol FROM roles r 
-                            INNER JOIN clientes c ON c.rolID = r.rolID 
+        const rolesQuery = `SELECT r.nombreRol FROM roles r
+                            INNER JOIN clientes c ON c.rolID = r.rolID
                             WHERE c.clienteID = @userID`;
         const rolesResult = await pool.request()
             .input('userID', sql.Int, user.clienteID)
@@ -105,19 +105,15 @@ export const loginUser = async (req, res) => {
 
         const userRoles = rolesResult.recordset.map(role => role.nombreRol);
 
-
         if (userRoles.includes('Administrador')) {
-            // Si el usuario es administrador......
-            // redirigir a una página de administrador
-            return res.status(200).json({ message: 'Bienvenido administrador', roles: userRoles });
+            // Si el usuario es administrador.
+            return res.status(200).json({ message: 'Bienvenido administrador', role: 'Administrador' });
         } else if (userRoles.includes('Estilista')) {
-            // Si el usuario es estilista....
-            // redirigir a una página de estilista
-            return res.status(200).json({ message: 'Bienvenido estilista', roles: userRoles });
+            // Si el usuario es estilista.
+            return res.status(200).json({ message: 'Bienvenido estilista', role: 'Estilista' });
         } else {
             // Si el usuario es solo cliente
-            // redirigir a la pagina clientes
-            return res.status(200).json({ message: 'Bienvenido cliente', roles: userRoles });
+            return res.status(200).json({ message: 'Bienvenido cliente', role: 'Cliente' });
         }
     } catch (error) {
         console.error("Error:", error);
