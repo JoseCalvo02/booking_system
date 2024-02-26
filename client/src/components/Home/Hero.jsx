@@ -4,7 +4,7 @@ import { ReactTyped } from 'react-typed';
 function Hero() {
     return (
         <section className="text-black">
-            <div className="max-w-[800px] w-full h-[100vh] mx-auto text-center flex flex-col justify-center">
+            <div className="max-w-[800px] w-full h-screen mx-auto text-center flex flex-col justify-center">
                 <p className="p-2 font-bold uppercase text-md md:text-xl text-primary">
                     Lorem ipsum dolor sit amet consectetur.
                 </p>
