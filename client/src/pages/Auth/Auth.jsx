@@ -3,8 +3,8 @@ import React, { useState }  from 'react'
 import { useLocation } from 'react-router-dom';
 // Componentes
 import Navbar from '../../components/Shared/Navbar/Navbar';
-import SignupForm from '../../components/Auth/Forms/SignupForm';
-import LoginForm from '../../components/Auth/Forms/LoginForm';
+import SignupForm from '../../components/Auth/SignupForm';
+import LoginForm from '../../components/Auth/LoginForm';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
@@ -67,4 +67,3 @@ export default function Auth() {
         </div>
     );
 }
-
