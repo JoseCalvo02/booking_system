@@ -2,8 +2,8 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 // Funciones y helpers
-import { validateForm } from '../../components/Forms/helpers/formValidation';
-import { handleSubmit } from '../../components/Forms/helpers/formSubmission';
+import { validateForm } from './helpers/formValidation';
+import { handleSubmit } from './helpers/formSubmission';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
