@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from '../../../components/Roles/Client/Navbar'
 
 function Client() {
   return (
-    <div>Client</div>
+    <div>
+      <Navbar />
+    </div>
   )
 }
 
