@@ -36,7 +36,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 items-center z-20 ${isScrolled ? 'bg-opacity-90' : ''}`}>
+    <header className={`fixed flex w-full p-4 h-[7vh] C items-center z-20 ${isScrolled ? 'bg-opacity-90' : ''}`}>
         {/* Logo y Nombre */}
         <div className='flex w-full text-2xl font-bold '>
             <h1 className="mr-1 text-white">Studio</h1>
