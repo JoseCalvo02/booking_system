@@ -14,7 +14,7 @@ body::-webkit-scrollbar{
 }
 
 body::-webkit-scrollbar-track{
-  background: theme('colors.g');
+  background: theme('colors.gray.200');
 }
 
 body::-webkit-scrollbar-thumb{
@@ -22,5 +22,5 @@ body::-webkit-scrollbar-thumb{
 }
 
 body {
-  background-color: #f6f6f9;
+  background-color: white;
 }
