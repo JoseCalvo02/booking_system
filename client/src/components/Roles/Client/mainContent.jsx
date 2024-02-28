@@ -30,7 +30,7 @@ function MainContent() {
                             {/* Agrega opciones de horas aquí */}
                         </select>
                         
-                        <button className='w-40 p-2 mt-1 mb-1 mr-1 text-gray-800 bg-white border border-blue-500 rounded-sm h-14'>
+                        <button className='w-40 p-2 mt-1 mb-1 mr-1 text-gray-800 bg-white border border-blue-500 rounded-sm h-14 hover:bg-blue-950 hover:text-white'>
                             Reservar cita
                         </button>
                     </div>
