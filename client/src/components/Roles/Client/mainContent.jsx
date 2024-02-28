@@ -21,14 +21,15 @@ function MainContent() {
                             <option value=''>Seleccionar fecha</option>
                             {/* Agrega opciones de fechas aquí */}
                         </select>
-                        <select className='p-2 mt-1 text-gray-800 bg-white border border-blue-500 rounded-sm mb- w-80 h-14'>
-                            <option value=''>Seleccionar hora</option>
-                            {/* Agrega opciones de horas aquí */}
-                        </select>
                         <select className='p-2 mt-1 mb-1 text-gray-800 bg-white border border-blue-500 rounded-sm w-80 h-14'>
                             <option value=''>Seleccionar estilista</option>
                             {/* Agrega opciones de estilistas aquí */}
                         </select>
+                        <select className='p-2 mt-1 text-gray-800 bg-white border border-blue-500 rounded-sm mb- w-80 h-14'>
+                            <option value=''>Seleccionar hora</option>
+                            {/* Agrega opciones de horas aquí */}
+                        </select>
+                        
                         <button className='w-40 p-2 mt-1 mb-1 mr-1 text-gray-800 bg-white border border-blue-500 rounded-sm h-14'>
                             Reservar cita
                         </button>
