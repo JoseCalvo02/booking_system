@@ -71,37 +71,35 @@ export default function Navbar() {
                         onMouseEnter={() => setShowDropdown(true)}
                         onMouseLeave={() => setShowDropdown(false)}
                         >
-                        <div className="flex items-center">
-                            <NavLink to="/settings" className="text-w hover:bg-blue-950 hover:rounded-lg">
-                                Profile
-                            </NavLink>
-                            <div className="w-8 h-8 ml-2 bg-gray-300 rounded-full"></div>
-                        </div>
-                        { /* Dropdown Options */}
-                        {showDropdown && (
-                            <ul className="absolute left-0 w-40 mt-2 bg-gray-900 rounded-lg" onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-                                <li className="flex p-2">
-                                    <NavLink to="/settings" className="text-w hover:bg-blue-950 hover:rounded-lg">
-                                        Settings
-                                    </NavLink>
-                                </li>
-                                <li className="flex p-2">
-                                    <NavLink to="/reports" className="text-w hover:bg-blue-950 hover:rounded-lg">
-                                        Reports
-                                    </NavLink>
-                                </li>
-                                <li className="flex p-2">
-                                    <NavLink to="/rewards" className="text-w hover:bg-blue-950 hover:rounded-lg">
-                                        Rewards
-                                    </NavLink>
-                                </li>
-                                <li className="flex p-2">
-                                    <NavLink to="/logout" className="text-w hover:bg-blue-950 hover:rounded-lg">
-                                        Logout
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        )}
+                            <div className="flex items-center">
+                                <p>Profile</p>
+                                <div className="w-8 h-8 ml-2 bg-gray-300 rounded-full"></div>
+                            </div>
+                            { /* Dropdown Options */}
+                            {showDropdown && (
+                                <ul className="absolute left-0 w-40 mt-2 bg-gray-900 rounded-lg" onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
+                                    <li className="flex p-2">
+                                        <NavLink to="/settings" className="text-w hover:bg-blue-950 hover:rounded-lg">
+                                            Settings
+                                        </NavLink>
+                                    </li>
+                                    <li className="flex p-2">
+                                        <NavLink to="/reports" className="text-w hover:bg-blue-950 hover:rounded-lg">
+                                            Reports
+                                        </NavLink>
+                                    </li>
+                                    <li className="flex p-2">
+                                        <NavLink to="/rewards" className="text-w hover:bg-blue-950 hover:rounded-lg">
+                                            Rewards
+                                        </NavLink>
+                                    </li>
+                                    <li className="flex p-2">
+                                        <NavLink to="/logout" className="text-w hover:bg-blue-950 hover:rounded-lg">
+                                            Logout
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            )}
                         </button>
                     </li>
                 </ul>
