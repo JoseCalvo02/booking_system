@@ -7,9 +7,9 @@ import morgan from "morgan";
 import { dbConfig } from "./config/dbConfig.js";
 
 // Rutas
-import authRoutes from "./routes/authRoutes.js";
-import reservationRoutes from "./routes/reservationRoutes.js";
-import serviceRoutes from "./routes/serviceRoutes.js";
+import authRoutes from "./routes/auth.routes.js";
+import reservationRoutes from "./routes/reservation.routes.js";
+import serviceRoutes from "./routes/service.routes.js";
 
 const PORT = 3000;
 
