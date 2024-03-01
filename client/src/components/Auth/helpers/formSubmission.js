@@ -45,7 +45,7 @@ export const handleLoginSubmit = async (values, { setSubmitting, navigate }, not
         }
     } catch (error) {
         // Error al hacer la solicitud, manejarlo adecuadamente
-        console.error('Error al registrar usuario:', error);
+        console.error('Error al iniciar sesión', error);
 
         // Verificar si el error contiene un mensaje específico del servidor
         if (error.message) {
@@ -53,7 +53,7 @@ export const handleLoginSubmit = async (values, { setSubmitting, navigate }, not
             notify('error', error.message);
         } else {
             // Si no hay un mensaje de error específico del servidor, mostrar el mensaje de error genérico
-            notify('error', 'Error al registrar usuario');
+            notify('error', 'Error al iniciar sesión');
         }
     } finally {
         setSubmitting(false);
