@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axiosInstance from '../config/axiosConfig';
 
-const API_URL = 'http://localhost:3000/api/auth'; // Ruta base para las solicitudes de autenticación en el backend
+const API_URL = '/api/auth'; // Ruta base para las solicitudes de autenticación en el backend
 
 // Función para registrar un nuevo usuario
 export const registerUser = async (userData) => {
     try {
         // Enviar la solicitud de registro de usuario al backend
-        const response = await axios.post(`${API_URL}/register`, userData);
+        const response = await axiosInstance.post(`${API_URL}/register`, userData);
 
         // Verificar el código de estado de la respuesta
         if (response.status === 200) {
@@ -37,7 +37,7 @@ export const registerUser = async (userData) => {
 export const loginUser = async (userData) => {
     try {
         // Enviar la solicitud de inicio de sesión al backend
-        const response = await axios.post(`${API_URL}/login`, userData);
+        const response = await axiosInstance.post(`${API_URL}/login`, userData);
 
         // Verificar el código de estado de la respuesta
         if (response.status === 200) {
