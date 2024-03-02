@@ -10,6 +10,7 @@ import Auth from "./pages/Auth/Auth"
 import Admin from "./pages/Roles/Admin/Admin"
 import Stylist from "./pages/Roles/Stylist/Stylist"
 import Client from "./pages/Roles/Client/Client"
+import Services from "./pages/Roles/Client/Services"
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/stylist" element={<Stylist />} />
                 <Route path="/client" element={<Client />} />
+                <Route path= "/services" element={<Services />} />
                 {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<NotFound/>} />
             </Routes>

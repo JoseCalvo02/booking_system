@@ -1,15 +1,10 @@
 import React from 'react'
-import FondoClient from '../../../assets/FondoClient.jpg';
+import FondoClient from '../../../assets/Sunset.jpg';
 
 function MainContent() {
     return (
         <main className='flex flex-col w-full'>
-            <section className='flex flex-grow gap-8 mt-16'>
-                <div className='w-full h-80'>
-                    <img src={FondoClient} alt='Imagen' className='object-cover w-full h-full' />.
-                </div>
-            </section>
-            <section className='flex flex-grow gap-8 m-auto mt-4'>
+            <section className='flex flex-grow gap-8 m-auto mt-40'>
                 <div className='w-auto rounded-lg'>
                     <h2 className='p-2 text-4xl font-bold text-center'>Reserve Aquí</h2>
                     <div className='flex flex-grow w-auto gap-8 p-1 ml-6 mr-6 bg-gray-600 rounded-lg' >
