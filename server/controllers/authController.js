@@ -1,7 +1,6 @@
-import { validationResult } from "express-validator";
-import sql from "mssql";
+import { validationResult } from "express-validator"; // Importar la función de validación de la biblioteca express-validator
 
-import { dbConfig } from "../config/dbConfig.js";
+import prisma from "../db/db.js"; // Importar el Prisma Client
 
 // Función para crear un nuevo usuario en la base de datos
 export const createUser = async (req, res) => {
@@ -14,53 +13,39 @@ export const createUser = async (req, res) => {
     // Destructuración del objeto req.body para obtener los datos del usuario
     const {name, lastName, phone, email, address, password} = req.body;
 
-    const rolClient = 3;
-    const earnedPoints = 0;
-    const redeemedPoints = 0;
-    const statusClient = "Activo";
-
-    // Crea un nuevo objeto Pool de mssql utilizando la configuración de conexión
-    const pool = await sql.connect(dbConfig);
-
     try{
         // Verifica si ya existe un usuario con el mismo correo electrónico
-        const emailCheckQuery = 'SELECT COUNT(*) AS count FROM clientes WHERE correo = @email';
-        const emailCheckResult = await pool.request()
-                                            .input('email', sql.VarChar(50), email) //input nos envia los parametros de entrada al query
-                                            .query(emailCheckQuery); // ejecuta la consulta SQL
-        const existingEmailCount = emailCheckResult.recordset[0].count;
-        if (existingEmailCount > 0) {
-            console.log('correo duplicado')
-            // Si ya existe un usuario con el mismo correo electrónico, devuelve un error
+        const existingUser = await prisma.clientes.findFirst({
+            where: {
+                correo: email
+            }
+        });
+        if (existingUser) {
+            console.log('correo duplicado');
             return res.status(400).json({ error: 'El correo electrónico ya está en uso' });
         }
 
-        // Consulta SQL para ingresar un usuario nuevo
-        const insertUserQuery = `INSERT INTO clientes (nombre, apellidos, correo, telefono, direccion, puntosGanados, puntosCanjeados, contraseña, rolID, estado)
-                                 VALUES (@name, @lastName, @email, @phone, @address, @earnedPoints, @redeemedPoints, @password, @rolClient, @statusClient)`;
-
-        // Ejecuta la consulta SQL con los parámetros proporcionados
-        await pool.request()
-            .input('name', sql.VarChar(50), name)
-            .input('lastName', sql.VarChar(50), lastName)
-            .input('email', sql.VarChar(50), email)
-            .input('phone', sql.VarChar(50), phone)
-            .input('address', sql.VarChar(150), address)
-            .input('earnedPoints', sql.Int, earnedPoints)
-            .input('redeemedPoints', sql.Int, redeemedPoints)
-            .input('password', sql.VarChar(50), password)
-            .input('rolClient', sql.Int, rolClient)
-            .input('statusClient', sql.VarChar(15), statusClient)
-            .query(insertUserQuery);
+        // Crea un nuevo usuario utilizando Prisma
+        await prisma.clientes.create({
+            data: {
+                nombre: name,
+                apellidos: lastName,
+                correo: email,
+                telefono: phone,
+                direccion: address,
+                puntosGanados: 0,
+                puntosCanjeados: 0,
+                contrase_a: password,
+                rolID: 3,
+                estado: "Activo"
+            }
+        });
 
         return res.status(200).json({ message: 'Usuario creado exitosamente' });
     }
     catch(error){
         console.error("Error:", error);
         return res.status(500).json({ error: 'Error de servidor' });
-    } finally {
-        // Cierra la conexión a la base de datos
-        await pool.close();
     }
 }
 
@@ -68,16 +53,13 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     const { email, password } = req.body; // Obtener el correo electrónico y la contraseña del cuerpo de la solicitud
 
-    const pool = await sql.connect(dbConfig); // Crear una conexión a la base de datos
-
     try {
-        // Verificar si el correo electrónico existe en la base de datos
-        const emailCheckQuery = 'SELECT * FROM clientes WHERE correo = @email';
-        const emailCheckResult = await pool.request()
-            .input('email', sql.VarChar(50), email)
-            .query(emailCheckQuery);
-
-        const user = emailCheckResult.recordset[0]; // Tomar el primer usuario encontrado (si existe)
+        // Busca el usuario por su correo electrónico
+        const user = await prisma.clientes.findFirst({
+            where: {
+                correo: email
+            }
+        });
 
         if (!user) {
             // Si el correo electrónico no existe en la base de datos, devolver un mensaje de correo no encontrado
@@ -85,7 +67,7 @@ export const loginUser = async (req, res) => {
         }
 
         // Verificar si la contraseña coincide
-        if (user.contraseña !== password) {
+        if (user.contrase_a !== password) {
             // Si la contraseña no coincide, devolver un mensaje de contraseña incorrecta
             return res.status(400).json({ error: 'Contraseña incorrecta' });
         }
@@ -95,31 +77,26 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ error: 'El usuario está inactivo. Contacta al administrador.' });
         }
 
-        // Verificar los roles del usuario
-        const rolesQuery = `SELECT r.nombreRol FROM roles r
-                            INNER JOIN clientes c ON c.rolID = r.rolID
-                            WHERE c.clienteID = @userID`;
-        const rolesResult = await pool.request()
-            .input('userID', sql.Int, user.clienteID)
-            .query(rolesQuery);
+        // Obtiene el nombre del rol del usuario utilizando la relación inversa
+        const roleName = await prisma.roles.findUnique({
+            where: {
+                rolID: user.rolID
+            },
+            select: {
+                nombreRol: true
+            }
+        });
 
-        const userRoles = rolesResult.recordset.map(role => role.nombreRol);
-
-        if (userRoles.includes('Administrador')) {
-            // Si el usuario es administrador.
+        // Retorna un mensaje de bienvenida basado en el rol del usuario
+        if (roleName && roleName.nombreRol === 'Administrador') {
             return res.status(200).json({ message: 'Bienvenido administrador', role: 'Administrador' });
-        } else if (userRoles.includes('Estilista')) {
-            // Si el usuario es estilista.
+        } else if (roleName && roleName.nombreRol === 'Estilista') {
             return res.status(200).json({ message: 'Bienvenido estilista', role: 'Estilista' });
         } else {
-            // Si el usuario es solo cliente
             return res.status(200).json({ message: 'Bienvenido cliente', role: 'Cliente' });
         }
     } catch (error) {
         console.error("Error:", error);
         return res.status(500).json({ error: 'Error de servidor' });
-    } finally {
-        // Cierra la conexión a la base de datos
-        await pool.close();
     }
 }
