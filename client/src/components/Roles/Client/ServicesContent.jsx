@@ -5,8 +5,8 @@ import prueba3 from '../../../assets/prueba3.jpg';
 
 function ServicesContent() {
     return (
-        <main className='flex flex-col w-3/4 m-auto'>
-            <section className='flex flex-grow gap-8 m-auto mt-24'>
+        <main className='flex flex-col w-3/4 m-auto' id='services'>
+            <section className='flex flex-grow gap-8 m-auto mt-24' >
                 <div className='w-full'>
                     <h2 className='p-2 text-4xl font-bold text-center'>Servicios</h2>
                     <div className='grid grid-cols-1 p-4 md:grid-cols-2'>

@@ -4,6 +4,7 @@ import MainContent from '../../../components/Roles/Client/mainContent'
 import ContentCards from '../../../components/Roles/Client/ContentCards'
 import Footer from '../../../components/Shared/Footer/Footer'
 import ContactUs from '../../../components/Home/ContactUs'
+import ServicesContent from '../../../components/Roles/Client/ServicesContent'
 
 function Client() {
   return (
@@ -12,6 +13,7 @@ function Client() {
       <MainContent />
       <ContentCards/>
       <ContactUs />
+      <ServicesContent />
       <Footer />
     </div>
   )
