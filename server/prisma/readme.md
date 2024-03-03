@@ -23,9 +23,4 @@ To update your Prisma schema based on changes made directly in the database, fol
     npx prisma db pull
     ```
 
-2. Regenerate the Prisma Client to reflect the updated schema:
-    ```bash
-    npx prisma generate
-    ```
-
 For more information and advanced usage, refer to the [Prisma Documentation](https://www.prisma.io/docs).

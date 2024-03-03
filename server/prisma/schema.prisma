@@ -7,221 +7,155 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model administradores {
-  adminID    Int     @id(map: "PK__Administ__AD050086E66416A8") @default(autoincrement())
-  nombre     String? @db.VarChar(50)
-  apellidos  String? @db.VarChar(50)
-  correo     String? @db.VarChar(50)
-  contrase_a String? @map("contraseña") @db.VarChar(8)
-  rolID      Int?
-  roles      roles?  @relation(fields: [rolID], references: [rolID], onDelete: NoAction, onUpdate: NoAction, map: "fk_rolID_2")
+model ActividadCliente {
+  actividadID    Int       @id(map: "PK__Activida__E4EF86949FA441E5") @default(autoincrement())
+  clienteID      Int?
+  ultimaConexion DateTime? @db.DateTime
+  ultimaCitaID   Int?
+  Usuarios       Usuarios? @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ActividadCliente_clienteID")
+  Citas          Citas?    @relation(fields: [ultimaCitaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_ActividadCliente_ultimaCitaID")
 }
 
-model bloqueoHorarios {
-  bloqueoID   Int         @id(map: "PK__bloqueoH__3314B8A05A938DF7") @default(autoincrement())
-  estilistaID Int?
-  dia         String?     @db.VarChar(20)
-  horaInicio  DateTime?   @db.Time
-  horaFinal   DateTime?   @db.Time
-  motivo      String?     @db.VarChar(150)
-  estilistas  estilistas? @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID_3")
-}
-
-model catalogo {
-  servicioID           Int                    @id(map: "PK__catalogo__65FD6B29C74819A3") @default(autoincrement())
-  nombreServicio       String?                @db.VarChar(50)
-  descripcion          String?                @db.VarChar(150)
-  precio               Int?
-  citas                citas[]
-  detalleServicio      detalleServicio[]
-  historialClientes    historialClientes[]
-  recompensas          recompensas[]
-  reporteClientesCitas reporteClientesCitas[]
-}
-
-model citas {
-  citaID                 Int                      @id(map: "PK__citas__A9534FECACFFFBED") @default(autoincrement())
-  clienteID              Int?
-  estilistaID            Int?
-  servicioID             Int?
-  fechaCita              DateTime?                @db.DateTime
-  estiloID               Int?
-  comentarios            String?                  @db.VarChar(150)
-  clientes               clientes?                @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID")
-  estilistas             estilistas?              @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID_2")
-  galeriaEstilos         galeriaEstilos?          @relation(fields: [estiloID], references: [estiloID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estiloID")
-  catalogo               catalogo?                @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_servicioID_2")
-  citasReagendadas       citasReagendadas[]
-  historialCitas         historialCitas[]
-  reporteCitasPendientes reporteCitasPendientes[]
-  reporteClientesCitas   reporteClientesCitas[]
-}
-
-model citasReagendadas {
-  reagendadaID   Int       @id(map: "PK__citasRea__F743B56A1DEC8539") @default(autoincrement())
-  citaID         Int?
-  idCitaNueva    Int?
-  fechaNuevaCita DateTime? @db.DateTime
-  motivo         String?   @db.VarChar(150)
-  citas          citas?    @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_citaID")
-}
-
-model clientes {
-  clienteID              Int                      @id(map: "PK__Clientes__C2FF24BD2E067A62") @default(autoincrement())
-  nombre                 String?                  @db.VarChar(50)
-  apellidos              String?                  @db.VarChar(50)
-  correo                 String?                  @db.VarChar(50)
-  telefono               String?                  @db.VarChar(50)
-  direccion              String?                  @db.VarChar(150)
-  puntosGanados          Int?
-  puntosCanjeados        Int?
-  contrase_a             String?                  @map("contraseña") @db.VarChar(8)
-  rolID                  Int?
-  estado                 String?                  @db.VarChar(15)
-  citas                  citas[]
-  roles                  roles?                   @relation(fields: [rolID], references: [rolID], onDelete: NoAction, onUpdate: NoAction, map: "fk_rolID")
-  historialCitas         historialCitas[]
-  historialClientes      historialClientes[]
-  historialCuenta        historialCuenta[]
-  historialGastoPuntos   historialGastoPuntos[]
-  puntosClientes         puntosClientes[]
-  reporteCitasPendientes reporteCitasPendientes[]
-  reporteClientesCitas   reporteClientesCitas[]
-}
-
-model detalleServicio {
-  detalleID      Int       @id(map: "PK__detalleS__4C49966D0B1EA0A1") @default(autoincrement())
-  servicioID     Int?
-  tiempoEstimado DateTime? @db.Time
-  catalogo       catalogo? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_servicioID")
-}
-
-model disponibilidadTiempoReal {
-  disponibilidadID Int         @id(map: "PK__disponib__EB9114717B010A2A") @default(autoincrement())
-  estilistaID      Int?
-  diaSemana        String?     @db.VarChar(20)
-  horaInicio       DateTime?   @db.Time
-  horaFinal        DateTime?   @db.Time
-  estilistas       estilistas? @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID")
-}
-
-model estilistas {
-  estilistaID              Int                        @id(map: "PK__Estilist__33C67B46B9C56536") @default(autoincrement())
-  nombre                   String?                    @db.VarChar(50)
-  apellidos                String?                    @db.VarChar(50)
-  telefono                 String?                    @db.VarChar(50)
-  direccion                String?                    @db.VarChar(150)
-  fechaIngreso             DateTime?                  @db.Date
-  fechaSalida              DateTime?                  @db.Date
-  correo                   String?                    @db.VarChar(50)
-  contrase_a               String?                    @map("contraseña") @db.VarChar(8)
-  rolID                    Int?
-  estado                   String?                    @db.VarChar(15)
-  bloqueoHorarios          bloqueoHorarios[]
-  citas                    citas[]
-  disponibilidadTiempoReal disponibilidadTiempoReal[]
-  roles                    roles?                     @relation(fields: [rolID], references: [rolID], onDelete: NoAction, onUpdate: NoAction, map: "fk_rolID_3")
-  historialCitas           historialCitas[]
-  reporteCitasPendientes   reporteCitasPendientes[]
-  reporteHorarioEstilistas reporteHorarioEstilistas[]
-}
-
-model galeriaEstilos {
-  estiloID     Int     @id(map: "PK__galeriaE__B017044F419DE7AB") @default(autoincrement())
-  nombreEstilo String? @db.VarChar(50)
-  rutaImagen   String? @db.VarChar(150)
-  citas        citas[]
-}
-
-model historialCitas {
-  historialID Int         @id(map: "PK__historia__68FB354428DF072A") @default(autoincrement())
-  citaID      Int?
-  clienteID   Int?
-  estilistaID Int?
-  fechaCita   DateTime?   @db.DateTime
-  servicioID  Int?
-  citas       citas?      @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_citaID_2")
-  clientes    clientes?   @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_5")
-  estilistas  estilistas? @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID_4")
-}
-
-model historialClientes {
-  historialID      Int       @id(map: "PK__historia__68FB3544C548E1FD") @default(autoincrement())
-  clienteID        Int?
-  nombreCliente    String?   @db.VarChar(50)
-  fechaRegistro    DateTime? @db.DateTime
-  ultimoServicioID Int?
-  clientes         clientes? @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_4")
-  catalogo         catalogo? @relation(fields: [ultimoServicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_servicioID_4")
-}
-
-model historialCuenta {
-  historialID         Int       @id(map: "PK__historia__68FB3544C6D40B55") @default(autoincrement())
-  clienteID           Int?
-  serviciosUtilizados Int?
-  ultimaConexion      DateTime? @db.DateTime
-  clientes            clientes? @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_2")
-}
-
-model historialGastoPuntos {
-  gastoID          Int       @id(map: "PK__historia__3D97892506006A8B") @default(autoincrement())
-  clienteID        Int?
-  puntosGastados   Int?
-  fecha            DateTime? @db.DateTime
-  descripcionGasto String?   @db.VarChar(150)
-  clientes         clientes? @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_8")
-}
-
-model puntosClientes {
-  puntosID    Int       @id(map: "PK__puntosCl__DC505A37296A87AB") @default(autoincrement())
-  clienteID   Int?
-  saldoPuntos Int?
-  clientes    clientes? @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_3")
-}
-
-model recompensas {
-  recompensaID     Int       @id(map: "PK__recompen__ADBDFFB3F44A4E83") @default(autoincrement())
-  servicioID       Int?
-  puntosRecompensa Int?
-  catalogo         catalogo? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_servicioID_3")
-}
-
-model reporteCitasPendientes {
-  reporteID   Int         @id(map: "PK__reporteC__771E4C216AD8B7F9") @default(autoincrement())
-  citaID      Int?
-  clienteID   Int?
-  fechaCita   DateTime?   @db.DateTime
-  estilistaID Int?
-  citas       citas?      @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_citaID_4")
-  clientes    clientes?   @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_7")
-  estilistas  estilistas? @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID_6")
-}
-
-model reporteClientesCitas {
-  reporteID     Int       @id(map: "PK__reporteC__771E4C2166776B17") @default(autoincrement())
+model BitacoraCliente {
+  bitacoraID    Int       @id(map: "PK__Bitacora__43BC1FDF08E1DC04") @default(autoincrement())
   clienteID     Int?
-  citaID        Int?
-  nombreCliente String?   @db.VarChar(50)
-  fechaCita     DateTime? @db.DateTime
-  servicioID    Int?
-  citas         citas?    @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_citaID_3")
-  clientes      clientes? @relation(fields: [clienteID], references: [clienteID], onDelete: NoAction, onUpdate: NoAction, map: "fk_clienteID_6")
-  catalogo      catalogo? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_servicioID_6")
+  fechaRegistro DateTime? @db.DateTime
+  Usuarios      Usuarios? @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_bitacoraClientes_clienteID")
 }
 
-model reporteHorarioEstilistas {
-  reporteID   Int         @id(map: "PK__reporteH__771E4C211DC3DA36") @default(autoincrement())
+model BitacoraEstilista {
+  bitacoraID   Int       @id(map: "PK__Bitacora__43BC1FDF6A240AE4") @default(autoincrement())
+  estilistaID  Int?
+  fechaIngreso DateTime? @db.Date
+  fechaSalida  DateTime? @db.Date
+  Usuarios     Usuarios? @relation(fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_bitacoraEstilistas_estilistaID")
+}
+
+model BloqueoHorarios {
+  bloqueoID   Int       @id(map: "PK__BloqueoH__3314B8A091C551DD") @default(autoincrement())
   estilistaID Int?
-  diaSemana   String?     @db.VarChar(20)
-  horaInicio  DateTime?   @db.Time
-  horaFinal   DateTime?   @db.Time
-  estilistas  estilistas? @relation(fields: [estilistaID], references: [estilistaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_estilistaID_5")
+  dia         String?   @db.VarChar(20)
+  horaInicio  DateTime? @db.Time
+  horaFinal   DateTime? @db.Time
+  motivo      String?   @db.VarChar(150)
+  Usuarios    Usuarios? @relation(fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_BloqueoHorarios_estilistaID")
 }
 
-model roles {
-  rolID           Int               @id(map: "PK__Roles__5402365415CE2A39") @default(autoincrement())
-  nombreRol       String?           @db.VarChar(25)
-  administradores administradores[]
-  clientes        clientes[]
-  estilistas      estilistas[]
+model Citas {
+  citaID                               Int                 @id(map: "PK__Citas__A9534FECD64FD7E3") @default(autoincrement())
+  clienteID                            Int?
+  estilistaID                          Int?
+  comentarios                          String?             @db.VarChar(150)
+  estadoID                             Int?
+  ActividadCliente                     ActividadCliente[]
+  Usuarios_Citas_clienteIDToUsuarios   Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
+  EstadoCita                           EstadoCita?         @relation(fields: [estadoID], references: [estadoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estadoID")
+  Usuarios_Citas_estilistaIDToUsuarios Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
+  DetallesCita                         DetallesCita[]
+  HistorialCitas                       HistorialCitas[]
+  HorariosReservados                   HorariosReservados?
+}
+
+model DetallesCita {
+  detalleID  Int        @id(map: "PK__Detalles__4C49966DD3D1F39D") @default(autoincrement())
+  citaID     Int?
+  servicioID Int?
+  Citas      Citas?     @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_citaID")
+  Servicios  Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_servicioID")
+}
+
+model EstadoCita {
+  estadoID Int     @id(map: "PK__EstadoCi__C696F363F5376FA9") @default(autoincrement())
+  nombre   String? @db.VarChar(50)
+  Citas    Citas[]
+}
+
+model HistorialCitas {
+  historialCitasID Int       @id(map: "PK__Historia__1E8361EE82FFD90E") @default(autoincrement())
+  clienteID        Int?
+  citaID           Int?
+  Citas            Citas?    @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialCitas_citaID")
+  Usuarios         Usuarios? @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialCitas_clienteID")
+}
+
+model HistorialRecompensas {
+  historialID     Int        @id(map: "PK__Historia__68FB3544E7F3F580") @default(autoincrement())
+  clienteID       Int?
+  servicioID      Int?
+  puntosCanjeados Int?
+  fecha           DateTime?  @db.DateTime
+  Usuarios        Usuarios?  @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialRecompensas_clienteID")
+  Servicios       Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialRecompensas_servicioID")
+}
+
+model Horarios {
+  horariosID  Int       @id(map: "PK__Horarios__5B414E6F0C757FB4") @default(autoincrement())
+  estilistaID Int?
+  diaSemana   String?   @db.VarChar(20)
+  horaInicio  DateTime? @db.Time
+  horaFinal   DateTime? @db.Time
+  Usuarios    Usuarios? @relation(fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Horarios_estilistaID")
+}
+
+model HorariosReservados {
+  citaID      Int       @id(map: "PK__Horarios__A9534FEC57ACF13B") @default(autoincrement())
+  dia         DateTime? @db.Date
+  hora_inicio DateTime? @db.Time
+  hora_fin    DateTime? @db.Time
+  Citas       Citas     @relation(fields: [citaID], references: [citaID], onUpdate: NoAction, map: "fk_HorariosReservados_citaID")
+}
+
+model PuntosClientes {
+  puntosID         Int       @id(map: "PK__PuntosCl__DC505A371D081791") @default(autoincrement())
+  clienteID        Int?
+  puntosAcumulados Int?
+  puntosCanjeados  Int?
+  Usuarios         Usuarios? @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_PuntosClientes_clienteID")
+}
+
+model PuntosServicio {
+  servicioID      Int       @id(map: "PK__PuntosSe__65FD6B29A332B52A") @default(autoincrement())
+  puntosGenerados Int?
+  Servicios       Servicios @relation(fields: [servicioID], references: [servicioID], onUpdate: NoAction, map: "fk_PuntosServicio_servicioID")
+}
+
+model Roles {
+  rolID     Int        @id(map: "PK__Roles__5402365493D719B4") @default(autoincrement())
+  nombreRol String?    @db.VarChar(25)
+  Usuarios  Usuarios[]
+}
+
+model Servicios {
+  servicioID           Int                    @id(map: "PK__Servicio__65FD6B29878B0AFF") @default(autoincrement())
+  nombreServicio       String?                @db.VarChar(50)
+  descripcion          String?                @db.VarChar(255)
+  tiempoEstimado       DateTime?              @db.Time
+  precio               Int?
+  rutaImagen           String?                @db.VarChar(150)
+  DetallesCita         DetallesCita[]
+  HistorialRecompensas HistorialRecompensas[]
+  PuntosServicio       PuntosServicio?
+}
+
+model Usuarios {
+  usuarioID                         Int                    @id(map: "PK__Usuarios__A5B1ABAE3DB4F188") @default(autoincrement())
+  nombre                            String                 @db.VarChar(50)
+  apellidos                         String                 @db.VarChar(50)
+  telefono                          String?                @db.VarChar(20)
+  correo                            String                 @db.VarChar(100)
+  direccion                         String?                @db.VarChar(255)
+  contra                            String                 @db.VarChar(50)
+  rolID                             Int?
+  estado                            String?                @db.VarChar(15)
+  ActividadCliente                  ActividadCliente[]
+  BitacoraCliente                   BitacoraCliente[]
+  BitacoraEstilista                 BitacoraEstilista[]
+  BloqueoHorarios                   BloqueoHorarios[]
+  Citas_Citas_clienteIDToUsuarios   Citas[]                @relation("Citas_clienteIDToUsuarios")
+  Citas_Citas_estilistaIDToUsuarios Citas[]                @relation("Citas_estilistaIDToUsuarios")
+  HistorialCitas                    HistorialCitas[]
+  HistorialRecompensas              HistorialRecompensas[]
+  Horarios                          Horarios[]
+  PuntosClientes                    PuntosClientes[]
+  Roles                             Roles?                 @relation(fields: [rolID], references: [rolID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Usuarios_rolID")
 }
