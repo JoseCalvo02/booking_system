@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
 
     try{
         // Verifica si ya existe un usuario con el mismo correo electrónico
-        const existingUser = await prisma.clientes.findFirst({
+        const existingUser = await prisma.Usuarios.findFirst({
             where: {
                 correo: email
             }
@@ -26,7 +26,7 @@ export const createUser = async (req, res) => {
         }
 
         // Crea un nuevo usuario utilizando Prisma
-        await prisma.clientes.create({
+        await prisma.Usuarios.create({
             data: {
                 nombre: name,
                 apellidos: lastName,
@@ -55,7 +55,7 @@ export const loginUser = async (req, res) => {
 
     try {
         // Busca el usuario por su correo electrónico
-        const user = await prisma.clientes.findFirst({
+        const user = await prisma.Usuarios.findFirst({
             where: {
                 correo: email
             }
@@ -78,7 +78,7 @@ export const loginUser = async (req, res) => {
         }
 
         // Obtiene el nombre del rol del usuario utilizando la relación inversa
-        const roleName = await prisma.roles.findUnique({
+        const roleName = await prisma.Roles.findUnique({
             where: {
                 rolID: user.rolID
             },
