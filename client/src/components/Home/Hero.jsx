@@ -12,7 +12,7 @@ function Hero() {
                         Dale color a tu vida
                     </p>
                     <h1 className="text-4xl font-bold md:text-7xl sm:text-6xl md:py-6">
-                        Con Fabi Studio
+                        Con Studio Once Once
                     </h1>
                 <div className='flex items-center justify-center '>
                     <p className="py-4 text-xl font-bold md:text-4xl sm:text-3xl">
@@ -25,7 +25,7 @@ function Hero() {
                 </div>
 
                     <p className='text-xl font-bold text-white md:text-2xl'>
-                        Encuentra tu estilo en cada detalle. Bienvenido(a) a Fabi Studio
+                        Encuentra tu estilo en cada detalle. Bienvenido(a) a Studio Once Once
                     </p>
                     <button className='bg-primary w-[150px] rounded-md font-medium my-6 py-3 text-white hover:bg-primary_h'>Comenzemos</button>
                 </div>
