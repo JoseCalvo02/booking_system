@@ -7,56 +7,85 @@ function ServicesContent() {
     return (
         <main className='flex flex-col w-3/4 m-auto' id='services'>
             <section className='flex flex-grow gap-8 m-auto mt-24' >
-                <div className='w-full'>
-                    <h2 className='p-2 text-4xl font-bold text-center'>Servicios</h2>
-                    <div className='grid grid-cols-1 p-4 md:grid-cols-2'>
-                        <div className='overflow-hidden transition duration-300 transform scale-100 shadow-xl group h-96'>
-                            <div className='border border-gray-300 shadow-md h-96'>
-                                <div className='p-4'>
-                                    <h3 className='mb-4 text-2xl font-bold text-center'>Manicura</h3>
-                                    <p className='text-lg text-gray-800'>Disfruta de un tratamiento de manicura profesional para cuidar y embellecer tus uñas. Nuestros especialistas te ofrecen una experiencia relajante y de alta calidad.</p>
-                                </div>
-                            </div>
+                <div class="grid-cols-1 sm:grid md:grid-cols-3 ">
+                    <div
+                        class="mx-3 mt-6 flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 sm:shrink-0 sm:grow sm:basis-0">
+                        <a href="#!">
+                            <img
+                                class="rounded-t-lg"
+                                src="https://tecdn.b-cdn.net/img/new/standard/city/041.webp"
+                                alt="Hollywood Sign on The Hill" />
+                            </a>
+                        <div class="p-6">
+                            <h5
+                                class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                                Card title
+                            </h5>
+                            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                                This is a longer card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
                         </div>
-                        
-                        <div className='overflow-hidden transition duration-300 transform shadow-xl group h-96'>
-                            <div className='border-gray-300 shadow-md h-96 bg-zinc-300 '>
-                                <div className='h-96'>
-                                    <img src={prueba2} alt='Fondo' className='object-cover w-full h-full' />
-                                </div>
-                            </div>
+                    </div>
+                    <div
+                        class="mx-3 mt-6 flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 sm:shrink-0 sm:grow sm:basis-0">
+                        <a href="#!">
+                            <img
+                                class="rounded-t-lg"
+                                src="https://tecdn.b-cdn.net/img/new/standard/city/042.webp"
+                                alt="Palm Springs Road" />
+                            </a>
+                        <div class="p-6">
+                            <h5
+                                class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                                Card title
+                            </h5>
+                            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                                This is a longer card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
                         </div>
-                        
-                        <div className='overflow-hidden transition duration-300 transform shadow-xl group h-96'>
-                        <div className='h-96'>
-                                    <img src={prueba3} alt='Fondo' className='object-cover w-full h-full' />
-                                </div>
+                    </div>
+                    <div
+                        class="mx-3 mt-6 flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 sm:shrink-0 sm:grow sm:basis-0">
+                        <a href="#!">
+                            <img
+                                class="rounded-t-lg"
+                                src="https://tecdn.b-cdn.net/img/new/standard/city/044.webp"
+                                alt="Skyscrapers" />
+                            </a>
+                        <div class="p-6">
+                            <h5
+                                class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                                Card title
+                            </h5>
+                            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                                This is a longer card with supporting text below as a natural
+                                lead-in to additional content.
+                            </p>
                         </div>
-
-                        <div className='overflow-hidden transition duration-300 transform shadow-xl group h-96'>
-                            <div className='border border-gray-300 shadow-md h-96'>
-                                <div className='p-4'>
-                                    <h3 className='mb-4 text-2xl font-bold text-center'>Facial</h3>
-                                    <p className='text-lg text-gray-800'>Experimenta la frescura y rejuvenecimiento con nuestros tratamientos faciales personalizados. Utilizamos productos de alta calidad y técnicas avanzadas para cuidar tu piel.</p>
-                                </div>
-                            </div>
+                    </div>
+                    <div
+                        class="mx-3 mt-6 flex flex-col rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 sm:shrink-0 sm:grow sm:basis-0">
+                        <a href="#!">
+                            <img
+                                class="rounded-t-lg"
+                                src="https://tecdn.b-cdn.net/img/new/standard/city/043.webp"
+                                alt="Los Angeles Skyscrapers" />
+                            </a>
+                        <div class="p-6">
+                            <h5
+                                class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                                Card title
+                            </h5>
+                            <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                                This is a longer card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
                         </div>
-                        
-                        <div className='overflow-hidden transition duration-300 transform shadow-xl group h-96'>
-                            <div className='border border-gray-300 shadow-md h-96'>
-                                <div className='p-4'>
-                                    <h3 className='mb-4 text-2xl font-bold text-center'>Facial</h3>
-                                    <p className='text-lg text-gray-800'>Experimenta la frescura y rejuvenecimiento con nuestros tratamientos faciales personalizados. Utilizamos productos de alta calidad y técnicas avanzadas para cuidar tu piel.</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className='overflow-hidden transition duration-300 transform shadow-xl group h-96'>
-                                <div className='h-96'>
-                                    <img src={prueba2} alt='Fondo' className='object-cover w-full h-full' />
-                                </div>
-                        </div>
-                        
                     </div>
                 </div>
             </section>
