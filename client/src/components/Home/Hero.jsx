@@ -8,7 +8,7 @@ function Hero() {
             <video autoPlay loop muted className="absolute inset-0 z-0 object-cover w-full h-full filter brightness-70" src={VideoHome}></video>
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-white">
                 <div className="max-w-[800px] w-full mx-auto text-center">
-                    <p className="p-2 font-bold text-gray-400 uppercase text-md md:text-xl">
+                    <p className="p-2 font-bold text-white uppercase text-md md:text-xl">
                         Dale color a tu vida
                     </p>
                     <h1 className="text-4xl font-bold md:text-7xl sm:text-6xl md:py-6">
@@ -19,12 +19,12 @@ function Hero() {
                         Contamos con
                     </p>
                     <ReactTyped
-                        className='pl-2 text-xl font-bold text-gray-400 md:pl-4 md:text-4xl sm:text-3xl '
+                        className='pl-2 text-xl font-bold text-white md:pl-4 md:text-4xl sm:text-3xl '
                         strings={['Esmaltado.', 'Pedicure.', 'Mucho Mas.']} typeSpeed={120} backSpeed={140} loop
                     />
                 </div>
 
-                    <p className='text-xl font-bold text-gray-400 md:text-2xl'>
+                    <p className='text-xl font-bold text-white md:text-2xl'>
                         Encuentra tu estilo en cada detalle. Bienvenido(a) a Fabi Studio
                     </p>
                     <button className='bg-primary w-[150px] rounded-md font-medium my-6 py-3 text-white hover:bg-primary_h'>Comenzemos</button>
