@@ -1,12 +1,12 @@
 import React from 'react'
 import Logo from "../../assets/logo.png"
-import manImage from './../../assets/manicure.png';
+import Video2 from '../../assets/Video2.mp4';
 
 export default function AboutUs() {
     return (
         <section className='relative'>
             <div className='absolute inset-0 z-0'>
-                <img src={manImage} alt="Manicure" className="object-cover w-full h-full opacity-15" />
+                <video autoPlay loop muted className="absolute inset-0 z-0 object-cover w-full h-full opacity-40" src={Video2}></video>
             </div>
             <div className='relative z-10 w-full px-4 py-16 '>
                 <div className='max-w-[1240px] mx-auto grid md:grid-cols-2'>
@@ -22,7 +22,7 @@ export default function AboutUs() {
                         <p><strong>Misión</strong><br></br>
                         Brindar a nuestros clientes una experiencia excepcional en cada uno de nuestros servicios, donde la belleza se encuentra con la relajación. Nos comprometemos a ofrecer servicios de alta calidad, utilizando los productos más seguros y efectivos del mercado, mientras creamos un ambiente cálido y acogedor que fomente la confianza y la comodidad de nuestros clientes
                         </p>
-                        <button className='bg-gray-900 hover:bg-blue-500 w-[150px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-white'>Comenzemos</button>
+                        <button className='bg-primary hover:bg-primary_h w-[150px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3 text-white'>Comenzemos</button>
                     </div>
                 </div>
             </div>

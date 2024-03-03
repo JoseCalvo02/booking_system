@@ -35,13 +35,13 @@ function LoginForm() {
         <Formik initialValues={initialValues} validate={validateLoginForm} onSubmit={handleLoginForm}>
             {/* Formulario de login */}
             <Form className={customStyles.form} action="">
-                <h1 className={customStyles.h1}>Access account</h1>
-                <Field className={customStyles.input} type="email" name="email" placeholder='Email'/>
+                <h1 className={customStyles.h1}>Acceder a la Cuenta</h1>
+                <Field className={customStyles.input} type="email" name="email" placeholder='Correo'/>
                 <ErrorMessage name="email" component="div" className={customStyles.error}/>
-                <Field className={customStyles.input} type="password" name="password" placeholder='Password'/>
+                <Field className={customStyles.input} type="password" name="password" placeholder='Contraseña'/>
                 <ErrorMessage name="password" component="div" className={customStyles.error}/>
-                <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Forgot your password?</a>
-                <button className={customStyles.button + ' hover:bg-primary_h'}>Login</button>
+                <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Olvido su contraseña?</a>
+                <button className={customStyles.button + ' hover:bg-primary_h'}>Iniciar Sesión</button>
             </Form>
         </Formik >
     );

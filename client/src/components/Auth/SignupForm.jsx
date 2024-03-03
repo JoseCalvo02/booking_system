@@ -37,22 +37,22 @@ function SignupForm() {
         <Formik initialValues={initialValues} validate={validateForm} onSubmit={handleSignupForm}>
             {({ isSubmitting }) => (
                 <Form className={customStyles.form}>
-                    <h1 className={customStyles.h1}>Create account</h1>
-                    <Field className={customStyles.input} type="text" name="name" placeholder="Name"/>
+                    <h1 className={customStyles.h1}>Registrar Cuenta</h1>
+                    <Field className={customStyles.input} type="text" name="name" placeholder="Nombre"/>
                     <ErrorMessage name="name" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="text" name="lastName" placeholder="Last Name"/>
+                    <Field className={customStyles.input} type="text" name="lastName" placeholder="Apellidos"/>
                     <ErrorMessage name="lastName" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="phone" name="phone" placeholder="Phone"/>
+                    <Field className={customStyles.input} type="phone" name="phone" placeholder="Telefono"/>
                     <ErrorMessage name="phone" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="email" name="email" placeholder="Email"/>
+                    <Field className={customStyles.input} type="email" name="email" placeholder="Correo"/>
                     <ErrorMessage name="email" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="text" name="address" placeholder="Address"/>
+                    <Field className={customStyles.input} type="text" name="address" placeholder="Dirección"/>
                     <ErrorMessage name="address" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="password" name="password" placeholder="Password"/>
+                    <Field className={customStyles.input} type="password" name="password" placeholder="Contraseña"/>
                     <ErrorMessage name="password" component="div" className={customStyles.error}/>
-                    <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Password again"/>
+                    <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Contraseña nuevamente"/>
                     <ErrorMessage name="confirmPassword" component="div" className={customStyles.error}/>
-                    <button className={customStyles.button + ' mt-4 hover:bg-primary_h'} type="submit" disabled={isSubmitting}>Signup</button>
+                    <button className={customStyles.button + ' mt-4 hover:bg-primary_h'} type="submit" disabled={isSubmitting}>Registrarse</button>
                 </Form>
             )}
         </Formik>
