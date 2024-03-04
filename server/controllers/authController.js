@@ -25,20 +25,39 @@ export const createUser = async (req, res) => {
             return res.status(400).json({ error: 'El correo electrónico ya está en uso' });
         }
 
-        // Crea un nuevo usuario utilizando Prisma
-        await prisma.Usuarios.create({
-            data: {
-                nombre: name,
-                apellidos: lastName,
-                correo: email,
-                telefono: phone,
-                direccion: address,
-                puntosGanados: 0,
-                puntosCanjeados: 0,
-                contrase_a: password,
-                rolID: 3,
-                estado: "Activo"
-            }
+        let nuevoUsuario;
+        // Inicia la transacción prisma para crear todas las tablas relacionadas
+        await prisma.$transaction(async (tx) => {
+             // Crea un nuevo usuario
+             nuevoUsuario = await tx.Usuarios.create({
+                data: {
+                    nombre: name,
+                    apellidos: lastName,
+                    telefono: phone,
+                    correo: email,
+                    direccion: address,
+                    contra: password,
+                    rolID: 3, // (3) Rol de cliente
+                    estado: "Activo"
+                }
+            });
+
+            // Crea un registro en la tabla PuntosClientes
+            await tx.PuntosClientes.create({
+                data: {
+                    clienteID: nuevoUsuario.usuarioID, // Asigna el ID del nuevo usuario
+                    puntosAcumulados: 0, // Puntos iniciales
+                    puntosCanjeados: 0
+                }
+            });
+
+            // Crea un registro en la tabla BitacoraCliente
+            await tx.BitacoraCliente.create({
+                data: {
+                    clienteID: nuevoUsuario.usuarioID, // Asigna el ID del nuevo usuario
+                    fechaRegistro: new Date() // Fecha actual
+                }
+            });
         });
 
         return res.status(200).json({ message: 'Usuario creado exitosamente' });
@@ -67,7 +86,7 @@ export const loginUser = async (req, res) => {
         }
 
         // Verificar si la contraseña coincide
-        if (user.contrase_a !== password) {
+        if (user.contra !== password) {
             // Si la contraseña no coincide, devolver un mensaje de contraseña incorrecta
             return res.status(400).json({ error: 'Contraseña incorrecta' });
         }
