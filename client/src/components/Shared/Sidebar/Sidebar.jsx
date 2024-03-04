@@ -1,12 +1,13 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom';
+
 import customStyles from '../../../custom/customStyles';
 import {
     TbLayoutGrid, TbCalendarEvent, TbUserSearch, TbNotebook, TbUserEdit , TbCalendarUser, TbCoins, TbReport, TbSettings, TbLogout2
 } from "react-icons/tb";
 
-
-function Sidebar() {
+const Sidebar = () => {
     return (
         <aside className='flex flex-col p-8 text-lg font-semibold text-white bg-gray-900 rounded-r-2xl'>
             {/* Logo */}
@@ -18,63 +19,63 @@ function Sidebar() {
             {/* Navigation */}
             <div className='flex flex-grow '>
                 <nav className='flex flex-grow '>
-                    <ul className='flex flex-col flex-grow text-lg'>
+                    <ul className='flex flex-col flex-grow text-md'>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/dashboard">
                                 <TbLayoutGrid size={20}/>
                                 Dashboard
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/citas">
                                 <TbCalendarEvent size={20}/>
                                 Citas
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                        <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/clientes">
                                 <TbUserSearch size={20}/>
                                 Clientes
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/catalogo">
                                 <TbNotebook size={20}/>
                                 Catálogo
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/estilistas">
                                 <TbUserEdit  size={20}/>
                                 Estilistas
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/horarios">
                                 <TbCalendarUser size={20}/>
                                 Horarios
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/canjes">
                                 <TbCoins  size={20}/>
                                 Canjes
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/reportes">
                                 <TbReport  size={20}/>
                                 Reportes
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a className={customStyles.a} href="">
+                            <Link className={customStyles.a} to="/admin/perfil">
                                 <TbSettings  size={20}/>
                                 Perfil
-                            </a>
+                            </Link>
                         </li>
                         <li className='mt-auto'>
-                            <a className={customStyles.a} href="">
+                            <a className={customStyles.a}>
                                 <TbLogout2 size={20}/>
                                 Log out
                             </a>
@@ -86,4 +87,4 @@ function Sidebar() {
     )
 }
 
-export default Sidebar
+export default Sidebar;
