@@ -27,12 +27,12 @@ export default function Auth() {
 
             {/* Auth page container */}
             <div className=' flex justify-center items-center flex-col h-[100vh]'>
-            <video autoPlay loop muted className="absolute inset-0 z-0 object-cover w-full h-full opacity-30 filter" src={Video3}></video>
-                <div className='relative max-h-full overflow-hidden shadow-2xl bg-white rounded-lg min-h-[700px] w-[850px] hover:shadow-none'>
+                <video autoPlay loop muted className="absolute inset-0 object-cover w-full h-full opacity-30 filter" src={Video3}></video>
+                <div className='relative max-h-full overflow-hidden shadow-2xl bg-white rounded-xl min-h-[700px] w-[850px] hover:shadow-none'>
 
                     {/* SignUp container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 ${signIn ? 'opacity-0 z-0' : 'opacity-100 z-10 transform translate-x-full'}`}>
-                        <video autoPlay loop muted className="absolute inset-0 z-0 object-cover w-full h-full opacity-10 filter" src={Video3}></video>{/* Signup Form component: Formik*/}
+                        {/* Signup Form component: Formik*/}
                         <SignupForm/>
                     </div>
 
