@@ -10,7 +10,7 @@ import Footer from '../../components/Shared/Footer/Footer'
 export default function Home() {
     return (
         <div>
-            <Navbar />
+            <Navbar isHome={true} />
             <Hero />
             <Services />
             <section id="contact-us">
