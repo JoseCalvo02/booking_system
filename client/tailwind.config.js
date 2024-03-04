@@ -5,8 +5,8 @@ export default {
     extend: {
         // Lista de colores
         colors: {
-            primary: '#366ED8',
-            primary_h: '#064ACB',
+            primary: '#064ACB',
+            primary_h: '#053ba2',
             gre: '#00df9a',
             gre_h: '#008066',
             eje: { //Ejemplo de una clase dentro de los colores
