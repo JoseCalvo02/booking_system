@@ -4,7 +4,7 @@ import {FaShopify} from 'react-icons/fa';
 
 export default function Services() {
     return (
-        <div className='w-full py-[10rem] px-4 bg-gray-300'>
+        <div className='w-full py-[10rem] px-4 bg-bgWhite'>
             {/* Primer tarjeta */}
             <div className='max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8'>
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>

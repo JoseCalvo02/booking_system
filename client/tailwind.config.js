@@ -7,6 +7,7 @@ export default {
         colors: {
             primary: '#064ACB',
             primary_h: '#053ba2',
+            bgWhite: '#f6f6f9',
             gre: '#00df9a',
             gre_h: '#008066',
             eje: { //Ejemplo de una clase dentro de los colores
