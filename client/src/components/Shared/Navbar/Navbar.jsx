@@ -51,7 +51,7 @@ const Navbar = ({ isHome = false }) => {
                         Home
                     </NavLink>
                 </li>
-                {currentPage !== "/auth" &&
+                {currentPage !== "/auth" && currentPage !== "/notFound" &&
                     <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
                         <a className="p-2 text-w hover:bg-primary_h hover:rounded-lg" href="#contact-us">Contact</a>
                     </li>
