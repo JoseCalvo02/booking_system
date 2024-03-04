@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 //Icons
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
-export default function Navbar() {
+const Navbar = ({ isHome = false }) => {
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -36,10 +36,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 text-white items-center z-20 ${isScrolled ? 'bg-opacity-90' : ''}`}>
+    <header className={`fixed flex w-full p-4 h-[7vh] text-white items-center z-20 ${isHome ? '' : 'bg-gray-900'} ${isScrolled ? 'bg-gray-900 bg-opacity-90' : ''} `}>
         {/* Logo y Nombre */}
-        <div className='flex w-full text-2xl font-bold '>
-            <h1 className="mr-1 text-white">Studio</h1>
+        <div className='flex w-full gap-1 text-2xl font-bold'>
+            <h1 className="text-white">Studio</h1>
             <h1 className="text-primary">Once Once</h1>
         </div>
 
@@ -47,25 +47,25 @@ export default function Navbar() {
             {/* Opciones de Navegación */}
             <ul className={`fixed flex flex-col items-center justify-center w-[80%] md:w-full xl:w-full h-full gap-5 top-0 xl:justify-end xl:items-end xl:flex-row xl:static md:justify-end md:items-end md:flex-row md:static transition-all duration-500 ${showMenu ? "left-0 bg-gray-900" : "-left-full"}`}>
                 <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                    <NavLink to="/" className={`text-w p-2 hover:bg-blue-950 hover:rounded-lg ${location.pathname === "/" ? "md:bg-blue-900 md:rounded-lg" : ""}`}>
+                    <NavLink to="/" className={`text-w p-2 hover:bg-primary_h hover:rounded-lg ${location.pathname === "/" ? "md:bg-primary md:rounded-lg" : ""}`}>
                         Home
                     </NavLink>
                 </li>
                 {currentPage !== "/auth" &&
                     <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                        <a className="p-2 text-w hover:bg-blue-950 hover:rounded-lg" href="#contact-us">Contact</a>
+                        <a className="p-2 text-w hover:bg-primary_h hover:rounded-lg" href="#contact-us">Contact</a>
                     </li>
                 }
                 {currentPage !== "/auth" &&
                     <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                        <NavLink to="/auth?signIn=true" className='p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                        <NavLink to="/auth?signIn=true" className='p-2 text-w hover:bg-primary_h hover:rounded-lg'>
                             Login
                         </NavLink>
                     </li>
                 }
                 {currentPage !== "/auth" &&
                     <li className='p-4 transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
-                        <NavLink to="/auth?signIn=false" className='p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                        <NavLink to="/auth?signIn=false" className='p-2 text-w hover:bg-primary_h hover:rounded-lg'>
                             Signup
                         </NavLink>
                     </li>
@@ -78,3 +78,5 @@ export default function Navbar() {
     </header>
   );
 }
+
+export default Navbar;
