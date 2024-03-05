@@ -57,7 +57,6 @@ function ContentCards() {
                         </div>
                     </div>
                 </div>
-                {/* Agregar más slides según sea necesario */}
             </Slider>
         </main>
     );

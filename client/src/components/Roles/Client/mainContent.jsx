@@ -4,9 +4,9 @@ import FondoClient from '../../../assets/Sunset.jpg';
 function MainContent() {
     return (
         <main className='flex flex-col w-full'>
-            <section className='flex flex-grow gap-8 m-auto mt-40'>
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black align-middle m-auto my-28">Reserve aqui</h1>
+            <section className='flex flex-grow gap-8 m-auto mt-10'>
                 <div className='w-auto rounded-lg'>
-                    <h2 className='p-2 text-4xl font-bold text-center'>Reserve Aquí</h2>
                     <div className='flex flex-grow w-auto gap-8 p-1 ml-6 mr-6 bg-gray-600 rounded-lg' >
                         <select className='p-3 mt-2 mb-2 ml-1 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
                             <option value='' disabled selected className="text-gray-500">Seleccionar servicio</option>
