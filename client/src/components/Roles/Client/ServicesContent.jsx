@@ -1,17 +1,20 @@
 import React from 'react';
-import prueba2 from '../../../assets/prueba2.jpg';
-import prueba3 from '../../../assets/prueba3.jpg';
+import Manicure from '../../../assets/Manicure.jpg';
+import Pedicure from '../../../assets/Pedicure.jpg';
+import Masaje from '../../../assets/Masaje.jpg';
+import Facial from '../../../assets/Facial.jpg';
+import Ceja from '../../../assets/Ceja.jpg';
 
 function ServicesContent() {
     return (
-        <main className='flex flex-col w-full m-auto' id='services'>
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black mt-10 align-middle m-auto">Servicios disponibles</h1>
-            <section className='flex flex-wrap justify-center w-9/12 gap-8 m-auto mt-4'>
+        <main className='flex flex-col w-full m-auto mt-32' id='services'>
+            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black mt-10 align-middle m-auto">Servicios más Utilizados</h1>
+            <section className='flex flex-wrap justify-center w-full gap-8 m-auto mb-20 mt-'>
                 {/* Card 1 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
+                <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
+                    <div className="relative overflow-hidden">
                         <img
-                            src={prueba2}
+                            src={Manicure}
                             alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
                     </div>
                     <div className="p-6">
@@ -33,12 +36,11 @@ function ServicesContent() {
                             Reservar</button>
                     </div>
                 </div>
-
                 {/* Card 2 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+                <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
                     <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
                         <img
-                            src={prueba3}
+                            src={Pedicure}
                             alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
                     </div>
                     <div className="p-6">
@@ -61,10 +63,10 @@ function ServicesContent() {
                     </div>
                 </div>
                 {/* Card 3 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+                <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
                     <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
                         <img
-                            src={prueba2}
+                            src={Masaje}
                             alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
                     </div>
                     <div className="p-6">
@@ -87,10 +89,10 @@ function ServicesContent() {
                     </div>
                 </div>
                 {/* Card 4 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+                <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
                     <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
                         <img
-                            src={prueba2}
+                            src={Facial}
                             alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
                     </div>
                     <div className="p-6">
@@ -113,10 +115,10 @@ function ServicesContent() {
                     </div>
                 </div>
                 {/* Card 5 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
+                <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
                     <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
                         <img
-                            src={prueba2}
+                            src={Ceja}
                             alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
                     </div>
                     <div className="p-6">
@@ -131,32 +133,6 @@ function ServicesContent() {
                         <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
                             Define y da forma a tus cejas con nuestro servicio de depilación. Nuestros expertos utilizan técnicas precisas 
                             para lograr la forma perfecta que realce tus rasgos faciales.
-                        </p>
-                    </div>
-                    <div className="p-6 pt-0">
-                        <button className='bg-primary hover:bg-primary_h text-white align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>
-                            Reservar</button>
-                    </div>
-                </div>
-                {/* Card 6 */}
-                <div className="flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96">
-                    <div className="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-t-xl">
-                        <img
-                            src={prueba2}
-                            alt="card-image" className="object-cover w-full h-56 md:h-64 lg:h-72 xl:h-96" />
-                    </div>
-                    <div className="p-6">
-                        <div className="flex items-center justify-between mb-2">
-                            <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                Tratamiento Corporal
-                            </p>
-                            <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                ₡ 32,000
-                            </p>
-                        </div>
-                        <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
-                            Nuestros tratamientos corporales están diseñados para nutrir, exfoliar y revitalizar tu piel en todo el cuerpo. 
-                            Desde envolturas corporales hasta exfoliaciones.
                         </p>
                     </div>
                     <div className="p-6 pt-0">
