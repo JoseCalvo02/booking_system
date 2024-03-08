@@ -12,6 +12,7 @@ import Dashboard from './components/Roles/Admin/Dashboard'
 import Citas from "./components/Roles/Admin/Citas"
 import Stylist from "./pages/Roles/Stylist/Stylist"
 import Client from "./pages/Roles/Client/Client"
+import Settings from "./pages/Roles/Client/Settings"
 
 
 function App() {
@@ -38,9 +39,11 @@ function App() {
                 </Route>
                 <Route path="/stylist" element={<Stylist />} />
                 <Route path="/client" element={<Client />} />
-                {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
+                    {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
+                <Route path="/settings" element={<Settings />} /> 
+                    {/* Agrega la ruta para Settings */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />
-                {/* La ruta NotFound */}
+                    {/* La ruta NotFound */}
                 <Route path="/notFound" element={<NotFound />} />
             </Routes>
             {/* Agrega el ToastContainer aquí para que esté disponible en toda la aplicación. */}
