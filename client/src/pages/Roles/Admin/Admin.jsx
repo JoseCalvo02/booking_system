@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom'; //Para anidar rutas
+import { jwtDecode } from 'jwt-decode';
 //Components
 import Sidebar from '../../../components/Shared/Sidebar/Sidebar'
 //Icons
@@ -7,8 +8,21 @@ import { CgProfile } from "react-icons/cg";
 import { FaMoon, FaSun  } from "react-icons/fa";
 
 export default function Admin() {
-    // Define el estado local para almacenar el tipo de icono actual
-    const [isMoonIcon, setIsMoonIcon] = useState(true);
+    const [isMoonIcon, setIsMoonIcon] = useState(true); // Define el estado local para almacenar el tipo de icono actual
+    const [userName, setUserName] = useState(''); // Define el estado local para almacenar el nombre de usuario
+
+    useEffect(() => {
+        // Decodificar el token JWT para obtener la información del usuario, como el nombre
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken);
+            setUserName(decodedToken.nombre); // Establecer el nombre de usuario en el estado local
+        }else{
+            setUserName('Usuario');
+        }
+    }, []);
 
     // Función para alternar entre los iconos al hacer clic
     const toggleIcon = () => {
@@ -27,15 +41,17 @@ export default function Admin() {
                     </h1>
                     <div className='flex items-center h-full gap-2'>
                         {/* Renderiza el icono FaMoon o FaSun según el estado actual */}
-                        <div className='p-2 mr-2 bg-white border-opacity-25 rounded-md shadow-md border-bgWhite hover:shadow-none'>
+                        <div className='p-2 mr-2 bg-white border border-black border-opacity-25 rounded-md shadow-md hover:shadow-none' style={{ cursor: 'pointer' }}>
                             {isMoonIcon ? (
-                                <FaMoon onClick={toggleIcon} size={18}/>
+                                <FaMoon onClick={toggleIcon} size={17}/>
                             ) : (
-                                <FaSun onClick={toggleIcon} size={18}/>
+                                <FaSun onClick={toggleIcon} size={17}/>
                             )}
                         </div>
                         <div className='flex items-center gap-2 border-l border-gray-600'>
-                            <h1 className='ml-3'>User</h1>
+                            <h1 className='ml-3'>
+                                {userName}
+                            </h1>
                             <CgProfile size={20}/>
                         </div>
                     </div>
