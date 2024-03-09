@@ -107,7 +107,7 @@ export const loginUser = async (req, res) => {
         });
 
         // Define la duración del token en segundos
-        const expiresIn = 900; // 15min
+        const expiresIn = 3600; // 1h
 
         // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
         const token = jwt.sign({ userId: user.id, nombre: user.nombre, email: user.correo, role: roleName.nombreRol }, process.env.JWT_SECRET, { expiresIn });
