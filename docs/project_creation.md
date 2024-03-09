@@ -34,7 +34,6 @@ npm i express mysql2 nodemon morgan
 #### Explicación de las dependencias del servidor:
 
 - **Express.js**: Un marco de aplicación web rápido, minimalista y flexible para Node.js. Es muy utilizado para crear APIs RESTful y aplicaciones web.
-- **mysql2**: Un controlador MySQL para Node.js. Permite conectarse a una base de datos MySQL y realizar consultas desde una aplicación Node.js.
 - **Nodemon**: Una utilidad que monitoriza los cambios en los archivos de tu aplicación y automáticamente reinicia el servidor. Es muy útil durante el desarrollo para evitar tener que reiniciar manualmente el servidor después de cada cambio.
 - **Morgan**: Un middleware de registro de solicitudes HTTP para Express.js. Registra información sobre las solicitudes HTTP entrantes, como el método, la URL, el código de estado, el tiempo de respuesta, etc. Es útil para el análisis y la depuración de solicitudes.
 
