@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator"; // Importar la función de validación de la biblioteca express-validator
-
+import jwt from "jsonwebtoken"; // Importar la biblioteca jsonwebtoken para generar tokens de acceso
 import prisma from "../db/db.js"; // Importar el Prisma Client
 
 // Función para crear un nuevo usuario en la base de datos
@@ -106,14 +106,11 @@ export const loginUser = async (req, res) => {
             }
         });
 
-        // Retorna un mensaje de bienvenida basado en el rol del usuario
-        if (roleName && roleName.nombreRol === 'Administrador') {
-            return res.status(200).json({ message: 'Bienvenido administrador', role: 'Administrador' });
-        } else if (roleName && roleName.nombreRol === 'Estilista') {
-            return res.status(200).json({ message: 'Bienvenido estilista', role: 'Estilista' });
-        } else {
-            return res.status(200).json({ message: 'Bienvenido cliente', role: 'Cliente' });
-        }
+        // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
+        const token = jwt.sign({ userId: user.id, nombre: user.name, email: user.correo, role: roleName.nombreRol }, process.env.JWT_SECRET);
+
+        // Devuelve el token con la información del usuario
+        return res.status(200).json({ token });
     } catch (error) {
         console.error("Error:", error);
         return res.status(500).json({ error: 'Error de servidor' });
