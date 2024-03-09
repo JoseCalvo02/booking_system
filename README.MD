@@ -15,5 +15,5 @@ Nuestro proyecto de reservas de salón de belleza se centra en la implementació
 > Para obtener más detalles sobre los términos y metodologías utilizados en este proyecto, consulta [este archivo](docs/methodology.md).
 
 
-> [IMPORTANT]
+> [!IMPORTANT]
 > Para obtener instrucciones sobre cómo instalar y actualizar Prisma en tu proyecto, consulta [este archivo](docs/prisma_guide.md).
