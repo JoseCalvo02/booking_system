@@ -2,10 +2,10 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-
 // Importar el Prisma Client
 import prisma from './db/db.js';
-
+//Middleware
+import authenticateToken from "./Middleware/authMiddleware.js";
 // Rutas
 import authRoutes from "./routes/auth.routes.js";
 import reservationRoutes from "./routes/reservation.routes.js";
@@ -22,8 +22,8 @@ app.use(morgan("dev")); // Morgan como middleware para el registro de solicitude
 
 // Middleware de manejo de errores global
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  console.error(err.stack);
+  res.status(500).json({ error: 'Error interno del servidor' });
 });
 
 // Intenta conectar a la base de datos una vez que el servidor esté en marcha
@@ -38,10 +38,10 @@ prisma.$connect()
 
 // Definición de rutas de la aplicación
 app.use("/api/auth", authRoutes);
-app.use("/api/reservations", reservationRoutes);
-app.use("/api/services", serviceRoutes);
+app.use("/api/reservations",authenticateToken, reservationRoutes);
+app.use("/api/services", authenticateToken, serviceRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });
