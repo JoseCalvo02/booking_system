@@ -1,4 +1,5 @@
 import { registerUser, loginUser } from '../../../../api/authApi';
+import { jwtDecode } from 'jwt-decode';
 
 // Manejar el envío del formulario
 export const handleSubmit = async (values, { setSubmitting }, notify) => {
@@ -26,18 +27,22 @@ export const handleSubmit = async (values, { setSubmitting }, notify) => {
 };
 
 // Manejar el envío del formulario de login
-export const handleLoginSubmit = async (values, { setSubmitting, navigate }, notify) => {
+export const handleLoginSubmit = async (values, { setSubmitting }, navigate, notify) => {
     try {
         // Enviar solicitud de inicio de sesión y manejar la respuesta
         const response = await loginUser(values);
-        // Verificar si hay algún mensaje de éxito en la respuesta y mostrarlo
-        if (response && response.message) {
+
+        if (response && response.token) { // Verificar si hay algún mensaje de éxito en la respuesta y mostrarlo
             notify('success', response.message);
 
+            // Decodificar el token JWT para obtener la información del usuario, como el rol
+            const decodedToken = jwtDecode(response.token);
+            const userRole = decodedToken.role;
+
             // Redirigir al usuario según su rol
-            if (response.role === 'Administrador') {
+            if (userRole === 'Administrador') {
                 navigate('/admin');
-            } else if (response.role === 'Estilista') {
+            } else if (userRole === 'Estilista') {
                 navigate('/stylist');
             } else {
                 navigate('/client');

@@ -28,7 +28,7 @@ function LoginForm() {
         };
 
         // Enviar solicitud de inicio de sesión y manejar la respuesta
-        await handleLoginSubmit(values, { setSubmitting: formikHelpers, navigate }, notify);
+        await handleLoginSubmit(values, formikHelpers, navigate, notify);
     };
 
     return (
@@ -41,7 +41,7 @@ function LoginForm() {
                 <Field className={customStyles.input} type="password" name="password" placeholder='Contraseña'/>
                 <ErrorMessage name="password" component="div" className={customStyles.error}/>
                 <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Olvido su contraseña?</a>
-                <button className={customStyles.button + ' hover:bg-primary_h'}>Iniciar Sesión</button>
+                <button className={customStyles.button + ' hover:bg-primary_h'} type="submit">Iniciar Sesión</button>
             </Form>
         </Formik >
     );

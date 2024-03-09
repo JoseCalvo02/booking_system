@@ -8,15 +8,9 @@ export const registerUser = async (userData) => {
         // Enviar la solicitud de registro de usuario al backend
         const response = await axiosInstance.post(`${API_URL}/register`, userData);
 
-        // Verificar el código de estado de la respuesta
-        if (response.status === 200) {
-            // La solicitud fue exitosa, retornar la respuesta
-            console.log("Usuario creado exitosamente");
-            return response.data; // Retornar la respuesta completa para más procesamiento si es necesario
-        } else {
-            // Si la solicitud no fue exitosa, lanzar un error con el mensaje recibido del servidor
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
+        // La solicitud fue exitosa, retornar la respuesta
+        console.log("Usuario creado exitosamente");
+        return response.data; // Retornar la respuesta completa para más procesamiento si es necesario
     } catch (error) {
         // Error al hacer la solicitud, manejarlo adecuadamente
         console.error("Error al registrar usuario:", error.message);
@@ -39,23 +33,17 @@ export const loginUser = async (userData) => {
         // Enviar la solicitud de inicio de sesión al backend
         const response = await axiosInstance.post(`${API_URL}/login`, userData);
 
-        // Verificar el código de estado de la respuesta
-        if (response.status === 200) {
-            // La solicitud fue exitosa, retornar la respuesta
-            console.log("Usuario autenticado exitosamente");
-            return response.data; // Retornar la respuesta completa para más procesamiento si es necesario
-        } else {
-            // Si la solicitud no fue exitosa, lanzar un error con el mensaje recibido del servidor
-            throw new Error('Error en la solicitud: ' + response.statusText);
-        }
+        // La solicitud fue exitosa, retornar la respuesta
+        console.log("Usuario autenticado exitosamente");
+        localStorage.setItem('token', response.data.token); // Almacena el token JWT en localStorage
+        return response.data; // Retornar la respuesta completa para más procesamiento si es necesario
     } catch (error) {
         // Error al hacer la solicitud, manejarlo adecuadamente
         console.error("Error al iniciar sesión:", error.message);
 
         // Verificar si la respuesta contiene un mensaje de error del servidor
         if (error.response && error.response.data && error.response.data.error) {
-            // Mostrar el mensaje de error específico recibido del servidor
-            console.error("Error específico:", error.response.data.error);
+            console.error("Error específico:", error.response.data.error); // Mostrar el mensaje de error específico recibido del servidor
             throw new Error(error.response.data.error); // Propagar el mensaje de error específico al cliente
         } else {
             // Si no hay un mensaje de error específico del servidor, mostrar un mensaje genérico
