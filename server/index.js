@@ -8,8 +8,7 @@ import prisma from './db/db.js';
 import authenticateToken from "./Middleware/authMiddleware.js";
 // Rutas
 import authRoutes from "./routes/auth.routes.js";
-import reservationRoutes from "./routes/reservation.routes.js";
-import serviceRoutes from "./routes/service.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 const PORT = 3000; // Puerto en el que se ejecutará el servidor
 
@@ -38,8 +37,7 @@ prisma.$connect()
 
 // Definición de rutas de la aplicación
 app.use("/api/auth", authRoutes);
-app.use("/api/reservations",authenticateToken, reservationRoutes);
-app.use("/api/services", authenticateToken, serviceRoutes);
+app.use("/api/admin",authenticateToken, adminRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
