@@ -17,6 +17,7 @@ import Stylist from "./pages/Roles/Stylist/Stylist"
 //Client pages
 import Client from "./pages/Roles/Client/Client"
 import Settings from "./pages/Roles/Client/Settings"
+import Reports from "./pages/Roles/Client/Reports"
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/stylist" element={<Stylist />} />
                 <Route path="/client" element={<Client />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/reports" element={<Reports/>} />
                 {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />
                     {/* La ruta NotFound */}
