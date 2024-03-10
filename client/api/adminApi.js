@@ -5,7 +5,12 @@ const API_URL = '/api/admin';
 // Función para obtener todos los usuarios
 export const getClients = async () => {
     try {
-        const response = await axiosInstance.get(`${API_URL}/users`);
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/clients`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
         return response.data;
     } catch (error){
         console.error("Error al obtener usuarios:", error.message);

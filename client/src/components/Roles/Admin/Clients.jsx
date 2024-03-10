@@ -23,7 +23,9 @@ const Clients = () => {
     return (
         <>
             <div className='w-full h-full p-8 bg-white shadow-custom rounded-xl'>
-                <h2>Clients</h2>
+                <h1 className='mb-4 text-2xl font-semibold text-center text-gray-900 border border-black rounded-md shadow-custom border-opacity-5'>
+                    Tabla de clientes
+                </h1>
 
                 {/* Table */}
                 <div className='overflow-y-auto max-h-[75vh]'>
@@ -45,15 +47,15 @@ const Clients = () => {
                         <tbody className='overflow-y-auto'>
                             {/* Map over clients and render each client as a table row */}
                             {clients.map((client) => (
-                                <tr key={client.id} className='hover:bg-gray-100'>
-                                    <td className={customStyles.td}>{client.id}</td>
-                                    <td className={customStyles.td}>{client.name}</td>
-                                    <td className={customStyles.td}>{client.lastName}</td>
-                                    <td className={customStyles.td}>{client.phone}</td>
-                                    <td className={customStyles.td}>{client.email}</td>
-                                    <td className={customStyles.td}>{client.address}</td>
-                                    <td className={customStyles.td}>{client.points}</td>
-                                    <td className={customStyles.td}>{client.status}</td>
+                                <tr key={client.usuarioID} className='hover:bg-gray-100'>
+                                    <td className={customStyles.td}>{client.usuarioID}</td>
+                                    <td className={customStyles.td}>{client.nombre}</td>
+                                    <td className={customStyles.td}>{client.apellidos}</td>
+                                    <td className={customStyles.td}>{client.telefono}</td>
+                                    <td className={customStyles.td}>{client.correo}</td>
+                                    <td className={customStyles.td}>{client.direccion}</td>
+                                    <td className={customStyles.td}>0</td>
+                                    <td className={customStyles.td}>{client.estado}</td>
                                     <td className={customStyles.td}>
                                         <button className='p-2 text-white bg-green-500 rounded-lg'>Edit</button>
                                         <button className='p-2 text-white bg-red-500 rounded-lg'>Delete</button>
