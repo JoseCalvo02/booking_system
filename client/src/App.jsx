@@ -7,10 +7,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home/Home"
 import NotFound from "./pages/Layout/NotFound";
 import Auth from "./pages/Auth/Auth"
+//Admin pages
 import Admin from "./pages/Roles/Admin/Admin"
 import Dashboard from './components/Roles/Admin/Dashboard'
 import Citas from "./components/Roles/Admin/Citas"
+import Clients from "./components/Roles/Admin/Clients"
+//Stylist pages
 import Stylist from "./pages/Roles/Stylist/Stylist"
+//Client pages
 import Client from "./pages/Roles/Client/Client"
 import Settings from "./pages/Roles/Client/Settings"
 
@@ -27,8 +31,8 @@ function App() {
                     <Route index element={<Dashboard />} />
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="citas" element={<Citas />} />
+                    <Route path="clientes" element={<Clients />} />
                     {/*
-                    <Route path="clientes" element={<Clientes />} />
                     <Route path="catalogo" element={<Catalogo />} />
                     <Route path="estilistas" element={<Estilistas />} />
                     <Route path="horarios" element={<Horarios />} />
@@ -39,13 +43,13 @@ function App() {
                 </Route>
                 <Route path="/stylist" element={<Stylist />} />
                 <Route path="/client" element={<Client />} />
-                    {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
-                <Route path="/settings" element={<Settings />} /> 
-                    {/* Agrega la ruta para Settings */}
+                <Route path="/settings" element={<Settings />} />
+                {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />
                     {/* La ruta NotFound */}
                 <Route path="/notFound" element={<NotFound />} />
             </Routes>
+
             {/* Agrega el ToastContainer aquí para que esté disponible en toda la aplicación. */}
             <ToastContainer />
         </>
