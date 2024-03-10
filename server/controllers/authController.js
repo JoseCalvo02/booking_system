@@ -1,5 +1,7 @@
 import { validationResult } from "express-validator"; // Importar la función de validación de la biblioteca express-validator
 import jwt from "jsonwebtoken"; // Importar la biblioteca jsonwebtoken para generar tokens de acceso
+import bcrypt from "bcrypt"; // Importar la biblioteca bcrypt para encriptar contraseñas
+
 import prisma from "../db/db.js"; // Importar el Prisma Client
 
 // Función para crear un nuevo usuario en la base de datos
@@ -25,18 +27,23 @@ export const createUser = async (req, res) => {
             return res.status(400).json({ error: 'El correo electrónico ya está en uso' });
         }
 
-        let nuevoUsuario;
+        // Generar un salt único para el password del usuario
+        const saltRounds = 10;
+        const salt = await bcrypt.genSalt(saltRounds);
+
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         // Inicia la transacción prisma para crear todas las tablas relacionadas
         await prisma.$transaction(async (tx) => {
-             // Crea un nuevo usuario
-             nuevoUsuario = await tx.Usuarios.create({
+            // Crea un nuevo usuario
+            const nuevoUsuario = await tx.Usuarios.create({
                 data: {
                     nombre: name,
                     apellidos: lastName,
                     telefono: phone,
                     correo: email,
                     direccion: address,
-                    contra: password,
+                    contra: hashedPassword,
                     rolID: 3, // (3) Rol de cliente
                     estado: "Activo"
                 }

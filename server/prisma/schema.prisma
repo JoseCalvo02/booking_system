@@ -144,7 +144,7 @@ model Usuarios {
   telefono                          String?                @db.VarChar(20)
   correo                            String                 @db.VarChar(100)
   direccion                         String?                @db.VarChar(255)
-  contra                            String                 @db.VarChar(50)
+  contra                            String                 @db.VarChar(60)
   rolID                             Int?
   estado                            String?                @db.VarChar(15)
   ActividadCliente                  ActividadCliente[]

@@ -22,7 +22,7 @@ CREATE TABLE Usuarios (
 	telefono VARCHAR(20),
     correo VARCHAR(100) NOT NULL,
     direccion VARCHAR(255),
-    contra VARCHAR(50) NOT NULL,
+    contra VARCHAR(60) NOT NULL,
     rolID INT,
 	estado varchar(15),
     CONSTRAINT fk_Usuarios_rolID FOREIGN KEY (rolID) REFERENCES Roles(rolID) ON DELETE NO ACTION ON UPDATE NO ACTION
