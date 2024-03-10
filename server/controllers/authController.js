@@ -92,8 +92,9 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ error: 'El correo electrónico no existe Por favor, crea una cuenta.' });
         }
 
-        // Verificar si la contraseña coincide
-        if (user.contra !== password) {
+        // Verificar si la contraseña coincide utilizando bcrypt
+        const passwordMatch = await bcrypt.compare(password, user.contra);
+        if (!passwordMatch) {
             // Si la contraseña no coincide, devolver un mensaje de contraseña incorrecta
             return res.status(400).json({ error: 'Contraseña incorrecta' });
         }
