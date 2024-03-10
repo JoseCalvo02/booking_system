@@ -2,7 +2,7 @@ import { validationResult } from "express-validator"; // Importar la función de
 import jwt from "jsonwebtoken"; // Importar la biblioteca jsonwebtoken para generar tokens de acceso
 import bcrypt from "bcrypt"; // Importar la biblioteca bcrypt para encriptar contraseñas
 
-import prisma from "../db/db.js"; // Importar el Prisma Client
+import prisma from "../prisma/prisma.js"; // Importar el Prisma Client
 
 // Función para crear un nuevo usuario en la base de datos
 export const createUser = async (req, res) => {
@@ -119,6 +119,7 @@ export const loginUser = async (req, res) => {
 
         // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
         const token = jwt.sign({ userId: user.id, nombre: user.nombre, email: user.correo, role: roleName.nombreRol }, process.env.JWT_SECRET, { expiresIn });
+        console.log('Token generado:', token);
 
         // Devuelve el token con la información del usuario
         return res.status(200).json({ token });

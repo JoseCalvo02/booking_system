@@ -3,7 +3,10 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 // Importar el Prisma Client
-import prisma from './db/db.js';
+import prisma from './prisma/prisma.js';
+// Importar y configurar dotenv
+import dotenv from 'dotenv';
+dotenv.config();
 //Middleware
 import authenticateToken from "./Middleware/authMiddleware.js";
 // Rutas
