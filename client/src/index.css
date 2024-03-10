@@ -9,16 +9,27 @@
   box-sizing: border-box;
 }
 
-body::-webkit-scrollbar{
-  width: 0.40rem;
+/* Estilos básicos para las barras de desplazamiento */
+::-webkit-scrollbar{
+  width: 0.50rem;
+  height: 0.50rem;
 }
 
-body::-webkit-scrollbar-track{
-  background: theme('colors.gray.200');
+/* Estilo del riel de la barra de desplazamiento */
+::-webkit-scrollbar-track{
+  background: white;
 }
 
-body::-webkit-scrollbar-thumb{
-  background: theme('colors.primary');
+/* Estilo de la barra de desplazamiento */
+::-webkit-scrollbar-thumb{
+  background: theme('colors.gray.900');
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+/* Animación al pasar el cursor sobre la barra de desplazamiento */
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.primary'); /* Cambia el color al pasar el cursor */
 }
 
 body {

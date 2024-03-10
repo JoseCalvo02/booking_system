@@ -9,9 +9,9 @@ import {
 
 const Sidebar = () => {
     return (
-        <aside className='flex flex-col p-8 text-lg font-semibold text-white bg-gray-900 rounded-r-2xl'>
+        <aside className='flex flex-col p-4 font-semibold text-white bg-gray-900 md:p-8 text-md rounded-r-2xl'>
             {/* Logo */}
-            <div className='flex gap-1 p-2 mb-4 text-2xl'>
+            <div className='flex-col hidden gap-1 p-2 mb-4 md:flex md:text-md lg:text-xl'>
                 <h1 className='text-white'>Studio</h1>
                 <h1 className='text-primary'>Once Once</h1>
             </div>
@@ -21,63 +21,63 @@ const Sidebar = () => {
                 <nav className='flex flex-grow '>
                     <ul className='flex flex-col flex-grow text-md'>
                         <li>
-                            <Link className={customStyles.a} to="/admin/dashboard">
+                            <Link className={customStyles.link} to="/admin/dashboard">
                                 <TbLayoutGrid size={20}/>
-                                Dashboard
+                                <span className={customStyles.span}>Dashboard</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/citas">
+                            <Link className={customStyles.link} to="/admin/citas">
                                 <TbCalendarEvent size={20}/>
-                                Citas
+                                <span className={customStyles.span}>Citas</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/clientes">
+                            <Link className={customStyles.link} to="/admin/clientes">
                                 <TbUserSearch size={20}/>
-                                Clientes
+                                <span className={customStyles.span}>Clientes</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/catalogo">
+                            <Link className={customStyles.link} to="/admin/catalogo">
                                 <TbNotebook size={20}/>
-                                Catálogo
+                                <span className={customStyles.span}>Catálogo</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/estilistas">
+                            <Link className={customStyles.link} to="/admin/estilistas">
                                 <TbUserEdit  size={20}/>
-                                Estilistas
+                                <span className={customStyles.span}>Estilistas</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/horarios">
+                            <Link className={customStyles.link} to="/admin/horarios">
                                 <TbCalendarUser size={20}/>
-                                Horarios
+                                <span className={customStyles.span}>Horarios</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/canjes">
+                            <Link className={customStyles.link} to="/admin/canjes">
                                 <TbCoins  size={20}/>
-                                Canjes
+                                <span className={customStyles.span}>Canjes</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/reportes">
+                            <Link className={customStyles.link} to="/admin/reportes">
                                 <TbReport  size={20}/>
-                                Reportes
+                                <span className={customStyles.span}>Reportes</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.a} to="/admin/perfil">
+                            <Link className={customStyles.link} to="/admin/perfil">
                                 <TbSettings  size={20}/>
-                                Perfil
+                                <span className={customStyles.span}>Perfil</span>
                             </Link>
                         </li>
                         <li className='mt-auto'>
-                            <a className={customStyles.a}>
+                            <a className={customStyles.link}>
                                 <TbLogout2 size={20}/>
-                                Log out
+                                <span className={customStyles.span}>Log out</span>
                             </a>
                         </li>
                     </ul>
