@@ -14,7 +14,7 @@ function Reports() {
                     <span className="block -mb-1 opacity-75">Reporte de</span>
                     <div className="flex justify-between">
                         <span className="block text-xl font-semibold">Actividad del Usuario</span>
-                        <button className="flex items-center block px-3 py-2 text-xs font-bold leading-none text-black bg-white rounded-full hover:bg-slate-500">Descargar</button>
+                        <button className="flex items-center px-3 py-2 text-xs font-bold leading-none text-black bg-white rounded-full hover:bg-slate-500">Descargar</button>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@ function Reports() {
                     <span className="block -mb-1 opacity-75">Reporte de</span>
                     <div className="flex justify-between">
                         <span className="block text-xl font-semibold">Historial Citas del Usuario</span>
-                        <button className="flex items-center block px-3 py-2 text-xs font-bold leading-none text-black bg-white rounded-full hover:bg-slate-500">Descargar</button>
+                        <button className="flex items-center px-3 py-2 text-xs font-bold leading-none text-black bg-white rounded-full hover:bg-slate-500">Descargar</button>
                     </div>
                 </div>
             </div>

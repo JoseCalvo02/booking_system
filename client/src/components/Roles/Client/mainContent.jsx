@@ -5,6 +5,12 @@ function MainContent() {
     const [services, setServices] = useState([]); // Define el estado local para almacenar los servicios
     const [selectedService, setSelectedService] = useState('');
 
+    // Calendario con las fechas anteriores desactivadas
+    const currentDate = new Date().toISOString().split('T')[0];
+        const handleDateChange = (event) => {
+            setSelectedDate(event.target.value);
+        };
+
     useEffect(() => {
         // Llamar a la función para obtener todos los servicios
         const fetchServices = async () => {
@@ -33,17 +39,20 @@ function MainContent() {
             <section className='flex flex-grow gap-8 m-auto mt-10'>
                 <div className='w-auto rounded-lg'>
                     <div className='flex flex-grow w-auto gap-8 p-1 ml-6 mr-6 bg-gray-600 rounded-lg' >
-                        {/* Map over services and render each service as a select option */}
-                        <select  value={selectedService} onChange={handleServiceChange}  className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
+                        <select value={selectedService} onChange={handleServiceChange} className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
                             <option value='' disabled={selectedService !== ''} defaultValue hidden className="text-gray-900">Seleccionar servicio</option>
                             {services.map((service) => (
                                 <option key={service.servicioID} value={service.nombreServicio}>{service.nombreServicio}</option>
                             ))}
                         </select>
-
-                        {/* Date input */}
-                        <input type='date' className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500' />
-
+                        
+                        <input
+                            type='DATE'
+                            className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                            min={currentDate}
+                            onChange={handleDateChange}
+                        />
+                        
                         {/* Stylist and time select options */}
                         <select className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
                             <option value='' disabled defaultValue className="text-gray-500">Seleccionar estilista</option>
