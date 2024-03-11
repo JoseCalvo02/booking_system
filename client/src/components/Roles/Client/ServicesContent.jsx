@@ -8,7 +8,7 @@ import Ceja from '../../../assets/Ceja.jpg';
 function ServicesContent() {
     return (
         <main className='flex flex-col w-full m-auto mt-32' id='services'>
-            <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black mt-10 align-middle m-auto">Servicios más Utilizados</h1>
+            <h1 className="m-auto mt-10 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black">Servicios más Utilizados</h1>
             <section className='flex flex-wrap justify-center w-full gap-8 m-auto mb-20 mt-'>
                 {/* Card 1 */}
                 <div className="flex flex-col overflow-hidden text-gray-700 transition duration-500 transform bg-white shadow-md bg-clip-border rounded-xl w-96 hover:scale-105 hover:shadow-xl">
