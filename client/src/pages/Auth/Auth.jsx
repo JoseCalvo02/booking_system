@@ -1,6 +1,7 @@
 // Paquetes y bibliotecas externas
 import React, { useState }  from 'react'
 import { useLocation } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 // Componentes
 import Navbar from '../../components/Shared/Navbar/Navbar';
 import SignupForm from '../../components/Auth/SignupForm';
@@ -51,14 +52,14 @@ export default function Auth() {
                             <div className={`absolute flex flex-col justify-center items-center px-10 text-center top-0 h-full w-1/2 transition-transform duration-700 ease-in-out transform ${signIn ? '-translate-x-[20%]' : 'translate-x-0'}`}>
                                 <h1 className={customStyles.h1}>Hola, amigo(a)</h1>
                                 <p className='text-sm font-thin leading-5 tracking-[0.5px] mt-5 mb-7'>Introduce tus datos personales y comienza un viaje con nosotros!</p>
-                                <button className={customStyles.button + ' bg-transparent border-white'} onClick={toggleSignIn}>Inicio Sesión</button>
+                                <button className={twMerge(customStyles.button, 'bg-transparent border-white')} onClick={toggleSignIn}>Inicio Sesión</button>
                             </div>
 
                             {/* Right Overlay panel - Login Panel */}
                             <div className={`absolute flex flex-col justify-center items-center px-10 text-center top-0 right-0 h-full w-1/2 transition-transform duration-700 ease-in-out transform ${signIn ? 'translate-x-0' : ' translate-x-[20%]'}`}>
                                 <h1 className={customStyles.h1}>Bienvenido(a) de Nuevo!</h1>
                                 <p className='text-sm font-thin leading-5 tracking-[0.5px] mt-5 mb-7'>Para mantenerse conectado con nosotros, inicie sesión con su información personal</p>
-                                <button className={customStyles.button + ' bg-transparent border-white'} onClick={toggleSignIn}>registrarse</button>
+                                <button className={twMerge(customStyles.button, 'bg-transparent border-white')} onClick={toggleSignIn}>registrarse</button>
                             </div>
                         </div>
                     </div>{/*End of Overlay container */}

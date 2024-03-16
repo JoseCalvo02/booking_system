@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
+import { twMerge } from 'tailwind-merge';
 // Funciones y helpers
 import { validateForm } from './helpers/formValidation';
 import { handleSubmit } from './helpers/formSubmission';
@@ -52,7 +53,7 @@ function SignupForm() {
                     <ErrorMessage name="password" component="div" className={customStyles.error}/>
                     <Field className={customStyles.input} type="password" name="confirmPassword" placeholder="Contraseña nuevamente"/>
                     <ErrorMessage name="confirmPassword" component="div" className={customStyles.error}/>
-                    <button className={customStyles.button + ' mt-4 hover:bg-primary_h'} type="submit" disabled={isSubmitting}>Registrarse</button>
+                    <button className={twMerge(customStyles.button, 'mt-4 hover:bg-primary_h')} type="submit" disabled={isSubmitting}>Registrarse</button>
                 </Form>
             )}
         </Formik>

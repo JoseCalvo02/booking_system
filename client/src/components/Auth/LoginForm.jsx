@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'; // Importa hook para navegar a otras páginas
 import { Formik, Form, Field, ErrorMessage } from 'formik'; // Importa componentes de Formik
 import { toast } from 'react-toastify'; // Importa componente de notificaciones
+import { twMerge } from 'tailwind-merge';
 // Funciones y helpers
 import { validateLoginForm } from './helpers/formValidation'; // Importa la función de validación de formulario
 import { handleLoginSubmit } from './helpers/formSubmission'; // Importa la función de envío de formulario
@@ -41,7 +42,7 @@ function LoginForm() {
                 <Field className={customStyles.input} type="password" name="password" placeholder='Contraseña'/>
                 <ErrorMessage name="password" component="div" className={customStyles.error}/>
                 <a className='text-[#333] text-sm no-underline my-4 hover:underline hover:text-gray-900' href="#">Olvido su contraseña?</a>
-                <button className={customStyles.button + ' hover:bg-primary_h'} type="submit">Iniciar Sesión</button>
+                <button className={twMerge(customStyles.button, 'hover:bg-primary_h')} type="submit">Iniciar Sesión</button>
             </Form>
         </Formik >
     );

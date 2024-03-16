@@ -8,8 +8,8 @@ const Profile = () => {
 
                     <div class="col-span-2 hidden sm:block">
                         <ul>
-                            <li class="mt-5 cursor-pointer border-l-2 border-l-blue-700 px-2 py-2 font-semibold text-primary transition hover:border-l-primary hover:text-primary">Cuenta</li>
-                            <li class="mt-5 cursor-pointer border-l-2 border-l-blue-700 px-2 py-2 font-semibold text-primary transition hover:border-l-primary hover:text-primary">Cuenta</li>
+                            <li class="mt-5 cursor-pointer border-l-2 border-l-primary px-2 py-2 font-semibold text-primary transition hover:border-l-primary hover:text-primary">Cuenta</li>
+                            <li class="mt-5 cursor-pointer border-l-2 px-2 py-2 font-semibold text-primary transition hover:border-l-primary hover:text-primary">Cuenta</li>
                         </ul>
                     </div>
 
@@ -22,7 +22,7 @@ const Profile = () => {
                     <p class="py-2 text-xl font-semibold">Correo electronico</p>
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                         <p class="text-gray-600">Su correo electronico es: <strong>mcorderoulate@gmial.com</strong></p>
-                        <button class="inline-flex text-sm font-semibold text-blue-600 hover:underline decoration-2">Cambiar Correo</button>
+                        <button class="inline-flex text-sm font-semibold text-primary hover:underline decoration-2">Cambiar Correo</button>
                     </div>
                     <hr class="mt-4 mb-8" />
                     <p class="py-2 text-xl font-semibold">Contraseña</p>
@@ -30,20 +30,23 @@ const Profile = () => {
                         <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <label for="login-password">
                                 <span class="text-sm text-gray-500">Contraseña actual</span>
-                                <div class="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                <input type="password" id="login-password" class="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="********" />
+                                <div class="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-primary">
+                                    <input type="password" id="login-password" class="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="********" />
                                 </div>
                             </label>
                             <label for="login-password">
                                 <span class="text-sm text-gray-500">Nueva contraseña</span>
-                                <div class="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
-                                <input type="password" id="login-password" class="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="********" />
+                                <div class="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-primary">
+                                    <input type="password" id="login-password" class="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="********" />
                                 </div>
                             </label>
                         </div>
                     </div>
-                    <p class="mt-2">No recuerdas tu contraseña  actual. <a class="text-sm font-semibold text-blue-600 hover:underline decoration-2" href="#">Recuperar contraseña</a></p>
-                    <button class="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-white">Guardar contraseña</button>
+                    <p class="mt-2">
+                        No recuerdas tu contraseña  actual.
+                        <a class="text-sm font-semibold text-primary hover:underline decoration-2" href="#">Recuperar contraseña</a>
+                    </p>
+                    <button class="mt-4 rounded-lg bg-primary px-4 py-2 text-white">Guardar contraseña</button>
                     <hr class="mt-4 mb-8" />
 
                     <div class="mb-10">
