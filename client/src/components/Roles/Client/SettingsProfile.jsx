@@ -1,10 +1,9 @@
-import React from 'react'    
+import React from 'react'
 
 
 const SettingsProfile = () => {
   return (
-    <div class="mx-4 min-h-screen sm:mx-8 xl:mx-auto max-w-full">
-        <h1 class="border-b py-8 text-4xl font-semibold"></h1>
+    <div class="mx-4 min-h-screen sm:mx-8 xl:mx-auto max-w-full py-14">
         <div class="grid grid-cols-6 pt-3 sm:grid-cols-10">
             <div class="my-4 w-56 sm:hidden">
                 <input class="peer hidden" type="checkbox" name="select-1" id="select-1" />
