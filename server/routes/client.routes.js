@@ -1,11 +1,9 @@
 import express from "express";
-
-import * as client from "../controllers/clientController.js";
+import { getAllClients } from "../controllers/clientController.js";
 
 const router = express.Router();
 
-// Definir rutas de cliente
-// Ruta para obtener todos los servicios disponibles
+// Ruta para obtener todos los usuarios
+router.get("/clients", getAllClients);
 
-// Exportar las rutas
 export default router;

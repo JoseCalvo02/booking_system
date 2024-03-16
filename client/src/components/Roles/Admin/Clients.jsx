@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getClients } from '../../../../api/adminApi';
+import { getClients } from '../../../../api/clientApi';
 import customStyles from '../../../custom/customStyles';
 
 const Clients = () => {
@@ -57,8 +57,8 @@ const Clients = () => {
                                     <td className={customStyles.td}>0</td>
                                     <td className={customStyles.td}>{client.estado}</td>
                                     <td className={customStyles.td}>
-                                        <button className='p-2 mr-2 text-white bg-green-500 rounded-lg'>Edit</button>
-                                        <button className='p-2 text-white bg-red-500 rounded-lg'>Delete</button>
+                                        <button className='p-2 mr-2 text-white bg-green-400 rounded-lg hover:bg-green-500'>Edit</button>
+                                        <button className='p-2 text-white bg-red-400 rounded-lg hover:bg-red-500'>Delete</button>
                                     </td>
                                 </tr>
                             ))}

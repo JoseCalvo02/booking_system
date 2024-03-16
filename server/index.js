@@ -11,7 +11,6 @@ dotenv.config();
 import authenticateToken from "./Middleware/authMiddleware.js";
 // Rutas
 import authRoutes from "./routes/auth.routes.js";
-import adminRoutes from "./routes/admin.routes.js";
 import clientRoutes from "./routes/client.routes.js";
 import serviceRoutes from "./routes/service.routes.js";
 
@@ -42,7 +41,6 @@ prisma.$connect()
 
 // Definición de rutas de la aplicación
 app.use("/api/auth", authRoutes);
-app.use("/api/admin",authenticateToken, adminRoutes);
 app.use("/api/client",authenticateToken, clientRoutes);
 app.use("/api/service",authenticateToken, serviceRoutes);
 
