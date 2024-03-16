@@ -69,7 +69,7 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className={customStyles.link} to="/admin/perfil">
+                            <Link className={customStyles.link} to="/admin/profile">
                                 <TbSettings  size={20}/>
                                 <span className={customStyles.span}>Perfil</span>
                             </Link>

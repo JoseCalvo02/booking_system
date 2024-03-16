@@ -12,6 +12,7 @@ import Admin from "./pages/Roles/Admin/Admin"
 import Dashboard from './components/Roles/Admin/Dashboard'
 import Citas from "./components/Roles/Admin/Citas"
 import Clients from "./components/Roles/Admin/Clients"
+import Profile from "./components/Roles/Admin/Profile"
 //Stylist pages
 import Stylist from "./pages/Roles/Stylist/Stylist"
 //Client pages
@@ -38,9 +39,8 @@ function App() {
                     <Route path="estilistas" element={<Estilistas />} />
                     <Route path="horarios" element={<Horarios />} />
                     <Route path="canjes" element={<Canjes />} />
-                    <Route path="reportes" element={<Reportes />} />
-                    <Route path="perfil" element={<Perfil />} />
-                    <Route path="*" element={<NotFound />} />*/}
+                    <Route path="reportes" element={<Reportes />} />*/}
+                    <Route path="profile" element={<Profile />} />
                 </Route>
                 <Route path="/stylist" element={<Stylist />} />
                 <Route path="/client" element={<Client />} />
