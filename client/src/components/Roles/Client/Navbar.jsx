@@ -101,19 +101,19 @@ const Navbar = () => {
                             {showDropdown && (
                                 <ul className='absolute left-0 w-40 mt-2 bg-gray-900 rounded-lg' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
                                     <li className='flex p-2'>
-                                        <NavLink to='/Settings' className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to='/client/Settings' className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
                                             <TbSettings className='mr-1' size={20} />
                                             Configuración
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/Reports" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/client/Reports" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
                                             <TbReport className="mr-1" size={20} />
                                             Reportes
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/Rewards" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/client/Rewards" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
                                             <FaMoneyBillAlt className="mr-1" size={20} />
                                             Recompensas
                                         </NavLink>

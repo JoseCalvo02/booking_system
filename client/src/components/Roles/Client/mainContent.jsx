@@ -37,12 +37,11 @@ function MainContent() {
             } catch (error) {
 
                 console.error('Error al obtener los estilistas:', error.message);
-            }   
+            }
         };
 
         fetchStylists(); // Llamar a la función para obtener todos los estilistas
     }, []);
-    
 
     // Handle service change option
     const handleServiceChange = (event) => {
@@ -52,8 +51,7 @@ function MainContent() {
     // Handle stylist change option
     const handleStylistChange = (event) => {
         setSelectedStylist(event.target.value);
-    };  
-    
+    };
     const filteredServices = services.filter(service => service.nombreServicio !== 'Seleccionar servicio');
     const filteredStylists = stylists.filter(stylist => stylist.nombre !== 'Seleccionar estilista');
 

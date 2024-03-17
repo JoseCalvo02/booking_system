@@ -17,6 +17,7 @@ import Profile from "./components/Roles/Admin/Profile"
 import Stylist from "./pages/Roles/Stylist/Stylist"
 //Client pages
 import Client from "./pages/Roles/Client/Client"
+import ClientHome from "./pages/Roles/Client/Home"
 import Settings from "./pages/Roles/Client/Settings"
 import Reports from "./pages/Roles/Client/Reports"
 import Rewards from "./pages/Roles/Client/Rewards"
@@ -44,10 +45,13 @@ function App() {
                     <Route path="profile" element={<Profile />} />
                 </Route>
                 <Route path="/stylist" element={<Stylist />} />
-                <Route path="/client" element={<Client />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/reports" element={<Reports/>} />
-                <Route path="/rewards" element={<Rewards />} />
+                <Route path="/client" element={<Client />} >
+                    <Route index element={<ClientHome />} />
+                    <Route path="home" element={<ClientHome />} />
+                    <Route path="settings" element={<Settings />} />
+                    <Route path="reports" element={<Reports/>} />
+                    <Route path="rewards" element={<Rewards />} />
+                </Route>
                 {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />
                     {/* La ruta NotFound */}
