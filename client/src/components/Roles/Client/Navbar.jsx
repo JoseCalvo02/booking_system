@@ -4,11 +4,26 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CgProfile, CgLogOut, CgToolbox } from 'react-icons/cg';
 import { FaMoneyBillAlt } from 'react-icons/fa';
 import { TbReport, TbSettings, TbLayoutGrid, TbTimeDuration10 } from 'react-icons/tb';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
     const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [userName, setUserName] = useState(''); // Define el estado local para almacenar el nombre de usuario
+
+    useEffect(() => {
+        // Decodificar el token JWT para obtener la información del usuario, como el nombre
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken);
+            setUserName(decodedToken.nombre); // Establecer el nombre de usuario en el estado local
+        }else{
+            setUserName('Usuario');
+        }
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -81,7 +96,7 @@ const Navbar = () => {
                         >
                             <div className='relative flex items-center justify-center p-4 mr-16 text-white transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
                                 <CgProfile className="mr-1" size={20} />
-                                <p>Perfil</p>
+                                <p>{userName}</p>
                             </div>
                             {showDropdown && (
                                 <ul className='absolute left-0 w-40 mt-2 bg-gray-900 rounded-lg' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
