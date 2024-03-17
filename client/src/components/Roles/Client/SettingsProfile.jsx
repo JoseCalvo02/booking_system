@@ -1,7 +1,18 @@
-import React from 'react'
-
+import { jwtDecode } from 'jwt-decode';
+import React, { useState, useEffect } from 'react';
 
 const SettingsProfile = () => {
+
+const [userEmail, setUserEmail] = useState(''); // Define el estado local para almacenar el nombre de usuario
+
+useEffect(() => {
+    const token = localStorage.getItem('token'); // Obtiene el token del almacenamiento local
+    const decoded = jwtDecode(token); // Decodifica el token para obtener la información del usuario
+    setUserEmail(decoded.email); // Almacena el nombre de usuario en el estado local
+}, []);
+
+
+
   return (
     <div class="mx-4 min-h-screen sm:mx-8 xl:mx-auto max-w-full py-14">
         <div class="grid grid-cols-6 pt-3 sm:grid-cols-10">
@@ -18,13 +29,13 @@ const SettingsProfile = () => {
 
             <div class="col-span-8 overflow-hidden rounded-xl sm:bg-gray-50 sm:px-8 sm:shadow">
                 <div class="pt-4">
-                    <h1 class="py-2 text-2xl font-semibold">Configuracion de cuenta</h1>
+                    <h1 class="py-2 text-2xl font-semibold">Configuracion de Cuenta</h1>
                     <p class="font- text-slate-600">Ingrese los datos que desea configurar</p>
                 </div>
             <hr class="mt-4 mb-8" />
             <p class="py-2 text-xl font-semibold">Correo electronico</p>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-gray-600">Su correo electronico es: <strong>mcorderoulate@gmial.com</strong></p>
+                <p class="text-gray-600"><strong>Correo Actual: </strong><u>{userEmail}</u></p>
                 <button class="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Correo</button>
             </div>
             <hr class="mt-4 mb-8" />

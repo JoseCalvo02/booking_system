@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CgProfile, CgLogOut, CgToolbox } from 'react-icons/cg';
 import { FaMoneyBillAlt } from 'react-icons/fa';
-import { TbReport, TbSettings, TbLayoutGrid, TbTimeDuration10 } from 'react-icons/tb';
+import { TbReport, TbSettings, TbLayoutGrid,} from 'react-icons/tb';
 import { jwtDecode } from 'jwt-decode';
 
 const Navbar = () => {
