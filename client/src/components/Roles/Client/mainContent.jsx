@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { getServices } from '../../../../api/serviceApi';
+import { getStylists } from '../../../../api/clientApi';
 
 function MainContent() {
     const [services, setServices] = useState([]); // Define el estado local para almacenar los servicios
     const [selectedService, setSelectedService] = useState('');
+    const [stylists, setStylists] = useState([]); // Define el estado local para almacenar los estilistas
+    const [selectedStylist, setSelectedStylist] = useState('');
 
     // Calendario con las fechas anteriores desactivadas
     const currentDate = new Date().toISOString().split('T')[0];
@@ -25,11 +28,34 @@ function MainContent() {
         fetchServices(); // Llamar a la función para obtener todos los servicios
     }, []);
 
+    useEffect(() => {
+        // Llamar a la función para obtener todos los clientes con el rol 2 de estilista
+        const fetchStylists = async () => {
+            try {
+                const stylists = await getStylists();
+                setStylists(stylists); // Establecer el estado local con los estilistas obtenidos
+            } catch (error) {
+
+                console.error('Error al obtener los estilistas:', error.message);
+            }   
+        };
+
+        fetchStylists(); // Llamar a la función para obtener todos los estilistas
+    }, []);
+    
+
     // Handle service change option
     const handleServiceChange = (event) => {
         setSelectedService(event.target.value);
     };
+
+    // Handle stylist change option
+    const handleStylistChange = (event) => {
+        setSelectedStylist(event.target.value);
+    };  
+    
     const filteredServices = services.filter(service => service.nombreServicio !== 'Seleccionar servicio');
+    const filteredStylists = stylists.filter(stylist => stylist.nombre !== 'Seleccionar estilista');
 
     return (
         <main className='flex flex-col w-full'>
@@ -54,12 +80,11 @@ function MainContent() {
                         />
                         
                         {/* Stylist and time select options */}
-                        <select className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
-                            <option value='' disabled defaultValue className="text-gray-500">Seleccionar estilista</option>
-                            <option value='Fabiola Hernandez'>Fabiola Hernandez</option>
-                            <option value='Luis Martinez'>Luis Martinez</option>
-                            <option value='Maria Lopez'>Maria Lopez</option>
-                            {/* Add more stylist options here */}
+                        <select value={selectedStylist} onChange={handleStylistChange} className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
+                            <option value='' disabled={selectedStylist !== ''} defaultValue hidden className="text-gray-500">Seleccionar estilista</option>
+                            {stylists.map((stylist) => (
+                                <option key={stylist.usuarioID} value={stylist.nombre}>{stylist.nombre}</option>
+                            ))}
                         </select>
 
                         <select className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>

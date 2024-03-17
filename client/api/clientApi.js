@@ -17,3 +17,19 @@ export const getClients = async () => {
         throw new Error('No se pudo obtener los usuarios: ' + error.message);
     }
 };
+
+// Función para obtener todos los estilistas
+export const getStylists = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/stylists`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error){
+        console.error("Error al obtener estilistas:", error.message);
+        throw new Error('No se pudo obtener los estilistas: ' + error.message);
+    }
+};
