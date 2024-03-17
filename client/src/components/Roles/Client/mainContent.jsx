@@ -68,7 +68,7 @@ function MainContent() {
                         <select value={selectedService} onChange={handleServiceChange} className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
                             <option value='' disabled={selectedService !== ''} defaultValue hidden className="text-gray-900">Seleccionar servicio</option>
                             {services.map((service) => (
-                                <option key={service.servicioID} value={service.nombreServicio}>{service.nombreServicio}</option>
+                                <option key={service.servicioID} value={service.nombreServicio}>{service.nombreServicio + '  - Precio - ₡' + service.precio}</option>
                             ))}
                         </select>
                         
