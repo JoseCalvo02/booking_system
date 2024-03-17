@@ -88,10 +88,17 @@ function MainContent() {
                         </select>
 
                         <select className='p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500'>
-                            <option value='' disabled defaultValue className="text-gray-500">Seleccionar hora</option>
-                            <option value='8:00 am'>8:00 am</option>
-                            <option value='9:00 am'>9:00 am</option>
-                            <option value='10:00 am'>10:00 am</option>
+                            <option value=''>Seleccionar hora</option>
+                            <option value=''>7:00 am</option>
+                            <option value=''>8:00 am</option>
+                            <option value=''>9:00 am</option>
+                            <option value=''>10:00 am</option>
+                            <option value=''>11:00 am</option>
+                            <option value=''>1:00 pm</option>
+                            <option value=''>2:00 pm</option>
+                            <option value=''>3:00 pm</option>
+                            <option value=''>4:00 pm</option>
+                            
                             {/* Add more time options here */}
                         </select>
                         <button className='w-40 px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-600 border border-blue-600 rounded-md hover:bg-blue-700 hover:border-blue-700 hover:shadow-lg'>
