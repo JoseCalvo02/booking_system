@@ -3,15 +3,27 @@ import React, { useState, useEffect } from 'react';
 
 const SettingsProfile = () => {
 
-const [userEmail, setUserEmail] = useState(''); // Define el estado local para almacenar el nombre de usuario
+    const [userData, setUserData] = useState({ 
+        nombre: '',
+        correo: '',
+        direccion: '',
+        telefono: '',
+    }); // Define el estado local para almacenar el nombre de usuario
 
-useEffect(() => {
-    const token = localStorage.getItem('token'); // Obtiene el token del almacenamiento local
-    const decoded = jwtDecode(token); // Decodifica el token para obtener la información del usuario
-    setUserEmail(decoded.email); // Almacena el nombre de usuario en el estado local
-}, []);
-
-
+    useEffect(() => {
+        // Obtiene el token de acceso del almacenamiento local
+        const token = localStorage.getItem('token');
+        // Decodifica el token para obtener la información del usuario
+        const decodedToken = jwtDecode(token);
+        // Establece el estado local con la información del usuario
+        setUserData({
+            nombre: decodedToken.nombre,
+            correo: decodedToken.email,
+            direccion: decodedToken.address,
+            telefono: decodedToken.phone
+        });
+    }
+    , []); // Ejecuta el efecto solo una vez
 
   return (
     <div class="mx-4 min-h-screen sm:mx-8 xl:mx-auto max-w-full py-14">
@@ -33,10 +45,18 @@ useEffect(() => {
                     <p class="font- text-slate-600">Ingrese los datos que desea configurar</p>
                 </div>
             <hr class="mt-4 mb-8" />
-            <p class="py-2 text-xl font-semibold">Correo electronico</p>
+            <p class="py-2 text-xl font-semibold">Informacion</p>
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-gray-600"><strong>Correo Actual: </strong><u>{userEmail}</u></p>
+                <p class="text-gray-600"><strong>Nombre Usuario: </strong>{userData.nombre}</p>
+                <button class="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Nombre</button>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-gray-600"><strong>Correo: </strong>{userData.correo}</p>
                 <button class="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Correo</button>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-gray-600"><strong>Direccion: </strong>{userData.direccion}</p>
+                <button class="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Direccion</button>
             </div>
             <hr class="mt-4 mb-8" />
             <p class="py-2 text-xl font-semibold">Contraseña</p>
