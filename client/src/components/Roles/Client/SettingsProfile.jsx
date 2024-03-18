@@ -25,7 +25,7 @@ const SettingsProfile = () => {
     }
     , []); // Ejecuta el efecto solo una vez
 
-  return (
+return (
     <div className="max-w-full min-h-screen mx-4 sm:mx-8 xl:mx-auto py-14">
         <div className="grid grid-cols-6 pt-3 sm:grid-cols-10">
             {/* Navbar */}
@@ -43,20 +43,88 @@ const SettingsProfile = () => {
                 </div>
                 <hr className="mt-4 mb-8" />
                 {/* Second Section */}
-                <p className="py-2 text-xl font-semibold">Informacion</p>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-gray-600"><strong>Nombre Usuario: </strong>{userData.nombre}</p>
-                    <button className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Nombre</button>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-gray-600"><strong>Correo: </strong>{userData.correo}</p>
-                    <button className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Correo</button>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-gray-600"><strong>Direccion: </strong>{userData.direccion}</p>
-                    <button className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Cambiar Direccion</button>
-                </div>
-                <hr className="mt-4 mb-8" />
+                <p className="py-2 text-xl font-semibold">Informacion personal</p>
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Dato Personal
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Informacion Personal
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Accion
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Nombre Usuario
+                            </th>
+                            <td class="px-6 py-4">
+                                {userData.nombre}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Editar
+                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Correo electronico
+                            </th>
+                            <td class="px-6 py-4">
+                                {userData.correo}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Editar
+                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Direccion
+                            </th>
+                            <td class="px-6 py-4">
+                                {userData.direccion}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Editar
+                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                Telefono
+                            </th>
+                            <td class="px-6 py-4">
+                                {userData.telefono}
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Editar
+                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 {/* Third Section */}
                 <p className="py-2 text-xl font-semibold">Contraseña</p>
                 <div className="flex items-center">
@@ -64,13 +132,13 @@ const SettingsProfile = () => {
                         <label htmlFor="login-password">
                             <span className="text-sm text-gray-500">Contraseña actual</span>
                             <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
-                            <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="***********" />
+                                <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
                             </div>
                         </label>
                         <label htmlFor="login-passwordNew">
                             <span className="text-sm text-gray-500">Nueva contraseña</span>
                             <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
-                            <input type="password" id="login-passwordNew" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="***********" />
+                                <input type="password" id="login-passwordNew" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
                             </div>
                         </label>
                     </div>
@@ -90,7 +158,7 @@ const SettingsProfile = () => {
             </section>
         </div>
     </div>
-  );
+);
 };
 
 export default SettingsProfile;
