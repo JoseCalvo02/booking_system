@@ -1,48 +1,85 @@
 import React from 'react';
-import Manicure from '../../../assets/Manicure.jpg';
 
 function RewardsClient() {
     return (
-        <div className="relative h-screen overflow-x-auto shadow-md sm:rounded-lg">
-            <h1 className="m-auto text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black mt-28">
-                Recompensas Ganadas
-            </h1>
-            <table className="w-full mt-5 text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-                <thead className="text-xs text-black uppercase bg-gray-50 dark:bg-gray-900 dark:text-white">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Recompensa
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Fecha
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Puntos Ganados
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Accion
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr className="bg-white border-b dark:bg-gray-300 dark:border-gray-700 hover:bg-gray-300 dark:hover:bg-orange-300">
-                        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-black">
-                            Recompensa 1
-                        </td>
-                        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-black">
-                            18/05/2023
-                        </td>
-                        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-black">
-                            75
-                        </td>
-                        <td className="px-6 py-4">
-                            <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline">Canjear</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <section className="flex flex-grow w-full h-screen py-8 shadow-custom rounded-xl">
+            <div className="w-1/2 h-screen mt-28">
+                <div className="p-4 rounded-lg md:p-8">
+                    <div className="max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-black sm:grid-cols-3 xl:grid-cols-6 sm:p-8">
+                        <h1 className="mb-4 text-3xl font-bold text-center">Perfil de Usuario</h1>
+                        <hr className="mb-4"></hr>
+                        <table className="w-full mb-4 text-left table-fixed">
+                            <tbody>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">Usuario:</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">Pedro</td>
+                                </tr>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">Puntos Acumulados:</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">10,000</td>
+                                </tr>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">Puntos Canjeados:</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">7,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr className="mt-4"></hr>
+                    </div>
+                </div>
+            </div>
 
+            <div className="w-1/2 h-screen mt-28">
+            <div className="p-4 rounded-lg md:p-8">
+                    <div className="max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-black sm:grid-cols-3 xl:grid-cols-6 sm:p-8">
+                        <h1 className="mb-4 text-3xl font-bold text-center">Recompensas Disponibles</h1>
+                        <hr className="mb-4"></hr>
+                        <table className="w-full mb-4 text-left table-fixed">
+                            <tbody>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">25% Descuento</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">5,000 Puntos</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">
+                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Canjear
+                                        <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                        </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">50% Descuento</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">10,000 puntos</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">
+                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Canjear
+                                        <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                        </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-1/3 px-4 py-2 font-medium">100% Descuento</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">15,000 Puntos</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">
+                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        Canjear
+                                        <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                        </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        <hr className="mt-4"></hr>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
