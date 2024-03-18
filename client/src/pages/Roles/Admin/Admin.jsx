@@ -18,7 +18,7 @@ export default function Admin() {
         if (token) {
             const decodedToken = jwtDecode(token);
             console.log(decodedToken);
-            setUserName(decodedToken.nombre); // Establecer el nombre de usuario en el estado local
+            setUserName(decodedToken.name); // Establecer el nombre de usuario en el estado local
         }else{
             setUserName('Usuario');
         }
@@ -58,7 +58,7 @@ export default function Admin() {
                 </header>
 
                 {/* Main */}
-                <section className='flex flex-grow gap-8 m-6'>
+                <section className='flex gap-8 m-6 h-[85vh]'>
                     <Outlet />
                 </section>
             </main>

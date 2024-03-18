@@ -118,7 +118,7 @@ export const loginUser = async (req, res) => {
         const expiresIn = 3600; // 1h
 
         // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
-        const token = jwt.sign({ userId: user.id, nombre: user.nombre, email: user.correo, role: roleName.nombreRol, address: user.direccion, phone: user.telefono}, process.env.JWT_SECRET, { expiresIn });
+        const token = jwt.sign({ userId: user.id, name: user.nombre, lastName: user.apellidos , email: user.correo, role: roleName.nombreRol, address: user.direccion, phone: user.telefono}, process.env.JWT_SECRET, { expiresIn });
         console.log('Token generado:', token);
 
         // Devuelve el token con la información del usuario

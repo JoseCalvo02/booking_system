@@ -17,7 +17,7 @@ const SettingsProfile = () => {
         const decodedToken = jwtDecode(token);
         // Establece el estado local con la información del usuario
         setUserData({
-            nombre: decodedToken.nombre,
+            nombre: decodedToken.name,
             correo: decodedToken.email,
             direccion: decodedToken.address,
             telefono: decodedToken.phone
