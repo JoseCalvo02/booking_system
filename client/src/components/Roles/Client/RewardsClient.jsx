@@ -1,6 +1,24 @@
-import React from 'react';
+import { jwtDecode } from 'jwt-decode';
+import React, { useState, useEffect } from 'react';
 
 function RewardsClient() {
+
+const [userData, setUserData] = useState({
+    nombre: '',
+});
+
+useEffect(() => {
+    // Obtiene el token de acceso del almacenamiento local
+    const token = localStorage.getItem('token');
+    // Decodifica el token para obtener la información del usuario
+    const decodedToken = jwtDecode(token);
+    // Establece el estado local con la información del usuario
+    setUserData({
+        nombre: decodedToken.name,
+    });
+}
+, []); // Ejecuta el efecto solo una vez
+
     return (
         <section className="flex flex-grow w-full h-screen py-8 shadow-custom rounded-xl">
             <div className="w-1/2 h-screen mt-28">
@@ -12,16 +30,16 @@ function RewardsClient() {
                             <tbody>
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Usuario:</td>
-                                    <td className="w-2/3 px-4 py-2 font-bold">Pedro</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">{userData.nombre}</td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Puntos Acumulados:</td>
-                                    <td className="w-2/3 px-4 py-2 font-bold">10,000</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">0</td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Puntos Canjeados:</td>
-                                    <td className="w-2/3 px-4 py-2 font-bold">7,000</td>
-                                </tr>
+                                    <td className="w-2/3 px-4 py-2 font-bold">0</td>
+                                </tr><br></br>
                             </tbody>
                         </table>
                         <hr className="mt-4"></hr>
@@ -78,7 +96,7 @@ function RewardsClient() {
                         <hr className="mt-4"></hr>
                     </div>
                 </div>
-            </div>
+            </div>       
         </section>
     );
 }

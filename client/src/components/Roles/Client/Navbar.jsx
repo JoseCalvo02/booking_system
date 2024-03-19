@@ -19,7 +19,7 @@ const Navbar = () => {
         if (token) {
             const decodedToken = jwtDecode(token);
             console.log(decodedToken);
-            setUserName(decodedToken.nombre); // Establecer el nombre de usuario en el estado local
+            setUserName(decodedToken.name); // Establecer el nombre de usuario en el estado local
         }else{
             setUserName('Usuario');
         }
