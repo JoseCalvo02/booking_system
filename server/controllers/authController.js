@@ -114,11 +114,22 @@ export const loginUser = async (req, res) => {
             }
         });
 
+        // Obtiene los puntos acumulados y canjeados del usuario
+        const userPoints = await prisma.PuntosClientes.findFirst({
+            where: {
+                clienteID: user.usuarioID
+            },
+            select: {
+                puntosAcumulados: true,
+                puntosCanjeados: true
+            }
+        });
+
         // Define la duración del token en segundos
         const expiresIn = 3600; // 1h
 
         // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
-        const token = jwt.sign({ userId: user.id, name: user.nombre, lastName: user.apellidos , email: user.correo, role: roleName.nombreRol, address: user.direccion, phone: user.telefono}, process.env.JWT_SECRET, { expiresIn });
+        const token = jwt.sign({ userId: user.id, name: user.nombre, lastName: user.apellidos , email: user.correo, role: roleName.nombreRol, address: user.direccion, phone: user.telefono, puntosAcumulados: userPoints.puntosAcumulados, puntosCanjeados: userPoints.puntosCanjeados}, process.env.JWT_SECRET, { expiresIn });
         console.log('Token generado:', token);
 
         // Devuelve el token con la información del usuario

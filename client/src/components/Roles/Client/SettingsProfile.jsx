@@ -3,27 +3,27 @@ import React, { useState, useEffect } from 'react';
 
 const SettingsProfile = () => {
 
-    const [userData, setUserData] = useState({
-        nombre: '',
-        correo: '',
-        direccion: '',
-        telefono: '',
-    }); // Define el estado local para almacenar el nombre de usuario
+const [userData, setUserData] = useState({
+    nombre: '',
+    correo: '',
+    direccion: '',
+    telefono: '',
+}); // Define el estado local para almacenar el nombre de usuario
 
-    useEffect(() => {
-        // Obtiene el token de acceso del almacenamiento local
-        const token = localStorage.getItem('token');
-        // Decodifica el token para obtener la información del usuario
-        const decodedToken = jwtDecode(token);
-        // Establece el estado local con la información del usuario
-        setUserData({
-            nombre: decodedToken.name,
-            correo: decodedToken.email,
-            direccion: decodedToken.address,
-            telefono: decodedToken.phone
-        });
-    }
-    , []); // Ejecuta el efecto solo una vez
+useEffect(() => {
+    // Obtiene el token de acceso del almacenamiento local
+    const token = localStorage.getItem('token');
+    // Decodifica el token para obtener la información del usuario
+    const decodedToken = jwtDecode(token);
+    // Establece el estado local con la información del usuario
+    setUserData({
+        nombre: decodedToken.name,
+        correo: decodedToken.email,
+        direccion: decodedToken.address,
+        telefono: decodedToken.phone
+    });
+}
+, []); // Ejecuta el efecto solo una vez
 
 return (
     <div className="max-w-full min-h-screen mx-4 sm:mx-8 xl:mx-auto py-14">
