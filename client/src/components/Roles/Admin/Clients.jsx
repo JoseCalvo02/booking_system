@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getUsersByType } from '../../../../api/clientApi';
+import { getUsersByType } from '../../../../api/userApi';
 import customStyles from '../../../custom/customStyles';
 
 const Clients = () => {
