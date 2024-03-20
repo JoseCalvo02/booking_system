@@ -11,7 +11,7 @@ dotenv.config();
 import authenticateToken from "./Middleware/authMiddleware.js";
 // Rutas
 import authRoutes from "./routes/auth.routes.js";
-import clientRoutes from "./routes/client.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import serviceRoutes from "./routes/service.routes.js";
 
 const PORT = 3000; // Puerto en el que se ejecutará el servidor
@@ -41,7 +41,7 @@ prisma.$connect()
 
 // Definición de rutas de la aplicación
 app.use("/api/auth", authRoutes);
-app.use("/api/client",authenticateToken, clientRoutes);
+app.use("/api/user",authenticateToken, userRoutes);
 app.use("/api/service",authenticateToken, serviceRoutes);
 
 // Iniciar el servidor

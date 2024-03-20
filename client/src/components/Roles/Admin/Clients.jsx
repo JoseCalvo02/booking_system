@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getClients } from '../../../../api/clientApi';
+import { getUsersByType } from '../../../../api/clientApi';
 import customStyles from '../../../custom/customStyles';
 
 const Clients = () => {
@@ -7,16 +7,16 @@ const Clients = () => {
 
     useEffect(() => {
         // Llamar a la función para obtener todos los usuarios
-        const fetchClients = async () => {
+        const fetchClients = async (type) => {
             try {
-                const clients = await getClients();
+                const clients = await getUsersByType(type);
                 setClients(clients); // Establecer el estado local con los usuarios obtenidos
             } catch (error) {
                 console.error('Error al obtener los usuarios:', error.message);
             }
         };
 
-        fetchClients(); // Llamar a la función para obtener todos los usuarios
+        fetchClients('clients'); // Llamar a la función para obtener todos los clientes
     }, []);
 
 
