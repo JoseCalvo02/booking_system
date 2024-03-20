@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+//Modals
+import EmailChangeModal from '../../Modals/EmailChangeModal';
+import AddressChangeModal from '../../Modals/AddressChangeModal';
 
 const Profile = () => {
     const [userData, setUserData] = useState({
@@ -22,6 +25,14 @@ const Profile = () => {
             address: decodedToken.address
         }); // Establecer el nombre de usuario en el estado local
     }, []);
+
+    const handleEmailChange = () => {
+        EmailChangeModal();
+    };
+
+    const handleAddressChange = () => {
+        AddressChangeModal();
+    };
 
     return (
         <div className='grid w-full grid-cols-6 py-8 pl-4 pr-8 overflow-y-auto bg-white shadow-custom rounded-xl sm:grid-cols-10'>
@@ -53,7 +64,7 @@ const Profile = () => {
                             <strong>Email:</strong>
                             <span className='ml-1'>{userData.email}</span>
                         </p>
-                        <button className="inline-flex text-sm font-semibold text-primary hover:underline decoration-2">Cambiar Correo</button>
+                        <button className="inline-flex text-sm font-semibold text-primary hover:underline decoration-2" onClick={handleEmailChange}>Cambiar Correo</button>
                     </div>
 
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -61,7 +72,7 @@ const Profile = () => {
                             <strong>Dirección:</strong>
                             <span className='ml-1'>{userData.address}</span>
                         </p>
-                        <button className="inline-flex text-sm font-semibold text-primary hover:underline decoration-2">Cambiar Dirección</button>
+                        <button className="inline-flex text-sm font-semibold text-primary hover:underline decoration-2" onClick={handleAddressChange}>Cambiar Dirección</button>
                     </div>
                 </div>
 
@@ -71,22 +82,22 @@ const Profile = () => {
                     <div className="flex items-center">
                         <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <label htmlFor="login-password">
-                                <span className="text-sm text-gray-500">Contraseña actual</span>
+                                <span className="text-sm text-gray-600">Contraseña actual</span>
                                 <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
-                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="********" />
+                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
                                 </div>
                             </label>
                             <label htmlFor="login-password">
-                                <span className="text-sm text-gray-500">Nueva contraseña</span>
+                                <span className="text-sm text-gray-600">Nueva contraseña</span>
                                 <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
-                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="********" />
+                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
                                 </div>
                             </label>
                         </div>
                     </div>
-                    <div className='flex'>
-                        <span className="mt-2"> No recuerdas tu contraseña  actual.</span>
-                        <button className="text-sm font-semibold text-primary hover:underline decoration-2" href="#">Recuperar contraseña</button>
+                    <div className='flex gap-1 mt-2 text-sm'>
+                        <span> No recuerdas tu contraseña actual.</span>
+                        <button className="font-semibold text-primary hover:underline decoration-2" href="#">Recuperar contraseña</button>
                     </div>
                     <button className="px-4 py-2 mt-4 text-white rounded-lg bg-primary hover:bg-primary_h">Guardar contraseña</button>
                 </div>

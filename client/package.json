@@ -23,6 +23,7 @@
     "react-toastify": "^10.0.4",
     "react-typed": "^2.0.12",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.10.6",
     "tailwind-merge": "^2.2.2",
     "tailwindcss": "^3.4.1"
   },
