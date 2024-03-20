@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { getServices } from '../../../../api/serviceApi';
-import { getStylists } from '../../../../api/clientApi';
+import { getUsersByType } from '../../../../api/userApi';
 
 function MainContent() {
     const [services, setServices] = useState([]); // Define el estado local para almacenar los servicios
@@ -15,32 +15,18 @@ function MainContent() {
         };
 
     useEffect(() => {
-        // Llamar a la función para obtener todos los servicios
-        const fetchServices = async () => {
+        // Llamar a la función para obtener todos los servicios y estilistas
+        const fetchData = async () => {
             try {
-                const services = await getServices();
+                const [services, stylists] = await Promise.all([getServices(), getUsersByType('stylists')]);
                 setServices(services); // Establecer el estado local con los servicios obtenidos
-            } catch (error) {
-                console.error('Error al obtener los servicios:', error.message);
-            }
-        };
-
-        fetchServices(); // Llamar a la función para obtener todos los servicios
-    }, []);
-
-    useEffect(() => {
-        // Llamar a la función para obtener todos los clientes con el rol 2 de estilista
-        const fetchStylists = async () => {
-            try {
-                const stylists = await getStylists();
                 setStylists(stylists); // Establecer el estado local con los estilistas obtenidos
             } catch (error) {
-
-                console.error('Error al obtener los estilistas:', error.message);
+                console.error('Error al obtener los datos:', error.message);
             }
         };
 
-        fetchStylists(); // Llamar a la función para obtener todos los estilistas
+        fetchData (); // Llamar a la función para obtener todos los servicios
     }, []);
 
     // Handle service change option
@@ -52,8 +38,6 @@ function MainContent() {
     const handleStylistChange = (event) => {
         setSelectedStylist(event.target.value);
     };
-    const filteredServices = services.filter(service => service.nombreServicio !== 'Seleccionar servicio');
-    const filteredStylists = stylists.filter(stylist => stylist.nombre !== 'Seleccionar estilista');
 
     return (
         <main className='flex flex-col w-full'>
