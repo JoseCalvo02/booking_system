@@ -5,6 +5,8 @@ function RewardsClient() {
 
 const [userData, setUserData] = useState({
     nombre: '',
+    puntosAcumulados: 0,
+    puntosCanjeados: 0
 });
 
 useEffect(() => {
@@ -15,9 +17,11 @@ useEffect(() => {
     // Establece el estado local con la información del usuario
     setUserData({
         nombre: decodedToken.name,
+        puntosAcumulados: decodedToken.puntosAcumulados,
+        puntosCanjeados: decodedToken.puntosCanjeados
     });
 }
-, []); // Ejecuta el efecto solo una vez
+, []);
 
     return (
         <section className="flex flex-grow w-full h-screen py-8 shadow-custom rounded-xl">
@@ -34,11 +38,11 @@ useEffect(() => {
                                 </tr>
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Puntos Acumulados:</td>
-                                    <td className="w-2/3 px-4 py-2 font-bold">0</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">{userData.puntosAcumulados}</td>
                                 </tr>
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Puntos Canjeados:</td>
-                                    <td className="w-2/3 px-4 py-2 font-bold">0</td>
+                                    <td className="w-2/3 px-4 py-2 font-bold">{userData.puntosCanjeados}</td>
                                 </tr><br></br>
                             </tbody>
                         </table>
