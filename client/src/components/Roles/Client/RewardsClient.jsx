@@ -9,6 +9,7 @@ const [userData, setUserData] = useState({
     puntosCanjeados: 0
 });
 
+
 useEffect(() => {
     // Obtiene el token de acceso del almacenamiento local
     const token = localStorage.getItem('token');
