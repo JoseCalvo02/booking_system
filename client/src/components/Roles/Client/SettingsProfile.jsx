@@ -2,6 +2,8 @@ import { jwtDecode } from 'jwt-decode';
 import React, { useState, useEffect } from 'react';
 import EmailChangeModal from '../../Modals/EmailChangeModal';
 import AddressChangeModal from '../../Modals/AddressChangeModal';
+import NameChangeModal from '../../Modals/NameChangeModal';
+import PhoneChangeModal from '../../Modals/PhoneChangeModal';
 
 const SettingsProfile = () => {
 
@@ -34,6 +36,14 @@ const handleEmailChange = () => {
 const handleAddressChange = () => {
     AddressChangeModal();
 };
+
+const handleNameChange = () => {
+    NameChangeModal();
+}
+
+const handlePhoneChange = () => {
+    PhoneChangeModal();
+}
 
 return (
     <div className="max-w-full min-h-screen mx-4 sm:mx-8 xl:mx-auto py-14">
@@ -77,7 +87,7 @@ return (
                                 {userData.nombre}
                             </td>
                             <td className="px-6 py-4">
-                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="#" onClick={handleNameChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Editar
                                     <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -125,7 +135,7 @@ return (
                                 {userData.telefono}
                             </td>
                             <td className="px-6 py-4">
-                                <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="#" onClick={handlePhoneChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Editar
                                     <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
