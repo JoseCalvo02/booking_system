@@ -1,5 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useState, useEffect } from 'react';
+import RedeemedModal from '../../Modals/RedeemedModal';
 
 function RewardsClient() {
 
@@ -23,6 +24,10 @@ useEffect(() => {
     });
 }
 , []);
+
+const handleRedeem = async () => {
+    await RedeemedModal();
+}
 
     return (
         <section className="flex flex-grow w-full h-screen py-8 shadow-custom rounded-xl">
@@ -63,7 +68,7 @@ useEffect(() => {
                                     <td className="w-1/3 px-4 py-2 font-medium">25% Descuento</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">5,000 Puntos</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">
-                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <a onClick={handleRedeem} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Canjear
                                         <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -75,7 +80,7 @@ useEffect(() => {
                                     <td className="w-1/3 px-4 py-2 font-medium">50% Descuento</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">10,000 puntos</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">
-                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <a onClick={handleRedeem} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Canjear
                                         <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -87,7 +92,7 @@ useEffect(() => {
                                     <td className="w-1/3 px-4 py-2 font-medium">100% Descuento</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">15,000 Puntos</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">
-                                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        <a onClick={handleRedeem} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Canjear
                                         <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
