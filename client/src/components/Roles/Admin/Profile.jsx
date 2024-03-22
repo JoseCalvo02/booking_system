@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from '../../../../utils/tokenUtils';
 //Modals
 import EmailChangeModal from '../../Modals/EmailChangeModal';
 import AddressChangeModal from '../../Modals/AddressChangeModal';
@@ -13,10 +13,7 @@ const Profile = () => {
     }); // Define el estado local para almacenar el nombre de usuario
 
     useEffect(() => {
-        // Decodificar el token JWT para obtener la información del usuario, como el nombre
-        const token = localStorage.getItem('token');
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
+        const decodedToken = decodeToken(); // Decodificar el token JWT
         setUserData({
             name: decodedToken.name,
             lastName: decodedToken.lastName,

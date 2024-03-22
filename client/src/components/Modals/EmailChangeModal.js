@@ -1,5 +1,4 @@
 import Swal from 'sweetalert2';
-import { decodeToken } from '../../../utils/tokenUtils';
 import { updateUserEmail } from '../../../api/userApi';
 
 const EmailChangeModal = async () => {
@@ -29,13 +28,8 @@ const EmailChangeModal = async () => {
     if (newEmail) {
         // Imprimir el nuevo correo electrónico en la consola
         console.log('Nuevo correo electrónico ingresado:', newEmail);
-        // Decodificar el token JWT para obtener la información del usuario
-        const decodedToken = decodeToken();
 
-        // Imprimir el nuevo correo electrónico en la consola
-        console.log('Id del usuario:', decodedToken.userId);
-
-        //const updatedUser = await updateUserEmail(decodedToken.userId, newEmail);
+        const updatedUser = await updateUserEmail(newEmail);
     }
 };
 

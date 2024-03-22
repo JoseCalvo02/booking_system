@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom'; //Para anidar rutas
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from '../../../../utils/tokenUtils'; //Función para decodificar el token JWT
 //Components
 import Sidebar from '../../../components/Shared/Sidebar/Sidebar'
 //Icons
@@ -13,15 +13,9 @@ export default function Admin() {
 
     useEffect(() => {
         // Decodificar el token JWT para obtener la información del usuario, como el nombre
-        const token = localStorage.getItem('token');
+        const decodedToken = decodeToken();
 
-        if (token) {
-            const decodedToken = jwtDecode(token);
-            console.log(decodedToken);
-            setUserName(decodedToken.name); // Establecer el nombre de usuario en el estado local
-        }else{
-            setUserName('Usuario');
-        }
+        decodedToken ? setUserName(decodedToken.name) : setUserName('Usuario');
     }, []);
 
     // Función para alternar entre los iconos al hacer clic
