@@ -2,9 +2,9 @@ import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
-// Funciones y helpers
-import { validateForm } from './helpers/formValidation';
-import { handleSubmit } from './helpers/formSubmission';
+// Funciones y utils
+import { validateForm } from './utils/formValidation';
+import { handleSubmit } from './utils/formSubmission';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
