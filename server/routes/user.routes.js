@@ -15,4 +15,10 @@ router.get("/:type", async (req, res) => {
     }
 });
 
+// Ruta para que un administrador actualice el correo de un usuario
+//router.put("/:userId/email", updateUserEmail);
+
+// Ruta para que un administrador actualice la dirección de un usuario
+//router.put("/:userId/address", updateUserAddress);
+
 export default router;
