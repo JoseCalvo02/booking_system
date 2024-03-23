@@ -7,12 +7,18 @@ import AddressChangeModal from '../../Modals/AddressChangeModal';
 const Profile = () => {
     const [userData, setUserData] = useState({
         name: '',
+        lastName: '',
         email: '',
         address: '',
         phone: '',
     }); // Define el estado local para almacenar el nombre de usuario
 
     useEffect(() => {
+        loadUserData(); // Lógica para cargar los datos del usuario al montar el componente
+    }, []);
+
+    const loadUserData = () => {
+        // Decodificar el token JWT y establecer los datos en el estado local
         const decodedToken = decodeToken(); // Decodificar el token JWT
         setUserData({
             name: decodedToken.name,
@@ -20,11 +26,11 @@ const Profile = () => {
             email: decodedToken.email,
             phone: decodedToken.phone,
             address: decodedToken.address
-        }); // Establecer el nombre de usuario en el estado local
-    }, []);
+        }); // Establecer los datos del usuario en el estado local
+    };
 
     const handleEmailChange = () => {
-        EmailChangeModal();
+        EmailChangeModal(setUserData);
     };
 
     const handleAddressChange = () => {

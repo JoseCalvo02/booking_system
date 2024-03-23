@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { updateUserEmail } from '../../../api/userApi';
 
-const EmailChangeModal = async () => {
+const EmailChangeModal = async (setUserData) => {
     const { value: newEmail } = await Swal.fire({
         title: 'Ingrese su nuevo correo electrónico',
         input: 'email',
@@ -29,7 +29,25 @@ const EmailChangeModal = async () => {
         // Imprimir el nuevo correo electrónico en la consola
         console.log('Nuevo correo electrónico ingresado:', newEmail);
 
-        const updatedUser = await updateUserEmail(newEmail);
+        try {
+            // Actualiza el correo electrónico en el backend y en el estado local
+            await updateUserEmail(newEmail);
+            setUserData((prevUserData) => ({ ...prevUserData, email: newEmail }));
+
+            // Mostrar mensaje de éxito
+            Swal.fire({
+                icon: 'success',
+                title: 'Correo electrónico actualizado',
+                text: `El correo electrónico se ha actualizado a ${newEmail}`
+            });
+        } catch (error) {
+            console.error('Error al actualizar el correo electrónico:', error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al actualizar el correo electrónico',
+                text: error.message
+            });
+        }
     }
 };
 

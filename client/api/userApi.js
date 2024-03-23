@@ -14,8 +14,7 @@ export const getUsersByType = async (type) => {
         });
         return response.data;
     } catch (error){
-        console.error(`Error al obtener los ${type}:`, error.message);
-        throw new Error(`No se pudieron obtener los ${type}: ${error.message}`);
+        throw new Error(`No se pudieron obtener los ${type}: ${error.response.data.error || error.message}`);
     }
 };
 
@@ -31,9 +30,14 @@ export const updateUserEmail = async (newEmail) => {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
+
+        const newDecodedToken = jwtDecode(response.data.newToken); // Decodificar el nuevo token JWT
+        console.log('Nueva info:', newDecodedToken); // Mostrar la información del usuario actualizada
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
         return response.data;
     } catch (error) {
-        console.error('Error al actualizar el correo electrónico:', error.message);
-        throw new Error(`No se pudo actualizar el correo electrónico: ${error.message}`);
+        throw new Error(`No se pudo actualizar el correo electrónico: ${error.response.data.error || error.message}`);
     }
 };
