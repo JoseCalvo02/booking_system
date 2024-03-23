@@ -1,8 +1,8 @@
 import { validationResult } from "express-validator"; // Importar la función de validación de la biblioteca express-validator
-import jwt from "jsonwebtoken"; // Importar la biblioteca jsonwebtoken para generar tokens de acceso
 import bcrypt from "bcrypt"; // Importar la biblioteca bcrypt para encriptar contraseñas
 
 import prisma from "../prisma/prisma.js"; // Importar el Prisma Client
+import { generateNewToken } from "../utils/jwtService.js"; // Importar la función para generar un nuevo token JWT
 
 // Función para crear un nuevo usuario en la base de datos
 export const createUser = async (req, res) => {
@@ -104,33 +104,7 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ error: 'El usuario está inactivo. Contacta al administrador.' });
         }
 
-        // Obtiene el nombre del rol del usuario utilizando la relación inversa
-        const roleName = await prisma.Roles.findUnique({
-            where: {
-                rolID: user.rolID
-            },
-            select: {
-                nombreRol: true
-            }
-        });
-
-        // Obtiene los puntos acumulados y canjeados del usuario
-        const userPoints = await prisma.PuntosClientes.findFirst({
-            where: {
-                clienteID: user.usuarioID
-            },
-            select: {
-                puntosAcumulados: true,
-                puntosCanjeados: true
-            }
-        });
-
-        // Define la duración del token en segundos
-        const expiresIn = 3600; // 1h
-
-        // Genera el token JWT con la información del usuario y la clave secreta del archivo .env
-        const token = jwt.sign({ userId: user.usuarioID, name: user.nombre, lastName: user.apellidos , email: user.correo, role: roleName.nombreRol, address: user.direccion, phone: user.telefono, puntosAcumulados: userPoints.puntosAcumulados, puntosCanjeados: userPoints.puntosCanjeados}, process.env.JWT_SECRET, { expiresIn });
-        console.log('Token generado:', token);
+        const token = await generateNewToken(user);
 
         // Devuelve el token con la información del usuario
         return res.status(200).json({ token });
