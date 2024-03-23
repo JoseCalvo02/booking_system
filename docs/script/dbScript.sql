@@ -25,7 +25,8 @@ CREATE TABLE Usuarios (
     contra VARCHAR(60) NOT NULL,
     rolID INT,
 	estado varchar(15),
-    CONSTRAINT fk_Usuarios_rolID FOREIGN KEY (rolID) REFERENCES Roles(rolID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_Usuarios_rolID FOREIGN KEY (rolID) REFERENCES Roles(rolID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT UQ_Usuarios_correo UNIQUE (correo)
 );
 
 -- ------------------------------------- Table BitacoraCliente ----------------------------------

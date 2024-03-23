@@ -142,7 +142,7 @@ model Usuarios {
   nombre                            String                 @db.VarChar(50)
   apellidos                         String                 @db.VarChar(50)
   telefono                          String?                @db.VarChar(20)
-  correo                            String                 @db.VarChar(100)
+  correo                            String                 @unique(map: "UQ_Usuarios_correo") @db.VarChar(100)
   direccion                         String?                @db.VarChar(255)
   contra                            String                 @db.VarChar(60)
   rolID                             Int?
