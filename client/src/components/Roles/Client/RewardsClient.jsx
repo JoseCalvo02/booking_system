@@ -1,6 +1,7 @@
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from '../../../../utils/tokenUtils';
 import React, { useState, useEffect } from 'react';
 import RedeemedModal from '../../Modals/RedeemedModal';
+
 
 function RewardsClient() {
 
@@ -10,23 +11,22 @@ const [userData, setUserData] = useState({
     puntosCanjeados: 0
 });
 
-
 useEffect(() => {
-    // Obtiene el token de acceso del almacenamiento local
-    const token = localStorage.getItem('token');
-    // Decodifica el token para obtener la información del usuario
-    const decodedToken = jwtDecode(token);
-    // Establece el estado local con la información del usuario
+    loadUserData();// Lógica para cargar los datos del usuario al montar el componente
+}, []);
+
+const loadUserData = () => {
+    // Decodificar el token JWT y establecer los datos en el estado local
+    const decodedToken = decodeToken(); // Decodificar el token JWT
     setUserData({
         nombre: decodedToken.name,
-        puntosAcumulados: decodedToken.puntosAcumulados,
-        puntosCanjeados: decodedToken.puntosCanjeados
-    });
-}
-, []);
+        puntosAcumulados: decodedToken.userPoints.puntosAcumulados,
+        puntosCanjeados: decodedToken.userPoints.puntosCanjeados
+    }); // Establecer los datos del usuario en el estado local
+};
 
 const handleRedeem = async () => {
-    await RedeemedModal();
+await RedeemedModal();
 }
 
     return (
@@ -49,7 +49,7 @@ const handleRedeem = async () => {
                                 <tr>
                                     <td className="w-1/3 px-4 py-2 font-medium">Puntos Canjeados:</td>
                                     <td className="w-2/3 px-4 py-2 font-bold">{userData.puntosCanjeados}</td>
-                                </tr><br></br>
+                                </tr>
                             </tbody>
                         </table>
                         <hr className="mt-4"></hr>

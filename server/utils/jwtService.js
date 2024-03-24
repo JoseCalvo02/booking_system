@@ -19,7 +19,7 @@ export const generateNewToken = async (user) => {
     // Obtiene los puntos acumulados y canjeados del usuario
     const userPoints = await prisma.PuntosClientes.findFirst({
         where: {
-            clienteID: user.userId
+            clienteID: user.usuarioID
         },
         select: {
             puntosAcumulados: true,
