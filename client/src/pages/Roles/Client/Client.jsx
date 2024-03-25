@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
 
-import Navbar from '../../../components/Roles/Client/Navbar'
+import Navbar from '../../../components/Client/Navbar'
 import Footer from '../../../components/Shared/Footer/Footer'
 
 function Client() {

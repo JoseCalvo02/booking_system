@@ -1,9 +1,9 @@
 import React from 'react';
-import Manicure from '../../../assets/Manicure.jpg';
-import Pedicure from '../../../assets/Pedicure.jpg';
-import Masaje from '../../../assets/Masaje.jpg';
-import Facial from '../../../assets/Facial.jpg';
-import Ceja from '../../../assets/Ceja.jpg';
+import Manicure from '../../assets/Manicure.jpg';
+import Pedicure from '../../assets/Pedicure.jpg';
+import Masaje from '../../assets/Masaje.jpg';
+import Facial from '../../assets/Facial.jpg';
+import Ceja from '../../assets/Ceja.jpg';
 
 function ServicesContent() {
     return (

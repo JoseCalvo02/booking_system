@@ -1,7 +1,7 @@
 import React from 'react';
-import DownloandPDFModal from '../../Modals/DownloandPDFModal';
-import PDF1 from '../../../components/Roles/Client/PDF/PDF_1';
-import PDF2 from '../../../components/Roles/Client/PDF/PDF_2';
+import DownloandPDFModal from '../Modals/DownloandPDFModal';
+import PDF1 from '../../components/Client/PDF/PDF_1';
+import PDF2 from '../../components/Client/PDF/PDF_2';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 
 const handleDownload = async () => {

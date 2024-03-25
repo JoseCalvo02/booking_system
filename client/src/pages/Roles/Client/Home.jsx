@@ -1,8 +1,8 @@
 import React from 'react'
-import MainContent from '../../../components/Roles/Client/MainContent'
+import MainContent from '../../../components/Client/MainContent'
 import ContactUs from '../../../components/Home/ContactUs'
-import ServicesContent from '../../../components/Roles/Client/ServicesContent'
-import Ubication from '../../../components/Roles/Client/Ubication'
+import ServicesContent from '../../../components/Client/ServicesContent'
+import Ubication from '../../../components/Client/Ubication'
 
 function Client() {
     return (

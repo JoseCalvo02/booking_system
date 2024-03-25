@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getServices } from '../../../../api/serviceApi';
-import { getUsersByType } from '../../../../api/userApi';
+import { getServices } from '../../../api/serviceApi';
+import { getUsersByType } from '../../../api/userApi';
 
 function MainContent() {
     const [services, setServices] = useState([]);

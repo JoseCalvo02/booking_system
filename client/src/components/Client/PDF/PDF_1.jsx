@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import { jwtDecode } from 'jwt-decode';
-import Logo from '../../../../assets/logo.png';
+import Logo from '../../../assets/logo.png';
 
 const PDF_1 = () => {
   const [ipAddress, setIpAddress] = useState('');

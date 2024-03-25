@@ -1,6 +1,6 @@
-import { decodeToken } from '../../../../utils/tokenUtils';
+import { decodeToken } from '../../../utils/tokenUtils';
 import React, { useState, useEffect } from 'react';
-import RedeemedModal from '../../Modals/RedeemedModal';
+import RedeemedModal from '../Modals/RedeemedModal';
 
 
 function RewardsClient() {

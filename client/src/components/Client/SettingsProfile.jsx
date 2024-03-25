@@ -1,9 +1,9 @@
 import { jwtDecode } from 'jwt-decode';
 import React, { useState, useEffect } from 'react';
-import EmailChangeModal from '../../Modals/EmailChangeModal';
-import AddressChangeModal from '../../Modals/AddressChangeModal';
-import NameChangeModal from '../../Modals/NameChangeModal';
-import PhoneChangeModal from '../../Modals/PhoneChangeModal';
+import EmailChangeModal from '../Modals/EmailChangeModal';
+import AddressChangeModal from '../Modals/AddressChangeModal';
+import NameChangeModal from '../Modals/NameChangeModal';
+import PhoneChangeModal from '../Modals/PhoneChangeModal';
 
 const SettingsProfile = () => {
 

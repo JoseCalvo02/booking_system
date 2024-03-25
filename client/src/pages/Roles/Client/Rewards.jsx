@@ -1,5 +1,5 @@
 import React from 'react'
-import RewardsClient from '../../../components/Roles/Client/RewardsClient'
+import RewardsClient from '../../../components/Client/RewardsClient'
 
 
 function Rewards() {
