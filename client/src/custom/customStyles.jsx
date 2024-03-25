@@ -8,6 +8,7 @@ const customStyles = {
     error: 'm-0 text-xs text-red-600',
     // Styles used in Admin.jsx
     link: 'flex items-center gap-4 p-2 rounded-lg hover:bg-blue-950',
+    activeLink: 'bg-blue-950',
     span: 'hidden lg:block',
     // Styles used in Admin/Clients.jsx
     th: 'p-2',

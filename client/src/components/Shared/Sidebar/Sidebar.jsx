@@ -1,6 +1,5 @@
-import React from 'react'
-
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation  } from 'react-router-dom';
 
 import customStyles from '../../../custom/customStyles';
 import {
@@ -8,6 +7,16 @@ import {
 } from "react-icons/tb";
 
 const Sidebar = () => {
+    const [activeOption, setActiveOption] = useState(null); // Estado para la opción activa
+    const location = useLocation(); // Hook para obtener la ubicación actual de la aplicación
+
+    useEffect(() => {
+        // Obtener la ruta actual y extraer el nombre de la opción
+        const currentPath = location.pathname;
+        const currentOption = currentPath.split('/').pop();
+        setActiveOption(currentOption);
+    }, [location.pathname]); // Se ejecutará cuando la ubicación actual cambie
+
     return (
         <aside className='flex flex-col p-4 font-semibold text-white bg-gray-900 md:p-8 text-md rounded-r-2xl'>
             {/* Logo */}
@@ -19,61 +28,89 @@ const Sidebar = () => {
             {/* Navigation */}
             <div className='flex flex-grow '>
                 <nav className='flex flex-grow '>
-                    <ul className='flex flex-col flex-grow text-md'>
+                    <ul className='flex flex-col flex-grow gap-1 text-md'>
+                        {/* Enlace a la opción Dashboard */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/dashboard">
+                            <Link className={`${customStyles.link} ${activeOption === "dashboard" && customStyles.activeLink}`}
+                                to="/admin/dashboard"
+                            >
                                 <TbLayoutGrid size={20}/>
                                 <span className={customStyles.span}>Dashboard</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Citas */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/citas">
+                            <Link className={`${customStyles.link} ${activeOption === "citas" && customStyles.activeLink}`}
+                                to="/admin/citas"
+                            >
                                 <TbCalendarEvent size={20}/>
                                 <span className={customStyles.span}>Citas</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Clientes */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/clientes">
+                            <Link className={`${customStyles.link} ${activeOption === "clientes" && customStyles.activeLink}`}
+                                to="/admin/clientes"
+                            >
                                 <TbUserSearch size={20}/>
                                 <span className={customStyles.span}>Clientes</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Catálogo */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/catalogo">
+                            <Link className={`${customStyles.link} ${activeOption === "catalogo" && customStyles.activeLink}`}
+                                to="/admin/catalogo"
+                            >
                                 <TbNotebook size={20}/>
                                 <span className={customStyles.span}>Catálogo</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Estilistas */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/estilistas">
+                            <Link className={`${customStyles.link} ${activeOption === "estilistas" && customStyles.activeLink}`}
+                                to="/admin/estilistas"
+                            >
                                 <TbUserEdit  size={20}/>
                                 <span className={customStyles.span}>Estilistas</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Horarios */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/horarios">
+                            <Link className={`${customStyles.link} ${activeOption === "horarios" && customStyles.activeLink}`}
+                                to="/admin/horarios"
+                            >
                                 <TbCalendarUser size={20}/>
                                 <span className={customStyles.span}>Horarios</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Canjes */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/canjes">
+                            <Link className={`${customStyles.link} ${activeOption === "canjes" && customStyles.activeLink}`}
+                                to="/admin/canjes"
+                            >
                                 <TbCoins  size={20}/>
                                 <span className={customStyles.span}>Canjes</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Reportes */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/reportes">
+                            <Link className={`${customStyles.link} ${activeOption === "reportes" && customStyles.activeLink}`}
+                                to="/admin/reportes"
+                            >
                                 <TbReport  size={20}/>
                                 <span className={customStyles.span}>Reportes</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Perfil */}
                         <li>
-                            <Link className={customStyles.link} to="/admin/profile">
+                            <Link className={`${customStyles.link} ${activeOption === "profile" && customStyles.activeLink}`}
+                                to="/admin/profile"
+                            >
                                 <TbSettings  size={20}/>
                                 <span className={customStyles.span}>Perfil</span>
                             </Link>
                         </li>
+                        {/* Enlace a la opción Log out */}
                         <li className='mt-auto'>
                             <a className={customStyles.link}>
                                 <TbLogout2 size={20}/>
