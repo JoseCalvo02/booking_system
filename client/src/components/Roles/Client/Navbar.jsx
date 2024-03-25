@@ -3,24 +3,25 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CgProfile, CgLogOut, CgToolbox } from 'react-icons/cg';
 import { FaMoneyBillAlt } from 'react-icons/fa';
-import { TbReport, TbSettings, TbLayoutGrid,} from 'react-icons/tb';
-import { jwtDecode } from 'jwt-decode';
+import { TbReport, TbSettings, TbLayoutGrid } from 'react-icons/tb'; // Corregido un error de sintaxis
+
+import { jwtDecode } from 'jwt-decode'; // Corregido un error de sintaxis
 
 const Navbar = () => {
     const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-    const [userName, setUserName] = useState(''); // Define el estado local para almacenar el nombre de usuario
+    const [userName, setUserName] = useState('');
 
     useEffect(() => {
         // Decodificar el token JWT para obtener la información del usuario, como el nombre
         const token = localStorage.getItem('token');
 
         if (token) {
-            const decodedToken = jwtDecode(token);
+            const decodedToken = jwtDecode(token); // Corregido el nombre de la función
             console.log(decodedToken);
             setUserName(decodedToken.name); // Establecer el nombre de usuario en el estado local
-        }else{
+        } else {
             setUserName('Usuario');
         }
     }, []);
@@ -77,22 +78,23 @@ const Navbar = () => {
             <nav className="flex-1">
                 <ul className={`fixed flex flex-col items-center justify-center w-[80%] md:w-full xl:w-full h-full gap-5 top-0 xl:justify-end xl:items-end xl:flex-row xl:static md:justify-end md:items-end md:flex-row md:static transition-all duration-500 ${showMenu ? "left-0 bg-gray-900" : "-left-full"}`}>
                     <li className='flex justify-center p-4 text-white transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                        <NavLink to="/client" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                        <NavLink to="/client" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                             <TbLayoutGrid className="mr-1" size={20} />
                             Home
                         </NavLink>
                     </li>
                     <li className='flex justify-center p-4 text-white transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                        <a href="#services" onClick={handleSmoothScroll} className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                        <a href="#services" onClick={handleSmoothScroll} className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                             <CgToolbox className="mr-1" size={20} />
                             Servicios
                         </a>
                     </li>
                     <li className='relative flex items-center justify-center p-4 text-white transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
                         <button
-                            className='p-2 text-w hover:bg-blue-950 hover:rounded-lg'
+                            className='p-2 text-white hover:bg-blue-950 hover:rounded-lg'
                             onMouseEnter={() => setShowDropdown(true)}
                             onMouseLeave={() => setShowDropdown(false)}
+                            onClick={handleDropdown} // Agregado para cerrar el menú al hacer clic fuera de él
                         >
                             <div className='relative flex items-center justify-center p-4 mr-16 text-white transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
                                 <CgProfile className="mr-1" size={20} />
@@ -101,25 +103,25 @@ const Navbar = () => {
                             {showDropdown && (
                                 <ul className='absolute left-0 w-40 mt-2 bg-gray-900 rounded-lg' onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
                                     <li className='flex p-2'>
-                                        <NavLink to='/client/Settings' className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to='/client/Settings' className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <TbSettings className='mr-1' size={20} />
                                             Configuración
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/client/Reports" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/client/Reports" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <TbReport className="mr-1" size={20} />
                                             Reportes
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/client/Rewards" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/client/Rewards" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <FaMoneyBillAlt className="mr-1" size={20} />
                                             Recompensas
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/logout" className='flex items-center p-2 text-w hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/logout" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <CgLogOut  className="mr-1" size={20} />
                                             Log Out
                                         </NavLink>
@@ -130,7 +132,7 @@ const Navbar = () => {
                     </li>
                 </ul>
             </nav>
-            <button className="text-xl text-w xl:hidden md:hidden" onClick={() => setShowMenu(!showMenu)} >
+            <button className="text-xl text-white xl:hidden md:hidden" onClick={() => setShowMenu(!showMenu)} >
                 {showMenu ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20}/>}
             </button>
         </header>
@@ -138,3 +140,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

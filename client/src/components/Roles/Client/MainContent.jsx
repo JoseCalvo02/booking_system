@@ -38,10 +38,12 @@ function MainContent() {
 
     return (
         <main className="flex flex-col w-full">
-            <h1 className="m-auto my-8 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black md:my-28">
-                Reserve aquí
-            </h1>
-            <section className="flex flex-wrap justify-center gap-4 m-auto mt-10 md:gap-8">
+            <div className="text-center">
+                <h1 className="m-auto my-8 mt-20 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black md:my-28">
+                    Reserve aquí
+                </h1>
+            </div>
+            <section className="flex flex-wrap justify-center gap-4 m-auto md:gap-8">
                 <div className="w-full p-6 rounded-lg md:w-auto">
                     <div className="flex flex-wrap justify-center gap-4 p-6 bg-gray-600 rounded-lg md:gap-8 md:ml-6 md:mr-6">
                         <select
