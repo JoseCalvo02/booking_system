@@ -1,4 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from '../../../utils/tokenUtils';
 import React, { useState, useEffect } from 'react';
 import EmailChangeModal from '../Modals/EmailChangeModal';
 import AddressChangeModal from '../Modals/AddressChangeModal';
@@ -8,41 +8,43 @@ import PhoneChangeModal from '../Modals/PhoneChangeModal';
 const SettingsProfile = () => {
 
 const [userData, setUserData] = useState({
-    nombre: '',
-    correo: '',
-    direccion: '',
-    telefono: '',
-}); // Define el estado local para almacenar el nombre de usuario
+    name: '',
+    lastName: '',
+    email: '',
+    address: '',
+    phone: '',
+}); // Define el estado local para almacenar el nombre de usuario // Ejecuta el efecto solo una vez
 
 useEffect(() => {
-    // Obtiene el token de acceso del almacenamiento local
-    const token = localStorage.getItem('token');
-    // Decodifica el token para obtener la información del usuario
-    const decodedToken = jwtDecode(token);
-    // Establece el estado local con la información del usuario
+    loadUserData(); // Lógica para cargar los datos del usuario al montar el componente
+}, []);
+
+const loadUserData = () => {
+    // Decodificar el token JWT y establecer los datos en el estado local
+    const decodedToken = decodeToken(); // Decodificar el token JWT
     setUserData({
-        nombre: decodedToken.name,
-        correo: decodedToken.email,
-        direccion: decodedToken.address,
-        telefono: decodedToken.phone
-    });
-}
-, []); // Ejecuta el efecto solo una vez
+        name: decodedToken.name,
+        lastName: decodedToken.lastName,
+        email: decodedToken.email,
+        phone: decodedToken.phone,
+        address: decodedToken.address
+    }); // Establecer los datos del usuario en el estado local
+};
 
 const handleEmailChange = () => {
-    EmailChangeModal();
+    EmailChangeModal(setUserData);
 };
 
 const handleAddressChange = () => {
-    AddressChangeModal();
+    AddressChangeModal(setUserData);
 };
 
 const handleNameChange = () => {
-    NameChangeModal();
+    NameChangeModal(setUserData);
 }
 
 const handlePhoneChange = () => {
-    PhoneChangeModal();
+    PhoneChangeModal(setUserData);
 }
 
 return (
@@ -63,88 +65,76 @@ return (
                 </div>
                 <hr className="mt-4 mb-8" />
                 {/* Second Section */}
-                <p className="py-2 text-xl font-semibold">Informacion personal</p>
-                <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="px-6 py-3">
-                                Dato Personal
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Informacion Personal
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                Accion
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Nombre Usuario
-                            </th>
-                            <td className="px-6 py-4">
-                                {userData.nombre}
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#" onClick={handleNameChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Editar
-                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Correo electronico
-                            </th>
-                            <td className="px-6 py-4">
-                                {userData.correo}
-                            </td>
-                            <td className="px-6 py-4">
-                                <a onClick={handleEmailChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Editar
-                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Direccion
-                            </th>
-                            <td className="px-6 py-4">
-                                {userData.direccion}
-                            </td>
-                            <td className="px-6 py-4">
-                                <a onClick={handleAddressChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Editar
-                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Telefono
-                            </th>
-                            <td className="px-6 py-4">
-                                {userData.telefono}
-                            </td>
-                            <td className="px-6 py-4">
-                                <a href="#" onClick={handlePhoneChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Editar
-                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className="overflow-x-auto">
+                    <p className="py-2 text-xl font-semibold">Informacion personal</p>
+                    <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead className="font-bold bg-blue-500">
+                                <tr>
+                                    <th scope="col" className="px-6 py-3 text-xs tracking-wider text-left text-black uppercase">
+                                        Dato Personal
+                                    </th>
+                                    <th scope="col" className="px-6 py-3 text-xs tracking-wider text-left text-black uppercase">
+                                        Informacion Personal
+                                    </th>
+                                    <th scope="col" className="px-6 py-3 text-xs tracking-wider text-left text-black uppercase">
+                                        Accion
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm font-medium text-gray-900">Nombre Usuario</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{userData.name + ' ' + userData.lastName}</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <a onClick={handleEmailChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Editar
+                                            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm font-medium text-gray-900">Correo electrónico</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{userData.email}</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <a onClick={handleAddressChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Editar
+                                            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm font-medium text-gray-900">Dirección</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className="text-sm text-gray-900">{userData.address}</div>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <a onClick={handlePhoneChange} className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Editar
+                                            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2 btn-edit" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 {/* Third Section */}
                 <p className="py-2 text-xl font-semibold">Contraseña</p>
                 <div className="flex items-center">
