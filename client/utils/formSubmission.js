@@ -1,7 +1,7 @@
-import { registerUser, loginUser } from '../../../../api/authApi';
+import { registerUser, loginUser } from '../api/authApi';
 import { jwtDecode } from 'jwt-decode';
 
-// Manejar el envío del formulario
+// Manejar el envío del formulario de registro
 export const handleSubmit = async (values, { setSubmitting }, notify) => {
     try {
         const response = await registerUser(values);

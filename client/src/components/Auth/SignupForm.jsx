@@ -3,8 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 // Funciones y utils
-import { validateForm } from './utils/formValidation';
-import { handleSubmit } from './utils/formSubmission';
+import { validateForm } from '../../../utils/formValidation';
+import { handleSubmit } from '../../../utils/formSubmission';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
