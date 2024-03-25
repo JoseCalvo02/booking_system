@@ -58,11 +58,11 @@ const Sidebar = () => {
                         </li>
                         {/* Enlace a la opción Catálogo */}
                         <li>
-                            <Link className={`${customStyles.link} ${activeOption === "catalogo" && customStyles.activeLink}`}
-                                to="/admin/catalogo"
+                            <Link className={`${customStyles.link} ${activeOption === "services" && customStyles.activeLink}`}
+                                to="/admin/services"
                             >
                                 <TbNotebook size={20}/>
-                                <span className={customStyles.span}>Catálogo</span>
+                                <span className={customStyles.span}>Servicios</span>
                             </Link>
                         </li>
                         {/* Enlace a la opción Estilistas */}
@@ -76,8 +76,8 @@ const Sidebar = () => {
                         </li>
                         {/* Enlace a la opción Horarios */}
                         <li>
-                            <Link className={`${customStyles.link} ${activeOption === "horarios" && customStyles.activeLink}`}
-                                to="/admin/horarios"
+                            <Link className={`${customStyles.link} ${activeOption === "schedules" && customStyles.activeLink}`}
+                                to="/admin/schedules"
                             >
                                 <TbCalendarUser size={20}/>
                                 <span className={customStyles.span}>Horarios</span>
@@ -94,8 +94,8 @@ const Sidebar = () => {
                         </li>
                         {/* Enlace a la opción Reportes */}
                         <li>
-                            <Link className={`${customStyles.link} ${activeOption === "reportes" && customStyles.activeLink}`}
-                                to="/admin/reportes"
+                            <Link className={`${customStyles.link} ${activeOption === "reports" && customStyles.activeLink}`}
+                                to="/admin/reports"
                             >
                                 <TbReport  size={20}/>
                                 <span className={customStyles.span}>Reportes</span>
