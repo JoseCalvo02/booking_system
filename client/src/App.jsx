@@ -9,10 +9,11 @@ import NotFound from "./pages/Layout/NotFound";
 import Auth from "./pages/Auth/Auth"
 //Admin pages
 import Admin from "./pages/Roles/Admin/Admin"
-import Dashboard from './components/Roles/Admin/Dashboard'
-import Citas from "./components/Roles/Admin/Citas"
-import Clients from "./components/Roles/Admin/Clients"
-import Profile from "./components/Roles/Admin/Profile"
+import Dashboard from './components/Admin/Dashboard'
+import Citas from "./components/Admin/Citas"
+import Clients from "./components/Admin/Clients"
+import Stylists from "./components/Admin/Stylists"
+import Profile from "./components/Admin/Profile"
 //Stylist pages
 import Stylist from "./pages/Roles/Stylist/Stylist"
 //Client pages
@@ -36,9 +37,9 @@ function App() {
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="citas" element={<Citas />} />
                     <Route path="clientes" element={<Clients />} />
+                    <Route path="estilistas" element={<Stylists />} />
                     {/*
                     <Route path="catalogo" element={<Catalogo />} />
-                    <Route path="estilistas" element={<Estilistas />} />
                     <Route path="horarios" element={<Horarios />} />
                     <Route path="canjes" element={<Canjes />} />
                     <Route path="reportes" element={<Reportes />} />*/}

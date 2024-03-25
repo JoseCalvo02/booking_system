@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { getUsersByType } from '../../../../api/userApi';
-import customStyles from '../../../custom/customStyles';
+import { getUsersByType } from '../../../api/userApi';
+import customStyles from '../../custom/customStyles';
 
 const Clients = () => {
     const [clients, setClients] = useState([]); // Define el estado local para almacenar los usuarios
