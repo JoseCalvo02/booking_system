@@ -107,3 +107,29 @@ export const updateUserAddress = async (userId, newAddress) => {
         throw new Error('Error de servidor');
     }
 }
+
+// Funcion para actualizar el telefono de un usuario
+export const updateUserPhone = async (userId, newPhone) => {
+    try {
+        // Convertir userId a tipo Int si es una cadena
+        userId = parseInt(userId);
+
+        // Actualizar el teléfono del usuario
+        const updatedUser = await prisma.Usuarios.update({
+            where: {
+                usuarioID: userId
+            },
+            data: {
+                telefono: newPhone
+            }
+        });
+
+        // Generar un nuevo token con los datos actualizados del usuario
+        const newToken = await generateNewToken(updatedUser);
+
+        return newToken;
+    } catch(error) {
+        console.error("Error:", error);
+        throw new Error('Error de servidor');
+    }
+}

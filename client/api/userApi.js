@@ -61,3 +61,25 @@ export const updateUserAddress = async (newAddress) => {
         throw new Error(`No se pudo actualizar la dirección: ${error.response.data.error || error.message}`);
     }
 };
+
+// Funcion para actualizar el telefono de un usuario
+export const updateUserPhone = async (newPhone) => {
+    try {
+        const token = localStorage.getItem('token');
+        // Decodificar el token JWT para obtener las propiedades del usuario
+        const decodedToken = jwtDecode(token);
+
+        const response = await axiosInstance.put(`${API_URL}/${decodedToken.userId}/phone`, { newPhone }, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudo actualizar el teléfono: ${error.response.data.error || error.message}`);
+    }
+}

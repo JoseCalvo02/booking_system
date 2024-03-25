@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -45,4 +45,17 @@ router.put("/:userId/address", async (req, res) => {
     }
 });
 
+// Ruta para que un administrador actualice el teléfono de un usuario
+router.put("/:userId/phone", async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { newPhone } = req.body;
+        // Llamar a la función para actualizar el teléfono de un usuario
+        const newToken = await updateUserPhone(userId, newPhone);
+        res.status(200).json({ newToken, message: 'Teléfono actualizado' });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: 'Error de servidor' });
+    }
+});
 export default router;
