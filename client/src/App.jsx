@@ -12,7 +12,11 @@ import Admin from "./pages/Roles/Admin/Admin"
 import Dashboard from './components/Admin/Dashboard'
 import Citas from "./components/Admin/Citas"
 import Clients from "./components/Admin/Clients"
+import Services from "./components/Admin/Services"
 import Stylists from "./components/Admin/Stylists"
+import Schedules from "./components/Admin/Schedules"
+import Redemptions from "./components/Admin/Redemptions"
+import ReportsAdmin from "./components/Admin/Reports"
 import Profile from "./components/Admin/Profile"
 //Stylist pages
 import Stylist from "./pages/Roles/Stylist/Stylist"
@@ -22,7 +26,6 @@ import ClientHome from "./pages/Roles/Client/Home"
 import Settings from "./pages/Roles/Client/Settings"
 import Reports from "./pages/Roles/Client/Reports"
 import Rewards from "./pages/Roles/Client/Rewards"
-
 
 function App() {
     return (
@@ -37,12 +40,11 @@ function App() {
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="citas" element={<Citas />} />
                     <Route path="clientes" element={<Clients />} />
+                    <Route path="services" element={<Services />} />
                     <Route path="estilistas" element={<Stylists />} />
-                    {/*
-                    <Route path="catalogo" element={<Catalogo />} />
-                    <Route path="horarios" element={<Horarios />} />
-                    <Route path="canjes" element={<Canjes />} />
-                    <Route path="reportes" element={<Reportes />} />*/}
+                    <Route path="schedules" element={<Schedules />} />
+                    <Route path="canjes" element={<Redemptions />} />
+                    <Route path="reports" element={<ReportsAdmin />} />
                     <Route path="profile" element={<Profile />} />
                 </Route>
                 <Route path="/stylist" element={<Stylist />} />
