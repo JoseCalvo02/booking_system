@@ -32,7 +32,7 @@ const Clients = () => {
     };
 
     return (
-        <div className='w-full h-full p-8 bg-white shadow-custom rounded-xl'>
+        <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             {/* Title & search */}
             <div className='mb-4 text-gray-900'>
                 <h1 className='mb-2 text-2xl font-semibold text-center'>
