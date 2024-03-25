@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation  } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import customStyles from '../../../custom/customStyles';
 import {
@@ -9,6 +9,7 @@ import {
 const Sidebar = () => {
     const [activeOption, setActiveOption] = useState(null); // Estado para la opción activa
     const location = useLocation(); // Hook para obtener la ubicación actual de la aplicación
+    const navigate = useNavigate(); // Hook para navegar a una ubicación diferente
 
     useEffect(() => {
         // Obtener la ruta actual y extraer el nombre de la opción
@@ -16,6 +17,13 @@ const Sidebar = () => {
         const currentOption = currentPath.split('/').pop();
         setActiveOption(currentOption);
     }, [location.pathname]); // Se ejecutará cuando la ubicación actual cambie
+
+    const handleLogout = () => {
+        // Eliminar el token del localStorage
+        localStorage.removeItem('token');
+        // Redirigir al usuario a la página de inicio utilizando navigate
+        navigate("/");
+    };
 
     return (
         <aside className='flex flex-col p-4 font-semibold text-white bg-gray-900 md:p-8 text-md rounded-r-2xl'>
@@ -112,7 +120,7 @@ const Sidebar = () => {
                         </li>
                         {/* Enlace a la opción Log out */}
                         <li className='mt-auto'>
-                            <a className={customStyles.link}>
+                            <a className={customStyles.link} onClick={handleLogout}>
                                 <TbLogout2 size={20}/>
                                 <span className={customStyles.span}>Log out</span>
                             </a>

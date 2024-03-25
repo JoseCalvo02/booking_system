@@ -1,5 +1,5 @@
-import { Routes, Route, Navigate  } from "react-router-dom";
-
+import { Routes, Route, Navigate } from "react-router-dom";
+import { isAuthenticated, getUserRole } from '../utils/tokenUtils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,11 +31,12 @@ function App() {
     return (
         <>
             <Routes>
-                {/* Define las rutas y los componentes asociados. Por ejemplo, cuando la URL es "/", se renderiza el componente Home. */}
+                {/* Rutas públicas */}
                 <Route path="/" element={<Home />} />
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/admin" element={<Admin />} >
-                    {/* Anida rutas para que el componente Admin pueda renderizar las rutas hijas. */}
+                <Route path="/notFound" element={<NotFound />} />
+                { /* Rutas protegidas */}
+                <Route path="/admin" element={isAuthenticated() && getUserRole() === 'Administrador' ? <Admin /> : <Navigate to="/auth" replace />}>
                     <Route index element={<Dashboard />} />
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route path="citas" element={<Citas />} />
@@ -47,8 +48,8 @@ function App() {
                     <Route path="reports" element={<ReportsAdmin />} />
                     <Route path="profile" element={<Profile />} />
                 </Route>
-                <Route path="/stylist" element={<Stylist />} />
-                <Route path="/client" element={<Client />} >
+                <Route path="/stylist" element={isAuthenticated() && getUserRole() === 'Estilista' || getUserRole() === 'Administrador' ? <Stylist /> : <Navigate to="/auth" replace />} />
+                <Route path="/client" element={isAuthenticated() && getUserRole() === 'Cliente' || getUserRole() === 'Administrador' ? <Client /> : <Navigate to="/auth" replace />} >
                     <Route index element={<ClientHome />} />
                     <Route path="home" element={<ClientHome />} />
                     <Route path="settings" element={<Settings />} />
@@ -57,8 +58,6 @@ function App() {
                 </Route>
                 {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />
-                    {/* La ruta NotFound */}
-                <Route path="/notFound" element={<NotFound />} />
             </Routes>
 
             {/* Agrega el ToastContainer aquí para que esté disponible en toda la aplicación. */}
