@@ -54,7 +54,7 @@ model Citas {
   DetallesCita                         DetallesCita[]
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
-}
+} 
 
 model DetallesCita {
   detalleID  Int        @id(map: "PK__Detalles__4C49966DD3D1F39D") @default(autoincrement())
