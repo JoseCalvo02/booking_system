@@ -56,10 +56,36 @@ export const updateUserEmail = async (userId, newEmail) => {
         // Generar un nuevo token con los datos actualizados del usuario
         const newToken = await generateNewToken(updatedUser);
 
-        return { updatedUser, newToken };
+        return newToken;
     } catch(error) {
         console.error("Error:", error);
         // Enviar mensajes específicos de error al frontend
         throw new Error(error.message === 'El correo electrónico ya está en uso' ? 'El correo electrónico ya está en uso' : 'Error de servidor');
     }
 };
+
+// Función para actualizar la dirección de un usuario
+export const updateUserAddress = async (userId, newAddress) => {
+    try {
+        // Convertir userId a tipo Int si es una cadena
+        userId = parseInt(userId);
+
+        // Actualizar la dirección del usuario
+        const updatedUser = await prisma.Usuarios.update({
+            where: {
+                usuarioID: userId
+            },
+            data: {
+                direccion: newAddress
+            }
+        });
+
+        // Generar un nuevo token con los datos actualizados del usuario
+        const newToken = await generateNewToken(updatedUser);
+
+        return newToken ;
+    } catch(error) {
+        console.error("Error:", error);
+        throw new Error('Error de servidor');
+    }
+}

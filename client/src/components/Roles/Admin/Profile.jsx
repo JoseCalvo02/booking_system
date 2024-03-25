@@ -34,7 +34,7 @@ const Profile = () => {
     };
 
     const handleAddressChange = () => {
-        AddressChangeModal();
+        AddressChangeModal(setUserData);
     };
 
     return (

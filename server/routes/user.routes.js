@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsersByType, updateUserEmail } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress } from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -21,8 +21,8 @@ router.put("/:userId/email", async (req, res) => {
         const { userId } = req.params;
         const { newEmail } = req.body;
         // Llamar a la función para actualizar el correo electrónico de un usuario
-        const { updatedUser, newToken  } = await updateUserEmail(userId, newEmail);
-        res.status(200).json({ updatedUser, newToken, message: 'Correo electrónico actualizado'});
+        const newToken = await updateUserEmail(userId, newEmail);
+        res.status(200).json({ newToken, message: 'Correo electrónico actualizado'});
     } catch (error) {
         console.error("Error:", error);
         // Enviar mensajes específicos de error al frontend
@@ -32,6 +32,17 @@ router.put("/:userId/email", async (req, res) => {
 });
 
 // Ruta para que un administrador actualice la dirección de un usuario
-//router.put("/:userId/address", updateUserAddress);
+router.put("/:userId/address", async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { newAddress } = req.body;
+        // Llamar a la función para actualizar la dirección de un usuario
+        const newToken = await updateUserAddress(userId, newAddress);
+        res.status(200).json({ newToken, message: 'Dirección actualizada' });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: 'Error de servidor' });
+    }
+});
 
 export default router;

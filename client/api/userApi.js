@@ -31,13 +31,33 @@ export const updateUserEmail = async (newEmail) => {
             }
         });
 
-        const newDecodedToken = jwtDecode(response.data.newToken); // Decodificar el nuevo token JWT
-        console.log('Nueva info:', newDecodedToken); // Mostrar la información del usuario actualizada
         // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
         localStorage.setItem('token', response.data.newToken);
 
         return response.data;
     } catch (error) {
         throw new Error(`No se pudo actualizar el correo electrónico: ${error.response.data.error || error.message}`);
+    }
+};
+
+// Función para actualizar la dirección de un usuario
+export const updateUserAddress = async (newAddress) => {
+    try {
+        const token = localStorage.getItem('token');
+        // Decodificar el token JWT para obtener las propiedades del usuario
+        const decodedToken = jwtDecode(token);
+
+        const response = await axiosInstance.put(`${API_URL}/${decodedToken.userId}/address`, { newAddress }, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudo actualizar la dirección: ${error.response.data.error || error.message}`);
     }
 };

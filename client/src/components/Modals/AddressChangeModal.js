@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
+import { updateUserAddress } from "../../../api/userApi";
 
-const AddressChangeModal = async () => {
+const AddressChangeModal = async (setUserData) => {
     const { value: newAddress } = await Swal.fire({
         title: "Ingrese su nueva dirección",
         input: "text",
@@ -21,8 +22,23 @@ const AddressChangeModal = async () => {
     });
 
     if (newAddress) {
-        // Imprimir la nueva dirección en la consola
-        console.log("Nueva dirección ingresada:", newAddress);
+        try {
+            await updateUserAddress(newAddress);
+            setUserData((prevUserData) => ({ ...prevUserData, address: newAddress }));
+
+            Swal.fire({
+                icon: "success",
+                title: "Dirección actualizada",
+                text: `La dirección se ha actualizado a: ${newAddress}`,
+            });
+        } catch (error) {
+            console.error("Error al actualizar la dirección:", error.message);
+            Swal.fire({
+                icon: "error",
+                title: "Error al actualizar la dirección",
+                text: error.message,
+            });
+        }
     }
 };
 
