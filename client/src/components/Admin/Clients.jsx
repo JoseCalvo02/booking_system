@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
+import { twMerge } from 'tailwind-merge';
+
+import { TbUserSearch } from "react-icons/tb";
 
 const Clients = () => {
+    const [inputActive, setInputActive] = useState(false);
     const [clients, setClients] = useState([]); // Define el estado local para almacenar los usuarios
 
     useEffect(() => {
@@ -19,12 +23,34 @@ const Clients = () => {
         fetchClients('clients'); // Llamar a la función para obtener todos los clientes
     }, []);
 
+    const handleInputFocus = () => {
+        setInputActive(true);
+    };
+
+    const handleInputBlur = () => {
+        setInputActive(false);
+    };
 
     return (
         <div className='w-full h-full p-8 bg-white shadow-custom rounded-xl'>
-            <h1 className='mb-4 text-2xl font-semibold text-center text-gray-900 border border-black rounded-md shadow-custom border-opacity-5'>
-                Tabla de clientes
-            </h1>
+            {/* Title & search */}
+            <div className='mb-4 text-gray-900'>
+                <h1 className='mb-2 text-2xl font-semibold text-center'>
+                    Tabla de clientes
+                </h1>
+                <div className="relative flex items-center justify-center sm:text-sm md:text-md lg:text-lg">
+                    <input
+                        type="text"
+                        placeholder="Buscar cliente"
+                        onFocus={handleInputFocus} onBlur={handleInputBlur}
+                        className="w-full py-2 pl-10 pr-4 border border-black rounded-md border-opacity-5 shadow-custom focus:outline-none focus:ring focus:ring-blue-500 "
+                    />
+                    <TbUserSearch className={`absolute inset-y-0 left-0 m-3 ${inputActive ? 'text-primary' : 'text-gray-400'}`} size={20}/>
+                    <button className="absolute inset-y-0 right-0 flex items-center justify-center m-3 text-gray-400 hover:text-primary">
+                        Buscar
+                    </button>
+                </div>
+            </div>
 
             {/* Table */}
             <div className='overflow-y-auto max-h-[75vh]'>
@@ -38,7 +64,8 @@ const Clients = () => {
                             <th className={customStyles.th}>Telefono</th>
                             <th className={customStyles.th}>Email</th>
                             <th className={customStyles.th}>Direccion</th>
-                            <th className={customStyles.th}>Points</th>
+                            <th className={twMerge(customStyles.th, 'max-w-20')}>Pts.Actuales</th>
+                            <th className={twMerge(customStyles.th, 'max-w-20')}>Pts.Gastados</th>
                             <th className={customStyles.th}>Estado</th>
                             <th className={customStyles.th}>Actions</th>
                         </tr>
@@ -53,7 +80,8 @@ const Clients = () => {
                                 <td className={customStyles.td}>{client.telefono}</td>
                                 <td className={customStyles.td}>{client.correo}</td>
                                 <td className={customStyles.td}>{client.direccion}</td>
-                                <td className={customStyles.td}>0</td>
+                                <td className={customStyles.td}>{client.points.puntosAcumulados}</td>
+                                <td className={customStyles.td}>{client.points.puntosCanjeados}</td>
                                 <td className={customStyles.td}>{client.estado}</td>
                                 <td className={customStyles.td}>
                                     <button className='p-2 mr-2 text-white bg-green-400 rounded-lg hover:bg-green-500'>Edit</button>

@@ -15,11 +15,29 @@ export const getUsersByType = async (type) => {
             throw new Error('Tipo de usuario no válido');
     }
     try {
-        const users = await prisma.Usuarios.findMany({
-            where: {
-                rolID: roleId
-            }
+        const users = await prisma.$transaction(async (prisma) => {
+            const usersWithRole = await prisma.usuarios.findMany({
+                where: {
+                    rolID: roleId
+                }
+            });
+
+            const usersWithRewards = await Promise.all(usersWithRole.map(async (user) => {
+                const userPoints = await prisma.puntosClientes.findFirst({
+                    where: {
+                        clienteID: user.usuarioID
+                    },
+                    select: {
+                        puntosAcumulados: true,
+                        puntosCanjeados: true
+                    }
+                });
+                return { ...user, points: userPoints };
+            }));
+
+            return usersWithRewards;
         });
+
         return users;
     } catch(error) {
         console.error("Error:", error);
