@@ -4,6 +4,8 @@ import EmailChangeModal from '../Modals/EmailChangeModal';
 import AddressChangeModal from '../Modals/AddressChangeModal';
 import NameChangeModal from '../Modals/NameChangeModal';
 import PhoneChangeModal from '../Modals/PhoneChangeModal';
+import DeleteAccountModal from '../Modals/DeleteAccountModal';
+import ChangePasswordModal from '../Modals/ChangePasswordModal';
 
 const SettingsProfile = () => {
 
@@ -46,6 +48,15 @@ const handleNameChange = () => {
 const handlePhoneChange = () => {
     PhoneChangeModal(setUserData);
 }
+
+const handleDeleteAccount = () => {
+    DeleteAccountModal();
+}
+
+const handlePasswordChange = () => {
+    ChangePasswordModal();
+}
+
 
 return (
     <div className="max-w-full min-h-screen mx-4 sm:mx-8 xl:mx-auto py-14">
@@ -153,17 +164,13 @@ return (
                         </label>
                     </div>
                 </div>
-                <p className="mt-2">No recuerdas tu contraseña  actual. <a className="text-sm font-semibold text-blue-600 underline decoration-2" href="#">Recuperar contraseña</a></p>
-                <button className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Guardar contraseña</button>
+                <button onClick={handlePasswordChange} className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Guardar contraseña</button>
                 <hr className="mt-4 mb-8" />
                 {/* Fourth Section */}
                 <div className="mb-10">
                     <p className="py-2 text-xl font-semibold">Eliminar cuenta personal</p>
-                    <p className="inline-flex items-center px-4 py-1 rounded-full bg-rose-100 text-rose-600">
-                        Proceda con precaucion
-                    </p>
-                    <p className="mt-2">Asegúrese de haber realizado una copia de seguridad de su cuenta en caso de que alguna vez necesite acceder a sus datos. Borraremos completamente sus datos. No hay forma de acceder a su cuenta después de esta acción.</p>
-                    <button className="ml-auto text-sm font-semibold underline text-rose-600 decoration-2">Continue con la eliminacion</button>
+                    <p>Borraremos completamente sus datos. No hay forma de acceder a su cuenta después de esta acción.</p>
+                    <button onClick={handleDeleteAccount} className="px-4 py-2 mt-4 text-white bg-red-600 rounded-lg">Eliminar Cuenta</button>
                 </div>
             </section>
         </div>
