@@ -16,3 +16,18 @@ export const getServices = async () => {
         throw new Error(error);
     }
 }
+
+// Obtener todos los cupones disponibles
+export const getCoupons = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/coupons`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

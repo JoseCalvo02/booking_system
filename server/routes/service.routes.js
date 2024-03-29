@@ -9,5 +9,8 @@ const router = express.Router();
 // Obtener todos los servicios
 router.get("/services", service.getAllServices);
 
+// Obtener todos los cupones disponibles
+router.get("/coupons", service.getAllCoupons);
+
 // Exportar las rutas
 export default router;
