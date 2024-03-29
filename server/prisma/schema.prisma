@@ -54,7 +54,7 @@ model Citas {
   DetallesCita                         DetallesCita[]
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
-} 
+}
 
 model DetallesCita {
   detalleID  Int        @id(map: "PK__Detalles__4C49966DD3D1F39D") @default(autoincrement())
@@ -159,3 +159,11 @@ model Usuarios {
   PuntosClientes                    PuntosClientes[]
   Roles                             Roles?                 @relation(fields: [rolID], references: [rolID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Usuarios_rolID")
 }
+
+model Cupones {
+  cuponID     Int     @id(map: "PK__Cupones__9FC50856E106C4DC") @default(autoincrement())
+  nombreCupon String? @db.VarChar(100)
+  valorPuntos Int?
+  estado      String? @db.VarChar(15)
+}
+
