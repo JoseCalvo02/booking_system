@@ -49,19 +49,19 @@ function RewardsClient() {
     } // Función para mostrar el modal de cupón canjeado
 
     return (
-        <section className="flex flex-col w-full min-h-screen py-8 m-auto md:w-3/4 md:flex-row md:py-0 md:space-x-8">
+        <section className="flex flex-col w-full py-8 m-auto md:w-3/4 md:flex-row md:py-0 md:space-x-8 h-4/5">
             <div className="w-full md:w-1/2">
                 <table className="w-full m-10 mt-8 overflow-hidden text-sm text-left text-black bg-gray-100 rounded-lg shadow-md md:mt-36">
                     <caption className="mb-4 text-xl font-bold text-center">Puntos del Usuario</caption>
                     <thead className="text-xs uppercase bg-gray-200">
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-sm">
+                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
                                 Nombre Usuario
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm">
+                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
                                 Puntos Acumulados 
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm">
+                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
                                 Puntos Canjeados 
                             </th>
                         </tr>
