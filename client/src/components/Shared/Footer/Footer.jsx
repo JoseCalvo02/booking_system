@@ -31,7 +31,7 @@ export default function Footer() {
                             <li><a href="/client" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">Cancelar cita</a></li>
                         </ul>
                     </div>
-                    
+
                     <div className="w-full mb-8 sm:w-auto sm:mb-0">
                         <h6 className='mb-2 font-bold'>Dirección</h6>
                         <ul className='py-2'>
@@ -39,7 +39,7 @@ export default function Footer() {
                             <li>Ciudad Quesada, Barrio el Jardin</li>
                             <li>300 metros norte de Maxi Pali, Local #4</li>
                         </ul>
-                    </div>                      
+                    </div>
                 </div>
             </div>
             <p>

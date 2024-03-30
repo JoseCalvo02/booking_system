@@ -9,7 +9,7 @@ export default function AboutUs() {
                 <video autoPlay loop muted className="absolute inset-0 z-0 object-cover w-full h-full opacity-40" src={Video2}></video>
             </div>
             <div className='relative z-10 w-full px-4 py-16 '>
-                <div className='max-w-[1840px] mx-auto grid md:grid-cols-2'>
+                <div className='max-w-[1840px] mx-auto grid md:grid-cols-2 px-8'>
                     {/* Imagen */}
                     <img className='w-[450px] mx-auto my-4' src={Logo} alt="/" />
 
