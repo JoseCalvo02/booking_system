@@ -3,8 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CgProfile, CgLogOut, CgToolbox } from 'react-icons/cg';
 import { FaMoneyBillAlt } from 'react-icons/fa';
-import { TbReport, TbSettings, TbLayoutGrid } from 'react-icons/tb'; // Corregido un error de sintaxis
-
+import { TbReport, TbSettings, TbLayoutGrid, TbCalendarUser } from 'react-icons/tb'; // Corregido un error de sintaxis
 import { jwtDecode } from 'jwt-decode'; // Corregido un error de sintaxis
 
 const Navbar = () => {
@@ -118,6 +117,12 @@ const Navbar = () => {
                                         <NavLink to="/client/Rewards" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <FaMoneyBillAlt className="mr-1" size={20} />
                                             Recompensas
+                                        </NavLink>
+                                    </li>
+                                    <li className='flex p-2'>
+                                        <NavLink to="/citas" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
+                                            <TbCalendarUser  className="mr-1" size={20} />
+                                            Citas
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
