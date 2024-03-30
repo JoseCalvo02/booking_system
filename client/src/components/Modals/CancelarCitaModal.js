@@ -1,26 +1,33 @@
 import Swal from 'sweetalert2';
+import { cancelAppointment } from '../../../api/serviceApi';
 
-const CancelarCitaModal = () => {
-    
-// Modal que diga si esta seguro de cancelar la cita y si acepta se cancela la cita
-    Swal.fire({
-        title: 'Estas Seguro?',
-        text: 'No podrás recuperar tu cita!',
+const CancelarCitaModal = async (appointmentID) => {
+    const result = await Swal.fire({
+        title: '¿Estás seguro de cancelar la cita?',
+        text: "No podrás revertir esta acción",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Si, Cancelar!',
-        cancelButtonText: 'No, cancelar!',
-        confirmButtonColor: '#ff0000',
-        cancelButtonColor: '#0000ff'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire(
-                    'Cancelada!',
-                    'Su cita ha sido cancelada.',
-                    'success'
-                );
-            }
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cancelar'
+    });
+
+    if (result.isConfirmed) {
+        try {
+            await cancelAppointment(appointmentID);
+            Swal.fire(
+                '¡Cita cancelada!',
+                'La cita ha sido cancelada correctamente',
+                'success'
+            );
+        } catch (error) {
+            Swal.fire(
+                '¡Error!',
+                'Ha ocurrido un error al cancelar la cita',
+                'error'
+            );
         }
-    )};
+    }
+}
 
 export default CancelarCitaModal;

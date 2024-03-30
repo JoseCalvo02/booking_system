@@ -58,3 +58,24 @@ export const getAppointments = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+//Crear funcion para cancelar una cita cancelAppointment
+export const cancelAppointment = async (req, res) => {
+    try {
+        // Obtener el ID de la cita
+        const appointmentID = parseInt(req.params.appointmentID);
+        // Actualizar la cita
+        const appointment = await prisma.Citas.update({
+            where: {
+                citaID: appointmentID
+            },
+            data: {
+                estadoID: 3
+            }
+        });
+        // Enviar respuesta
+        res.json(appointment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}

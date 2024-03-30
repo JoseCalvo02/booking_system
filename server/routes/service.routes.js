@@ -15,5 +15,8 @@ router.get("/coupons", service.getAllCoupons);
 // Obtener todas las citas de un cliente
 router.get("/appointments", service.getAppointments);
 
+// Cancelar una cita de un cliente
+router.delete("/appointment/:appointmentID", service.cancelAppointment);
+
 // Exportar las rutas
 export default router;

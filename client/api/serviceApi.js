@@ -46,3 +46,18 @@ export const getAppointments = async () => {
         throw new Error(error);
     }
 }
+
+// Cancelar una cita de un cliente
+export const cancelAppointment = async (appointmentID) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.delete(`${API_URL}/appointment/${appointmentID}`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

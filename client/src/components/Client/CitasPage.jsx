@@ -23,10 +23,11 @@ function CitasPage() {
         loadAppointments();
     }
     , []); // Cargar las citas al cargar el componente
-
-    // funcion para mostrar el modal de cancelar cita
-    const handleCancel = async () => {
-        await CancelarCitaModal();
+    
+    // funcion para mostrar el modal de cancelar cita y recarga la pagina al cancelar la cita para actualizar la lista de citas
+    const handleCancel = async (appointmentID) => {
+        await CancelarCitaModal(appointmentID);
+        loadAppointments();
     }
 
     const handleReprogram = async () => {
@@ -94,7 +95,7 @@ function CitasPage() {
                                         <button onClick={handleReprogram} className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
                                             Reprogramar
                                         </button>
-                                        <button onClick={handleCancel} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
+                                        <button onClick={() => handleCancel(cita.citaID)} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
                                             Cancelar
                                         </button>
                                     </div>
