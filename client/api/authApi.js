@@ -30,6 +30,11 @@ export const registerUser = async (userData) => {
 // Función para iniciar sesión
 export const loginUser = async (userData) => {
     try {
+        //Si ya hay un token generado, se debe eliminar del local storage
+        if (localStorage.getItem('token')) {
+            localStorage.removeItem('token');
+        }
+
         // Enviar la solicitud de inicio de sesión al backend
         const response = await axiosInstance.post(`${API_URL}/login`, userData);
 
@@ -49,5 +54,18 @@ export const loginUser = async (userData) => {
             // Si no hay un mensaje de error específico del servidor, mostrar un mensaje genérico
             throw new Error('No se pudo iniciar sesión: ' + error.message);
         }
+    }
+};
+
+// Función para cerrar sesión
+export const handleLogout = async (navigate) => {
+    try {
+        console.log('Cerrando sesión...');
+        // Eliminar el token del localStorage
+        localStorage.removeItem('token');
+        // Redirigir al usuario a la página de inicio utilizando navigate
+        navigate("/");
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
     }
 };

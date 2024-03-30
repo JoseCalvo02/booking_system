@@ -1,5 +1,5 @@
 import { registerUser, loginUser } from '../api/authApi';
-import { jwtDecode } from 'jwt-decode';
+import { getUserRole } from './tokenUtils';
 
 // Manejar el envío del formulario de registro
 export const handleSubmit = async (values, { setSubmitting }, notify) => {
@@ -36,16 +36,19 @@ export const handleLoginSubmit = async (values, { setSubmitting }, navigate, not
             notify('success', response.message);
 
             // Decodificar el token JWT para obtener la información del usuario, como el rol
-            const decodedToken = jwtDecode(response.token);
-            const userRole = decodedToken.role;
+            const userRole = getUserRole();
+            console.log('Rol del usuario:', userRole);
 
             // Redirigir al usuario según su rol
             if (userRole === 'Administrador') {
+                console.log('Redirigiendo a la página de administrador...');
                 navigate('/admin');
             } else if (userRole === 'Estilista') {
                 navigate('/stylist');
-            } else {
+            } else if (userRole === 'Cliente'){
                 navigate('/client');
+            } else {
+                notify('error', 'Rol de usuario no válido');
             }
         }
     } catch (error) {

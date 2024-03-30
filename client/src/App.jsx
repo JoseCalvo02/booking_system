@@ -49,8 +49,8 @@ function App() {
                     <Route path="reports" element={<ReportsAdmin />} />
                     <Route path="profile" element={<Profile />} />
                 </Route>
-                <Route path="/stylist" element={isAuthenticated() && getUserRole() === 'Estilista' || getUserRole() === 'Administrador' ? <Stylist /> : <Navigate to="/auth" replace />} />
-                <Route path="/client" element={isAuthenticated() && getUserRole() === 'Cliente' || getUserRole() === 'Administrador' ? <Client /> : <Navigate to="/auth" replace />} >
+                <Route path="/stylist" element={isAuthenticated() && getUserRole() === 'Estilista' || isAuthenticated() && getUserRole() === 'Administrador' ? <Stylist /> : <Navigate to="/auth" replace />} />
+                <Route path="/client" element={isAuthenticated() && getUserRole() === 'Cliente' || isAuthenticated() && getUserRole() === 'Administrador' ? <Client /> : <Navigate to="/auth" replace />} >
                     <Route index element={<ClientHome />} />
                     <Route path="home" element={<ClientHome />} />
                     <Route path="settings" element={<Settings />} />
