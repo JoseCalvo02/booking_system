@@ -45,11 +45,11 @@ function MainContent() {
             </div>
             <section className="flex flex-wrap justify-center gap-4 m-auto md:gap-8">
                 <div className="w-full p-6 rounded-lg md:w-auto">
-                    <div className="flex flex-wrap justify-center gap-4 p-6 bg-gray-600 rounded-lg md:gap-8 md:ml-6 md:mr-6">
+                    <div className="flex flex-wrap justify-center gap-4 p-6 bg-gray-400 rounded-lg shadow-lg md:gap-8 md:ml-6 md:mr-6">
                         <select
                             value={selectedService}
                             onChange={handleServiceChange}
-                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="" disabled={selectedService !== ''} defaultValue hidden className="text-gray-900">
                                 Seleccionar servicio
@@ -63,7 +63,7 @@ function MainContent() {
 
                         <input
                             type="date"
-                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             min={currentDate}
                             value={selectedDate}
                             onChange={handleDateChange}
@@ -72,7 +72,7 @@ function MainContent() {
                         <select
                             value={selectedStylist}
                             onChange={handleStylistChange}
-                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="" disabled={selectedStylist !== ''} defaultValue hidden className="text-gray-500">
                                 Seleccionar estilista
@@ -84,7 +84,7 @@ function MainContent() {
                             ))}
                         </select>
 
-                        <select className="w-full p-3 mt-2 mb-2 text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <select className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">Seleccionar hora</option>
                             <option value="">7:00 am</option>
                             <option value="">8:00 am</option>
@@ -97,7 +97,7 @@ function MainContent() {
                             <option value="">4:00 pm</option>
                         </select>
 
-                        <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-600 border border-blue-600 rounded-md md:w-40 hover:bg-blue-700 hover:border-blue-700 hover:shadow-lg">
+                        <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-800 border border-blue-600 rounded-md md:w-40 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg">
                             Reservar cita
                         </button>
                     </div>

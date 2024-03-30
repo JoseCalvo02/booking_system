@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { CgProfile, CgLogOut, CgToolbox } from 'react-icons/cg';
 import { FaMoneyBillAlt } from 'react-icons/fa';
-import { TbReport, TbSettings, TbLayoutGrid, TbCalendarUser } from 'react-icons/tb'; // Corregido un error de sintaxis
-import { jwtDecode } from 'jwt-decode'; // Corregido un error de sintaxis
+import { TbReport, TbSettings, TbLayoutGrid, TbCalendarUser } from 'react-icons/tb';
+import { jwtDecode } from 'jwt-decode';
+import { handleLogout } from '../../../api/authApi';
 
 const Navbar = () => {
     const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [userName, setUserName] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Decodificar el token JWT para obtener la información del usuario, como el nombre
         const token = localStorage.getItem('token');
 
         if (token) {
-            const decodedToken = jwtDecode(token); // Corregido el nombre de la función
-            console.log(decodedToken);
-            setUserName(decodedToken.name); // Establecer el nombre de usuario en el estado local
+            const decodedToken = jwtDecode(token);
+            setUserName(decodedToken.name);
         } else {
             setUserName('Usuario');
         }
@@ -69,7 +69,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 items-center z-20 absolute ${isScrolled ? 'bg-opacity-90' : ''}`}>
+        <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 items-center z-20 ${isScrolled ? 'bg-opacity-90' : ''}`}>
             <div className='flex w-full text-2xl font-bold '>
                 <h1 className="mr-1 text-white">Studio</h1>
                 <h1 className="text-primary">Once Once</h1>
@@ -93,7 +93,7 @@ const Navbar = () => {
                             className='p-2 text-white hover:bg-blue-950 hover:rounded-lg'
                             onMouseEnter={() => setShowDropdown(true)}
                             onMouseLeave={() => setShowDropdown(false)}
-                            onClick={handleDropdown} // Agregado para cerrar el menú al hacer clic fuera de él
+                            onClick={handleDropdown}
                         >
                             <div className='relative flex items-center justify-center p-4 mr-16 text-white transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
                                 <CgProfile className="mr-1" size={20} />
@@ -126,10 +126,10 @@ const Navbar = () => {
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/logout" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
-                                            <CgLogOut  className="mr-1" size={20} />
-                                            Log Out
-                                        </NavLink>
+                                        <a className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg' onClick={() => handleLogout(navigate)}>
+                                            <CgLogOut className='mr-1'  size={20}/>
+                                            <span>Log out</span>
+                                        </a>
                                     </li>
                                 </ul>
                             )}
