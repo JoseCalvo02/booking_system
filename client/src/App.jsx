@@ -26,6 +26,7 @@ import ClientHome from "./pages/Roles/Client/Home"
 import Settings from "./pages/Roles/Client/Settings"
 import Reports from "./pages/Roles/Client/Reports"
 import Rewards from "./pages/Roles/Client/Rewards"
+import CitasCliente from "./pages/Roles/Client/CitasCliente"
 
 function App() {
     return (
@@ -55,6 +56,7 @@ function App() {
                     <Route path="settings" element={<Settings />} />
                     <Route path="reports" element={<Reports/>} />
                     <Route path="rewards" element={<Rewards />} />
+                    <Route path="citasCliente" element={<CitasCliente/>} />
                 </Route>
                 {/* La ruta comodín "*" maneja todas las URL que no coinciden con las rutas anteriores. */}
                 <Route path="*" element={<Navigate to="/notFound" replace />} />

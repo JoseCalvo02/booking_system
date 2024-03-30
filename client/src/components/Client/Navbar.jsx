@@ -69,7 +69,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 items-center z-20 ${isScrolled ? 'bg-opacity-90' : ''}`}>
+        <header className={`fixed flex w-full p-4 h-[7vh] bg-gray-900 items-center z-20 absolute ${isScrolled ? 'bg-opacity-90' : ''}`}>
             <div className='flex w-full text-2xl font-bold '>
                 <h1 className="mr-1 text-white">Studio</h1>
                 <h1 className="text-primary">Once Once</h1>
@@ -120,7 +120,7 @@ const Navbar = () => {
                                         </NavLink>
                                     </li>
                                     <li className='flex p-2'>
-                                        <NavLink to="/citas" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
+                                        <NavLink to="/client/CitasCliente" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                                             <TbCalendarUser  className="mr-1" size={20} />
                                             Citas
                                         </NavLink>
