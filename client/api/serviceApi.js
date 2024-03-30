@@ -31,3 +31,18 @@ export const getCoupons = async () => {
         throw new Error(error);
     }
 }
+
+// Obtener todas las citas de un cliente
+export const getAppointments = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/appointments`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

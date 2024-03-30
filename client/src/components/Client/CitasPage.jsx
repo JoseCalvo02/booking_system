@@ -1,6 +1,38 @@
 import React from "react";
+import { getAppointments } from "../../../api/serviceApi";
+import { useEffect, useState } from "react";
+import CancelarCitaModal from "../Modals/CancelarCitaModal";
+import ReprogramarCitaModal from "../Modals/ReprogramarCitaModal";
 
 function CitasPage() {
+
+    // Estado para almacenar  los datos de las citas de la base de datos
+    const [citas, setCitas] = useState([]);
+
+    // Función para cargar los datos de las citas de la base de datos y el nombre del estilista en el estado local
+    const loadAppointments = async () => {
+        try {
+            const appointments = await getAppointments();
+            setCitas(appointments);
+        } catch (error) {
+            console.error("Error al obtener las citas:", error);
+        }
+    }
+
+    useEffect(() => {
+        loadAppointments();
+    }
+    , []); // Cargar las citas al cargar el componente
+
+    // funcion para mostrar el modal de cancelar cita
+    const handleCancel = async () => {
+        await CancelarCitaModal();
+    }
+
+    const handleReprogram = async () => {
+        await ReprogramarCitaModal();
+    }
+
     return (
         <section className="flex flex-col w-full h-screen py-8 mx-auto md:w-3/4 md:flex-row md:py-0 md:space-x-8">
             <div className="w-full p-10 mx-auto md:w-full">
@@ -10,13 +42,13 @@ function CitasPage() {
                         <thead className="text-xs uppercase bg-gray-200">
                             <tr>
                                 <th scope="col" className="px-6 py-3 md:px-8">
-                                    ID
+                                    ID de la Cita
                                 </th>
                                 <th scope="col" className="px-6 py-3 md:px-8">
-                                    Fecha
+                                    Fecha de la Cita
                                 </th>
                                 <th scope="col" className="px-6 py-3 md:px-8">
-                                    Hora
+                                    Hora de la Cita
                                 </th>
                                 <th scope="col" className="px-6 py-3 md:px-8">
                                     Servicio
@@ -30,43 +62,45 @@ function CitasPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="text-black border">
+                            {citas.map((cita, index) => (
+                            <tr key={index} className="text-black border">
                                 <td className="px-6 md:px-8 ">
                                     <div className="flex items-center">
-                                        <p>01</p>
+                                        <p>{cita.citaID}</p>
                                     </div>
                                 </td>
                                 <td className="px-6 md:px-8">
                                     <div className="flex items-center">
-                                        <p>22/10/2021</p>
+                                        <p>{new Date(cita.fechaCita).toISOString().split('T')[0]}</p>
                                     </div>
                                 </td>
                                 <td className="px-6 md:px-8">
                                     <div className="flex items-center">
-                                        <p>10:00</p>
+                                    <p>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</p>
                                     </div>
                                 </td>
                                 <td className="px-6 md:px-8 ">
                                     <div className="flex items-center">
-                                        <p>Corte de Cabello</p>
+                                        <p>{cita.servicioCita}</p>
                                     </div>
                                 </td>
                                 <td className="px-6 md:px-8 ">
                                     <div className="flex items-center">
-                                        <p>Juan Perez</p>
+                                        <p>{cita.estilista}</p>
                                     </div>
                                 </td>
                                 <td className="p-2 px-6 md:px-8">
                                     <div className="flex items-center justify-center space-x-3">
-                                        <button className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
+                                        <button onClick={handleReprogram} className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
                                             Reprogramar
                                         </button>
-                                        <button className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
+                                        <button onClick={handleCancel} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
                                             Cancelar
                                         </button>
                                     </div>
                                 </td>
                             </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

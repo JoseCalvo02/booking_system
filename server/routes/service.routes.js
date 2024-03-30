@@ -12,5 +12,8 @@ router.get("/services", service.getAllServices);
 // Obtener todos los cupones disponibles
 router.get("/coupons", service.getAllCoupons);
 
+// Obtener todas las citas de un cliente
+router.get("/appointments", service.getAppointments);
+
 // Exportar las rutas
 export default router;

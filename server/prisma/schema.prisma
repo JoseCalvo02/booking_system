@@ -47,21 +47,15 @@ model Citas {
   estilistaID                          Int?
   comentarios                          String?             @db.VarChar(150)
   estadoID                             Int?
+  fechaCita                            DateTime?           @db.Date
+  horaCita                             DateTime?           @db.Time
+  servicioCita                         String?             @db.VarChar(20)
   ActividadCliente                     ActividadCliente[]
   Usuarios_Citas_clienteIDToUsuarios   Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
   EstadoCita                           EstadoCita?         @relation(fields: [estadoID], references: [estadoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estadoID")
   Usuarios_Citas_estilistaIDToUsuarios Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
-  DetallesCita                         DetallesCita[]
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
-}
-
-model DetallesCita {
-  detalleID  Int        @id(map: "PK__Detalles__4C49966DD3D1F39D") @default(autoincrement())
-  citaID     Int?
-  servicioID Int?
-  Citas      Citas?     @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_citaID")
-  Servicios  Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_servicioID")
 }
 
 model EstadoCita {
@@ -132,7 +126,6 @@ model Servicios {
   tiempoEstimado       DateTime?              @db.Time
   precio               Int?
   rutaImagen           String?                @db.VarChar(150)
-  DetallesCita         DetallesCita[]
   HistorialRecompensas HistorialRecompensas[]
   PuntosServicio       PuntosServicio?
 }
@@ -166,4 +159,3 @@ model Cupones {
   valorPuntos Int?
   estado      String? @db.VarChar(15)
 }
-
