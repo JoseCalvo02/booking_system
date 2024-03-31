@@ -38,11 +38,9 @@ function MainContent() {
 
     return (
         <main className="flex flex-col w-full">
-            <div className="text-center">
-                <h1 className="m-auto my-8 mt-20 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black md:my-28">
-                    Reserve aquí
-                </h1>
-            </div>
+            <h1 className="m-auto text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle mt-28 md:text-5xl lg:text-6xl dark:text-black">
+                Reserve aquí
+            </h1>
             <section className="flex flex-wrap justify-center gap-4 m-auto md:gap-8">
                 <div className="w-full p-6 rounded-lg md:w-auto">
                     <div className="flex flex-wrap justify-center gap-4 p-6 bg-gray-400 rounded-lg shadow-lg md:gap-8 md:ml-6 md:mr-6">
