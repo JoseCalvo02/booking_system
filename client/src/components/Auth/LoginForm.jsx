@@ -9,7 +9,7 @@ import { handleLoginSubmit } from '../../../utils/formSubmission'; // Importa la
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
-function LoginForm() {
+function LoginForm({ onLogin }) {
     const navigate = useNavigate(); // Hook para navegar a otras páginas
 
     const initialValues = {
@@ -29,7 +29,7 @@ function LoginForm() {
         };
 
         // Enviar solicitud de inicio de sesión y manejar la respuesta
-        await handleLoginSubmit(values, formikHelpers, navigate, notify);
+        await handleLoginSubmit(values, formikHelpers, navigate, notify, onLogin );
     };
 
     return (

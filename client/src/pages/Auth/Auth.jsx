@@ -11,7 +11,7 @@ import customStyles from '../../custom/customStyles';
 import Video3 from '../../assets/Video3.mp4';
 
 //Componente Page "Auth"
-export default function Auth() {
+export default function Auth({ onLogin }) {
     const { search } = useLocation(); // Hook para obtener la ubicación actual
     const params = new URLSearchParams(search); // Objeto URLSearchParams para obtener los parámetros de la URL
     const signInParam = params.get('signIn'); // Obtener el valor del parámetro "signIn" de la URL
@@ -40,7 +40,7 @@ export default function Auth() {
                     {/* LogIn container */}
                     <div className={`absolute top-0 h-full transition-all duration-700 ease-in-out left-0 w-1/2 z-2 ${signIn ? 'opacity-100' : 'opacity-0 transform translate-x-full'}`}>
                         {/* Login Form component: Formik */}
-                        <LoginForm/>
+                        <LoginForm onLogin={ onLogin }/>
                     </div>
 
                     {/* Overlay container */}

@@ -27,7 +27,7 @@ export const handleSubmit = async (values, { setSubmitting }, notify) => {
 };
 
 // Manejar el envío del formulario de login
-export const handleLoginSubmit = async (values, { setSubmitting }, navigate, notify) => {
+export const handleLoginSubmit = async (values, { setSubmitting }, navigate, notify, onLogin) => {
     try {
         // Enviar solicitud de inicio de sesión y manejar la respuesta
         const response = await loginUser(values);
@@ -37,11 +37,10 @@ export const handleLoginSubmit = async (values, { setSubmitting }, navigate, not
 
             // Decodificar el token JWT para obtener la información del usuario, como el rol
             const userRole = getUserRole();
-            console.log('Rol del usuario:', userRole);
+            onLogin(userRole);
 
             // Redirigir al usuario según su rol
             if (userRole === 'Administrador') {
-                console.log('Redirigiendo a la página de administrador...');
                 navigate('/admin');
             } else if (userRole === 'Estilista') {
                 navigate('/stylist');
