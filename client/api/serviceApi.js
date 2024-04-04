@@ -32,20 +32,22 @@ export const getCoupons = async () => {
     }
 }
 
-// Obtener todas las citas de un cliente
-export const getAppointments = async () => {
+// Obtener todas las citas del cliente logueado
+export const getAppointments = async (userId) => {
     try {
+        console.log("userId en api service", userId);
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.get(`${API_URL}/appointments`, {
+        const response = await axiosInstance.get(`${API_URL}/appointments/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
-        return response.data;
+        return response.data.appointments;
     } catch (error) {
         throw new Error(error);
     }
 }
+
 
 // Cancelar una cita de un cliente
 export const cancelAppointment = async (appointmentID) => {

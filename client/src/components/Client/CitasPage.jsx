@@ -3,26 +3,41 @@ import { getAppointments } from "../../../api/serviceApi";
 import { useEffect, useState } from "react";
 import CancelarCitaModal from "../Modals/CancelarCitaModal";
 import ReprogramarCitaModal from "../Modals/ReprogramarCitaModal";
+import { decodeToken } from '../../../utils/tokenUtils';
 
 function CitasPage() {
-
+    const [userData, setUserData] = useState({
+        usuarioID: '',
+        nombre: '',
+    }); // Obtener los datos del usuario logueado
+    
     // Estado para almacenar  los datos de las citas de la base de datos
     const [citas, setCitas] = useState([]);
+    
+    useEffect(() => {
+        const decodedToken = decodeToken();
+        console.log("Decoded token: ", decodedToken);
+        if (decodedToken) {
+            setUserData({
+                usuarioID: decodedToken.userId,
+                nombre: decodedToken.name,
+            });// Logging the userID
 
+            loadAppointments(decodedToken.userId);
+        }
+    }, []);
+    
     // Función para cargar los datos de las citas de la base de datos y el nombre del estilista en el estado local
-    const loadAppointments = async () => {
+    const loadAppointments = async (userId) => {
         try {
-            const appointments = await getAppointments();
+            console.log("Usuario logueado: ", userId);
+            const appointments = await getAppointments(userId);
             setCitas(appointments);
+            console.log("Citas cargadas: ", appointments);
         } catch (error) {
-            console.error("Error al obtener las citas:", error);
+            console.error("Error al cargar las citas:", error);
         }
     }
-
-    useEffect(() => {
-        loadAppointments();
-    }
-    , []); // Cargar las citas al cargar el componente
     
     // funcion para mostrar el modal de cancelar cita y recarga la pagina al cancelar la cita para actualizar la lista de citas
     const handleCancel = async (appointmentID) => {
@@ -39,7 +54,7 @@ function CitasPage() {
             <div className="w-full p-10 mx-auto md:w-full">
                 <div className="overflow-x-auto">
                     <table className="w-full mx-auto mt-8 overflow-hidden text-sm text-left text-black bg-gray-100 rounded-lg shadow-md md:mt-24">
-                        <caption className="mb-4 text-xl font-bold text-center">Citas del Usuario</caption>
+                        <caption className="mb-4 text-xl font-bold text-center">Citas de {userData.nombre}</caption>
                         <thead className="text-xs uppercase bg-gray-200">
                             <tr>
                                 <th scope="col" className="px-6 py-3 md:px-8">
@@ -63,44 +78,44 @@ function CitasPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {citas.map((cita, index) => (
-                            <tr key={index} className="text-black border">
-                                <td className="px-6 md:px-8 ">
-                                    <div className="flex items-center">
-                                        <p>{cita.citaID}</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 md:px-8">
-                                    <div className="flex items-center">
-                                        <p>{new Date(cita.fechaCita).toISOString().split('T')[0]}</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 md:px-8">
-                                    <div className="flex items-center">
-                                    <p>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 md:px-8 ">
-                                    <div className="flex items-center">
-                                        <p>{cita.servicioCita}</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 md:px-8 ">
-                                    <div className="flex items-center">
-                                        <p>{cita.estilista}</p>
-                                    </div>
-                                </td>
-                                <td className="p-2 px-6 md:px-8">
-                                    <div className="flex items-center justify-center space-x-3">
-                                        <button onClick={handleReprogram} className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
-                                            Reprogramar
-                                        </button>
-                                        <button onClick={() => handleCancel(cita.citaID)} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
-                                            Cancelar
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            {citas.map((cita) => (
+                                <tr key={cita.citaID} className="text-black border">
+                                    <td className="px-6 md:px-8 ">
+                                        <div className="flex items-center">
+                                            <p>{cita.citaID}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 md:px-8">
+                                        <div className="flex items-center">
+                                            <p>{new Date(cita.fechaCita).toISOString().split('T')[0]}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 md:px-8">
+                                        <div className="flex items-center">
+                                        <p>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 md:px-8 ">
+                                        <div className="flex items-center">
+                                            <p>{cita.servicioCita}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 md:px-8 ">
+                                        <div className="flex items-center">
+                                            <p>{cita.estilista}</p>
+                                        </div>
+                                    </td>
+                                    <td className="p-2 px-6 md:px-8">
+                                        <div className="flex items-center justify-center space-x-3">
+                                            <button onClick={handleReprogram} className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
+                                                Reprogramar
+                                            </button>
+                                            <button onClick={() => handleCancel(cita.citaID)} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
+                                                Cancelar
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             ))}
                         </tbody>
                     </table>

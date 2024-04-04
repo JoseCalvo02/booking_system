@@ -29,33 +29,38 @@ export const getAllCoupons = async (req, res) => {
 }
 
 //Crear funcion para obtener todas las citas que tenga estado 1 del usuario logueado getAppointments
-export const getAppointments = async (req, res) => {
+export const getAppointments = async (userId) => {
     try {
-        // Obtener el usuario logueado
-        const usuarioID = req.user.usuarioID;
-        // Obtener todas las citas del usuario
-        const appointments = await prisma.Citas.findMany({
-            where: {
-                usuarioID: usuarioID,
-                estadoID: 1
-            }
-        });
+        // Obtener el ID del usuario
+        userId = parseInt(userId);
 
-        // obtener el nombre del estilista
-        for (let i = 0; i < appointments.length; i++) {
-            const estilista = await prisma.Usuarios.findUnique({
+        const appointments = await prisma.$transaction(async (prisma) => {
+            const appointments = await prisma.Citas.findMany({
                 where: {
-                    usuarioID: appointments[i].estilistaID
+                    clienteID: userId,
+                    estadoID: 1
                 }
             });
-            appointments[i].estilista = estilista.nombre;
-        }
-        
+
+            const appointmentsWithStylist = await Promise.all(appointments.map(async (appointment) => {
+                const stylist = await prisma.Usuarios.findUnique({
+                    where: {
+                        usuarioID: appointment.estilistaID
+                    }
+                });
+                return {
+                    ...appointment,
+                    nombreEstilista: stylist.nombre
+                };
+            }));
+            return appointmentsWithStylist;
+        });
 
         // Enviar respuesta
-        res.json(appointments);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        return appointments;
+    }
+    catch (error) {
+        throw new Error('Error de servidor:', error);
     }
 }
 
