@@ -10,6 +10,7 @@ import ChangePasswordModal from '../Modals/ChangePasswordModal';
 const SettingsProfile = () => {
 
 const [userData, setUserData] = useState({
+    userId: '',
     name: '',
     lastName: '',
     email: '',
@@ -25,6 +26,7 @@ const loadUserData = () => {
     // Decodificar el token JWT y establecer los datos en el estado local
     const decodedToken = decodeToken(); // Decodificar el token JWT
     setUserData({
+        userId: decodedToken.userId,
         name: decodedToken.name,
         lastName: decodedToken.lastName,
         email: decodedToken.email,
@@ -50,8 +52,9 @@ const handlePhoneChange = () => {
 }
 
 const handleDeleteAccount = () => {
-    DeleteAccountModal();
+    DeleteAccountModal({ userId: userData.userId });
 }
+
 
 const handlePasswordChange = () => {
     ChangePasswordModal();

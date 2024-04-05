@@ -1,5 +1,6 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser } from "../controllers/userController.js";
+
 
 const router = express.Router();
 
@@ -58,4 +59,18 @@ router.put("/:userId/phone", async (req, res) => {
         res.status(500).json({ error: 'Error de servidor' });
     }
 });
+
+// Ruta para desactivar un usuario
+router.put("/desactivate/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params; // Obtener el userId de los parámetros de la URL
+        // Llamar a la función para desactivar un usuario
+        const newToken = await desactivateUser(userId);
+        res.status(200).json({ newToken, message: 'Usuario desactivado' });
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: 'Error de servidor' });
+    }
+});
+
 export default router;

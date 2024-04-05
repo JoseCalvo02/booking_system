@@ -133,3 +133,30 @@ export const updateUserPhone = async (userId, newPhone) => {
         throw new Error('Error de servidor');
     }
 }
+
+// Función para desactivar un usuario
+export const desactivateUser = async (userId) => {
+    try {
+        // Validar que userId sea un número entero
+        const userIdInt = parseInt(userId);
+        if (isNaN(userIdInt) || userIdInt <= 0) {
+            throw new Error('El userId no es válido');
+        }
+
+        // Desactivar la cuenta del usuario
+        const updatedUser = await prisma.usuarios.update({
+            where: {
+                usuarioID: userIdInt
+            },
+            data: {
+                estado: 'Inactivo'
+            }
+        });
+
+        return updatedUser;
+    } catch (error) {
+        console.error("Error en desactivateUser:", error);
+        throw new Error('No se pudo desactivar la cuenta del usuario');
+    }
+};
+

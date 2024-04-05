@@ -83,3 +83,21 @@ export const updateUserPhone = async (newPhone) => {
         throw new Error(`No se pudo actualizar el teléfono: ${error.response.data.error || error.message}`);
     }
 }
+
+export const desactivateUser = async (userId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/desactivate/${userId}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudo desactivar el usuario: ${error.response.data.error || error.message}`);
+    }
+}
