@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 // Función para generar un nuevo token JWT con los datos actualizados del usuario
 export const generateNewToken = async (user) => {
     // Define la duración del token en segundos
-    const expiresIn = 3600; // 1h
+    const expiresIn = 32400; // 9h
 
     // Obtiene el nombre del rol del usuario utilizando la relación inversa
     const roleName = await prisma.Roles.findFirst({

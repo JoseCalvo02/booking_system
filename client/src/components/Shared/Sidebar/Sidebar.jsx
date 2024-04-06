@@ -20,7 +20,7 @@ const Sidebar = () => {
     }, [location.pathname]); // Se ejecutará cuando la ubicación actual cambie
 
     return (
-        <aside className='flex flex-col p-4 font-semibold text-white bg-gray-900 md:p-8 text-md rounded-r-2xl'>
+        <aside className='flex flex-col max-h-screen p-4 font-semibold text-white bg-gray-900 md:p-8 text-md rounded-r-2xl'>
             {/* Logo */}
             <div className='flex-col hidden gap-1 p-2 mb-4 md:flex md:text-md lg:text-xl'>
                 <h1 className='text-white'>Studio</h1>

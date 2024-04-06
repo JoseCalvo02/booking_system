@@ -34,7 +34,7 @@ const Clients = () => {
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             {/* Title & search */}
-            <div className='mb-4 text-gray-900'>
+            <header className='mb-4 text-gray-900'>
                 <h1 className='mb-2 text-2xl font-semibold text-center'>
                     Tabla de clientes
                 </h1>
@@ -50,10 +50,10 @@ const Clients = () => {
                         Buscar
                     </button>
                 </div>
-            </div>
+            </header>
 
             {/* Table */}
-            <div className='overflow-y-auto max-h-[75vh]'>
+            <section className='overflow-y-auto max-h-[75vh]'>
                 <table className='w-full '>
                     <thead className='sticky top-0 z-10 text-white bg-gray-900'>
                         {/* Table Header */}
@@ -91,7 +91,7 @@ const Clients = () => {
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </section>
 
         </div>
     );

@@ -27,7 +27,7 @@ export default function Admin() {
         <div className='grid h-screen grid-cols-6 bg-bgWhite'>
             <Sidebar />
 
-            <main className='flex flex-col w-full col-span-5'>
+            <main className='flex flex-col w-full max-h-screen col-span-5'>
                 {/* Header */}
                 <header className='flex justify-between items-center min-h-[6vh] px-8 py-2 mx-6 mt-6 mb-2 bg-white shadow-custom rounded-xl'>
                     <h1 className= 'flex-1'>
