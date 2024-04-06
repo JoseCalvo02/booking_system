@@ -185,7 +185,8 @@ const SettingsProfile = () => {
                         </div>
                     </div>
                     {/* Third Section */}
-                    <p className="py-2 text-xl font-semibold">Contraseña</p>
+                    <p className="py-2 mt-4 text-xl font-semibold">Contraseña</p>
+                    <p className="pb-2 text-red-600 underline">Por favor, ingresa tu contraseña actual y luego la nueva contraseña que deseas establecer</p>
                     <div className="flex items-center">
                         <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <label htmlFor="login-password">
@@ -202,7 +203,7 @@ const SettingsProfile = () => {
                             </label>
                         </div>
                     </div>
-                    <button onClick={handlePasswordChange} className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Guardar contraseña</button>
+                    <button onClick={handlePasswordChange} className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Cambiar contraseña</button>
                     <hr className="mt-4 mb-8" />
                     {/* Fourth Section */}
                     <div className="mb-10">
