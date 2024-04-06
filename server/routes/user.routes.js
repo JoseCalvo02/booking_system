@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword } from "../controllers/userController.js";
 
 
 const router = express.Router();
@@ -73,4 +73,27 @@ router.put("/desactivate/:userId", async (req, res) => {
     }
 });
 
+// Ruta para cambiar la contraseña de un usuario
+router.put("/password/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params; // Obtener el userId de los parámetros de la URL
+        const { currentPassword, newPassword } = req.body; // Obtener las contraseñas actuales y nuevas del cuerpo de la petición
+        
+        // Validar que currentPassword y newPassword no estén vacíos
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Las contraseñas no pueden estar vacías' });
+        }
+
+        // Llamar a la función para cambiar la contraseña de un usuario
+        console.log(userId, currentPassword, newPassword, 'changePassword ROUTE');
+        const newToken = await changePassword(userId, currentPassword, newPassword); // Obtener el nuevo token
+        
+        // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
+        res.status(200).json({ newToken, message: 'Contraseña cambiada exitosamente' }); 
+    } catch (error) {
+        console.error("Error:", error);
+        // Si ocurre un error, enviar un mensaje de error al frontend
+        res.status(500).json({ error: 'Error al cambiar la contraseña' });
+    }
+});
 export default router;

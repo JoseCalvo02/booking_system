@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { desactivateUser } from '../../../api/userApi';
 
-const DeleteAccountModal = async ({ userId }) => {
+const DeleteAccountModal = async ({ userId, currentPassword, newPassword }) => {
     try {
         const result = await Swal.fire({
             title: '¿Estás seguro de que deseas desactivar tu cuenta?',
@@ -16,7 +16,7 @@ const DeleteAccountModal = async ({ userId }) => {
 
         if (result.isConfirmed) {
             // Llamar a la función API para desactivar la cuenta
-            const response = await desactivateUser(userId);
+            const response = await desactivateUser(userId, currentPassword, newPassword);
 
             // Mostrar un mensaje de éxito
             await Swal.fire({

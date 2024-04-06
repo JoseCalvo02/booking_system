@@ -26,7 +26,7 @@ export default function Services() {
                     <div className='font-medium text-center'>
                         <p className='py-2 mx-8 mt-8 border-b'>Duracion: 90 min</p>
                         <p className='py-2 mx-8 border-b'>Manicure a base de sales</p>
-                        <p className='py-2 mx-8 border-b'>Incluye crema y mascarilla cosmética</p>
+                        <p className='py-2 mx-8 border-b'>Incluye crema y mascarilla</p>
                     </div>
                     <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
                 </div>

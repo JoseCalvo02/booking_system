@@ -1,5 +1,6 @@
 import prisma from '../prisma/prisma.js';
 import { generateNewToken } from '../utils/jwtService.js';
+import bcrypt from "bcrypt"; // Importar la biblioteca bcrypt para encriptar contraseñas
 
 // Función genérica para obtener usuarios por tipo
 export const getUsersByType = async (type) => {
@@ -157,6 +158,54 @@ export const desactivateUser = async (userId) => {
     } catch (error) {
         console.error("Error en desactivateUser:", error);
         throw new Error('No se pudo desactivar la cuenta del usuario');
+    }
+};
+
+// Función para cambiar la contraseña de un usuario utilizando bcrypt para encriptar la nueva contraseña antes de guardarla y desencriptar la contraseña actual para compararla
+export const changePassword = async (userId, currentPassword, newPassword) => {
+    try {
+        // Convertir userId a tipo Int si es una cadena
+        userId = parseInt(userId);
+
+        // Buscar al usuario por su ID
+        const user = await prisma.Usuarios.findUnique({
+            where: {
+                usuarioID: userId
+            }
+        });
+
+        // Verificar si el usuario existe
+        if (!user) {
+            throw new Error('El usuario no existe');
+        }
+
+        // Verificar si la contraseña actual coincide
+        const passwordMatch = await bcrypt.compare(currentPassword, user.contra);
+        if (!passwordMatch) {
+            throw new Error('La contraseña actual no coincide');
+        }
+
+        // Encriptar la nueva contraseña antes de guardarla
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Actualizar la contraseña del usuario
+        const updatedUser = await prisma.Usuarios.update({
+            where: {
+                usuarioID: userId
+            },
+            data: {
+                contra: hashedPassword
+            }
+        });
+
+        // Generar un nuevo token con los datos actualizados del usuario
+        const newToken = await generateNewToken(updatedUser);
+
+        return newToken;
+    } catch (error) {
+        console.error("Error en changePassword:", error);
+        // Enviar mensajes específicos de error al frontend
+        throw new Error(error.message === 'El usuario no existe' ? 'El usuario no existe' : error.message === 'La contraseña actual no coincide' ? 'La contraseña actual no coincide' : 'Error de servidor');
     }
 };
 

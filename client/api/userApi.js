@@ -101,3 +101,23 @@ export const desactivateUser = async (userId) => {
         throw new Error(`No se pudo desactivar el usuario: ${error.response.data.error || error.message}`);
     }
 }
+
+// Función para cambiar la contraseña de un usuario
+export const changePassword = async (userId, currentPassword, newPassword) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`/api/user/password/${userId}`, { currentPassword, newPassword }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
+        return response.data;
+    } catch (error) {
+        // Si la solicitud falla, lanza un error con el mensaje apropiado
+        throw new Error(`No se pudo cambiar la contraseña: ${error.response.data.error || error.message}`);
+    }
+};
