@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-// Modal que muestre el horario de atencion de la empresa de lunes a sabado de 7:00am a 5:00pm, Domingo cerrado 
+// Modal que muestre el horario de atencion de la empresa de lunes a sabado de 7:00am a 5:00pm, Domingo cerrado
 const HorarioModal = async () => {
     Swal.fire({
         title: 'Horario de Atención',

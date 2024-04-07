@@ -23,8 +23,5 @@ router.put("/services/:serviceID", async (req, res) => {
     }
 });
 
-// Obtener todos los cupones disponibles
-router.get("/coupons", service.getAllCoupons);
-
 // Exportar las rutas
 export default router;

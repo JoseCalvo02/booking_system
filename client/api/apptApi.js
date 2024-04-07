@@ -1,6 +1,6 @@
 import axiosInstance from "../config/axiosConfig";
 
-const API_URL = "/api/appt"; // Ruta base para las solicitudes de cliente en el backend
+const API_URL = "/api/appt"; // Ruta base para las solicitudes de citas en el backend
 
 // Obtener todas las citas del cliente logueado
 export const getAppointments = async (userId) => {

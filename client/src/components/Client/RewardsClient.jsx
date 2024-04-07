@@ -1,8 +1,8 @@
 import { decodeToken } from '../../../utils/tokenUtils';
 import React, { useState, useEffect } from 'react';
-import RedeemedModal from '../Modals/RedeemedModal';
+import RedeemedModal from '../Modals/Coupons/RedeemedModal';
 import { CgProfile } from 'react-icons/cg';
-import { getCoupons } from '../../../api/serviceApi';
+import { getCoupons } from '../../../api/couponApi';
 
 function RewardsClient() {
 
@@ -25,7 +25,7 @@ function RewardsClient() {
             console.error('Error al obtener los cupones:', error.message);
         }
     };
-    
+
     const loadUserData = () => {
         // Decodificar el token JWT y establecer los datos en el estado local
         const decodedToken = decodeToken(); // Decodificar el token JWT
@@ -42,8 +42,7 @@ function RewardsClient() {
         loadCoupons();
     }
     , []); // Cargar los datos del usuario y los cupones al cargar el componente
-    
-    
+
     const handleRedeem = async () => {
         await RedeemedModal();
     } // Función para mostrar el modal de cupón canjeado
@@ -59,10 +58,10 @@ function RewardsClient() {
                                 Nombre Usuario
                             </th>
                             <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
-                                Puntos Acumulados 
+                                Puntos Acumulados
                             </th>
                             <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
-                                Puntos Canjeados 
+                                Puntos Canjeados
                             </th>
                         </tr>
                     </thead>
@@ -97,16 +96,16 @@ function RewardsClient() {
                             <th scope="col" className="px-6 py-3 text-sm">
                                 Nombre Cupon
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm"> 
+                            <th scope="col" className="px-6 py-3 text-sm">
                                 Puntos Requeridos
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm"> 
+                            <th scope="col" className="px-6 py-3 text-sm">
                                 Accion
                             </th>
                         </tr>
                     </thead>
-                    <tbody>  
-                        {cupones.map((cupon) => (          
+                    <tbody>
+                        {cupones.map((cupon) => (
                             <tr key={cupon.cuponID} className="text-black border">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-base font-semibold">{cupon.nombreCupon}</div>
@@ -120,7 +119,7 @@ function RewardsClient() {
                                     <button onClick={handleRedeem} className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-700">Canjear</button>
                                 </td>
                             </tr>
-                        ))} 
+                        ))}
                     </tbody>
                 </table>
             </div>
