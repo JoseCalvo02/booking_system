@@ -18,17 +18,22 @@ export const getServices = async () => {
 }
 
 // Actualizar un servicio
-export const updateService = async (editedService) => {
+export const editService = async (editedService) => {
     try {
         const token = localStorage.getItem('token');
         const response = await axiosInstance.put(`${API_URL}/services/${editedService.servicioID}`, editedService, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}`
             }
         });
         return response.data;
     } catch (error) {
-        throw new Error(error);
+       // Captura los errores específicos y muestra mensajes de error descriptivos
+       if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error("Error al actualizar el servicio");
+        }
     }
 }
 

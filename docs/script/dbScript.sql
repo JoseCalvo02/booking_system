@@ -54,7 +54,7 @@ create table Servicios (
 	servicioID INT PRIMARY KEY IDENTITY(1,1),
 	nombreServicio varchar(50),
 	descripcion varchar(255),
-	tiempoEstimado TIME,
+	tiempoEstimado VARCHAR(5) CHECK (tiempoEstimado LIKE '[0-2][0-9]:[0-5][0-9]'),
 	precio INT,
 	rutaImagen varchar(150)
 );

@@ -123,9 +123,9 @@ model Servicios {
   servicioID           Int                    @id(map: "PK__Servicio__65FD6B29878B0AFF") @default(autoincrement())
   nombreServicio       String?                @db.VarChar(50)
   descripcion          String?                @db.VarChar(255)
-  tiempoEstimado       DateTime?              @db.Time
   precio               Int?
   rutaImagen           String?                @db.VarChar(150)
+  tiempoEstimado       String?                @db.VarChar(5)
   HistorialRecompensas HistorialRecompensas[]
   PuntosServicio       PuntosServicio?
 }

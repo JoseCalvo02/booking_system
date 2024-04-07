@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { editService } from '../../../../api/serviceApi';
 
 // Función para abrir el modal de edición
 export const openEditModal = (service, updateService) => {
@@ -11,7 +12,7 @@ export const openEditModal = (service, updateService) => {
             <div className='max-w-full'>
                 <input id="nombreServicio" type="text" defaultValue={service.nombreServicio} placeholder="Nombre del Servicio" className='' required />
                 <input id="descripcion" type="text" defaultValue={service.descripcion} placeholder="Descripción" required />
-                <input id="tiempoEstimado" type="text" defaultValue={service.tiempoEstimado.slice(11, 16)} placeholder="hh:mm" pattern="\d{2}:\d{2}" required />
+                <input id="tiempoEstimado" type="text" defaultValue={service.tiempoEstimado} placeholder="hh:mm" pattern="\d{2}:\d{2}" required />
                 <input id="precio" type="number" defaultValue={service.precio} placeholder="Precio" required />
             </div>
         ),
@@ -42,8 +43,9 @@ export const openEditModal = (service, updateService) => {
                 return false;
             }
 
-            if (isNaN(precio)) {
-                Swal.showValidationMessage('El precio debe ser un número');
+            // Verificar si el precio contiene decimales
+            if (precio !== parseInt(precio).toString()) {
+                Swal.showValidationMessage('El precio debe ser un número entero');
                 return false;
             }
 
@@ -51,11 +53,21 @@ export const openEditModal = (service, updateService) => {
                 servicioID: service.servicioID,
                 nombreServicio,
                 descripcion,
-                tiempoEstimado: service.tiempoEstimado,
+                tiempoEstimado,
                 precio,
             };
-            // Ejecuta la función de callback con los datos editados
-            updateService(editedService);
+
+            // Llamar a la función para editar el servicio
+            editService(editedService).then(() => {
+                Swal.fire('¡Éxito!', 'El servicio se actualizó correctamente', 'success');
+                // Ejecutar la función de callback con los datos editados
+                updateService(editedService);
+            })
+            .catch(error => {
+                // Mostrar mensaje de error si hubo un problema al actualizar
+                Swal.fire('Error', 'Hubo un problema al actualizar el servicio', 'error');
+                console.error('Error al actualizar el servicio:', error);
+            });
         }
     });
 };

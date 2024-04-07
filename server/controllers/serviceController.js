@@ -13,7 +13,30 @@ export const getAllServices = async (req, res) => {
 }
 
 // Función para actualizar un servicio updateService
+export const updateService = async (serviceID, nombreServicio, descripcion, tiempoEstimado, precio) => {
+    try {
+        // Convertir los datos a números enteros
+        serviceID = parseInt(serviceID);
+        precio = parseInt(precio);
 
+        // Actualizar el servicio
+        const updatedService = await prisma.Servicios.update({
+            where: {
+                servicioID: serviceID
+            },
+            data: {
+                nombreServicio,
+                descripcion,
+                tiempoEstimado,
+                precio
+            }
+        });
+        // Enviar respuesta
+        return updatedService;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 
 //Crear funcion para obtener todos los cupones getAllCoupons y mostrar solo los cupones Activos
 export const getAllCoupons = async (req, res) => {
