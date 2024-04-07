@@ -1,6 +1,6 @@
 import prisma from "../prisma/prisma.js"; // Importar el Prisma Client
 
-//Crear funcion para obtener todos los servicios getAllServices
+// Función para obtener todos los servicios
 export const getAllServices = async (req, res) => {
     try {
         // Obtener todos los servicios
@@ -11,6 +11,9 @@ export const getAllServices = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+// Función para actualizar un servicio updateService
+
 
 //Crear funcion para obtener todos los cupones getAllCoupons y mostrar solo los cupones Activos
 export const getAllCoupons = async (req, res) => {

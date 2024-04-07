@@ -1,49 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getServices } from '../../../api/serviceApi';
+import { openEditModal } from '../Modals/Services/EditServModal';
 
 const Services = () => {
-    const [cards] = useState([
-        {
-            title: 'Service 1',
-            description: 'Description 1',
-            time: 'Time 1',
-            cost: 'Cost 1'
-        },
-        {
-            title: 'Service 2',
-            description: 'Description 2',
-            time: 'Time 1',
-            cost: 'Cost 1'
-        },
-        {
-            title: 'Service 3',
-            description: 'Description 3',
-            time: 'Time 1',
-            cost: 'Cost 1'
-        },
-        {
-            title: 'Service 4',
-            description: 'Description 4',
-            time: 'Time 1',
-            cost: 'Cost 1'
+    const [services, setServices] = useState([]); // Array of cards for services
+
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const services = await getServices();
+                setServices(services);
+            } catch (error) {
+                console.error('Error fetching services:', error.message);
+            }
         }
-    ]); // Array of cards for services
+        fetchServices();
+    }, []);
+
+    // Función para actualizar el servicio en el estado
+    const updateService = (editedService) => {
+        // Encuentra el índice del servicio editado en el array de servicios
+        const index = services.findIndex(service => service.servicioID === editedService.servicioID);
+        // Actualiza el array de servicios con el servicio editado
+        setServices(prevServices => {
+            const updatedServices = [...prevServices];
+            updatedServices[index] = editedService;
+            console.log('Updated services:', updatedServices);
+            return updatedServices;
+        });
+    };
+
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
-            <div className='m-auto'>
-                <h1 className='p-1 mb-4 text-lg font-semibold text-center bg-bgWhite md:text-xl lg:text-2xl'>Services</h1>
+            <header className='m-auto'>
+                <h1 className='p-1 mb-4 text-lg font-semibold text-center md:text-xl lg:text-2xl'>Servicios</h1>
+            </header>
 
-                {/* Cards section for services */}
-                <section className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
-                    { cards.map((card, i) => (
-                        <div key={i} className='w-full md:w-[48%] lg:w-[31%] h-64 p-8 bg-bgWhite rounded-xl mb-4 shadow-custom hover:shadow-none text-center content-center'>
-                            <h3 className='text-xl font-semibold'>{card.title}</h3>
-                            <p>{card.description}</p>
-                            <p>{card.time}</p>
-                            <p>{card.cost}</p>
+            {/* Services section for services */}
+            <section className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
+                { services.map((service, i) => (
+                    <div key={i} className='w-full md:w-[48%] lg:w-[31%] h-64 p-8 bg-bgWhite rounded-xl mb-4 shadow-custom hover:shadow-none text-center content-center'>
+                        <h3 className='text-xl font-semibold'>{service.nombreServicio}</h3>
+                        <p className='max-w-full'>{service.descripcion}</p>
+                        <p>{service.tiempoEstimado.slice(11, 16)}</p>
+                        <p>₡{service.precio}</p>
+                        <div className='mt-4 space-x-2'>
+                            <button className='p-2 bg-blue-400 rounded-md hover:bg-blue-500' onClick={() => openEditModal(service, updateService)}>Editar</button>
+                            <button className='p-2 bg-red-400 rounded-md hover:bg-red-500'>Eliminar</button>
                         </div>
-                    ))}
-                </section>
-            </div>
+                    </div>
+                ))}
+            </section>
         </div>
     );
 }

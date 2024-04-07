@@ -17,6 +17,21 @@ export const getServices = async () => {
     }
 }
 
+// Actualizar un servicio
+export const updateService = async (editedService) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/services/${editedService.servicioID}`, editedService, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 // Obtener todos los cupones disponibles
 export const getCoupons = async () => {
     try {
