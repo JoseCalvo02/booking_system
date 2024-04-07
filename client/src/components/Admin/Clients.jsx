@@ -35,7 +35,7 @@ const Clients = () => {
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             {/* Title & search */}
             <header className='mb-4 text-gray-900'>
-                <h1 className='mb-2 text-2xl font-semibold text-center'>
+                <h1 className='p-1 mb-4 text-lg font-semibold text-center md:text-xl lg:text-2xl'>
                     Tabla de clientes
                 </h1>
                 <div className="relative flex items-center justify-center sm:text-sm md:text-md lg:text-lg">
