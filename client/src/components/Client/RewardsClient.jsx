@@ -43,9 +43,10 @@ function RewardsClient() {
     }
     , []); // Cargar los datos del usuario y los cupones al cargar el componente
 
-    const handleRedeem = async () => {
-        await RedeemedModal();
-    } // Función para mostrar el modal de cupón canjeado
+    const handleRedeem = async (cuponId) => {
+        // Realizar la acción de canje aquí
+        await RedeemedModal(cuponId);
+    };
 
     return (
         <section className="flex flex-col w-full py-8 m-auto md:w-3/4 md:flex-row md:py-0 md:space-x-8 h-4/5">
@@ -54,13 +55,13 @@ function RewardsClient() {
                     <caption className="mb-4 text-xl font-bold text-center">Puntos del Usuario</caption>
                     <thead className="text-xs uppercase bg-gray-200">
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
+                            <th scope="col" className="px-6 py-3 text-sm">
                                 Nombre Usuario
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
+                            <th scope="col" className="px-6 py-3 text-sm">
                                 Puntos Acumulados
                             </th>
-                            <th scope="col" className="px-6 py-3 text-sm"> {/* Modificado */}
+                            <th scope="col" className="px-6 py-3 text-sm">
                                 Puntos Canjeados
                             </th>
                         </tr>
@@ -116,7 +117,7 @@ function RewardsClient() {
                                 </div>
                             </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button onClick={handleRedeem} className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-700">Canjear</button>
+                                    <button onClick={() => handleRedeem(cupon.cuponID)} className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-700">Canjear</button>
                                 </td>
                             </tr>
                         ))}
