@@ -48,6 +48,7 @@ export const redeemCoupon = async (userId, cuponId) => {
         // Actualizar los puntos del usuario
         const updatedPoints = await prisma.PuntosClientes.update({
             where: {
+                puntosID: userPoints.puntosID,
                 clienteID: userId
             },
             data: {
@@ -60,7 +61,6 @@ export const redeemCoupon = async (userId, cuponId) => {
             }
         });
 
-        console.log("updatedPoints", updatedPoints);
         // Enviar respuesta
         return updatedPoints;
     } catch (error) {
