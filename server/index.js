@@ -13,6 +13,8 @@ import authenticateToken from "./Middleware/authMiddleware.js";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import serviceRoutes from "./routes/service.routes.js";
+import apptRoutes from "./routes/appt.routes.js";
+import couponRoutes from "./routes/coupon.routes.js";
 
 const PORT = 3000; // Puerto en el que se ejecutará el servidor
 
@@ -43,6 +45,8 @@ prisma.$connect()
 app.use("/api/auth", authRoutes);
 app.use("/api/user",authenticateToken, userRoutes);
 app.use("/api/service",authenticateToken, serviceRoutes);
+app.use("/api/appt",authenticateToken, apptRoutes);
+app.use("/api/coupon",authenticateToken, couponRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

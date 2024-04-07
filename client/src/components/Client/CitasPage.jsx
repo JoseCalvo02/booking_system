@@ -1,8 +1,8 @@
 import React from "react";
-import { getAppointments } from "../../../api/serviceApi";
+import { getAppointments } from "../../../api/apptApi";
 import { useEffect, useState } from "react";
-import CancelarCitaModal from "../Modals/CancelarCitaModal";
-import ReprogramarCitaModal from "../Modals/ReprogramarCitaModal";
+import CancelarCitaModal from "../Modals/Appointments/CancelarCitaModal";
+import ReprogramarCitaModal from "../Modals/Appointments/ReprogramarCitaModal";
 import { decodeToken } from '../../../utils/tokenUtils';
 
 function CitasPage() {
@@ -10,13 +10,12 @@ function CitasPage() {
         usuarioID: '',
         nombre: '',
     }); // Obtener los datos del usuario logueado
-    
+
     // Estado para almacenar  los datos de las citas de la base de datos
     const [citas, setCitas] = useState([]);
-    
+
     useEffect(() => {
         const decodedToken = decodeToken();
-        console.log("Decoded token: ", decodedToken);
         if (decodedToken) {
             setUserData({
                 usuarioID: decodedToken.userId,
@@ -26,23 +25,26 @@ function CitasPage() {
             loadAppointments(decodedToken.userId);
         }
     }, []);
-    
+
     // Función para cargar los datos de las citas de la base de datos y el nombre del estilista en el estado local
     const loadAppointments = async (userId) => {
         try {
-            console.log("Usuario logueado: ", userId);
             const appointments = await getAppointments(userId);
             setCitas(appointments);
-            console.log("Citas cargadas: ", appointments);
         } catch (error) {
             console.error("Error al cargar las citas:", error);
         }
     }
-    
+
     // funcion para mostrar el modal de cancelar cita y recarga la pagina al cancelar la cita para actualizar la lista de citas
     const handleCancel = async (appointmentID) => {
-        await CancelarCitaModal(appointmentID);
-        loadAppointments();
+        try {
+            await CancelarCitaModal(appointmentID);
+            const updatedAppointments = citas.filter(cita => cita.citaID !== appointmentID);
+            setCitas(updatedAppointments);
+        } catch (error) {
+            console.error("Error al cancelar la cita:", error);
+        }
     }
 
     const handleReprogram = async () => {
@@ -102,7 +104,7 @@ function CitasPage() {
                                     </td>
                                     <td className="px-6 md:px-8 ">
                                         <div className="flex items-center">
-                                            <p>{cita.estilista}</p>
+                                            <p>{cita.nombreEstilista}</p>
                                         </div>
                                     </td>
                                     <td className="p-2 px-6 md:px-8">

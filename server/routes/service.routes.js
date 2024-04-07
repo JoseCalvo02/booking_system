@@ -26,21 +26,5 @@ router.put("/services/:serviceID", async (req, res) => {
 // Obtener todos los cupones disponibles
 router.get("/coupons", service.getAllCoupons);
 
-// Obtener todas las citas de un cliente
-router.get("/appointments/:userId", async (req, res) => {
-    try {
-        const { userId } = req.params;
-
-        const appointments = await service.getAppointments(userId);
-
-        res.status(200).json({appointments, message: "Citas cargadas exitosamente"});
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Cancelar una cita de un cliente
-router.delete("/appointment/:appointmentID", service.cancelAppointment);
-
 // Exportar las rutas
 export default router;

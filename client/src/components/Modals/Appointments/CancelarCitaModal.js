@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { cancelAppointment } from '../../../api/serviceApi';
+import { cancelAppointment } from '../../../../api/apptApi';
 
 const CancelarCitaModal = async (appointmentID) => {
     const result = await Swal.fire({
