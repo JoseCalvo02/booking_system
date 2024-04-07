@@ -112,12 +112,13 @@ function RewardsClient() {
                                     <div className="text-base font-semibold">{cupon.nombreCupon}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                <div className="flex items-center">
-                                    <div className="h-2.5 w-2.5 rounded-full bg-red-500 me-2"></div> {cupon.valorPuntos}
-                                </div>
-                            </td>
+                                    <div className={`flex items-center`}>
+                                        <div className={`h-2.5 w-2.5 rounded-full ${cupon.valorPuntos <= userData.puntosAcumulados ? 'bg-green-500' : 'bg-red-500'} me-2`}></div>
+                                        {cupon.valorPuntos}
+                                    </div>
+                                </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button onClick={() => handleRedeem(cupon.cuponID)} className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-700">Canjear</button>
+                                    <button onClick={() => handleRedeem(cupon.cuponID)} className={`px-4 py-2 text-sm text-white rounded-md ${cupon.valorPuntos <= userData.puntosAcumulados ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'}`} disabled={cupon.valorPuntos > userData.puntosAcumulados}>Canjear</button>
                                 </td>
                             </tr>
                         ))}
