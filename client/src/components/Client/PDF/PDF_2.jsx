@@ -1,74 +1,93 @@
 import React, { useEffect, useState } from 'react';
 import { Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from '../../../../utils/tokenUtils';
 import Logo from '../../../assets/logo.png';
+import { getAppointments } from "../../../../api/apptApi";
 
 const PDF_1 = () => {
-  const [userData, setUserData] = useState({ nombre: '', correo: '', apellido: ''});
+  const [userData, setUserData] = useState({
+    usuarioID: '',
+    nombre: '',
+    apellidos: '',
+  });
+
+  const [citas, setCitas] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const decoded = jwtDecode(token);
-    setUserData({
-      nombre: decoded.name,
-      correo: decoded.email,
-      apellidos: decoded.lastName,
-    });
+    const decodedToken = decodeToken();
+    if (decodedToken) {
+      setUserData({
+        usuarioID: decodedToken.userId,
+        nombre: decodedToken.name,
+        apellidos: decodedToken.lastName,
+      });
+      loadAppointments(decodedToken.userId);
+    }
   }, []);
+
+  const loadAppointments = async (userId) => {
+    try {
+      const appointments = await getAppointments(userId);
+      setCitas(appointments);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al cargar las citas:", error);
+      setLoading(false);
+    }
+  }
 
   return (
     <Document>
       <Page size="letter" style={styles.page}>
         <Image src={Logo} style={styles.logo1} />
-        <Image src={Logo} style={styles.logo2} />
-        <Text style={styles.title}>Reporte de Citas de Usuario</Text>
+        <Text style={styles.title}>Reporte Citas de {userData.nombre}</Text>
         
         <View style={styles.userData}>
-          <Text style={styles.userDataText}>Usuario: {userData.nombre + ' ' +  userData.apellidos}</Text>
+          <Text style={styles.userDataText}>Usuario: {userData.nombre} {userData.apellidos}</Text>
         </View>
 
-        <View style={styles.table}>
-          <View style={styles.tableRow}>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableHeaderText}>ID de Cita</Text>
+        {loading ? (
+          <Text>Cargando citas...</Text>
+        ) : (
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableHeaderText}>Fecha</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableHeaderText}>Estilista</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableHeaderText}>Hora Cita</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableHeaderText}>Servicio</Text>
+              </View>
             </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableHeaderText}>Fecha</Text>
-            </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableHeaderText}>Estilista</Text>
-            </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableHeaderText}>Servicio</Text>
-            </View>
-            <View style={styles.tableColHeader}>
-              <Text style={styles.tableHeaderText}>Estado</Text>
-            </View>
+            {citas.map((cita) => (
+              <View style={styles.tableRow} key={cita.citaID}>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableDataText}>{new Date(cita.fechaCita).toISOString().split('T')[0]}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableDataText}>{cita.nombreEstilista}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableDataText}>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableDataText}>{cita.servicioCita}</Text>
+                </View>
+              </View>
+            ))}
           </View>
-          <View style={styles.tableRow}>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableDataText}>1</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableDataText}>2021-08-01</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableDataText}>Juan Perez</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableDataText}>Corte de Cabello</Text>
-            </View>
-            <View style={styles.tableCol}>
-              <Text style={styles.tableDataText}>Realizada</Text>
-            </View>
-          </View>
-        </View>
+        )}
 
         <View style={styles.reportDateContainer}>
           <Text style={styles.reportDate}>Fecha de Reporte: {new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</Text>
           <Text style={styles.reportDate}>Hora de Reporte: {new Date().toLocaleTimeString('es-ES')}</Text>
         </View>
-        
       </Page>
     </Document>
   );
@@ -92,18 +111,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
   },
-  logo2: {
-    width: 500,
-    height: 500,
-    position: 'absolute',
-    opacity: 0.1,
-    marginLeft: 70,
-    marginTop: 80,
-  },
   logo1: {
     width: 100,
     height: 100,
-    position: 'absolute',
     marginLeft: 15,
   },
   userData: {
@@ -133,35 +143,31 @@ const styles = StyleSheet.create({
     fontSize: 12,   
   },
   table: {
-    display: 'table',
-    width: 'auto',
+    width: '100%',
     borderStyle: 'solid',
-    borderColor: 'black',
     borderWidth: 1,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
+    borderColor: '#000',
     marginTop: 20,
   },
   tableRow: { 
-    flexDirection: 'row' 
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#000',
   },
   tableColHeader: {
-    width: '20%',
+    flex: 1,
     borderStyle: 'solid',
-    borderColor: 'black',
-    borderBottomColor: '#000',
     borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-    
+    borderColor: '#000',
+    backgroundColor: '#f2f2f2',
+    padding: 5,
   },
   tableCol: {
-    width: '20%',
+    flex: 1,
     borderStyle: 'solid',
-    borderColor: '#black',
     borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0
+    borderColor: '#000',
+    padding: 5,
   },
   tableHeaderText: {
     fontSize: 10,
@@ -175,3 +181,4 @@ const styles = StyleSheet.create({
 });
 
 export default PDF_1;
+
