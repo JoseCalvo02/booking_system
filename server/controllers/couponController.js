@@ -61,6 +61,19 @@ export const redeemCoupon = async (userId, cuponId) => {
             }
         });
 
+        
+        // Ingresar los datos en la tabla CuponesCanjeados
+        await prisma.CuponesCanjeados.create({
+            data: {
+                cuponID: cuponId,
+                clienteID: userId,
+                fecha: new Date().toISOString(),
+                valorPuntos: coupon.valorPuntos,
+                estado: "Pendiente"
+
+            }
+        });
+
         // Enviar respuesta
         return updatedPoints;
     } catch (error) {

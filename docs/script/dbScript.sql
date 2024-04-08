@@ -175,3 +175,12 @@ create table PuntosServicio(
 	puntosGenerados INT,
     CONSTRAINT fk_PuntosServicio_servicioID FOREIGN KEY(servicioID) REFERENCES Servicios(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+CREATE TABLE CuponesCanjeados (
+    cuponCanjeadoID INT PRIMARY KEY IDENTITY(1,1),
+    cuponID INT,
+    clienteID INT,
+    fecha DATE,
+    valorPuntos DECIMAL(10, 2),
+    estado VARCHAR(50)
+);

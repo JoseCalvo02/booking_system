@@ -159,3 +159,12 @@ model Cupones {
   valorPuntos Int?
   estado      String? @db.VarChar(15)
 }
+
+model CuponesCanjeados {
+  cuponCanjeadoID Int       @id(map: "PK__CuponesC__606B3DC27036094D") @default(autoincrement())
+  cuponID         Int?
+  clienteID       Int?
+  fecha           DateTime? @db.Date
+  valorPuntos     Decimal?  @db.Decimal(10, 2)
+  estado          String?   @db.VarChar(50)
+}
