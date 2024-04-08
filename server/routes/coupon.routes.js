@@ -14,10 +14,24 @@ router.post("/redeemCoupon", async (req, res) => {
 
         const updatedPoints = await coupon.redeemCoupon(userId, cuponId);
 
-        res.status(200).json({ updatedPoints, message: "Cupón canjeado con éxito" });
+        res.status(200)({ updatedPoints, message: "Cupón canjeado con éxito" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+router.get("/redeemedCoupons", async (req, res) => {
+    try {
+        const { userId } = req.query;
+
+        const redeemedCoupons = await coupon.getRedeemedCoupons(userId);
+
+        res.status(200).json(redeemedCoupons);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 
 export default router;

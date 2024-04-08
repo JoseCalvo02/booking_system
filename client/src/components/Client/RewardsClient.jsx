@@ -1,12 +1,14 @@
 import { decodeToken } from '../../../utils/tokenUtils';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useImperativeHandle } from 'react';
 import RedeemedModal from '../Modals/Coupons/RedeemedModal';
 import { CgProfile } from 'react-icons/cg';
 import { getCoupons } from '../../../api/couponApi';
+import { getRedeemedCoupons } from '../../../api/couponApi';
 
 function RewardsClient() {
 
     const [userData, setUserData] = useState({
+        userId: '',
         nombre: '',
         email: '',
         puntosAcumulados: 0,
@@ -15,6 +17,9 @@ function RewardsClient() {
 
     // Estado para almacenar los datos de los cupones de la base de datos
     const [cupones, setCupones] = useState([]);
+
+    // Estado para almacenar los datos de los cupones canjeados por el usuario
+    const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
 
     // Función para cargar los datos de los cupones de la base de datos en el estado local
     const loadCoupons = async () => {
@@ -30,6 +35,7 @@ function RewardsClient() {
         // Decodificar el token JWT y establecer los datos en el estado local
         const decodedToken = decodeToken(); // Decodificar el token JWT
         setUserData({
+            userId: decodedToken.userId,
             nombre: decodedToken.name,
             email: decodedToken.email,
             puntosAcumulados: decodedToken.userPoints.puntosAcumulados,
@@ -37,11 +43,24 @@ function RewardsClient() {
         }); // Establecer los datos del usuario en el estado local
     };
 
+    const loadRedeemedCoupons = async () => {
+        try {
+            const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
+            setCuponesCanjeados(redeemedCoupons); // Establecer los cupones canjeados en el estado local
+        } catch (error) {
+            console.error('Error al obtener los cupones canjeados:', error.message);
+        }
+    };
+        
+
     useEffect(() => {
         loadUserData();
         loadCoupons();
+        loadRedeemedCoupons();
     }
     , []); // Cargar los datos del usuario y los cupones al cargar el componente
+
+    console.log(cuponesCanjeados);
 
     const handleRedeem = async (cuponId) => {
         // Realizar la acción de canje aquí
@@ -86,6 +105,44 @@ function RewardsClient() {
                                 </div>
                             </td>
                         </tr>
+                    </tbody>
+                </table>
+
+                <table className="w-full m-10 mt-8 overflow-hidden text-sm text-left text-black bg-gray-100 rounded-lg shadow-md">
+                    <caption className="mb-2 text-xl font-bold text-center">Cupones para Utilizar</caption>
+                    <thead className="text-xs uppercase bg-gray-200">
+                        <tr>
+                            <th scope="col" className="px-6 py-3 text-sm">
+                                Nombre Cupon
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-sm">
+                                Fecha Canje
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-sm">
+                                Valor Puntos
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-sm">
+                                Estado
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {cuponesCanjeados.map((cupon) => (
+                            <tr key={cupon.cuponCanjeadoID} className="text-black border">
+                                <td className="px-6 py-4">
+                                    <div className="text-base font-semibold">{cupon.nombreCupon}</div>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <div className="text-base font-semibold">{new Date(cupon.fecha).toISOString().split('T')[0]}</div>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <div className="text-base font-semibold">{cupon.valorPuntos}</div>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <div className={`text-base font-semibold`}>{cupon.estado}</div>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

@@ -80,3 +80,33 @@ export const redeemCoupon = async (userId, cuponId) => {
         throw new Error('Error de servidor: ' + error.message); // Concatenar el mensaje de error correctamente
     }
 }
+
+export const getRedeemedCoupons = async (userId) => {
+    try {
+
+        // Convertir userId a entero si es necesario
+        userId = parseInt(userId);
+
+        // Obtener los cupones canjeados por el usuario
+        const redeemedCoupons = await prisma.CuponesCanjeados.findMany({
+            where: {
+                clienteID: userId
+            }
+        });
+
+        // Obtener el nombre del cupón canjeado
+        for (let i = 0; i < redeemedCoupons.length; i++) {
+            const coupon = await prisma.Cupones.findUnique({
+                where: {
+                    cuponID: redeemedCoupons[i].cuponID
+                }
+            });
+            redeemedCoupons[i].nombreCupon = coupon.nombreCupon;
+        }
+
+        // Enviar respuesta
+        return redeemedCoupons;
+    } catch (error) {
+        throw new Error('Error al obtener los cupones canjeados: ' + error.message);
+    }
+}
