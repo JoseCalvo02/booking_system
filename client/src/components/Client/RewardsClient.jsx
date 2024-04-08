@@ -46,11 +46,13 @@ function RewardsClient() {
     const loadRedeemedCoupons = async () => {
         try {
             const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
-            setCuponesCanjeados(redeemedCoupons); // Establecer los cupones canjeados en el estado local
+            const pendientesCoupons = redeemedCoupons.filter(coupon => coupon.estado === "Pendiente"); // Filtrar los cupones con estado "Pendientes"
+            setCuponesCanjeados(pendientesCoupons); // Establecer los cupones pendientes en el estado local
         } catch (error) {
             console.error('Error al obtener los cupones canjeados:', error.message);
         }
     };
+    
         
 
     useEffect(() => {
