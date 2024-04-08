@@ -20,7 +20,7 @@ function FAQSection() {
 
                 <div className="p-6 bg-gray-200 border border-gray-200 rounded-lg shadow-xl">
                     <h3 className="mb-4 text-xl font-semibold text-gray-900">¿Mis cupones tiene fecha de venciento?</h3>
-                    <p className="text-gray-700">Los cupoenes de nuestra tienda tienen una vigencia de 12 meses para ser canjeado, desde que se genero el cupon en el sistema.</p>
+                    <p className="text-gray-700">Los cupones de nuestra tienda tienen como fecha maxima para ser canjeados por el cliente hasta el 31 de diciembre del año actual.</p>
                 </div>
             </div>
         </section>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getServices } from '../../../api/serviceApi';
 import { getUsersByType } from '../../../api/userApi';
+import { getRedeemedCoupons } from '../../../api/couponApi';
 
 function MainContent() {
     const [services, setServices] = useState([]);
@@ -9,6 +10,8 @@ function MainContent() {
     const [selectedStylist, setSelectedStylist] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const currentDate = new Date().toISOString().split('T')[0];
+    const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
+    const [selectedCoupon, setSelectedCoupon] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,10 +23,22 @@ function MainContent() {
                 console.error('Error al obtener los datos:', error.message);
             }
         };
+        
+        const loadRedeemedCoupons = async () => {
+            try {
+                const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
+                const pendientesCoupons = redeemedCoupons.filter(coupon => coupon.estado === "Pendiente"); // Filtrar los cupones con estado "Pendientes"
+                setCuponesCanjeados(pendientesCoupons); // Establecer los cupones pendientes en el estado local
+            } catch (error) {
+                console.error('Error al obtener los cupones canjeados:', error.message);
+            }
+        };
 
+        loadRedeemedCoupons(); // Llamar a la función para cargar los cupones canjeados
         fetchData();
     }, []);
 
+    
     const handleServiceChange = (event) => {
         setSelectedService(event.target.value);
     };
@@ -35,6 +50,10 @@ function MainContent() {
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
+
+    const handleCouponChange = (event) => {
+        setSelectedCoupon(event.target.value);
+    }
 
     return (
         <main className="flex flex-col w-full">
@@ -95,6 +114,21 @@ function MainContent() {
                             <option value="">4:00 pm</option>
                         </select>
 
+                        <select 
+                            value={selectedCoupon}
+                            onChange={handleCouponChange}
+                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="" disabled={selectedCoupon !== ''} defaultValue hidden className="text-gray-500 ">
+                                Seleccionar cupón
+                            </option>
+                            {cuponesCanjeados.map((coupon) => (
+                                <option key={coupon.cuponCanjeadoID} value={coupon.nombreCupon}>
+                                    {coupon.nombreCupon + " || Valido en el " + new Date(coupon.fecha).getFullYear()}
+                                </option>
+                            ))}
+                        </select>
+                        
                         <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-800 border border-blue-600 rounded-md md:w-40 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg">
                             Reservar cita
                         </button>
