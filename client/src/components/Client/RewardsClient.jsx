@@ -132,16 +132,16 @@ function RewardsClient() {
                         {cuponesCanjeados.map((cupon) => (
                             <tr key={cupon.cuponCanjeadoID} className="text-black border">
                                 <td className="px-6 py-4">
-                                    <div className="text-base font-semibold">{cupon.nombreCupon}</div>
+                                    <div className="text-base">{cupon.nombreCupon}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="text-base font-semibold">{new Date(cupon.fecha).toISOString().split('T')[0]}</div>
+                                    <div className="text-base">{new Date(cupon.fecha).toISOString().split('T')[0]}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="text-base font-semibold">{cupon.valorPuntos}</div>
+                                    <div className="text-base">{cupon.valorPuntos}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className={`text-base font-semibold`}>{cupon.estado}</div>
+                                    <div className={`text-base`}>{cupon.estado}</div>
                                 </td>
                             </tr>
                         ))}
@@ -168,7 +168,7 @@ function RewardsClient() {
                         {cupones.map((cupon) => (
                             <tr key={cupon.cuponID} className="text-black border">
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-base font-semibold">{cupon.nombreCupon}</div>
+                                    <div className="text-base">{cupon.nombreCupon}</div>
                                 </td>
                                 <td className="px-6 py-4">
                                     <div className={`flex items-center`}>
@@ -177,7 +177,7 @@ function RewardsClient() {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <button onClick={() => handleRedeem(cupon.cuponID)} className={`px-4 py-2 text-sm text-white rounded-md ${cupon.valorPuntos <= userData.puntosAcumulados ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'}`} disabled={cupon.valorPuntos > userData.puntosAcumulados}>Canjear</button>
+                                    <button onClick={() => handleRedeem(cupon.cuponID)} className={`px-4 py-2 text-sm text-white rounded-md ${cupon.valorPuntos <= userData.puntosAcumulados ? 'bg-blue-500 hover:bg-blue-700' : 'bg-gray-500'} font-semibold`} disabled={cupon.valorPuntos > userData.puntosAcumulados}>Canjear</button>
                                 </td>
                             </tr>
                         ))}
