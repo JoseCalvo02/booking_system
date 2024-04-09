@@ -20,13 +20,25 @@ router.post("/redeemCoupon", async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los cupones canjeados
 router.get("/redeemedCoupons", async (req, res) => {
     try {
-        const { userId } = req.query;
-
-        const redeemedCoupons = await coupon.getRedeemedCoupons(userId);
+        const redeemedCoupons = await coupon.getRedeemedCoupons();
 
         res.status(200).json(redeemedCoupons);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Ruta para obtener todos los cupones canjeados por un usuario
+router.get("/redeemedCoupons:userId", async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const redeemedCouponsByUser = await coupon.getRedeemedCouponsByUser(userId);
+
+        res.status(200).json(redeemedCouponsByUser);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

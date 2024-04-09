@@ -38,16 +38,29 @@ export const redeemCoupon = async (cuponId) => {
     }
 }
 
-// Obtener los cupones canjeados por un cliente logueado
+// Obtener los cupones canjeados
 export const getRedeemedCoupons = async () => {
+    try {
+        const token = localStorage.getItem('token');
+
+        const response = await axiosInstance.get(`${API_URL}/redeemedCoupons`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+// Obtener los cupones canjeados por un cliente logueado
+export const getRedeemedCouponsByUser = async () => {
     try {
         const decodedToken = decodeToken();
         const token = localStorage.getItem('token');
-        const data = {
-            userId: decodedToken.userId,
-        };
-        const response = await axiosInstance.get(`${API_URL}/redeemedCoupons`, {
-            params: data, // Cambia data a params para enviarlo como parámetros de consulta
+
+        const response = await axiosInstance.get(`${API_URL}/redeemedCoupons${decodedToken.userId}`, {
             headers: {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }

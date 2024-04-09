@@ -52,8 +52,6 @@ function RewardsClient() {
             console.error('Error al obtener los cupones canjeados:', error.message);
         }
     };
-    
-        
 
     useEffect(() => {
         loadUserData();

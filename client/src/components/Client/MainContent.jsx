@@ -23,7 +23,7 @@ function MainContent() {
                 console.error('Error al obtener los datos:', error.message);
             }
         };
-        
+
         const loadRedeemedCoupons = async () => {
             try {
                 const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
@@ -38,7 +38,6 @@ function MainContent() {
         fetchData();
     }, []);
 
-    
     const handleServiceChange = (event) => {
         setSelectedService(event.target.value);
     };

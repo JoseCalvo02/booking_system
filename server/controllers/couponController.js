@@ -1,6 +1,6 @@
 import prisma from "../prisma/prisma.js"; // Importar el Prisma Client
 
-// Función para obtener todos los cupones getAllCoupons y mostrar solo los cupones Activos
+// Función para obtener todos los cupones y mostrar solo los cupones Activos
 export const getAllCoupons = async (req, res) => {
     try {
         // Obtener todos los cupones
@@ -16,7 +16,7 @@ export const getAllCoupons = async (req, res) => {
     }
 }
 
-// Función para redimir un cupón por un cliente logueado redeemCoupon
+// Función para redimir un cupón por un cliente logueado
 export const redeemCoupon = async (userId, cuponId) => {
     try {
         // Obtener el ID del usuario y el cupón
@@ -61,7 +61,6 @@ export const redeemCoupon = async (userId, cuponId) => {
             }
         });
 
-        
         // Ingresar los datos en la tabla CuponesCanjeados
         await prisma.CuponesCanjeados.create({
             data: {
@@ -81,7 +80,31 @@ export const redeemCoupon = async (userId, cuponId) => {
     }
 }
 
-export const getRedeemedCoupons = async (userId) => {
+// Función para obtener todos los cupones canjeados
+export const getRedeemedCoupons = async () => {
+    try {
+         // Obtener todos los cupones canjeados
+         const redeemedCoupons = await prisma.CuponesCanjeados.findMany({
+            include: {
+                Cupones: {
+                    select: {
+                        nombreCupon: true,
+                        valorPuntos: true
+                    }
+                }
+            }
+        });
+
+        console.log(redeemedCoupons);
+        // Enviar respuesta
+        return redeemedCoupons;
+    } catch (error) {
+        throw new Error('Error al obtener los cupones canjeados: ' + error.message);
+    }
+}
+
+// Función para obtener todos los cupones canjeados por un usuario
+export const getRedeemedCouponsByUser = async (userId) => {
     try {
 
         // Convertir userId a entero si es necesario
