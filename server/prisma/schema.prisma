@@ -146,6 +146,7 @@ model Usuarios {
   BloqueoHorarios                   BloqueoHorarios[]
   Citas_Citas_clienteIDToUsuarios   Citas[]                @relation("Citas_clienteIDToUsuarios")
   Citas_Citas_estilistaIDToUsuarios Citas[]                @relation("Citas_estilistaIDToUsuarios")
+  CuponesCanjeados                  CuponesCanjeados[]
   HistorialCitas                    HistorialCitas[]
   HistorialRecompensas              HistorialRecompensas[]
   Horarios                          Horarios[]
@@ -167,5 +168,6 @@ model CuponesCanjeados {
   clienteID       Int?
   fecha           DateTime? @db.Date
   estado          String?   @db.VarChar(15)
+  Usuarios        Usuarios? @relation(fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_CuponesCanjeados_clienteID")
   Cupones         Cupones?  @relation(fields: [cuponID], references: [cuponID], onDelete: NoAction, onUpdate: NoAction, map: "fk_CuponesCanjeados_cuponID")
 }

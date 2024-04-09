@@ -194,4 +194,5 @@ create table  CuponesCanjeados (
     fecha DATE,
     estado VARCHAR(15) CONSTRAINT CK_EstadoValidoCuponesCanjeados CHECK (estado IN ('Pendiente', 'Canjeado')),
 	CONSTRAINT fk_CuponesCanjeados_cuponID FOREIGN KEY(cuponID) REFERENCES Cupones(cuponID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT fk_CuponesCanjeados_clienteID FOREIGN KEY(clienteID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
