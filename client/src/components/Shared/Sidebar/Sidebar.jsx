@@ -91,7 +91,7 @@ const Sidebar = () => {
                                 to="/admin/canjes"
                             >
                                 <TbCoins  size={20}/>
-                                <span className={customStyles.span}>Canjes</span>
+                                <span className={customStyles.span}>Cupones</span>
                             </Link>
                         </li>
                         {/* Enlace a la opción Reportes */}

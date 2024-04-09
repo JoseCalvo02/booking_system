@@ -91,13 +91,17 @@ export const getRedeemedCoupons = async () => {
                         nombreCupon: true,
                         valorPuntos: true
                     }
+                },
+                Usuarios: {
+                    select: {
+                        nombre: true,
+                        apellidos: true
+                    }
                 }
             }
         });
 
-        console.log(redeemedCoupons);
-        // Enviar respuesta
-        return redeemedCoupons;
+        return redeemedCoupons; // Enviar respuesta
     } catch (error) {
         throw new Error('Error al obtener los cupones canjeados: ' + error.message);
     }

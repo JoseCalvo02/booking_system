@@ -33,7 +33,7 @@ const Services = () => {
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='m-auto mb-4'>
-                <h1 className='p-1 text-lg font-semibold text-center md:text-xl lg:text-2xl'>Servicios</h1>
+                <h1 className='p-1 text-lg font-semibold text-center md:text-xl lg:text-2xl '>Servicios</h1>
                 <button className='p-2 bg-green-400 rounded text-md hover:bg-green-500 lg:text-lg'>Agregar +</button>
             </header>
 

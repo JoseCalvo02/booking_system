@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
+// Funciones y estilos
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
-import { twMerge } from 'tailwind-merge';
-
+import useInputActive from '../../hooks/useInputActive';
+// Icons
 import { TbUserSearch } from "react-icons/tb";
 
 const Clients = () => {
-    const [inputActive, setInputActive] = useState(false);
+    const { inputActive, handleInputFocus, handleInputBlur } = useInputActive();
     const [clients, setClients] = useState([]); // Define el estado local para almacenar los usuarios
 
     useEffect(() => {
@@ -22,14 +24,6 @@ const Clients = () => {
 
         fetchClients('clients'); // Llamar a la función para obtener todos los clientes
     }, []);
-
-    const handleInputFocus = () => {
-        setInputActive(true);
-    };
-
-    const handleInputBlur = () => {
-        setInputActive(false);
-    };
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>

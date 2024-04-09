@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+// Funciones y estilos
+import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
 
 import { TbUserSearch } from "react-icons/tb";
 
 const Stylists = () => {
-    const [inputActive, setInputActive] = useState(false);
+    const { inputActive, handleInputFocus, handleInputBlur } = useInputActive();
     const [stylists, setStylists] = useState([]); // Define el estado local para almacenar los usuarios
 
     useEffect(() => {
@@ -21,14 +23,6 @@ const Stylists = () => {
 
         fetchStylists('stylists'); // Llamar a la función para obtener todos los estilistas
     }, []);
-
-    const handleInputFocus = () => {
-        setInputActive(true);
-    };
-
-    const handleInputBlur = () => {
-        setInputActive(false);
-    };
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
