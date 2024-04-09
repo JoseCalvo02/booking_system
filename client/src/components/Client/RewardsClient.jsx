@@ -60,8 +60,6 @@ function RewardsClient() {
     }
     , []); // Cargar los datos del usuario y los cupones al cargar el componente
 
-    console.log(cuponesCanjeados);
-
     const handleRedeem = async (cuponId) => {
         // Realizar la acción de canje aquí
         await RedeemedModal(cuponId);

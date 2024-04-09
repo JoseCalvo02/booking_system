@@ -7,18 +7,18 @@ const router = express.Router();
 // Obtener todos los cupones disponibles
 router.get("/coupons", coupon.getAllCoupons);
 
-// Redimir un cupón por un cliente logueado
 router.post("/redeemCoupon", async (req, res) => {
     try {
         const { userId, cuponId } = req.body;
 
         const updatedPoints = await coupon.redeemCoupon(userId, cuponId);
 
-        res.status(200)({ updatedPoints, message: "Cupón canjeado con éxito" });
+        res.status(200).json({ updatedPoints, message: "Cupón canjeado con éxito" }); // Utiliza .json() para enviar una respuesta JSON
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
 
 // Ruta para obtener todos los cupones canjeados
 router.get("/redeemedCoupons", async (req, res) => {
