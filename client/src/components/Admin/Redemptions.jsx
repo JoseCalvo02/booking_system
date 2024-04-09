@@ -70,7 +70,7 @@ const Redemptions = () => {
                     <div className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
                         { coupons.map((coupon, i) => (
                             <div key={i} className='w-full md:w-[48%] lg:w-[31%] h-64 p-8 bg-bgWhite rounded-xl mb-4 shadow-custom hover:shadow-none text-center content-center'>
-                                <h3 className='text-xl font-semibold'>{coupon.nombreCupon}</h3>
+                                <h3 className='text-lg font-semibold lg:text-xl'>{coupon.nombreCupon}</h3>
                                 <p className='max-w-full'>Costo puntos: {coupon.valorPuntos}</p>
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2'>
