@@ -176,11 +176,22 @@ create table PuntosServicio(
     CONSTRAINT fk_PuntosServicio_servicioID FOREIGN KEY(servicioID) REFERENCES Servicios(servicioID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE CuponesCanjeados (
+-- ------------------------------------- Table Cupones ----------------------------------
+-- La tabla Cupones registra los cupones de descuento disponibles para los clientes.
+create table Cupones (
+	cuponID INT PRIMARY KEY IDENTITY(1,1),
+	nombreCupon VARCHAR(100),
+	valorPuntos INT,
+	estado VARCHAR(15) CONSTRAINT CK_EstadoValidoCupones CHECK (estado IN ('Activo', 'Inactivo')),
+);
+
+-- ------------------------------------- Table CuponesCanjeados ----------------------------------
+-- La tabla CuponesCanjeados registra los cupones canjeados por los clientes.
+create table  CuponesCanjeados (
     cuponCanjeadoID INT PRIMARY KEY IDENTITY(1,1),
     cuponID INT,
     clienteID INT,
     fecha DATE,
-    valorPuntos DECIMAL(10, 2),
-    estado VARCHAR(50)
+    estado VARCHAR(15) CONSTRAINT CK_EstadoValidoCuponesCanjeados CHECK (estado IN ('Pendiente', 'Canjeado')),
+	CONSTRAINT fk_CuponesCanjeados_cuponID FOREIGN KEY(cuponID) REFERENCES Cupones(cuponID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 );
