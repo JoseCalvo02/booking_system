@@ -1,8 +1,9 @@
 import React from 'react';
 import DownloandPDFModal from '../Modals/DownloandPDFModal';
-import PDF1 from '../../components/Client/PDF/PDF_1';
-import PDF2 from '../../components/Client/PDF/PDF_2';
+import PDF1 from '../../components/PDF/PDF_1';
+import PDF2 from '../../components/PDF/PDF_2';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import Report from '../../assets/Report.jpg';
 
 const handleDownload = async () => {
     await DownloandPDFModal();
@@ -11,10 +12,11 @@ const handleDownload = async () => {
 function Reports() {
     return (
         <section className="flex flex-col items-center justify-center min-h-screen">
-            <h1 className="mt-16 mb-10 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black">
+            <img src={Report} alt="Sunset" className="absolute w-full h-screen opacity-60 filter" />
+            <h1 className="relative mt-16 mb-10 text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle md:text-5xl lg:text-6xl dark:text-black">
                 Reportes de Usuario
             </h1>
-            <div className="flex flex-col md:flex-row md:justify-center">
+            <div className="relative flex flex-col md:flex-row md:justify-center">
                 <div className="w-full max-w-md p-6 mt-4 bg-white border border-gray-200 rounded-lg shadow md:w-auto md:mr-10 dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Reporte Actividad</h5>
