@@ -130,13 +130,13 @@ function RewardsClient() {
                         {cuponesCanjeados.map((cupon) => (
                             <tr key={cupon.cuponCanjeadoID} className="text-black border">
                                 <td className="px-6 py-4">
-                                    <div className="text-base">{cupon.nombreCupon}</div>
+                                    <div className="text-base">{cupon.Cupones.nombreCupon}</div>
                                 </td>
                                 <td className="px-6 py-4">
                                     <div className="text-base">{new Date(cupon.fecha).toISOString().split('T')[0]}</div>
                                 </td>
                                 <td className="px-6 py-4">
-                                    <div className="text-base">{cupon.valorPuntos}</div>
+                                    <div className="text-base">{cupon.Cupones.valorPuntos}</div>
                                 </td>
                                 <td className="px-6 py-4">
                                     <div className={`text-base`}>{cupon.estado}</div>
