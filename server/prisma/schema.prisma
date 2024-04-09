@@ -154,17 +154,18 @@ model Usuarios {
 }
 
 model Cupones {
-  cuponID     Int     @id(map: "PK__Cupones__9FC50856E106C4DC") @default(autoincrement())
-  nombreCupon String? @db.VarChar(100)
-  valorPuntos Int?
-  estado      String? @db.VarChar(15)
+  cuponID          Int                @id(map: "PK__Cupones__9FC50856B758C684") @default(autoincrement())
+  nombreCupon      String?            @db.VarChar(100)
+  valorPuntos      Int?
+  estado           String?            @db.VarChar(15)
+  CuponesCanjeados CuponesCanjeados[]
 }
 
 model CuponesCanjeados {
-  cuponCanjeadoID Int       @id(map: "PK__CuponesC__606B3DC27036094D") @default(autoincrement())
+  cuponCanjeadoID Int       @id(map: "PK__CuponesC__606B3DC20682C740") @default(autoincrement())
   cuponID         Int?
   clienteID       Int?
   fecha           DateTime? @db.Date
-  valorPuntos     Decimal?  @db.Decimal(10, 2)
-  estado          String?   @db.VarChar(50)
+  estado          String?   @db.VarChar(15)
+  Cupones         Cupones?  @relation(fields: [cuponID], references: [cuponID], onDelete: NoAction, onUpdate: NoAction, map: "fk_CuponesCanjeados_cuponID")
 }
