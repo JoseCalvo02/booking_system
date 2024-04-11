@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
-import { getUserRole } from '../utils/tokenUtils';
-import { ProtectedRoute } from '../utils/protectedRoute';
+import { getUserRole } from './utils/tokenUtils';
+import { ProtectedRoute } from './utils/protectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
