@@ -2,7 +2,8 @@ import { send } from '@emailjs/browser';
 
 export const sendEmail = (values) => {
     const templateParams = {
-        to_name: values.email,
+        to: values.email,
+        subject: `Registro exitoso en Studio Once Once`,
         from_name: 'Studio Once Once',
         message: `¡Hola ${values.name}!
         Gracias por registrarte en nuestra aplicación. Tu registro ha sido exitoso. ¡Bienvenido!

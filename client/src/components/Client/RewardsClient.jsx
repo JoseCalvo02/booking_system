@@ -2,8 +2,7 @@ import { decodeToken } from '../../utils/tokenUtils';
 import React, { useState, useEffect, useImperativeHandle } from 'react';
 import RedeemedModal from '../Modals/Coupons/RedeemedModal';
 import { CgProfile } from 'react-icons/cg';
-import { getCoupons } from '../../../api/couponApi';
-import { getRedeemedCoupons } from '../../../api/couponApi';
+import { getCoupons, getRedeemedCouponsByUser } from '../../../api/couponApi';
 
 function RewardsClient() {
 
@@ -45,7 +44,7 @@ function RewardsClient() {
 
     const loadRedeemedCoupons = async () => {
         try {
-            const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
+            const redeemedCoupons = await getRedeemedCouponsByUser(); // Obtener los cupones canjeados de la base de datos
             const pendientesCoupons = redeemedCoupons.filter(coupon => coupon.estado === "Pendiente"); // Filtrar los cupones con estado "Pendientes"
             setCuponesCanjeados(pendientesCoupons); // Establecer los cupones pendientes en el estado local
         } catch (error) {
