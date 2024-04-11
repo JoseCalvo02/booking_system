@@ -2,10 +2,12 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
+import emailjs from 'emailjs-com';
+// Funciones y utils
 import { validateForm } from '../../../utils/formValidation';
 import { handleSubmit } from '../../../utils/formSubmission';
+// Estilos personalizados
 import customStyles from '../../custom/customStyles';
-import emailjs from 'emailjs-com'; // Importa emailjs-com en lugar de emailjs/browser
 
 function SignupForm() {
     const initialValues = {
@@ -18,7 +20,9 @@ function SignupForm() {
         confirmPassword: '',
     };
 
+    // Función para manejar el envío del formulario de signup
     const handleSignupForm = async (values, formikHelpers) => {
+        // Función para mostrar notificaciones
         const notify = (type, message) => {
             if (type === 'success') {
                 toast.success(message);
@@ -27,7 +31,7 @@ function SignupForm() {
             }
         };
 
-        // Enviar solicitud de registro de usuario
+        // Enviar solicitud de registro de usuario y manejar la respuesta
         await handleSubmit(values, formikHelpers, notify);
 
         // Después de enviar el formulario de registro, envía el correo electrónico
@@ -36,8 +40,8 @@ function SignupForm() {
 
     const sendEmail = (values) => {
         const templateParams = {
-            to_name: values.name, 
-            from_name: 'Studio Once Once', 
+            to_name: values.name,
+            from_name: 'Studio Once Once',
             message: `¡Hola ${values.name}!
             Gracias por registrarte en nuestra aplicación. Tu registro ha sido exitoso. ¡Bienvenido!
 
