@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Agrega useState
+import React from 'react'; // Agrega useState
 import { useNavigate } from 'react-router-dom'; // Importa hook para navegar a otras páginas
 import { Formik, Form, Field, ErrorMessage } from 'formik'; // Importa componentes de Formik
 import { toast } from 'react-toastify'; // Importa componente de notificaciones
@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 // Funciones y helpers
 import { validateLoginForm } from '../../utils/formValidation'; // Importa la función de validación de formulario
 import { handleLoginSubmit } from '../../utils/formSubmission'; // Importa la función de envío de formulario
-import { sendPasswordResetEmail } from '../../utils/emailService';
+import PasswordResetModal from '../Modals/PasswordResetModal';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
@@ -34,12 +34,8 @@ function LoginForm({ onLogin }) {
         await handleLoginSubmit(values, formikHelpers, navigate, notify, onLogin );
     };
 
-    const handlePasswordReset = async (email) => {
-        
-        // Llamar a la función sendPasswordResetEmail con el correo electrónico ingresado en el formulario
-        sendPasswordResetEmail(email);
-
-        toast.success('Se ha enviado un correo electrónico para restablecer su contraseña');
+    const handlePasswordReset = async () => {
+        await PasswordResetModal();
     };
 
     return (
