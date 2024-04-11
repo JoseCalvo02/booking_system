@@ -123,7 +123,7 @@ function MainContent() {
                             </option>
                             {cuponesCanjeados.map((coupon) => (
                                 <option key={coupon.cuponCanjeadoID} value={coupon.Cupones.nombreCupon}>
-                                    {coupon.Cupones.nombreCupon + " || Valido en el " + new Date(coupon.fecha).getFullYear()}
+                                    {coupon.Cupones.nombreCupon}
                                 </option>
                             ))}
                         </select>
