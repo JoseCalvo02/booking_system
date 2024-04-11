@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 // Funciones y estilos
 import customStyles from '../../custom/customStyles';
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
@@ -51,7 +52,8 @@ const Redemptions = () => {
                 searchRegex.test(coupon.cuponCanjeadoID.toString()) ||
                 searchRegex.test(coupon.Cupones.nombreCupon) ||
                 searchRegex.test(coupon.Usuarios.nombre) ||
-                searchRegex.test(coupon.Usuarios.apellidos)
+                searchRegex.test(coupon.Usuarios.apellidos) ||
+                searchRegex.test(`${coupon.Usuarios.nombre} ${coupon.Usuarios.apellidos}`)
             );
         }
         return true;
@@ -100,18 +102,18 @@ const Redemptions = () => {
                 <section className='overflow-y-auto max-h-[75vh]'>
                     {/* Filter and search bar */}
                     <div className='flex flex-col gap-4 p-1 mb-4 lg:flex-row'>
-                        <div className="relative flex items-center justify-center flex-grow sm:text-sm md:text-md lg:text-lg">
+                        <div className="relative flex items-center justify-center flex-grow text-sm md:text-base lg:text-lg">
                             <input
                                 type="text"
-                                placeholder="Buscar ID, cupón o usuario"
+                                placeholder="Buscar ID, usuario o cupón..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                                 onFocus={handleInputFocus} onBlur={handleInputBlur}
                                 className="w-full py-2 pl-10 pr-4 border border-black rounded-md border-opacity-5 shadow-custom focus:outline-none focus:ring focus:ring-blue-500 "
                             />
                             <TbUserSearch className={`absolute inset-y-0 left-0 m-3 ${inputActive ? 'text-primary' : 'text-gray-400'}`} size={20}/>
-                            <button className="absolute inset-y-0 right-0 flex items-center justify-center m-3 text-gray-400 hover:text-primary" onClick={handleSearchChange}>
-                                Buscar
+                            <button className="absolute inset-y-0 right-0 flex items-center justify-center m-3 text-gray-400 hover:text-primary" onClick={() => setSearchTerm('')}>
+                                <TbFilterX size={20}/>
                             </button>
                         </div>
                         <div className="flex space-x-4 text-xs md:text-base lg:text-lg">
@@ -127,11 +129,11 @@ const Redemptions = () => {
                     <table className='w-full '>
                         <thead className='sticky top-0 z-10 text-white bg-gray-900'>
                             {/* Table Header */}
-                            <tr className=''>
-                                <th className={customStyles.th}>ID</th>
-                                <th className={customStyles.th}>Cupon</th>
+                            <tr>
+                                <th className={twMerge(customStyles.th, 'max-w-10')}>ID Canje</th>
                                 <th className={customStyles.th}>Usuario</th>
-                                <th className={customStyles.th}>Coste de cupon</th>
+                                <th className={customStyles.th}>Cupón</th>
+                                <th className={twMerge(customStyles.th, 'max-w-20')}>Coste de cupón</th>
                                 <th className={customStyles.th}>Fecha</th>
                                 <th className={customStyles.th}>Estado</th>
                             </tr>
@@ -141,8 +143,8 @@ const Redemptions = () => {
                             {filteredCoupons.map((redeCoupon) => (
                                 <tr key={redeCoupon.cuponCanjeadoID} className='hover:bg-gray-100'>
                                     <td className={customStyles.td}>{redeCoupon.cuponCanjeadoID}</td>
-                                    <td className={customStyles.td}>{redeCoupon.Cupones.nombreCupon}</td>
                                     <td className={customStyles.td}>{redeCoupon.Usuarios.nombre} {redeCoupon.Usuarios.apellidos}</td>
+                                    <td className={customStyles.td}>{redeCoupon.Cupones.nombreCupon}</td>
                                     <td className={customStyles.td}>{redeCoupon.Cupones.valorPuntos}</td>
                                     <td className={customStyles.td}>{formatDate(redeCoupon.fecha)}</td>
                                     <td className={customStyles.td}>{redeCoupon.estado}</td>

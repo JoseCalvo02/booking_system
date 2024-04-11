@@ -4,10 +4,11 @@ import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
 
-import { TbUserSearch } from "react-icons/tb";
+import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
 const Stylists = () => {
-    const { inputActive, handleInputFocus, handleInputBlur } = useInputActive();
+    const { inputActive, handleInputFocus, handleInputBlur } = useInputActive(); // Custom hook para manejar el estado del input de búsqueda
+    const [searchStylist, setSearchStylist] = useState(''); // Search term for Stylists
     const [stylists, setStylists] = useState([]); // Define el estado local para almacenar los usuarios
 
     useEffect(() => {
@@ -24,6 +25,26 @@ const Stylists = () => {
         fetchStylists('stylists'); // Llamar a la función para obtener todos los estilistas
     }, []);
 
+    const handleSearchChange = (event) => {
+        setSearchStylist(event.target.value);
+    };
+
+    // Filtrar los estilistas según el término de búsqueda
+    const filteredStylists = stylists.filter((stylist) => {
+        // Filtrar por el término de búsqueda
+        if (searchStylist) {
+            const searchRegex = new RegExp(searchStylist, 'i');
+            return (
+                searchRegex.test(stylist.usuarioID.toString()) ||
+                searchRegex.test(stylist.apellidos) ||
+                searchRegex.test(stylist.nombre) ||
+                searchRegex.test(stylist.correo) ||
+                searchRegex.test(`${stylist.nombre} ${stylist.apellidos}`)
+            );
+        }
+        return true;
+    });
+
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             {/* Title & search */}
@@ -31,16 +52,18 @@ const Stylists = () => {
                 <h1 className='p-1 mb-4 text-lg font-semibold text-center md:text-xl lg:text-2xl'>
                     Tabla de Estilistas
                 </h1>
-                <div className="relative flex items-center justify-center sm:text-sm md:text-md lg:text-lg">
+                <div className="relative flex items-center justify-center text-sm md:text-base lg:text-lg">
                     <input
                         type="text"
-                        placeholder="Buscar estilista"
+                        placeholder="Buscar ID, nombre, email..."
+                        value={searchStylist}
+                        onChange={handleSearchChange}
                         onFocus={handleInputFocus} onBlur={handleInputBlur}
                         className="w-full py-2 pl-10 pr-4 border border-black rounded-md border-opacity-5 shadow-custom focus:outline-none focus:ring focus:ring-blue-500 "
                     />
                     <TbUserSearch className={`absolute inset-y-0 left-0 m-3 ${inputActive ? 'text-primary' : 'text-gray-400'}`} size={20}/>
-                    <button className="absolute inset-y-0 right-0 flex items-center justify-center m-3 text-gray-400 hover:text-primary">
-                        Buscar
+                    <button className="absolute inset-y-0 right-0 flex items-center justify-center m-3 text-gray-400 hover:text-primary" onClick={() => setSearchStylist('')}>
+                        <TbFilterX size={20}/>
                     </button>
                 </div>
             </div>
@@ -50,10 +73,9 @@ const Stylists = () => {
                 <table className='w-full '>
                     <thead className='sticky top-0 z-10 text-white bg-gray-900'>
                         {/* Table Header */}
-                        <tr className=''>
+                        <tr>
                             <th className={customStyles.th}>ID</th>
-                            <th className={customStyles.th}>Nombre</th>
-                            <th className={customStyles.th}>Apellido</th>
+                            <th className={customStyles.th}>Usuario</th>
                             <th className={customStyles.th}>Telefono</th>
                             <th className={customStyles.th}>Email</th>
                             <th className={customStyles.th}>Direccion</th>
@@ -63,11 +85,10 @@ const Stylists = () => {
                     </thead>
                     <tbody className='overflow-y-auto'>
                         {/* Map over stylists and render each stylist as a table row */}
-                        {stylists.map((stylist) => (
+                        {filteredStylists.map((stylist) => (
                             <tr key={stylist.usuarioID} className='hover:bg-gray-100'>
                                 <td className={customStyles.td}>{stylist.usuarioID}</td>
-                                <td className={customStyles.td}>{stylist.nombre}</td>
-                                <td className={customStyles.td}>{stylist.apellidos}</td>
+                                <td className={customStyles.td}>{stylist.nombre} {stylist.apellidos}</td>
                                 <td className={customStyles.td}>{stylist.telefono}</td>
                                 <td className={customStyles.td}>{stylist.correo}</td>
                                 <td className={customStyles.td}>{stylist.direccion}</td>
