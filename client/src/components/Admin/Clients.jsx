@@ -99,8 +99,9 @@ const Clients = () => {
                                 <td className={customStyles.td}>{client.points.puntosCanjeados}</td>
                                 <td className={customStyles.td}>{client.estado}</td>
                                 <td className={customStyles.td}>
-                                    <button className='p-2 mr-2 text-white bg-green-400 rounded-lg hover:bg-green-500'>Edit</button>
-                                    <button className='p-2 text-white bg-red-400 rounded-lg hover:bg-red-500'>Delete</button>
+                                <button className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                    {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
+                                </button>
                                 </td>
                             </tr>
                         ))}
