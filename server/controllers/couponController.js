@@ -71,7 +71,6 @@ export const redeemCoupon = async (userId, cuponId) => {
             }
         });
 
-
         // Enviar respuesta
         return updatedPoints;
     } catch (error) {
@@ -113,13 +112,12 @@ export const getRedeemedCouponsByUser = async (userId) => {
         // Convertir userId a entero si es necesario
         userId = parseInt(userId);
 
-        
         // Obtener los cupones canjeados por el usuario
         const redeemedCoupons = await prisma.CuponesCanjeados.findMany({
             where: {
                 clienteID: userId
 
-            }, 
+            },
             include: {
                 Cupones: {
                     select: {

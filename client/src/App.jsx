@@ -17,7 +17,7 @@ import Clients from "./components/Admin/Clients"
 import Services from "./components/Admin/Services"
 import Stylists from "./components/Admin/Stylists"
 import Schedules from "./components/Admin/Schedules"
-import Redemptions from "./components/Admin/Redemptions"
+import Coupons from "./components/Admin/Coupons"
 import ReportsAdmin from "./components/Admin/Reports"
 import Profile from "./components/Admin/Profile"
 //Stylist pages
@@ -55,7 +55,7 @@ function App() {
             <Route path="services" element={<Services />} />
             <Route path="estilistas" element={<Stylists />} />
             <Route path="schedules" element={<Schedules />} />
-            <Route path="canjes" element={<Redemptions />} />
+            <Route path="canjes" element={<Coupons />} />
             <Route path="reports" element={<ReportsAdmin />} />
             <Route path="profile" element={<Profile />} />
           </Route>
