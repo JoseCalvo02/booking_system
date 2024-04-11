@@ -69,8 +69,8 @@ const Redemptions = () => {
 
                 {/* Buttons to switch between content */}
                 <div className="flex justify-center gap-2 my-4 text-xs text-white md:text-base lg:text-lg">
-                    <button className="p-2 rounded-md bg-primary hover:bg-primary_h" onClick={() => setDisplayContent('redeemedCoupons')}>Cupones canjeados</button>
-                    <button className="p-2 rounded-md bg-primary hover:bg-primary_h" onClick={() => setDisplayContent('coupons')}>Ver Cupones</button>
+                    <button className="p-2 bg-gray-800 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('redeemedCoupons')}>Canjeados</button>
+                    <button className="p-2 bg-gray-800 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('coupons')}>Ver Cupones</button>
                 </div>
             </header>
 
@@ -100,10 +100,6 @@ const Redemptions = () => {
                 <section className='overflow-y-auto max-h-[75vh]'>
                     {/* Filter and search bar */}
                     <div className='flex flex-col gap-4 p-1 mb-4 lg:flex-row'>
-                        <div className="flex space-x-4 text-xs md:text-base lg:text-lg">
-                            <button onClick={() => handleFilterChange('Pendiente')} className="p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Pendiente</button>
-                            <button onClick={() => handleFilterChange('Canjeado')} className="p-2 text-white bg-red-500 rounded-lg hover:bg-red-600">Canjeado</button>
-                        </div>
                         <div className="relative flex items-center justify-center flex-grow sm:text-sm md:text-md lg:text-lg">
                             <input
                                 type="text"
@@ -118,9 +114,13 @@ const Redemptions = () => {
                                 Buscar
                             </button>
                         </div>
-                        <button className="p-2 text-white bg-red-500 rounded-lg hover:bg-red-600" onClick={() => handleFilterChange('')}>
-                            <TbFilterX  size={20}/>
-                        </button>
+                        <div className="flex space-x-4 text-xs md:text-base lg:text-lg">
+                            <button onClick={() => handleFilterChange('Pendiente')} className="p-2 text-white bg-green-500 rounded-lg hover:bg-green-600">Pendiente</button>
+                            <button onClick={() => handleFilterChange('Canjeado')} className="p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600">Canjeado</button>
+                            <button className="p-2 text-white bg-red-500 rounded-lg hover:bg-red-600" onClick={() => handleFilterChange('')}>
+                                <TbFilterX  size={20}/>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Table */}
