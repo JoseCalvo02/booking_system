@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { decodeToken } from '../../../utils/tokenUtils';
+import { decodeToken } from '../../utils/tokenUtils';
 //Modals
 import EmailChangeModal from '../Modals/EmailChangeModal';
 import AddressChangeModal from '../Modals/AddressChangeModal';

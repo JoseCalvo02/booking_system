@@ -3,7 +3,7 @@ import { getAppointments } from "../../../api/apptApi";
 import { useEffect, useState } from "react";
 import CancelarCitaModal from "../Modals/Appointments/CancelarCitaModal";
 import ReprogramarCitaModal from "../Modals/Appointments/ReprogramarCitaModal";
-import { decodeToken } from '../../../utils/tokenUtils';
+import { decodeToken } from '../../utils/tokenUtils';
 
 function CitasPage() {
     const [userData, setUserData] = useState({

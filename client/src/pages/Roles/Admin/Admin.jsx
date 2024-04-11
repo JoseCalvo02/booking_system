@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom'; //Para anidar rutas
-import { decodeToken } from '../../../../utils/tokenUtils'; //Función para decodificar el token JWT
+import { decodeToken } from '../../../utils/tokenUtils'; //Función para decodificar el token JWT
 //Components
 import Sidebar from '../../../components/Shared/Sidebar/Sidebar'
 //Icons

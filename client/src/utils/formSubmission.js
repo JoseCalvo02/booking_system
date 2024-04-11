@@ -1,4 +1,4 @@
-import { registerUser, loginUser } from '../api/authApi';
+import { registerUser, loginUser } from '../../api/authApi';
 import { getUserRole } from './tokenUtils';
 
 // Manejar el envío del formulario de registro

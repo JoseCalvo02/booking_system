@@ -1,5 +1,5 @@
 import axiosInstance from "../config/axiosConfig";
-import { decodeToken } from "../utils/tokenUtils";
+import { decodeToken } from "../src/utils/tokenUtils";
 
 const API_URL = "/api/coupon"; // Ruta base para las solicitudes de los cupones en el backend
 

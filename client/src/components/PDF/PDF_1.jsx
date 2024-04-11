@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
-import { decodeToken } from '../../../utils/tokenUtils';
+import { decodeToken } from '../../utils/tokenUtils';
 import Logo from '../../assets/logo.png';
 import { getAppointments } from '../../../api/apptApi';
 

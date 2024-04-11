@@ -1,5 +1,5 @@
 import axiosInstance from "../config/axiosConfig";
-import { jwtDecode } from 'jwt-decode';
+import { decodeToken } from "../src/utils/tokenUtils";
 
 const API_URL = "/api/user"; // Ruta base para las solicitudes de cliente en el backend
 
@@ -23,7 +23,7 @@ export const updateUserEmail = async (newEmail) => {
     try {
         const token = localStorage.getItem('token');
         // Decodificar el token JWT para obtener las propiedades del usuario
-        const decodedToken = jwtDecode(token);
+        const decodedToken = decodeToken();
 
         const response = await axiosInstance.put(`${API_URL}/${decodedToken.userId}/email`, { newEmail }, {
             headers: {

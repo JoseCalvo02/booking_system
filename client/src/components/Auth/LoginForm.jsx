@@ -4,8 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'; // Importa component
 import { toast } from 'react-toastify'; // Importa componente de notificaciones
 import { twMerge } from 'tailwind-merge';
 // Funciones y helpers
-import { validateLoginForm } from '../../../utils/formValidation'; // Importa la función de validación de formulario
-import { handleLoginSubmit } from '../../../utils/formSubmission'; // Importa la función de envío de formulario
+import { validateLoginForm } from '../../utils/formValidation'; // Importa la función de validación de formulario
+import { handleLoginSubmit } from '../../utils/formSubmission'; // Importa la función de envío de formulario
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
