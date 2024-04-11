@@ -2,10 +2,10 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
-import emailjs from 'emailjs-com';
 // Funciones y utils
-import { validateForm } from '../../../utils/formValidation';
-import { handleSubmit } from '../../../utils/formSubmission';
+import { validateForm } from '../../utils/formValidation';
+import { handleSubmit } from '../../utils/formSubmission';
+import { sendEmail } from '../../utils/emailService';
 // Estilos personalizados
 import customStyles from '../../custom/customStyles';
 
@@ -36,32 +36,6 @@ function SignupForm() {
 
         // Después de enviar el formulario de registro, envía el correo electrónico
         sendEmail(values);
-    };
-
-    const sendEmail = (values) => {
-        const templateParams = {
-            to_name: values.name,
-            from_name: 'Studio Once Once',
-            message: `¡Hola ${values.name}!
-            Gracias por registrarte en nuestra aplicación. Tu registro ha sido exitoso. ¡Bienvenido!
-
-            Tu informacion de registro es la siguiente:
-            Nombre: ${values.name}
-            Apellidos: ${values.lastName}
-            Teléfono: ${values.phone}
-            Correo: ${values.email}
-            Dirección: ${values.address}
-
-            Atentamente,
-            Studio Once Once`,
-        }; // Parámetros del correo electrónico
-
-        emailjs.send('service_xtz5plq', 'template_gp6sind', templateParams, '1YD6cQ_zz3QnpYGD7')
-            .then((result) => {
-                console.log(result.text);
-            }, (error) => {
-                console.log(error.text);
-            }); // Enviar correo electrónico
     };
 
     return (
