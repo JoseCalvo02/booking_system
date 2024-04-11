@@ -1,12 +1,11 @@
-import React from 'react'
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { toast } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
-// Funciones y utils
 import { validateForm } from '../../../utils/formValidation';
 import { handleSubmit } from '../../../utils/formSubmission';
-// Estilos personalizados
 import customStyles from '../../custom/customStyles';
+import emailjs from 'emailjs-com'; // Importa emailjs-com en lugar de emailjs/browser
 
 function SignupForm() {
     const initialValues = {
@@ -19,9 +18,7 @@ function SignupForm() {
         confirmPassword: '',
     };
 
-    // Función para manejar el envío del formulario de signup
     const handleSignupForm = async (values, formikHelpers) => {
-        // Función para mostrar notificaciones
         const notify = (type, message) => {
             if (type === 'success') {
                 toast.success(message);
@@ -30,8 +27,37 @@ function SignupForm() {
             }
         };
 
-        // Enviar solicitud de registro de usuario y manejar la respuesta
+        // Enviar solicitud de registro de usuario
         await handleSubmit(values, formikHelpers, notify);
+
+        // Después de enviar el formulario de registro, envía el correo electrónico
+        sendEmail(values);
+    };
+
+    const sendEmail = (values) => {
+        const templateParams = {
+            to_name: values.name, 
+            from_name: 'Studio Once Once', 
+            message: `¡Hola ${values.name}!
+            Gracias por registrarte en nuestra aplicación. Tu registro ha sido exitoso. ¡Bienvenido!
+
+            Tu informacion de registro es la siguiente:
+            Nombre: ${values.name}
+            Apellidos: ${values.lastName}
+            Teléfono: ${values.phone}
+            Correo: ${values.email}
+            Dirección: ${values.address}
+
+            Atentamente,
+            Studio Once Once`,
+        }; // Parámetros del correo electrónico
+
+        emailjs.send('service_xtz5plq', 'template_gp6sind', templateParams, '1YD6cQ_zz3QnpYGD7')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            }); // Enviar correo electrónico
     };
 
     return (
