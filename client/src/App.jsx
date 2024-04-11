@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from "./pages/Home/Home"
 import NotFound from "./pages/Layout/NotFound";
 import Auth from "./pages/Auth/Auth"
+import PasswordReset from './pages/Auth/PasswordReset';
 //Admin pages
 import Admin from "./pages/Roles/Admin/Admin"
 import Dashboard from './components/Admin/Dashboard'
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth onLogin={handleLogin} />} /> {/* Página de autenticación */}
         <Route path="/notFound" element={<NotFound />} />
+        <Route path="/passwordReset" element={<PasswordReset />} />
         { /* Rutas protegidas */}
         <Route element={<ProtectedRoute/>} >
           { /* Rutas protegidas para el rol de administrador */ }
