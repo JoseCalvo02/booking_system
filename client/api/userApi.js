@@ -45,7 +45,7 @@ export const updateUserAddress = async (newAddress) => {
     try {
         const token = localStorage.getItem('token');
         // Decodificar el token JWT para obtener las propiedades del usuario
-        const decodedToken = jwtDecode(token);
+        const decodedToken = decodeToken();
 
         const response = await axiosInstance.put(`${API_URL}/${decodedToken.userId}/address`, { newAddress }, {
             headers: {
@@ -67,7 +67,7 @@ export const updateUserPhone = async (newPhone) => {
     try {
         const token = localStorage.getItem('token');
         // Decodificar el token JWT para obtener las propiedades del usuario
-        const decodedToken = jwtDecode(token);
+        const decodedToken = decodeToken();
 
         const response = await axiosInstance.put(`${API_URL}/${decodedToken.userId}/phone`, { newPhone }, {
             headers: {
