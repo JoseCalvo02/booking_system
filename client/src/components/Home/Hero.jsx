@@ -1,6 +1,7 @@
 import React from 'react';
 import { ReactTyped } from 'react-typed';
 import VideoHome from '../../assets/VideoHome.mp4';
+import { Link } from 'react-router-dom';
 
 function Hero() {
     return (
@@ -30,7 +31,9 @@ function Hero() {
                     <p className='text-xl font-bold text-white md:text-2xl'>
                         Encuentra tu estilo en cada detalle. Bienvenido(a) a Studio Once Once
                     </p>
-                    <button className='bg-primary w-[150px] rounded-md font-medium my-6 py-3 text-white hover:bg-primary_h'>Comenzemos</button>
+                    <Link to="/auth?signIn=true">
+                        <button className='bg-primary w-[150px] rounded-md font-medium my-6 py-3 text-white hover:bg-primary_h'>Comenzemos</button>
+                    </Link>
                 </div>{/*End of Text container */}
             </div>
         </section>

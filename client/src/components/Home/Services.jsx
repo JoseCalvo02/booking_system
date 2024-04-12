@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom';
 import {FaShopify} from 'react-icons/fa';
 
 export default function Services() {
@@ -16,7 +16,9 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>Protección sobre uña natural</p>
                         <p className='py-2 mx-8 border-b'>Los precios pueden variar</p>
                     </div>
-                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
+                        <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    </Link>
                 </div>
                 {/* Segunda tarjeta */}
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
@@ -28,7 +30,9 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>Manicure a base de sales</p>
                         <p className='py-2 mx-8 border-b'>Incluye crema y mascarilla</p>
                     </div>
-                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
+                        <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    </Link>
                 </div>
                 {/* Tercer tarjeta */}
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
@@ -40,7 +44,9 @@ export default function Services() {
                         <p className='py-2 mx-8 border-b'>Resistencia a la uña natural</p>
                         <p className='py-2 mx-8 border-b'>Protección extra sobre la uña</p>
                     </div>
-                    <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
+                        <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
+                    </Link>
                 </div>
             </div>
         </div>
