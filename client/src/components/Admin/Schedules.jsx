@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
+import StylistSchedulePanel from './Stylist/StylistSchedulePanel';
 
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
@@ -15,14 +16,8 @@ const Schedules = () => {
         const fetchStylists = async (type) => {
             try {
                 const estilistas  = await getUsersByType(type);
-                // Mapear los estilistas para obtener solo nombre y apellido
-                const stylistsNames = estilistas.map(estilista => ({
-                    name: estilista.nombre,
-                    lastName: estilista.apellidos
-                }));
-
                 // Almacenar los nombres y apellidos en el estado
-                setStylists(stylistsNames);
+                setStylists(estilistas);
             } catch (error) {
                 console.error('Error al obtener las estilistas:', error.message);
             }
@@ -35,16 +30,17 @@ const Schedules = () => {
         setSearchStylist(event.target.value);
     };
 
-    const handleOptionClick = (optionName, optionLastName) => {
-        setSearchStylist(`${optionName} ${optionLastName}`);
+    const handleOptionClick = (stylist) => {
+        const fullName = `${stylist.nombre} ${stylist.apellidos}`;
+        setSearchStylist(fullName);
         handleInputBlur();
     };
 
     // Filtrar las opciones de estilistas según el término de búsqueda
     const filteredEstilistas = stylists.filter(stylist => {
         // Convertir el nombre y el apellido a minúsculas
-        const nombre = stylist.name ? stylist.name.toLowerCase() : '';
-        const apellido = stylist.lastName ? stylist.lastName.toLowerCase() : '';
+        const nombre = stylist.nombre ? stylist.nombre.toLowerCase() : '';
+        const apellido = stylist.apellidos ? stylist.apellidos.toLowerCase() : '';
         const fullName = `${nombre} ${apellido}`;
         // Verificar si el término de búsqueda está incluido en el nombre, el apellido o el nombre completo
         return (
@@ -54,10 +50,12 @@ const Schedules = () => {
         );
     });
 
+    const selectedStylist = stylists.find(stylist => `${stylist.nombre} ${stylist.apellidos}`.toLowerCase() === searchStylist.toLowerCase());
+
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='mb-4 text-gray-900'>
-                <h1 className='p-1 text-lg font-semibold text-center md:text-xl lg:text-2xl'>Gestión de Horarios de Estilistas</h1>
+                <h1 className='p-1 mb-4 text-lg font-semibold text-center md:text-xl lg:text-2xl'>Gestión de Horarios de Estilistas</h1>
                 <div className='flex items-center gap-2'>
                     <label className={`text-sm text-gray-400 lg:text-lg md:text-base ${inputActive ? 'text-primary' : 'text-gray-400'}`} htmlFor="inputStylist">Seleccionar Estilista:</label>
                     <div className='relative flex items-center justify-center text-sm md:text-base lg:text-lg' onMouseEnter={handleInputFocus} onMouseLeave={handleInputBlur}>
@@ -75,13 +73,13 @@ const Schedules = () => {
                         </button>
                         {/* Lista desplegable personalizada */}
                         {inputActive && (
-                            <div className="absolute left-0 z-10 h-32 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg w-[300px] top-12"  onClick={() => document.getElementById('inputStylist').blur()}>
+                            <div className="absolute left-0 z-10 h-32 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg w-[300px] top-[39px] md:top-[43px] lg:top-[47px]"  onClick={() => document.getElementById('inputStylist').blur()}>
                                 {filteredEstilistas.length > 0 ? (
                                     filteredEstilistas.map((stylist, index) => (
                                         <div key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                                            onClick={() => handleOptionClick(stylist.name, stylist.lastName)}
+                                            onClick={() => handleOptionClick(stylist)}
                                         >
-                                            {stylist.name} {stylist.lastName}
+                                            {stylist.nombre} {stylist.apellidos}
                                         </div>
                                     ))
                                 ) : (
@@ -93,27 +91,29 @@ const Schedules = () => {
                 </div>
             </header>
 
-            {/* Condición para verificar si se ha ingresado un valor de búsqueda */}
-            {searchStylist === '' && (
-                <div className='mt-6'>
-                    <p>Por favor, ingresa un valor de búsqueda.</p>
-                </div>
-            )}
+            <section>
+                {/* Condición para verificar si se ha ingresado un valor de búsqueda */}
+                {searchStylist === '' && (
+                    <div className='mt-6'>
+                        <p>Por favor, ingresa un valor de búsqueda.</p>
+                    </div>
+                )}
 
-            {/* Condición para verificar si la entrada del usuario coincide exactamente con un estilista */}
-            {searchStylist !== '' && stylists.some(stylist => `${stylist.name} ${stylist.lastName}`.toLowerCase() === searchStylist.toLowerCase()) && (
-                <div className='mt-6'>
-                    {/* Aquí puedes renderizar el panel del estilista seleccionado */}
-                    <p>Panel del estilista seleccionado: {searchStylist}</p>
-                </div>
-            )}
+                {/* Condición para verificar si no se ha encontrado ningún estilista */}
+                {searchStylist !== '' && !stylists.some(stylist => `${stylist.nombre} ${stylist.apellidos}`.toLowerCase() === searchStylist.toLowerCase()) && (
+                    <div className='mt-6'>
+                        <p>No se encontró ningún estilista que coincida con la búsqueda (Debes seleccionar una estilista).</p>
+                    </div>
+                )}
 
-            {/* Condición para verificar si no se ha encontrado ningún estilista */}
-            {searchStylist !== '' && !stylists.some(stylist => `${stylist.name} ${stylist.lastName}`.toLowerCase() === searchStylist.toLowerCase()) && (
-                <div className='mt-6'>
-                    <p>No se encontró ningún estilista que coincida con la búsqueda(Debes seleccionar una estilista).</p>
-                </div>
-            )}
+                {/* Condición para verificar si la entrada del usuario coincide exactamente con un estilista */}
+                {searchStylist !== '' && stylists.some(stylist => `${stylist.nombre} ${stylist.apellidos}`.toLowerCase() === searchStylist.toLowerCase()) && (
+                    <div className='mt-6'>
+                        <StylistSchedulePanel stylist={selectedStylist}/>
+                    </div>
+                )}
+            </section>
+
         </div>
     );
 }
