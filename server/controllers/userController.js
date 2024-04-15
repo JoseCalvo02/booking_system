@@ -233,25 +233,6 @@ export const changeUserStatus = async (userId, estado) => {
             }
         });
 
-        const UserPoints = await prisma.puntosClientes.findFirst({
-            where: {
-                clienteID: userId
-            }
-        });
-        
-         // Pasar los puntos a cero si el usuario se desactiva
-        if (nuevoEstado === 'Inactivo') {
-            await prisma.puntosClientes.update({
-                where: {
-                    puntosID: UserPoints.puntosID,
-                    clienteID: userId
-                },
-                data: {
-                    puntosAcumulados: 0,
-                    puntosCanjeados: 0
-                }
-            });
-        }
         return updatedUser;
 
     } catch (error) {

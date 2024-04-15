@@ -48,7 +48,7 @@ const Clients = () => {
     });
 
     const handleAction = (estado, usuarioID) => {
-        handleClientAction(usuarioID, estado);
+        handleClientAction(usuarioID, estado); // Llamar a la función para manejar la acción del cliente
     }
 
     return (
