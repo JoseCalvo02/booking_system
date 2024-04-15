@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { decodeToken } from '../../utils/tokenUtils';
 import { toast } from 'react-toastify';
 //Modals
-import EmailChangeModal from '../Modals/EmailChangeModal';
-import AddressChangeModal from '../Modals/AddressChangeModal';
-import ChangePasswordModal from '../Modals/ChangePasswordModal';
+import EmailChangeModal from '../Modals/Users/ChangeEmailModal';
+import AddressChangeModal from '../Modals/Users/ChangeAddressModal';
+import ChangePasswordModal from '../Modals/Users/ChangePasswordModal';
 
 const Profile = () => {
     const [userData, setUserData] = useState({

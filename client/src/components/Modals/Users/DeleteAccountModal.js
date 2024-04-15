@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { desactivateUser } from '../../../api/userApi';
+import { desactivateUser } from '../../../../api/userApi';
 
 const DeleteAccountModal = async ({ userId, currentPassword, newPassword }) => {
     try {

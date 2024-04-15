@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { changePassword } from '../../../api/userApi';
+import { changePassword } from '../../../../api/userApi';
 
 //Modal de confirmación de cambio de contraseña
 const ChangePasswordModal = async ({ userId, currentPassword, newPassword }) => {

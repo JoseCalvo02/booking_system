@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { updateUserEmail } from '../../../api/userApi';
+import { updateUserEmail } from '../../../../api/userApi';
 
 const EmailChangeModal = async (setUserData) => {
     const { value: newEmail } = await Swal.fire({

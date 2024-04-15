@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { updateUserAddress } from "../../../api/userApi";
+import { updateUserAddress } from "../../../../api/userApi";
 
 const AddressChangeModal = async (setUserData) => {
     const { value: newAddress } = await Swal.fire({

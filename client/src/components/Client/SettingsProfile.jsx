@@ -1,11 +1,11 @@
 import { decodeToken } from '../../utils/tokenUtils';
 import React, { useState, useEffect } from 'react';
-import EmailChangeModal from '../Modals/EmailChangeModal';
-import AddressChangeModal from '../Modals/AddressChangeModal';
-import NameChangeModal from '../Modals/NameChangeModal';
-import PhoneChangeModal from '../Modals/PhoneChangeModal';
-import DeleteAccountModal from '../Modals/DeleteAccountModal';
-import ChangePasswordModal from '../Modals/ChangePasswordModal';
+import EmailChangeModal from '../Modals/Users/ChangeEmailModal';
+import AddressChangeModal from '../Modals/Users/ChangeAddressModal';
+import NameChangeModal from '../Modals/Users/ChangeNameModal';
+import PhoneChangeModal from '../Modals/Users/ChangePhoneModal';
+import DeleteAccountModal from '../Modals/Users/DeleteAccountModal';
+import ChangePasswordModal from '../Modals/Users/ChangePasswordModal';
 
 const SettingsProfile = () => {
     const [userData, setUserData] = useState({

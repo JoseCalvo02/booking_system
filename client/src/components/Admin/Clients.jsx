@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
 import useInputActive from '../../hooks/useInputActive';
-import handleClientAction from '../Modals/Users/StatusClientModal';
+import handleClientAction from '../Modals/Users/ChangeStatusModal';
 // Icons
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 

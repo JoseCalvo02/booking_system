@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
-import handleClientAction from '../Modals/Users/StatusClientModal';
+import handleClientAction from '../Modals/Users/ChangeStatusModal';
 
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 

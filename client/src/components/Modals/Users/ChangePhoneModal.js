@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { updateUserPhone } from "../../../api/userApi";
+import { updateUserPhone } from "../../../../api/userApi";
 
 const PhoneChangeModal = async (setUserData) => {
     const { value: newPhone } = await Swal.fire({
