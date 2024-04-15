@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
+import handleClientAction from '../Modals/Clients/StatusClientModal';
 
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
@@ -44,6 +45,10 @@ const Stylists = () => {
         }
         return true;
     });
+
+    const handleAction = (estado, usuarioID, nombreCliente) => {
+        handleClientAction(usuarioID, estado, nombreCliente); // Llamar a la función para manejar la acción del cliente
+    }
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
@@ -94,8 +99,9 @@ const Stylists = () => {
                                 <td className={customStyles.td}>{stylist.direccion}</td>
                                 <td className={customStyles.td}>{stylist.estado}</td>
                                 <td className={customStyles.td}>
-                                    <button className='p-2 mr-2 text-white bg-green-400 rounded-lg hover:bg-green-500'>Edit</button>
-                                    <button className='p-2 text-white bg-red-400 rounded-lg hover:bg-red-500'>Delete</button>
+                                <button onClick={() =>handleAction(stylist.estado, stylist.usuarioID, `${stylist.nombre} ${stylist.apellidos}`)} className={`p-2 rounded-lg hover:bg-opacity-80 ${stylist.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                    {stylist.estado === 'Activo' ? 'Desactivar' : 'Activar'}
+                                </button> 
                                 </td>
                             </tr>
                         ))}
