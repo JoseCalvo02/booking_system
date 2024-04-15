@@ -209,3 +209,56 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
     }
 };
 
+// Función para cambiar el estado de un usuario (activar o desactivar)
+export const changeUserStatus = async (userId, estado) => {
+    try {
+        // Convertir userId a tipo Int si es una cadena
+        userId = parseInt(userId);
+
+        // Validar que el estado sea 'Activo' o 'Inactivo'
+        if (estado !== 'Activo' && estado !== 'Inactivo') {
+            throw new Error('El estado no es válido');
+        }
+
+        // Determinar el nuevo estado
+        const nuevoEstado = estado === 'Activo' ? 'Inactivo' : 'Activo'; // Cambiar el estado al opuesto
+
+        // Actualizar el estado del usuario al estado opuesto
+        const updatedUser = await prisma.Usuarios.update({
+            where: {
+                usuarioID: userId
+            },
+            data: {
+                estado: nuevoEstado
+            }
+        });
+
+        const UserPoints = await prisma.puntosClientes.findFirst({
+            where: {
+                clienteID: userId
+            }
+        });
+        
+         // Pasar los puntos a cero si el usuario se desactiva
+        if (nuevoEstado === 'Inactivo') {
+            await prisma.puntosClientes.update({
+                where: {
+                    puntosID: UserPoints.puntosID,
+                    clienteID: userId
+                },
+                data: {
+                    puntosAcumulados: 0,
+                    puntosCanjeados: 0
+                }
+            });
+        }
+        return updatedUser;
+
+    } catch (error) {
+        console.error("Error en changeUserStatus:", error);
+        // Enviar mensajes específicos de error al frontend
+        throw new Error(error.message === 'El estado no es válido' ? 'El estado no es válido' : 'Error de servidor');
+    }
+};
+
+

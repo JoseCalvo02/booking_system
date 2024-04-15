@@ -121,3 +121,19 @@ export const changePassword = async (userId, currentPassword, newPassword) => {
         throw new Error(`No se pudo cambiar la contraseña: ${error.response.data.error || error.message}`);
     }
 };
+
+// Funcion para cambiar el estado de un usuario (activar o desactivar)
+export const changeUserStatus = async (usuarioID, estado) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/status/${usuarioID}`, { estado }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudo cambiar el estado del usuario: ${error.response.data.error || error.message}`);
+    }
+}

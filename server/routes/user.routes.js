@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword, changeUserStatus } from "../controllers/userController.js";
 
 
 const router = express.Router();
@@ -96,4 +96,23 @@ router.put("/password/:userId", async (req, res) => {
         res.status(500).json({ error: 'Error al cambiar la contraseña' });
     }
 });
+
+// Funcion para cambiar el estado de un usuario (activar o desactivar)
+router.put("/status/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params; // Obtener el userId de los parámetros de la URL
+        const { estado } = req.body; // Obtener el estado del cuerpo de la petición
+        // Llamar a la función para cambiar el estado de un usuario
+
+        const updatedUser = await changeUserStatus(userId, estado); // Obtener el usuario actualizado
+        // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
+        res.status(200).json({ updatedUser, message: 'Estado de usuario cambiado exitosamente' });
+    } catch (error) {
+        console.error("Error:", error);
+        // Si ocurre un error, enviar un mensaje de error al frontend
+        res.status(500).json({ error: 'Error al cambiar el estado del usuario' });
+    }
+});
+
+
 export default router;
