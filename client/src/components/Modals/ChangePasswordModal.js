@@ -26,11 +26,10 @@ const ChangePasswordModal = async ({ userId, currentPassword, newPassword }) => 
                 text: 'Tu contraseña ha sido cambiada',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
-        })
-            
+            });
                 return response;
-            }
         }
+    }
     catch (error) {
         // Verificar si error.response está definido antes de acceder a sus propiedades
         const errorMessage = error.response ? error.response.data.error || error.message : error.message;

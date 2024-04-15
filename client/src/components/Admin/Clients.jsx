@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
 import useInputActive from '../../hooks/useInputActive';
-import handleClientAction from '../Modals/Clients/StatusClientModal';
+import handleClientAction from '../Modals/Users/StatusClientModal';
 // Icons
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
@@ -47,10 +47,9 @@ const Clients = () => {
         return true;
     });
 
-    const handleAction = (estado, usuarioID, nombreCliente) => {
-        handleClientAction(usuarioID, estado, nombreCliente); // Llamar a la función para manejar la acción del cliente
+    const handleAction = (usuarioID, nombreCliente, estado) => {
+        handleClientAction(usuarioID, nombreCliente, estado); // Llamar a la función para manejar la acción del cliente
     }
-    
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
@@ -105,9 +104,11 @@ const Clients = () => {
                                 <td className={customStyles.td}>{client.points.puntosCanjeados}</td>
                                 <td className={customStyles.td}>{client.estado}</td>
                                 <td className={customStyles.td}>
-                                <button onClick={() =>handleAction(client.estado, client.usuarioID, `${client.nombre} ${client.apellidos}`)} className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
-                                    {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
-                                </button>
+                                    <button
+                                    onClick={() =>handleAction(client.usuarioID, `${client.nombre} ${client.apellidos}`, client.estado)}
+                                    className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                        {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
+                                    </button>
                                 </td>
                             </tr>
                         ))}

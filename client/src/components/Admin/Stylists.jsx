@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import customStyles from '../../custom/customStyles';
-import handleClientAction from '../Modals/Clients/StatusClientModal';
+import handleClientAction from '../Modals/Users/StatusClientModal';
 
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
@@ -46,8 +46,8 @@ const Stylists = () => {
         return true;
     });
 
-    const handleAction = (estado, usuarioID, nombreCliente) => {
-        handleClientAction(usuarioID, estado, nombreCliente); // Llamar a la función para manejar la acción del cliente
+    const handleAction = (usuarioID, nombreCliente, estado) => {
+        handleClientAction(usuarioID, nombreCliente, estado); // Llamar a la función para manejar la acción del cliente
     }
 
     return (
@@ -99,9 +99,11 @@ const Stylists = () => {
                                 <td className={customStyles.td}>{stylist.direccion}</td>
                                 <td className={customStyles.td}>{stylist.estado}</td>
                                 <td className={customStyles.td}>
-                                <button onClick={() =>handleAction(stylist.estado, stylist.usuarioID, `${stylist.nombre} ${stylist.apellidos}`)} className={`p-2 rounded-lg hover:bg-opacity-80 ${stylist.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
-                                    {stylist.estado === 'Activo' ? 'Desactivar' : 'Activar'}
-                                </button> 
+                                    <button
+                                        onClick={() =>handleAction(stylist.usuarioID, `${stylist.nombre} ${stylist.apellidos}`, stylist.estado)}
+                                        className={`p-2 rounded-lg hover:bg-opacity-80 ${stylist.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                        {stylist.estado === 'Activo' ? 'Desactivar' : 'Activar'}
+                                    </button>
                                 </td>
                             </tr>
                         ))}

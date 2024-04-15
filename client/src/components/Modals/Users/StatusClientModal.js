@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { changeUserStatus } from '../../../../api/userApi';
 
-const handleClientAction = async (usuarioID, estado, nombreCliente) => {
+const handleClientAction = async (usuarioID, nombreCliente, estado) => {
     let action = '';
     let message = '';
     let icon = '';
@@ -12,7 +12,7 @@ const handleClientAction = async (usuarioID, estado, nombreCliente) => {
             action = 'Desactivar';
             message = `El usuario ${nombreCliente} ha sido Desactivado`;
             icon = 'success';
-            color = '#f44336'; 
+            color = '#f44336';
             break;
         case 'Inactivo':
             action = 'Activar';
@@ -29,7 +29,7 @@ const handleClientAction = async (usuarioID, estado, nombreCliente) => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: color,
-        cancelButtonColor: '#333',
+        cancelButtonColor: '#3085d6',
         confirmButtonText: `Sí, ${action}`,
         cancelButtonText: 'Cancelar',
     });
@@ -38,7 +38,7 @@ const handleClientAction = async (usuarioID, estado, nombreCliente) => {
         try {
             // Llama a la función changeUserStatus para cambiar el estado del usuario
             const response = await changeUserStatus(usuarioID, estado);
-            
+
             // Si la solicitud es exitosa, muestra un mensaje de éxito
             Swal.fire({
                 title: '¡Hecho!',

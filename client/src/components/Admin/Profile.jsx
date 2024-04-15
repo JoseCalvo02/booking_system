@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { decodeToken } from '../../utils/tokenUtils';
+import { toast } from 'react-toastify';
 //Modals
 import EmailChangeModal from '../Modals/EmailChangeModal';
 import AddressChangeModal from '../Modals/AddressChangeModal';
@@ -46,6 +47,11 @@ const Profile = () => {
     };
 
     const handlePasswordChange = () => {
+        if (passwordData.currentPassword === '' || passwordData.newPassword === '') {
+            toast.error('Por favor, ingrese su contraseña actual y la nueva contraseña');
+            return;
+        }
+
         ChangePasswordModal({
             userId: userData.userId,
             currentPassword: passwordData.currentPassword,
@@ -111,26 +117,28 @@ const Profile = () => {
                 </div>
 
                 {/* Third section */}
-                <p className="py-2 mt-4 text-xl font-semibold">Contraseña</p>
-                    <p className="pb-2 text-red-600 underline">Por favor, ingresa tu contraseña actual y luego la nueva contraseña que deseas establecer</p>
+                <div className='py-4 mb-6 border-b border-gray-200'>
+                    <p className="py-2 text-xl font-semibold">Contraseña</p>
+                    <p className="pb-2 text-sm text-red-600 underline">Por favor, ingresa tu contraseña actual y luego la nueva contraseña que deseas establecer.</p>
                     <div className="flex items-center">
                         <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <label htmlFor="login-password">
-                                <span className="text-sm text-gray-500">Contraseña actual</span>
-                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
-                                    <input type="password" id="login-password" value={passwordData.currentPassword} onChange={handleCurrentPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
+                                <span className="text-sm text-gray-600">Contraseña actual</span>
+                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
+                                    <input type="password" id="login-password" value={passwordData.currentPassword} onChange={handleCurrentPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
                                 </div>
                             </label>
-                            <label htmlFor="login-passwordNew">
-                                <span className="text-sm text-gray-500">Nueva contraseña</span>
-                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
-                                    <input type="password" id="login-passwordNew" value={passwordData.newPassword} onChange={handleNewPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
+                            <label htmlFor="login-password">
+                                <span className="text-sm text-gray-600">Nueva contraseña</span>
+                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
+                                    <input type="password" id="login-password" value={passwordData.newPassword} onChange={handleNewPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
                                 </div>
                             </label>
                         </div>
                     </div>
-                    <button onClick={handlePasswordChange} className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Cambiar contraseña</button>
-                    <hr className="mt-4 mb-8" />
+                    <button className="px-4 py-2 mt-4 text-white rounded-lg bg-primary hover:bg-primary_h" onClick={handlePasswordChange}>Guardar contraseña</button>
+                </div>
+
             </main>
         </div>
     );
