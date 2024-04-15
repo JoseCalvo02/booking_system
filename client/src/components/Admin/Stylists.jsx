@@ -69,7 +69,7 @@ const Stylists = () => {
             </div>
 
             {/* Table */}
-            <div className='overflow-y-auto max-h-[75vh]'>
+            <section className='overflow-y-auto max-h-[65vh]'>
                 <table className='w-full '>
                     <thead className={customStyles.thead}>
                         {/* Table Header */}
@@ -101,7 +101,7 @@ const Stylists = () => {
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </section>
 
         </div>
     );

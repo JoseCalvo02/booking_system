@@ -99,9 +99,9 @@ const Redemptions = () => {
                 </section>
             ) : (
                 /* Section for redeemed coupons */
-                <section className='overflow-y-auto max-h-[75vh]'>
+                <section>
                     {/* Filter and search bar */}
-                    <div className='flex flex-col gap-4 p-1 mb-4 lg:flex-row'>
+                    <div className='flex flex-col gap-4 p-1 mb-4 lg:flex-row max'>
                         <div className="relative flex items-center justify-center flex-grow text-sm md:text-base lg:text-lg">
                             <input
                                 type="text"
@@ -125,33 +125,35 @@ const Redemptions = () => {
                         </div>
                     </div>
 
-                    {/* Table */}
-                    <table className='w-full '>
-                        <thead className={customStyles.thead}>
-                            {/* Table Header */}
-                            <tr>
-                                <th className={twMerge(customStyles.th, 'max-w-10')}>ID Canje</th>
-                                <th className={customStyles.th}>Usuario</th>
-                                <th className={customStyles.th}>Cupón</th>
-                                <th className={twMerge(customStyles.th, 'max-w-20')}>Coste de cupón</th>
-                                <th className={customStyles.th}>Fecha</th>
-                                <th className={customStyles.th}>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody className='overflow-y-auto'>
-                            {/* Map over clients and render each client as a table row */}
-                            {filteredCoupons.map((redeCoupon) => (
-                                <tr key={redeCoupon.cuponCanjeadoID} className='hover:bg-gray-100'>
-                                    <td className={customStyles.td}>{redeCoupon.cuponCanjeadoID}</td>
-                                    <td className={customStyles.td}>{redeCoupon.Usuarios.nombre} {redeCoupon.Usuarios.apellidos}</td>
-                                    <td className={customStyles.td}>{redeCoupon.Cupones.nombreCupon}</td>
-                                    <td className={customStyles.td}>{redeCoupon.Cupones.valorPuntos}</td>
-                                    <td className={customStyles.td}>{formatDate(redeCoupon.fecha)}</td>
-                                    <td className={customStyles.td}>{redeCoupon.estado}</td>
+                    <div className='overflow-y-auto max-h-[58vh]'>
+                        {/* Table */}
+                        <table className='w-full '>
+                            <thead className={customStyles.thead}>
+                                {/* Table Header */}
+                                <tr>
+                                    <th className={twMerge(customStyles.th, 'max-w-10')}>ID Canje</th>
+                                    <th className={customStyles.th}>Usuario</th>
+                                    <th className={customStyles.th}>Cupón</th>
+                                    <th className={twMerge(customStyles.th, 'max-w-20')}>Coste de cupón</th>
+                                    <th className={customStyles.th}>Fecha</th>
+                                    <th className={customStyles.th}>Estado</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className='overflow-y-auto'>
+                                {/* Map over clients and render each client as a table row */}
+                                {filteredCoupons.map((redeCoupon) => (
+                                    <tr key={redeCoupon.cuponCanjeadoID} className='hover:bg-gray-100'>
+                                        <td className={customStyles.td}>{redeCoupon.cuponCanjeadoID}</td>
+                                        <td className={customStyles.td}>{redeCoupon.Usuarios.nombre} {redeCoupon.Usuarios.apellidos}</td>
+                                        <td className={customStyles.td}>{redeCoupon.Cupones.nombreCupon}</td>
+                                        <td className={customStyles.td}>{redeCoupon.Cupones.valorPuntos}</td>
+                                        <td className={customStyles.td}>{formatDate(redeCoupon.fecha)}</td>
+                                        <td className={customStyles.td}>{redeCoupon.estado}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             )}
 

@@ -1,53 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import {MonthNavigator} from './MonthNavigator';
+import customStyles from '../../../custom/customStyles';
 
 const StylistSchedulePanel = ({stylist}) => {
-    const searchStylist = stylist.nombre ? `${stylist.nombre} ${stylist.apellidos}` : '';
-    const obtenerNombresDiasSemana = () => {
-        const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        return diasSemana.map(dia => <th key={dia}>{dia}</th>);
+    const [currentMonth, setCurrentMonth] = useState(new Date())
+
+    const daysInMonth = (month, year) => {
+        return new Date(year, month + 1, 0).getDate();
     };
 
-    // Función para obtener los días del mes
-    const obtenerDiasMes = () => {
-        const fechaActual = new Date();
-        const primerDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
-        const ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
-        const dias = [];
-        for (let i = primerDiaMes.getDate(); i <= ultimoDiaMes.getDate(); i++) {
-            dias.push(<th key={i}>{i}</th>);
+    const getDayName = (date) => {
+        const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        return dayNames[date.getDay()];
+    };
+
+    const renderDaysOfMonth = () => {
+        const days = [];
+        const numDays = daysInMonth(currentMonth.getMonth(), currentMonth.getFullYear());
+
+        for (let day = 1; day <= numDays; day++) {
+            const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+            const dayName = getDayName(date);
+            days.push(
+                <tr key={day} className='hover:bg-gray-100'>
+                    <td className={customStyles.td}>{day}</td>
+                    <td className={customStyles.td}>{dayName}</td>
+                    <td className={customStyles.td}></td>
+                    <td className={customStyles.td}></td>
+                    <td className={customStyles.td} >
+                        <button className='p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Ver Bloqueos</button>
+                    </td>
+                </tr>
+            );
         }
-        return dias;
+
+        return days;
     };
+
+    const handleChangeMonth = (newMonth) => {
+        setCurrentMonth(newMonth);
+    };
+
     return (
-        <div>
-            <h2>Panel del estilista seleccionado: {searchStylist}</h2>
+        <>
+        <div className='flex mb-2 '>
+            <MonthNavigator currentDate={currentMonth} onChangeMonth={handleChangeMonth} />
+            <div className='flex justify-end flex-grow gap-2 text-white' >
+                <button className='p-2 bg-green-500 rounded-lg hover:bg-green-600'>+ Horario</button>
+                <button className='p-2 bg-red-500 rounded-lg hover:bg-red-600'>+ Bloqueo</button>
+            </div>
+        </div>
 
+
+        <div className='overflow-y-auto max-h-[58vh]'>
             {/* Renderización de los días y horas del horario */}
-            <table>
-                <thead>
+            <table className='w-full'>
+                <thead className={customStyles.thead}>
                     <tr>
-                        <th className='border border-gray-300'></th>
-                        <th className='border border-gray-300'>Día</th>
-                        <th className='border border-gray-300'>Hora Inicio</th>
-                        <th className='border border-gray-300'>Hora Salida</th>
-                        <th className='border border-gray-300'>Bloqueos</th>
-
+                        <th className={customStyles.th}>Fecha</th>
+                        <th className={customStyles.th}>Día</th>
+                        <th className={customStyles.th}>Hora Inicio</th>
+                        <th className={customStyles.th}>Hora Salida</th>
+                        <th className={customStyles.th}>Bloqueos</th>
                     </tr>
                 </thead>
-                <tbody >
-                    {/* Renderizar los nombres de los días de la semana */}
-                    {obtenerNombresDiasSemana().map((dia, index) => (
-                        <tr key={index}>
-                            <td className='border border-gray-300'>{dia}</td>
-                            <td className='border border-gray-300'></td>
-                            <td className='border border-gray-300'></td>
-                            <td className='border border-gray-300'></td>
-                            <td className='border border-gray-300'></td>
-                        </tr>
-                    ))}
+                <tbody className='overflow-y-auto'>
+                    {renderDaysOfMonth()}
                 </tbody>
             </table>
         </div>
+        </>
     );
 }
 

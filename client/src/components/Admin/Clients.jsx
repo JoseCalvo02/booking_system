@@ -70,7 +70,7 @@ const Clients = () => {
             </header>
 
             {/* Table */}
-            <section className='overflow-y-auto max-h-[75vh]'>
+            <section className='overflow-y-auto max-h-[65vh]'>
                 <table className='w-full '>
                     <thead className={customStyles.thead}>
                         {/* Table Header */}
