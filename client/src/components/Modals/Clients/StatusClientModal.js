@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { changeUserStatus } from '../../../../api/userApi';
 
-const handleClientAction = async (usuarioID, estado) => {
+const handleClientAction = async (usuarioID, estado, nombreCliente) => {
     let action = '';
     let message = '';
     let icon = '';
@@ -10,13 +10,13 @@ const handleClientAction = async (usuarioID, estado) => {
     switch (estado) {
         case 'Activo':
             action = 'Desactivar';
-            message = 'El usuario ha sido Desactivado';
+            message = `El usuario ${nombreCliente} ha sido Desactivado`;
             icon = 'success';
             color = '#f44336'; 
             break;
         case 'Inactivo':
             action = 'Activar';
-            message = 'El usuario ha sido Activado';
+            message = `El usuario ${nombreCliente} ha sido Activado`;
             icon = 'success';
             color = '#4caf50';
             break;
@@ -25,12 +25,12 @@ const handleClientAction = async (usuarioID, estado) => {
     }
 
     const result = await Swal.fire({
-        title: `¿Estás seguro de ${action} este usuario?`,
+        title: `¿Estás seguro de ${action} a ${nombreCliente}?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: color,
         cancelButtonColor: '#333',
-        confirmButtonText: `Sí, ${action} usuario`,
+        confirmButtonText: `Sí, ${action}`,
         cancelButtonText: 'Cancelar',
     });
 

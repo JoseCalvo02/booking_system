@@ -47,9 +47,10 @@ const Clients = () => {
         return true;
     });
 
-    const handleAction = (estado, usuarioID) => {
-        handleClientAction(usuarioID, estado); // Llamar a la función para manejar la acción del cliente
+    const handleAction = (estado, usuarioID, nombreCliente) => {
+        handleClientAction(usuarioID, estado, nombreCliente); // Llamar a la función para manejar la acción del cliente
     }
+    
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
@@ -104,7 +105,7 @@ const Clients = () => {
                                 <td className={customStyles.td}>{client.points.puntosCanjeados}</td>
                                 <td className={customStyles.td}>{client.estado}</td>
                                 <td className={customStyles.td}>
-                                <button onClick={() =>handleAction(client.estado, client.usuarioID)} className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                <button onClick={() =>handleAction(client.estado, client.usuarioID, `${client.nombre} ${client.apellidos}`)} className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
                                     {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
                                 </button>
                                 </td>
