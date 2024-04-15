@@ -3,15 +3,22 @@ import { decodeToken } from '../../utils/tokenUtils';
 //Modals
 import EmailChangeModal from '../Modals/EmailChangeModal';
 import AddressChangeModal from '../Modals/AddressChangeModal';
+import ChangePasswordModal from '../Modals/ChangePasswordModal';
 
 const Profile = () => {
     const [userData, setUserData] = useState({
+        userId: '',
         name: '',
         lastName: '',
         email: '',
         address: '',
         phone: '',
     }); // Define el estado local para almacenar el nombre de usuario
+
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: '',
+        newPassword: ''
+    }); // Define el estado local para almacenar la contraseña actual y la nueva contraseña
 
     useEffect(() => {
         loadUserData(); // Lógica para cargar los datos del usuario al montar el componente
@@ -21,6 +28,7 @@ const Profile = () => {
         // Decodificar el token JWT y establecer los datos en el estado local
         const decodedToken = decodeToken(); // Decodificar el token JWT
         setUserData({
+            userId: decodedToken.userId,
             name: decodedToken.name,
             lastName: decodedToken.lastName,
             email: decodedToken.email,
@@ -36,6 +44,29 @@ const Profile = () => {
     const handleAddressChange = () => {
         AddressChangeModal(setUserData);
     };
+
+    const handlePasswordChange = () => {
+        ChangePasswordModal({
+            userId: userData.userId,
+            currentPassword: passwordData.currentPassword,
+            newPassword: passwordData.newPassword
+        });
+    };
+
+    const handleCurrentPasswordChange = (event) => {
+        setPasswordData(prevState => ({
+            ...prevState,
+            currentPassword: event.target.value
+        }));
+    }; // funcion para cambiar la contraseña de un usuario
+
+    const handleNewPasswordChange = (event) => {
+        setPasswordData(prevState => ({
+            ...prevState,
+            newPassword: event.target.value
+        }));
+    }; // funcion para cambiar la contraseña de un usuario
+
 
     return (
         <div className='grid w-full grid-cols-6 py-8 pl-4 pr-8 overflow-y-auto bg-white shadow-custom rounded-xl sm:grid-cols-10'>
@@ -80,40 +111,26 @@ const Profile = () => {
                 </div>
 
                 {/* Third section */}
-                <div className='py-4 mb-6 border-b border-gray-200'>
-                    <p className="py-2 text-xl font-semibold">Contraseña</p>
+                <p className="py-2 mt-4 text-xl font-semibold">Contraseña</p>
+                    <p className="pb-2 text-red-600 underline">Por favor, ingresa tu contraseña actual y luego la nueva contraseña que deseas establecer</p>
                     <div className="flex items-center">
                         <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <label htmlFor="login-password">
-                                <span className="text-sm text-gray-600">Contraseña actual</span>
-                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
-                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
+                                <span className="text-sm text-gray-500">Contraseña actual</span>
+                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
+                                    <input type="password" id="login-password" value={passwordData.currentPassword} onChange={handleCurrentPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
                                 </div>
                             </label>
-                            <label htmlFor="login-password">
-                                <span className="text-sm text-gray-600">Nueva contraseña</span>
-                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-primary">
-                                    <input type="password" id="login-password" className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" placeholder="••••••••••" />
+                            <label htmlFor="login-passwordNew">
+                                <span className="text-sm text-gray-500">Nueva contraseña</span>
+                                <div className="relative flex overflow-hidden transition border-2 rounded-md focus-within:border-blue-600">
+                                    <input type="password" id="login-passwordNew" value={passwordData.newPassword} onChange={handleNewPasswordChange} className="flex-shrink w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border-gray-300 appearance-none focus:outline-none" />
                                 </div>
                             </label>
                         </div>
                     </div>
-                    <div className='flex gap-1 mt-2 text-sm'>
-                        <span> No recuerdas tu contraseña actual.</span>
-                        <button className="font-semibold text-primary hover:underline decoration-2" href="#">Recuperar contraseña</button>
-                    </div>
-                    <button className="px-4 py-2 mt-4 text-white rounded-lg bg-primary hover:bg-primary_h">Guardar contraseña</button>
-                </div>
-
-                {/* Fourth section */}
-                <div className="mb-10">
-                    <p className="py-2 text-xl font-semibold">Eliminar cuenta personal</p>
-                    <p className="inline-flex items-center px-4 py-1 rounded-lg bg-rose-100 text-rose-600">Proceda con precaución</p>
-                    <p className="mt-2">
-                        Asegúrese de haber realizado una copia de seguridad de su cuenta en caso de que alguna vez necesite acceder a sus datos. Borraremos completamente sus datos. No hay forma de acceder a su cuenta después de esta acción.
-                    </p>
-                    <button className="ml-auto text-sm font-semibold text-rose-600 hover:underline decoration-2">Continue con la eliminación</button>
-                </div>
+                    <button onClick={handlePasswordChange} className="px-4 py-2 mt-4 text-white bg-blue-600 rounded-lg">Cambiar contraseña</button>
+                    <hr className="mt-4 mb-8" />
             </main>
         </div>
     );
