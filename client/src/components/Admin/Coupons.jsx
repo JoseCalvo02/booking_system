@@ -127,7 +127,7 @@ const Redemptions = () => {
 
                     {/* Table */}
                     <table className='w-full '>
-                        <thead className='sticky top-0 z-10 text-white bg-gray-900'>
+                        <thead className={customStyles.thead}>
                             {/* Table Header */}
                             <tr>
                                 <th className={twMerge(customStyles.th, 'max-w-10')}>ID Canje</th>

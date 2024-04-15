@@ -73,7 +73,7 @@ const Schedules = () => {
                         </button>
                         {/* Lista desplegable personalizada */}
                         {inputActive && (
-                            <div className="absolute left-0 z-10 h-32 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg w-[300px] top-[39px] md:top-[43px] lg:top-[47px]"  onClick={() => document.getElementById('inputStylist').blur()}>
+                            <div className="absolute left-0 z-20 h-32 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-lg w-[300px] top-[39px] md:top-[43px] lg:top-[47px]"  onClick={() => document.getElementById('inputStylist').blur()}>
                                 {filteredEstilistas.length > 0 ? (
                                     filteredEstilistas.map((stylist, index) => (
                                         <div key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-100"

@@ -71,7 +71,7 @@ const Stylists = () => {
             {/* Table */}
             <div className='overflow-y-auto max-h-[75vh]'>
                 <table className='w-full '>
-                    <thead className='sticky top-0 z-10 text-white bg-gray-900'>
+                    <thead className={customStyles.thead}>
                         {/* Table Header */}
                         <tr>
                             <th className={customStyles.th}>ID</th>

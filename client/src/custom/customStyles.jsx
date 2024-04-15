@@ -10,7 +10,8 @@ const customStyles = {
     link: 'flex items-center gap-4 p-2 rounded-lg hover:bg-blue-950',
     activeLink: 'bg-blue-950',
     span: 'hidden lg:block',
-    // Styles used in Admin/Clients.jsx and Admin/Stylists.jsx
+    // Styles used in admin tables
+    thead: 'sticky top-0 z-10 text-white bg-gray-900',
     th: 'p-2',
     td: 'p-2 border border-gray-200 text-center overflow-x-auto max-w-[100px] overflow-y-auto max-h-[10px] whitespace-nowrap',
 };
