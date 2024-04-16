@@ -91,3 +91,23 @@ export const createCoupon = async (newCoupon) => {
         throw new Error(error);
     }
 }
+
+// Desactivar un cupón
+export const disableCoupon = async (coupon) => {
+    try {
+        const token = localStorage.getItem('token');
+        const data = {
+            cuponId: coupon.cuponID
+        };
+        console.log(data, 'data');
+
+        const response = await axiosInstance.put(`${API_URL}/disableCoupon`, data, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

@@ -166,3 +166,23 @@ export const createCoupon = async (nombreCupon, costoPuntos) => {
         throw new Error('Error al crear un nuevo cupón: ' + error.message);
     }
 }
+
+// Función para desactivar un cupón
+export const disableCoupon = async (cuponId) => {
+    try {
+        // Desactivar un cupón
+        const disabledCoupon = await prisma.Cupones.update({
+            where: {
+                cuponID: cuponId
+            },
+            data: {
+                estado: "Inactivo"
+            }
+        });
+
+        // Enviar respuesta
+        return disabledCoupon;
+    } catch (error) {
+        throw new Error('Error al desactivar el cupón: ' + error.message);
+    }
+}
