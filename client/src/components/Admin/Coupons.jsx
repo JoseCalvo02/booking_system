@@ -88,15 +88,15 @@ const Redemptions = () => {
                     <button className='p-2 mb-4 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateCouponModal()}>Agregar +</button>
 
                     {/* Section for Coupons */}
-                    <div className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
+                    <div className='grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3'>
                         { coupons.map((coupon, i) => (
-                            <div key={i} className='w-full md:w-[48%] lg:w-[31%] h-64 p-8 bg-white rounded-xl mb-4 shadow-custom hover:shadow-none text-center content-center border border-gray-300'>
+                            <div key={i} className='content-center h-64 p-8 mb-4 text-center bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
                                 <h3 className='text-lg font-semibold lg:text-xl'>{coupon.nombreCupon}</h3>
                                 <p className='max-w-full'>Costo puntos: {coupon.valorPuntos}</p>
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2 text-white'>
-                                    <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(coupon/*, updateService*/)}>Editar</button>
-                                    <button className='p-2 bg-red-500 rounded-md hover:bg-red-600' onClick={() => DeleteCouponModal(coupon)}>Desactivar</button>
+                                    <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon/*, updateService*/)}>Editar</button>
+                                    <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => DeleteCouponModal(coupon)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
                                 </div>
                             </div>
                         ))}

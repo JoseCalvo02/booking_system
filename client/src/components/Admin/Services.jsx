@@ -46,14 +46,14 @@ const Services = () => {
             {/* Services section for services */}
             <section className='grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3'>
                 { services.map((service, i) => (
-                    <div key={i} className='content-center w-full h-64 p-8 text-center bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
+                    <div key={i} className='content-center h-64 p-8 text-center bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
                         <h3 className='text-xl font-semibold'>{service.nombreServicio}</h3>
                         <p className='max-w-full'>{service.descripcion}</p>
                         <p>{service.tiempoEstimado}</p>
                         <p>₡{service.precio}</p>
                         <div className='mt-4 space-x-2 text-white'>
-                            <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(service, updateService)}>Editar</button>
-                            <button className='p-2 bg-red-500 rounded-md hover:bg-red-600' onClick = {() => DeleteServModal(service)}>Eliminar</button>
+                            <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => openEditModal(service, updateService)}>Editar</button>
+                            <button className='p-2 bg-red-500 rounded-md w-28 hover:bg-red-600' onClick = {() => DeleteServModal(service)}>Eliminar</button>
                         </div>
                     </div>
                 ))}
