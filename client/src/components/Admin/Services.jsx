@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
 // Constants / API / Modals
 import { getServices } from '../../../api/serviceApi';
 import { openEditModal } from '../Modals/Services/EditServModal';
@@ -7,12 +8,14 @@ import { DeleteServModal } from '../Modals/Services/DeleteServModal';
 
 const Services = () => {
     const [services, setServices] = useState([]); // Array of cards for services
+    const [loading, setLoading] = useState(true); // Handle loading state
 
     useEffect(() => {
         const fetchServices = async () => {
             try {
                 const services = await getServices();
                 setServices(services);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching services:', error.message);
             }
@@ -55,6 +58,13 @@ const Services = () => {
                     </div>
                 ))}
             </section>
+
+            {/* Loading spinner */}
+            { loading &&
+                <div className='flex items-center justify-center h-[50vh] w-full'>
+                    <ClipLoader color='#111827' size={200} />
+                </div>
+            }
         </div>
     );
 }
