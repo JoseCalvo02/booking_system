@@ -44,9 +44,9 @@ const Services = () => {
             </header>
 
             {/* Services section for services */}
-            <section className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
+            <section className='grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3'>
                 { services.map((service, i) => (
-                    <div key={i} className='w-full md:w-[48%] lg:w-[31%] h-64 p-8 bg-white rounded-xl mb-4 shadow-custom hover:shadow-none text-center content-center border border-gray-300'>
+                    <div key={i} className='content-center w-full h-64 p-8 text-center bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
                         <h3 className='text-xl font-semibold'>{service.nombreServicio}</h3>
                         <p className='max-w-full'>{service.descripcion}</p>
                         <p>{service.tiempoEstimado}</p>
