@@ -41,7 +41,7 @@ export const CreateCouponModal = async () => {
             // Retornar la promesa de createCoupon con timeout de 2 segundos
             return createCoupon(newCoupon).then(() => {
                 Swal.fire({
-                    title: 'Cupone creado con éxito',
+                    title: 'Cupon creado con éxito',
                     icon: 'success',
                     timer: 2000,
                     showConfirmButton: false
