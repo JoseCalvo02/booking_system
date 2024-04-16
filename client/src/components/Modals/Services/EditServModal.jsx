@@ -59,13 +59,27 @@ export const openEditModal = (service, updateService) => {
 
             // Llamar a la función para editar el servicio
             editService(editedService).then(() => {
-                Swal.fire('¡Éxito!', 'El servicio se actualizó correctamente', 'success');
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'El servicio se actualizó correctamente',
+                    icon: 'success',
+                    timer: 2000, // Cerrar automáticamente después de 2 segundos
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
                 // Ejecutar la función de callback con los datos editados
                 updateService(editedService);
             })
             .catch(error => {
                 // Mostrar mensaje de error si hubo un problema al actualizar
-                Swal.fire('Error', 'Hubo un problema al actualizar el servicio', 'error');
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al actualizar el servicio',
+                    icon: 'error',
+                    timer: 2000, // Cerrar automáticamente después de 2 segundos
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
                 console.error('Error al actualizar el servicio:', error);
             });
         }

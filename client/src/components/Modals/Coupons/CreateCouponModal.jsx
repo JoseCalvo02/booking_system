@@ -9,7 +9,7 @@ export const CreateCouponModal = async() => {
         html: (
             <div className='flex flex-col max-w-full gap-2 p-2'>
                 <input id="nombreCupon" type="text" placeholder="Nombre del Cupón" className='p-2 border boerder-gray-500' required />
-                <input id="descripcion" type="text" placeholder="Descripción" className='p-2 border boerder-gray-500' required />
+                <textarea id="descripcion" type="text" placeholder="Descripción" className='p-2 border boerder-gray-500' required />
                 <input id="descuento" type="number" placeholder="Descuento" className='p-2 border boerder-gray-500' required />
             </div>
         ),
@@ -34,12 +34,16 @@ export const CreateCouponModal = async() => {
                 return false;
             }
 
+            // Verificar si el descuento contiene decimales
+            if (descuento !== parseInt(descuento).toString()) {
+                Swal.showValidationMessage('El descuento debe ser un número entero');
+                return false;
+            }
+
             const newCoupon = {
                 nombreCupon,
                 descripcion,
-                descuento,
-                fechaInicio,
-                fechaFin,
+                descuento
             };
 
             // Llamar a la función para crear el cupón
