@@ -24,7 +24,8 @@ function RewardsClient() {
     const loadCoupons = async () => {
         try {
             const coupons = await getCoupons(); // Obtener los cupones de la base de datos
-            setCupones(coupons); // Establecer los cupones en el estado local
+            const activeCoupons = coupons.filter(coupon => coupon.estado === "Activo"); // Filtrar los cupones con estado "Activo"
+            setCupones(activeCoupons); // Establecer los cupones activos en el estado local
         } catch (error) {
             console.error('Error al obtener los cupones:', error.message);
         }
