@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+// Constants / API / Modals
 import { getServices } from '../../../api/serviceApi';
 import { openEditModal } from '../Modals/Services/EditServModal';
+import { CreateServModal } from '../Modals/Services/CreateServModal';
 
 const Services = () => {
     const [services, setServices] = useState([]); // Array of cards for services
@@ -34,7 +36,7 @@ const Services = () => {
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='m-auto mb-4'>
                 <h1 className='p-1 text-lg font-semibold text-center md:text-xl lg:text-2xl '>Servicios</h1>
-                <button className='p-2 bg-green-400 rounded text-md hover:bg-green-500 lg:text-lg'>Agregar +</button>
+                <button className='p-2 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateServModal()}>Agregar +</button>
             </header>
 
             {/* Services section for services */}
@@ -45,9 +47,9 @@ const Services = () => {
                         <p className='max-w-full'>{service.descripcion}</p>
                         <p>{service.tiempoEstimado}</p>
                         <p>₡{service.precio}</p>
-                        <div className='mt-4 space-x-2'>
-                            <button className='p-2 bg-blue-400 rounded-md hover:bg-blue-500' onClick={() => openEditModal(service, updateService)}>Editar</button>
-                            <button className='p-2 bg-red-400 rounded-md hover:bg-red-500'>Eliminar</button>
+                        <div className='mt-4 space-x-2 text-white'>
+                            <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(service, updateService)}>Editar</button>
+                            <button className='p-2 bg-red-500 rounded-md hover:bg-red-600'>Eliminar</button>
                         </div>
                     </div>
                 ))}

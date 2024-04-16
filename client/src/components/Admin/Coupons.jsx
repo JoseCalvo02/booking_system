@@ -1,12 +1,14 @@
+// Libraries
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { format } from 'date-fns';
 import BarLoader from "react-spinners/BarLoader";
-// Funciones y estilos
-import customStyles from '../../custom/customStyles';
+// Fuctions / Hooks / API / Modals
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
 import useInputActive from '../../hooks/useInputActive';
-import { format } from 'date-fns';
-
+import { CreateCouponModal } from '../Modals/Coupons/CreateCouponModal';
+// Styles & Icons
+import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX  } from "react-icons/tb";
 
 const Redemptions = () => {
@@ -82,7 +84,7 @@ const Redemptions = () => {
             {displayContent === 'coupons' ? (
                 /* Section for adding coupons */
                 <section>
-                    <button className='p-2 mb-4 bg-green-400 rounded text-md hover:bg-green-500 lg:text-lg'>Agregar +</button>
+                    <button className='p-2 mb-4 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateCouponModal()}>Agregar +</button>
 
                     {/* Section for Coupons */}
                     <div className='flex flex-col flex-wrap justify-between md:flex-row lg:gap-3'>
@@ -91,9 +93,9 @@ const Redemptions = () => {
                                 <h3 className='text-lg font-semibold lg:text-xl'>{coupon.nombreCupon}</h3>
                                 <p className='max-w-full'>Costo puntos: {coupon.valorPuntos}</p>
                                 <p>Estado: {coupon.estado}</p>
-                                <div className='mt-4 space-x-2'>
-                                    <button className='p-2 bg-blue-400 rounded-md hover:bg-blue-500' onClick={() => openEditModal(coupon/*, updateService*/)}>Editar</button>
-                                    <button className='p-2 bg-red-400 rounded-md hover:bg-red-500'>Desactivar</button>
+                                <div className='mt-4 space-x-2 text-white'>
+                                    <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(coupon/*, updateService*/)}>Editar</button>
+                                    <button className='p-2 bg-red-500 rounded-md hover:bg-red-600'>Desactivar</button>
                                 </div>
                             </div>
                         ))}

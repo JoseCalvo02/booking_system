@@ -9,18 +9,18 @@ export const openEditModal = (service, updateService) => {
     MySwal.fire({
         title: 'Editar Servicio',
         html: (
-            <div className='max-w-full'>
-                <input id="nombreServicio" type="text" defaultValue={service.nombreServicio} placeholder="Nombre del Servicio" className='' required />
-                <input id="descripcion" type="text" defaultValue={service.descripcion} placeholder="Descripción" required />
-                <input id="tiempoEstimado" type="text" defaultValue={service.tiempoEstimado} placeholder="hh:mm" pattern="\d{2}:\d{2}" required />
-                <input id="precio" type="number" defaultValue={service.precio} placeholder="Precio" required />
+            <div className='flex flex-col max-w-full gap-4 p-2'>
+                <input id="nombreServicio" type="text" defaultValue={service.nombreServicio} placeholder="Nombre del Servicio" className='p-2 border boerder-gray-500' required />
+                <textarea id="descripcion" type="text" defaultValue={service.descripcion} placeholder="Descripción" className='p-2 border boerder-gray-500' required />
+                <input id="tiempoEstimado" type="text" defaultValue={service.tiempoEstimado} placeholder="hh:mm" pattern="\d{2}:\d{2}" className='p-2 border boerder-gray-500' required />
+                <input id="precio" type="number" defaultValue={service.precio} placeholder="Precio" className='p-2 border boerder-gray-500' required />
             </div>
         ),
         showCancelButton: true,
         confirmButtonText: 'Guardar Cambios',
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#60A5FA',
-        cancelButtonColor: '#F87171',
+        confirmButtonColor: '#3b82f6',
+        cancelButtonColor: '#ef4444',
         customClass: {
             title: 'text-2xl font-semibold text-gray-800',
             confirmButton: 'p-2 rounded-md hover:bg-blue-500',
