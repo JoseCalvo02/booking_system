@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { getServices } from '../../../api/serviceApi';
 import { openEditModal } from '../Modals/Services/EditServModal';
 import { CreateServModal } from '../Modals/Services/CreateServModal';
+import { DeleteServModal } from '../Modals/Services/DeleteServModal';
 
 const Services = () => {
     const [services, setServices] = useState([]); // Array of cards for services
@@ -49,7 +50,7 @@ const Services = () => {
                         <p>₡{service.precio}</p>
                         <div className='mt-4 space-x-2 text-white'>
                             <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(service, updateService)}>Editar</button>
-                            <button className='p-2 bg-red-500 rounded-md hover:bg-red-600'>Eliminar</button>
+                            <button className='p-2 bg-red-500 rounded-md hover:bg-red-600' onClick = {() => DeleteServModal(service)}>Eliminar</button>
                         </div>
                     </div>
                 ))}

@@ -36,5 +36,18 @@ router.post("/services", async (req, res) => {
     }
 });
 
+// Eliminar un servicio
+router.delete("/services/:serviceID", async (req, res) => {
+    try {
+        const { serviceID } = req.params;
+
+        await service.deleteService(serviceID);
+
+        res.status(200).json({ message: "Servicio eliminado exitosamente" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Exportar las rutas
 export default router;

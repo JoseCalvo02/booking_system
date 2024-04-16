@@ -55,3 +55,23 @@ export const createService = async (newService) => {
         }
     }
 }
+
+// Eliminar un servicio
+export const deleteService = async (service) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.delete(`${API_URL}/services/${service.servicioID}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error("Error al eliminar el servicio");
+        }
+    }
+}
+

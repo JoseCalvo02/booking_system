@@ -59,3 +59,20 @@ export const createService = async (nombreServicio, descripcion, tiempoEstimado,
         throw new Error(error);
     }
 }
+
+// Función para eliminar un servicio
+export const deleteService = async (serviceID) => {
+    try {
+        // Convertir el ID del servicio a un número entero
+        serviceID = parseInt(serviceID);
+
+        // Eliminar el servicio
+        await prisma.Servicios.delete({
+            where: {
+                servicioID: serviceID
+            }
+        });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
