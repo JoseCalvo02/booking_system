@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword, changeUserStatus } from "../controllers/userController.js";
+import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword, changeUserStatus, changeUserRole } from "../controllers/userController.js";
 
 
 const router = express.Router();
@@ -114,5 +114,20 @@ router.put("/status/:userId", async (req, res) => {
     }
 });
 
+// Funcion para cambiar el rol de un usuario
+router.put("/role/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params; // Obtener el userId de los parámetros de la URL
+        const { newRole } = req.body; // Obtener el nuevo rol del cuerpo de la petición
+        // Llamar a la función para cambiar el rol de un usuario
+        const updatedUser = await changeUserRole(userId, newRole); // Obtener el usuario actualizado
+        // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
+        res.status(200).json({ updatedUser, message: 'Rol de usuario cambiado exitosamente' });
+    } catch (error) {
+        console.error("Error:", error);
+        // Si ocurre un error, enviar un mensaje de error al frontend
+        res.status(500).json({ error: 'Error al cambiar el rol del usuario' });
+    }
+});
 
 export default router;

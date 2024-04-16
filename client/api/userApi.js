@@ -137,3 +137,22 @@ export const changeUserStatus = async (usuarioID, estado) => {
         throw new Error(`No se pudo cambiar el estado del usuario: ${error.response.data.error || error.message}`);
     }
 }
+
+// Funcion para cambiar el rol de un usuario
+export const changeUserRole = async (usuarioID, newRole) => {
+    try {
+
+        console.log('newRole API', newRole);
+        console.log('usuarioID API', usuarioID);
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/role/${usuarioID}`, { newRole }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudo cambiar el rol del usuario: ${error.response.data.error || error.message}`);
+    }
+}

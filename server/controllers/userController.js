@@ -242,4 +242,50 @@ export const changeUserStatus = async (userId, estado) => {
     }
 };
 
+// Función para cambiar el rol de un usuario
+export const changeUserRole = async (userId, newRole) => {
+    try {
+        // Convertir userId a tipo Int si es una cadena
+        userId = parseInt(userId);
+
+        // Validar que el nuevo rol sea 'admin', 'stylist' o 'client'
+        if (newRole !== 'Administrador' && newRole !== 'Estilista' && newRole !== 'Cliente') {
+            throw new Error('El rol no es válido');
+        }
+
+        // Determinar el nuevo rol
+        let roleId;
+        switch(newRole) {
+            case 'Administrador':
+                roleId = 1;
+                break;
+            case 'Estilista':
+                roleId = 2;
+                break;
+            case 'Cliente':
+                roleId = 3;
+                break;
+            default:
+                throw new Error('El rol no es válido');
+        }
+
+        // Actualizar el rol del usuario
+        const updatedUser = await prisma.Usuarios.update({
+            where: {
+                usuarioID: userId
+            },
+            data: {
+                rolID: roleId
+            }
+        });
+
+        return updatedUser;
+    } catch (error) {
+        console.error("Error en changeUserRole:", error);
+        // Enviar mensajes específicos de error al frontend
+        throw new Error(error.message === 'El rol no es válido' ? 'El rol no es válido' : 'Error de servidor');
+    }
+};
+
+
 
