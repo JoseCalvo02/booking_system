@@ -58,14 +58,13 @@ router.post("/createCoupon", async (req, res) => {
 });
 
 // Ruta para desactivar un cupón
-router.put("/disableCoupon", async (req, res) => {
+router.put("/changeStatus", async (req, res) => {
     try {
         const { cuponId } = req.body;
         const { estado } = req.body;
+        const couponChanged = await coupon.changeStatus(cuponId, estado);
 
-        const disabledCoupon = await coupon.disableCoupon(cuponId, estado);
-
-        res.status(200).json(disabledCoupon);
+        res.status(200).json(couponChanged);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

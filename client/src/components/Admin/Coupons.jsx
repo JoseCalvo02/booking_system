@@ -7,7 +7,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
 import useInputActive from '../../hooks/useInputActive';
 import { CreateCouponModal } from '../Modals/Coupons/CreateCouponModal';
-import DeleteCouponModal from '../Modals/Coupons/DeleteCouponModal';
+import ChangeStatusModal from '../Modals/Coupons/ChangeStatusModal';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX  } from "react-icons/tb";
@@ -98,7 +98,7 @@ const Redemptions = () => {
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2 text-white'>
                                     <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon/*, updateService*/)}>Editar</button>
-                                    <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => DeleteCouponModal(coupon)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
+                                    <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => ChangeStatusModal(coupon)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
                                 </div>
                             </div>
                         ))}

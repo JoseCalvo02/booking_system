@@ -1,7 +1,7 @@
 import swal from 'sweetalert2';
-import { disableCoupon } from '../../../../api/couponApi';
+import { ChangeCouponStatus } from '../../../../api/couponApi';
 
-const DeleteCouponModal = async (coupon) => {
+const ChangeStatusModal = async (coupon) => {
     let action = '';
     let message = '';
     let icon = '';
@@ -12,13 +12,13 @@ const DeleteCouponModal = async (coupon) => {
             action = 'Desactivar';
             message = `El cupón ${coupon.nombreCupon} ha sido Desactivado`;
             icon = 'success';
-            color = '#f44336';
+            color = '#4caf50'; 
             break;
         case 'Inactivo':
             action = 'Activar';
             message = `El cupón ${coupon.nombreCupon} ha sido Activado`;
             icon = 'success';
-            color = '#4caf50';
+            color = '#f44336';
             break;
         default:
             break;
@@ -36,7 +36,7 @@ const DeleteCouponModal = async (coupon) => {
 
     if (result.isConfirmed) {
         try {
-            const response = await disableCoupon(coupon);
+            await ChangeCouponStatus(coupon);
 
             swal.fire({
                 title: '¡Hecho!',
@@ -62,4 +62,4 @@ const DeleteCouponModal = async (coupon) => {
     }
 }
 
-export default DeleteCouponModal;
+export default ChangeStatusModal;

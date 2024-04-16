@@ -84,6 +84,7 @@ export const updateUserPhone = async (newPhone) => {
     }
 }
 
+// Función para desactivar el usuario desde el Client
 export const desactivateUser = async (userId) => {
     try {
         const token = localStorage.getItem('token');
