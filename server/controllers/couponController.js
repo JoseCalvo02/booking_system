@@ -5,11 +5,7 @@ import { generateNewToken } from "../utils/jwtService.js"; // Importar la funciÃ
 export const getAllCoupons = async (req, res) => {
     try {
         // Obtener todos los cupones
-        const coupons = await prisma.Cupones.findMany({
-            where: {
-                estado: "Activo"
-            }
-        });
+        const coupons = await prisma.Cupones.findMany();
         // Enviar respuesta
         res.json(coupons);
     } catch (error) {
