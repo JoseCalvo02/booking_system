@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// Funciones y estilos
+// Functions / Api / Hooks / Modals
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
-import customStyles from '../../custom/customStyles';
 import handleClientAction from '../Modals/Users/ChangeStatusModal';
-
+import ChangeRoleModal from '../Modals/Users/ChangeRoleModal';
+// Styles & Icons
+import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
 const Stylists = () => {
@@ -88,7 +89,7 @@ const Stylists = () => {
                             <th className={customStyles.th}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className='overflow-y-auto'>
+                    <tbody className='overflow-y-auto '>
                         {/* Map over stylists and render each stylist as a table row */}
                         {filteredStylists.map((stylist) => (
                             <tr key={stylist.usuarioID} className='hover:bg-gray-100'>
@@ -99,11 +100,11 @@ const Stylists = () => {
                                 <td className={customStyles.td}>{stylist.direccion}</td>
                                 <td className={customStyles.td}>{stylist.estado}</td>
                                 <td className={customStyles.td}>
-                                    <button
-                                        onClick={() =>handleAction(stylist.usuarioID, `${stylist.nombre} ${stylist.apellidos}`, stylist.estado)}
-                                        className={`p-2 rounded-lg hover:bg-opacity-80 ${stylist.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                    <button onClick={() =>handleAction(stylist.usuarioID, `${stylist.nombre} ${stylist.apellidos}`, stylist.estado)}
+                                        className={ `p-2 w-[105px] mr-2 rounded-lg hover:bg-opacity-80 text-white ${stylist.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}>
                                         {stylist.estado === 'Activo' ? 'Desactivar' : 'Activar'}
                                     </button>
+                                    <button onClick={() => ChangeRoleModal(client)} className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
                                 </td>
                             </tr>
                         ))}

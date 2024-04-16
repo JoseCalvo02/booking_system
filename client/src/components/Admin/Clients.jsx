@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
-// Funciones y estilos
+// Functions / Api / Hooks / Modals
 import { getUsersByType } from '../../../api/userApi';
-import customStyles from '../../custom/customStyles';
 import useInputActive from '../../hooks/useInputActive';
 import handleClientAction from '../Modals/Users/ChangeStatusModal';
-// Icons
+import ChangeRoleModal from '../Modals/Users/ChangeRoleModal';
+// Styles & Icons
+import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
 const Clients = () => {
@@ -76,7 +77,7 @@ const Clients = () => {
 
             {/* Table */}
             <section className='overflow-y-auto max-h-[65vh]'>
-                <table className='w-full '>
+                <table className='w-full'>
                     <thead className={customStyles.thead}>
                         {/* Table Header */}
                         <tr>
@@ -91,7 +92,7 @@ const Clients = () => {
                             <th className={customStyles.th}>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className='overflow-y-auto'>
+                    <tbody className='overflow-x-auto'>
                         {/* Map over clients and render each client as a table row */}
                         {filteredClients.map((client) => (
                             <tr key={client.usuarioID} className='hover:bg-gray-100'>
@@ -104,11 +105,11 @@ const Clients = () => {
                                 <td className={customStyles.td}>{client.points.puntosCanjeados}</td>
                                 <td className={customStyles.td}>{client.estado}</td>
                                 <td className={customStyles.td}>
-                                    <button
-                                    onClick={() =>handleAction(client.usuarioID, `${client.nombre} ${client.apellidos}`, client.estado)}
-                                    className={`p-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-400 hover:bg-red-600' : 'bg-green-400 hover:bg-green-500'}`}>
+                                    <button onClick={() =>handleAction(client.usuarioID, `${client.nombre} ${client.apellidos}`, client.estado)}
+                                        className={`p-2 w-[105px] text-white mr-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}>
                                         {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
                                     </button>
+                                    <button onClick={() => ChangeRoleModal(client)} className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
                                 </td>
                             </tr>
                         ))}
