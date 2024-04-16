@@ -7,6 +7,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
 import useInputActive from '../../hooks/useInputActive';
 import { CreateCouponModal } from '../Modals/Coupons/CreateCouponModal';
+import DeleteCouponModal from '../Modals/Coupons/DeleteCouponModal';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX  } from "react-icons/tb";
@@ -95,7 +96,7 @@ const Redemptions = () => {
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2 text-white'>
                                     <button className='p-2 bg-blue-500 rounded-md hover:bg-blue-600' onClick={() => openEditModal(coupon/*, updateService*/)}>Editar</button>
-                                    <button className='p-2 bg-red-500 rounded-md hover:bg-red-600'>Desactivar</button>
+                                    <button className='p-2 bg-red-500 rounded-md hover:bg-red-600' onClick={() => DeleteCouponModal(coupon)}>Desactivar</button>
                                 </div>
                             </div>
                         ))}
