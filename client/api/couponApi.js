@@ -97,7 +97,8 @@ export const disableCoupon = async (coupon) => {
     try {
         const token = localStorage.getItem('token');
         const data = {
-            cuponId: coupon.cuponID
+            cuponId: coupon.cuponID,
+            estado: coupon.estado
         };
         console.log(data, 'data');
 

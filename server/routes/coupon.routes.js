@@ -61,13 +61,13 @@ router.post("/createCoupon", async (req, res) => {
 router.put("/disableCoupon", async (req, res) => {
     try {
         const { cuponId } = req.body;
-        console.log(cuponId, "cuponId");
-        const disabledCoupon = await coupon.disableCoupon(cuponId);
+        const { estado } = req.body;
+
+        const disabledCoupon = await coupon.disableCoupon(cuponId, estado);
 
         res.status(200).json(disabledCoupon);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
-
 export default router;

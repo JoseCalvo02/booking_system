@@ -37,7 +37,7 @@ const handleClientAction = async (usuarioID, nombreCliente, estado) => {
     if (result.isConfirmed) {
         try {
             // Llama a la función changeUserStatus para cambiar el estado del usuario
-            const response = await changeUserStatus(usuarioID, estado);
+            await changeUserStatus(usuarioID, estado);
 
             // Si la solicitud es exitosa, muestra un mensaje de éxito
             Swal.fire({

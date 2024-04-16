@@ -26,6 +26,8 @@ const Redemptions = () => {
         const fetchData = async () => {
             try {
                 const [coupons, redeCoupons] = await Promise.all([getCoupons(), getRedeemedCoupons()]);
+                // Ordenar los cupones por estado activo o inactivo
+                coupons.sort((a) => a.estado === 'Activo' ? -1 : 1);
                 setCoupons(coupons);
                 setRedeCoupon(redeCoupons);
                 setLoading(false);

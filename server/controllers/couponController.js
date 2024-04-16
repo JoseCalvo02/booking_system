@@ -163,22 +163,37 @@ export const createCoupon = async (nombreCupon, costoPuntos) => {
     }
 }
 
-// Función para desactivar un cupón
-export const disableCoupon = async (cuponId) => {
+// Función para activar y desactivar un cupón
+export const disableCoupon = async (cuponId, estado) => {
     try {
-        // Desactivar un cupón
-        const disabledCoupon = await prisma.Cupones.update({
+        // Convertir cuponId a entero si es necesario
+        cuponId = parseInt(cuponId);
+
+        // Validar que el estado sea 'Activo' o 'Inactivo'
+        if (estado !== 'Activo' && estado !== 'Inactivo') {
+            throw new Error('El estado no es válido');
+        }
+
+        // Determinar el nuevo estado
+        const nuevoEstado = estado === 'Activo' ? 'Inactivo' : 'Activo'; // Cambiar el estado al opuesto
+
+        // Actualizar el estado del cupón al estado opuesto
+        const updatedCoupon = await prisma.Cupones.update({
             where: {
                 cuponID: cuponId
             },
             data: {
-                estado: "Inactivo"
+                estado: nuevoEstado
             }
         });
 
         // Enviar respuesta
-        return disabledCoupon;
+        return updatedCoupon;
+        
     } catch (error) {
         throw new Error('Error al desactivar el cupón: ' + error.message);
     }
 }
+
+
+
