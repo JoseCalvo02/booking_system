@@ -32,7 +32,11 @@ export const redeemCoupon = async (cuponId) => {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
-        return response.data;
+
+        // Actualiza el token en el almacenamiento local con el nuevo token recibido en la respuesta
+        localStorage.setItem('token', response.data.newToken);
+
+        return response.data.costeCupon;
     } catch (error) {
         throw new Error(error);
     }

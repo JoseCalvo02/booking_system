@@ -1,4 +1,5 @@
 import prisma from "../prisma/prisma.js"; // Importar el Prisma Client
+import { generateNewToken } from "../utils/jwtService.js"; // Importar la función para generar un nuevo token
 
 // Función para obtener todos los cupones y mostrar solo los cupones Activos
 export const getAllCoupons = async (req, res) => {
@@ -46,7 +47,7 @@ export const redeemCoupon = async (userId, cuponId) => {
         }
 
         // Actualizar los puntos del usuario
-        const updatedPoints = await prisma.PuntosClientes.update({
+        await prisma.PuntosClientes.update({
             where: {
                 puntosID: userPoints.puntosID,
                 clienteID: userId
@@ -71,9 +72,21 @@ export const redeemCoupon = async (userId, cuponId) => {
             }
         });
 
+        const updatedUser = await prisma.Usuarios.findUnique({
+            where: {
+                usuarioID: userId
+            }
+        });
+
+        const costeCupon = coupon.valorPuntos; // Coste del cupón
+
+        // Generar un nuevo token con los datos actualizados del usuario
+        const newToken = await generateNewToken(updatedUser);
+
         // Enviar respuesta
-        return updatedPoints;
+        return {costeCupon, newToken};
     } catch (error) {
+        console.error('Error al canjear el cupón:', error.message);
         throw new Error('Error de servidor: ' + error.message); // Concatenar el mensaje de error correctamente
     }
 }

@@ -61,8 +61,9 @@ function RewardsClient() {
 
     const handleRedeem = async (cuponId) => {
         // Realizar la acción de canje aquí
-        await RedeemedModal(cuponId);
+        await RedeemedModal(cuponId, setUserData);
     };
+
 
     return (
         <section className="flex flex-col w-full py-8 m-auto md:w-3/4 md:flex-row md:py-0 md:space-x-8 h-4/5">

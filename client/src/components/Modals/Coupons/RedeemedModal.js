@@ -1,9 +1,16 @@
 import Swal from "sweetalert2";
 import { redeemCoupon } from "../../../../api/couponApi";
 
-const RedeemedModal = async (cuponId) => {
+const RedeemedModal = async (cuponId, setUserData) => {
     try {
-        const response = await redeemCoupon(cuponId);
+        const costeCupon = await redeemCoupon(cuponId);
+
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            puntosAcumulados: prevUserData.puntosAcumulados - costeCupon,
+            puntosCanjeados: prevUserData.puntosCanjeados + costeCupon
+        }));
+
         Swal.fire({
             title: 'Cupón canjeado',
             text: '¡Tu cupón ha sido canjeado con éxito!',
@@ -11,7 +18,6 @@ const RedeemedModal = async (cuponId) => {
             confirmButtonColor: '#4caf50',
             confirmButtonText: 'Aceptar'
         });
-        return response;
     } catch (error) {
         Swal.fire({
             title: 'Error al canjear el cupón',
