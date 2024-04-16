@@ -134,3 +134,22 @@ export const getRedeemedCouponsByUser = async (userId) => {
         throw new Error('Error al obtener los cupones canjeados: ' + error.message);
     }
 }
+
+// Función para crear un nuevo cupón
+export const createCoupon = async (nombreCupon, costoPuntos) => {
+    try {
+        // Crear un nuevo cupón
+        const newCoupon = await prisma.Cupones.create({
+            data: {
+                nombreCupon,
+                valorPuntos: costoPuntos,
+                estado: "Activo"
+            }
+        });
+
+        // Enviar respuesta
+        return newCoupon;
+    } catch (error) {
+        throw new Error('Error al crear un nuevo cupón: ' + error.message);
+    }
+}

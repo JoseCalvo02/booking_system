@@ -70,3 +70,20 @@ export const getRedeemedCouponsByUser = async () => {
         throw new Error(error);
     }
 }
+
+// Crear un nuevo cupón
+export const createCoupon = async (newCoupon) => {
+    try {
+        console.log(newCoupon, 'newCoupon API');
+        const token = localStorage.getItem('token');
+
+        const response = await axiosInstance.post(`${API_URL}/createCoupon`, newCoupon, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

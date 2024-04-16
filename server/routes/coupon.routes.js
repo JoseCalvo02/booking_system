@@ -44,6 +44,19 @@ router.get("/redeemedCoupons:userId", async (req, res) => {
     }
 });
 
+// Ruta para crear un nuevo cupón
+router.post("/createCoupon", async (req, res) => {
+    try {
+        const { nombreCupon, costoPuntos } = req.body;
+
+        const newCoupon = await coupon.createCoupon(nombreCupon, costoPuntos);
+
+        res.status(200).json(newCoupon);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 
 export default router;
