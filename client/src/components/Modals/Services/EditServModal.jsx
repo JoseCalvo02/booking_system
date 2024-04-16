@@ -13,7 +13,7 @@ export const openEditModal = (service, updateService) => {
                 <input id="nombreServicio" type="text" defaultValue={service.nombreServicio} placeholder="Nombre del Servicio" className='p-2 border boerder-gray-500' required />
                 <textarea id="descripcion" type="text" defaultValue={service.descripcion} placeholder="Descripción" className='p-2 border boerder-gray-500' required />
                 <input id="tiempoEstimado" type="text" defaultValue={service.tiempoEstimado} placeholder="hh:mm" pattern="\d{2}:\d{2}" className='p-2 border boerder-gray-500' required />
-                <input id="precio" type="number" defaultValue={service.precio} placeholder="Precio" className='p-2 border boerder-gray-500' required />
+                <input id="precio" type="number" min={0} defaultValue={service.precio} placeholder="Precio" className='p-2 border boerder-gray-500' required />
             </div>
         ),
         showCancelButton: true,
@@ -31,7 +31,8 @@ export const openEditModal = (service, updateService) => {
             const nombreServicio = document.getElementById('nombreServicio').value;
             const descripcion = document.getElementById('descripcion').value;
             const tiempoEstimado = document.getElementById('tiempoEstimado').value;
-            const precio = document.getElementById('precio').value;
+            const precioInput = document.getElementById('precio').value;
+            const precio = parseInt(precioInput);
 
             if (!nombreServicio || !descripcion || !tiempoEstimado || !precio) {
                 Swal.showValidationMessage('Todos los campos son obligatorios');
@@ -43,9 +44,8 @@ export const openEditModal = (service, updateService) => {
                 return false;
             }
 
-            // Verificar si el precio contiene decimales
-            if (precio !== parseInt(precio).toString()) {
-                Swal.showValidationMessage('El precio debe ser un número entero');
+            if (isNaN(precio) || precio.toString() !== precioInput) {
+                Swal.showValidationMessage('El precio debe ser un número entero no negativo');
                 return false;
             }
 
@@ -54,7 +54,7 @@ export const openEditModal = (service, updateService) => {
                 nombreServicio,
                 descripcion,
                 tiempoEstimado,
-                precio,
+                precio: precio.toString(),
             };
 
             // Llamar a la función para editar el servicio

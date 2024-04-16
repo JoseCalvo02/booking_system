@@ -10,7 +10,7 @@ export const CreateCouponModal = async() => {
             <div className='flex flex-col max-w-full gap-2 p-2'>
                 <input id="nombreCupon" type="text" placeholder="Nombre del Cupón" className='p-2 border boerder-gray-500' required />
                 <textarea id="descripcion" type="text" placeholder="Descripción" className='p-2 border boerder-gray-500' required />
-                <input id="descuento" type="number" placeholder="Descuento" className='p-2 border boerder-gray-500' required />
+                <input id="descuento" type="number" min={0} placeholder="Descuento" className='p-2 border boerder-gray-500' required />
             </div>
         ),
         showCancelButton: true,
@@ -27,16 +27,21 @@ export const CreateCouponModal = async() => {
             // Validación de los campos
             const nombreCupon = document.getElementById('nombreCupon').value;
             const descripcion = document.getElementById('descripcion').value;
-            const descuento = document.getElementById('descuento').value;
+            const descuentoInput = document.getElementById('descuento').value;
+            const descuento = parseInt(descuentoInput);
 
-            if (!nombreCupon || !descripcion || !descuento || !fechaInicio || !fechaFin) {
+            if (!nombreCupon || !descripcion || !descuento) {
                 Swal.showValidationMessage('Todos los campos son obligatorios');
                 return false;
             }
 
-            // Verificar si el descuento contiene decimales
-            if (descuento !== parseInt(descuento).toString()) {
-                Swal.showValidationMessage('El descuento debe ser un número entero');
+            if (isNaN(descuento) || descuento.toString() !== descuentoInput) {
+                Swal.showValidationMessage('El descuento debe ser un número entero no negativo');
+                return false;
+            }
+
+            if (descuento < 0) {
+                Swal.showValidationMessage('El descuento no puede ser negativo');
                 return false;
             }
 
