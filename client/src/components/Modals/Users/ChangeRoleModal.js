@@ -1,10 +1,8 @@
 import Swal from 'sweetalert2';
 
-const ChangeRoleModal = async (client) => {
-    console.log(client);
-
+const ChangeRoleModal = async ({user}) => {
     const { value: newRole } = await Swal.fire({
-        title: `Cambiar el rol de ${client.nombre} ${client.apellidos}`,
+        title: `Cambiar el rol de ${user.nombre} ${user.apellidos}`,
         input: 'select',
         inputOptions: {
             'Cliente': 'Cliente',

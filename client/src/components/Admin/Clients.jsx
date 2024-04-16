@@ -113,7 +113,7 @@ const Clients = () => {
                                         className={`p-2 w-[105px] text-white mr-2 rounded-lg hover:bg-opacity-80 ${client.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}>
                                         {client.estado === 'Activo' ? 'Desactivar' : 'Activar'}
                                     </button>
-                                    <button onClick={() => ChangeRoleModal(client)} className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
+                                    <button onClick={() => ChangeRoleModal({user: client})} className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
                                 </td>
                             </tr>
                         ))}
