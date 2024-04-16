@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BarLoader from "react-spinners/BarLoader";
 // Functions / Api / Hooks / Modals
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
@@ -12,6 +13,7 @@ const Stylists = () => {
     const { inputActive, handleInputFocus, handleInputBlur } = useInputActive(); // Custom hook para manejar el estado del input de búsqueda
     const [searchStylist, setSearchStylist] = useState(''); // Search term for Stylists
     const [stylists, setStylists] = useState([]); // Define el estado local para almacenar los usuarios
+    const [loading, setLoading] = useState(true); // Handle loading state
 
     useEffect(() => {
         // Llamar a la función para obtener todos los estilistas
@@ -19,6 +21,7 @@ const Stylists = () => {
             try {
                 const stylists = await getUsersByType(type);
                 setStylists(stylists); // Establecer el estado local con los usuarios obtenidos
+                setLoading(false);
             } catch (error) {
                 console.error('Error al obtener los usuarios:', error.message);
             }
@@ -110,6 +113,13 @@ const Stylists = () => {
                         ))}
                     </tbody>
                 </table>
+
+                {/* Loader */}
+                {loading && (
+                <div className="flex items-center justify-center mt-8">
+                    <BarLoader color="#111827" width={200} height={10} />
+                </div>
+                )}
             </section>
 
         </div>

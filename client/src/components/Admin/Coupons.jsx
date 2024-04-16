@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import BarLoader from "react-spinners/BarLoader";
 // Funciones y estilos
 import customStyles from '../../custom/customStyles';
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
@@ -12,7 +13,7 @@ const Redemptions = () => {
     const [coupons, setCoupons] = useState([]); // Array of cards for coupons
     const [redeCoupons, setRedeCoupon] = useState([]); // Array of redeemed coupons
     const [displayContent, setDisplayContent] = useState('redeemedCoupons');
-
+    const [loading, setLoading] = useState(true); // Handle loading state
     // Filters for the table
     const [filter, setFilter] = useState(''); // Filter for redeemed coupons
     const [searchTerm, setSearchTerm] = useState(''); // Search term for redeemed coupons
@@ -24,6 +25,7 @@ const Redemptions = () => {
                 const [coupons, redeCoupons] = await Promise.all([getCoupons(), getRedeemedCoupons()]);
                 setCoupons(coupons);
                 setRedeCoupon(redeCoupons);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching coupons:', error.message);
             }
@@ -153,6 +155,13 @@ const Redemptions = () => {
                                 ))}
                             </tbody>
                         </table>
+
+                        {/* Loader */}
+                        {loading && (
+                        <div className="flex items-center justify-center mt-8">
+                            <BarLoader color="#111827" width={200} height={10} />
+                        </div>
+                        )}
                     </div>
                 </section>
             )}
