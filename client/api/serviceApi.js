@@ -36,3 +36,23 @@ export const editService = async (editedService) => {
         }
     }
 }
+
+// Crear un nuevo servicio 
+export const createService = async (newService) => {
+    try {
+        console.log(newService, 'Nuevo Servicio API');
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.post(`${API_URL}/services`, newService, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error("Error al crear el servicio");
+        }
+    }
+}

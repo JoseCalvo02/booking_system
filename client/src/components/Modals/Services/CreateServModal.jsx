@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { createService } from '../../../../api/serviceApi';
 
 export const CreateServModal = async() => {
     const MySwal = withReactContent(Swal);
@@ -54,8 +55,9 @@ export const CreateServModal = async() => {
                 precio,
             };
 
-            // Llamar a la función para crear el servicio
-            // createService(newService);
+            console.log(newService, 'Nuevo Servicio MODAL   ');
+
+            createService(newService);
         },
     });
 }

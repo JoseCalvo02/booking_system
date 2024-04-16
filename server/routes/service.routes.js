@@ -23,5 +23,19 @@ router.put("/services/:serviceID", async (req, res) => {
     }
 });
 
+// Crear un nuevo servicio
+router.post("/services", async (req, res) => {
+    try {
+        const { nombreServicio, descripcion, tiempoEstimado, precio } = req.body;
+        console.log(req.body, 'Nuevo Servicio ROUTE');
+
+        const newService = await service.createService(nombreServicio, descripcion, tiempoEstimado, precio);
+
+        res.status(201).json({ newService, message: "Servicio creado exitosamente" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Exportar las rutas
 export default router;

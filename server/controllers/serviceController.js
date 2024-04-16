@@ -37,3 +37,25 @@ export const updateService = async (serviceID, nombreServicio, descripcion, tiem
         throw new Error(error);
     }
 }
+
+// Función para crear un nuevo servicio
+export const createService = async (nombreServicio, descripcion, tiempoEstimado, precio) => {
+    try {
+        // Convertir el precio a un número entero
+        precio = parseInt(precio);
+
+        // Crear un nuevo servicio
+        const newService = await prisma.Servicios.create({
+            data: {
+                nombreServicio,
+                descripcion,
+                tiempoEstimado,
+                precio
+            }
+        });
+        // Enviar respuesta
+        return newService;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
