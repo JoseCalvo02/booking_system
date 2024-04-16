@@ -40,7 +40,6 @@ export const editService = async (editedService) => {
 // Crear un nuevo servicio 
 export const createService = async (newService) => {
     try {
-        console.log(newService, 'Nuevo Servicio API');
         const token = localStorage.getItem('token');
         const response = await axiosInstance.post(`${API_URL}/services`, newService, {
             headers: {

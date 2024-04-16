@@ -55,9 +55,28 @@ export const CreateServModal = async() => {
                 precio,
             };
 
-            console.log(newService, 'Nuevo Servicio MODAL   ');
-
-            createService(newService);
-        },
+             // Retornar la promesa de createService
+            return createService(newService).then(() => {
+                Swal.fire({
+                    title: 'Servicio creado con éxito',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    // Recargar la página después de 2 segundos
+                        window.location.reload();
+                    },);
+                }
+            ).catch((error) => {
+                Swal.fire({
+                    title: 'Error al crear el servicio',
+                    text: error.message,
+                    icon: 'error'
+                });
+            }
+            );
+        }
     });
 }
+
+export default CreateServModal;

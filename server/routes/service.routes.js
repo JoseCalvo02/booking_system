@@ -27,7 +27,6 @@ router.put("/services/:serviceID", async (req, res) => {
 router.post("/services", async (req, res) => {
     try {
         const { nombreServicio, descripcion, tiempoEstimado, precio } = req.body;
-        console.log(req.body, 'Nuevo Servicio ROUTE');
 
         const newService = await service.createService(nombreServicio, descripcion, tiempoEstimado, precio);
 
