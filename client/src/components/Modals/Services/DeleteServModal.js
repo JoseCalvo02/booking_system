@@ -8,8 +8,8 @@ const DeleteServModal = (service) => {
             text: 'No podrás revertir esto',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#ef4444',
+            cancelButtonColor: '#3b82f6',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar',
             showClass: {

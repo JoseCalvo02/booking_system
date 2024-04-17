@@ -12,13 +12,13 @@ const ChangeStatusModal = async (coupon) => {
             action = 'Desactivar';
             message = `El cupón ${coupon.nombreCupon} ha sido Desactivado`;
             icon = 'success';
-            color = '#4caf50'; 
+            color = '#f44336';
             break;
         case 'Inactivo':
             action = 'Activar';
             message = `El cupón ${coupon.nombreCupon} ha sido Activado`;
             icon = 'success';
-            color = '#f44336';
+            color = '#22c55e';
             break;
         default:
             break;
@@ -29,7 +29,7 @@ const ChangeStatusModal = async (coupon) => {
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: color,
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#3b82f6',
         confirmButtonText: `Sí, ${action}`,
         cancelButtonText: 'Cancelar',
     });

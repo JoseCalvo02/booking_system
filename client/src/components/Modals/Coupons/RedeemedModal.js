@@ -15,7 +15,7 @@ const RedeemedModal = async (cuponId, setUserData) => {
             title: 'Cupón canjeado',
             text: '¡Tu cupón ha sido canjeado con éxito!',
             icon: 'success',
-            confirmButtonColor: '#4caf50',
+            confirmButtonColor: '#22c55e',
             confirmButtonText: 'Aceptar'
         });
     } catch (error) {
@@ -23,7 +23,7 @@ const RedeemedModal = async (cuponId, setUserData) => {
             title: 'Error al canjear el cupón',
             text: '¡Ha ocurrido un error al canjear el cupón!',
             icon: 'error',
-            confirmButtonColor: '#d33',
+            confirmButtonColor: '#ef4444',
             confirmButtonText: 'Aceptar'
         });
         throw new Error(error);

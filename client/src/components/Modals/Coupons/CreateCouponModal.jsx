@@ -32,7 +32,7 @@ export const CreateCouponModal = async () => {
                 Swal.showValidationMessage('Todos los campos son obligatorios');
                 return false;
             }
-            
+
             const newCoupon = {
                 nombreCupon,
                 costoPuntos,
