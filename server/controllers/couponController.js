@@ -163,6 +163,31 @@ export const createCoupon = async (nombreCupon, costoPuntos) => {
     }
 }
 
+// Función para editar un cupón
+export const editCoupon = async (cuponId, nombreCupon, valorPuntos) => {
+    try {
+        // Convertir cuponId a entero si es necesario
+        cuponId = parseInt(cuponId);
+
+        // Editar el cupón
+        const editedCoupon = await prisma.Cupones.update({
+            where: {
+                cuponID: cuponId
+            },
+            data: {
+                nombreCupon,
+                valorPuntos
+            }
+        });
+
+        // Enviar respuesta
+        return editedCoupon;
+    } catch (error) {
+        console.error('Error al editar el cupón:', error.message);
+        throw new Error('Error al editar el cupón: ' + error.message);
+    }
+}
+
 // Función para activar y desactivar un cupón
 export const changeStatus = async (cuponId, estado) => {
     try {
@@ -189,9 +214,8 @@ export const changeStatus = async (cuponId, estado) => {
 
         // Enviar respuesta
         return couponChanged;
-        
+
     } catch (error) {
-        console.log(error);
         throw new Error('Error al desactivar el cupón: ' + error.message);
     }
 }

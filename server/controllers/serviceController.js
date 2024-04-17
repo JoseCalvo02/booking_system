@@ -17,7 +17,6 @@ export const updateService = async (serviceID, nombreServicio, descripcion, tiem
     try {
         // Convertir los datos a números enteros
         serviceID = parseInt(serviceID);
-        precio = parseInt(precio);
 
         // Actualizar el servicio
         const updatedService = await prisma.Servicios.update({

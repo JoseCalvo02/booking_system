@@ -57,6 +57,19 @@ router.post("/createCoupon", async (req, res) => {
     }
 });
 
+// Ruta para editar un cupón
+router.put("/editCoupon", async (req, res) => {
+    try {
+        const { cuponID, nombreCupon, valorPuntos } = req.body;
+
+        const editedCoupon = await coupon.editCoupon(cuponID, nombreCupon, valorPuntos);
+
+        res.status(200).json(editedCoupon);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Ruta para desactivar un cupón
 router.put("/changeStatus", async (req, res) => {
     try {

@@ -31,7 +31,6 @@ const Services = () => {
         setServices(prevServices => {
             const updatedServices = [...prevServices];
             updatedServices[index] = editedService;
-            console.log('Updated services:', updatedServices);
             return updatedServices;
         });
     };

@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { editCoupon } from '../../../../api/couponApi';
 
 // Función para abrir el modal de edición
 export const EditCouponModal = (coupon, updateCoupon) => {
@@ -9,8 +10,8 @@ export const EditCouponModal = (coupon, updateCoupon) => {
         title: 'Editar Cupón',
         html: (
             <div className='flex flex-col max-w-full gap-2 p-2'>
-                <input id="nombreCupon" type="text" placeholder="Nombre del Cupón" className='p-2 border border-gray-500' required />
-                <input id="costoPuntos" type="number" min={0} placeholder="CostoPuntos" className='p-2 border border-gray-500' required />
+                <input id="nombreCupon" type="text" defaultValue={coupon.nombreCupon} placeholder="Nombre del Cupón" className='p-2 border border-gray-500' required />
+                <input id="valorPuntos" type="number" defaultValue={coupon.valorPuntos} min={0} placeholder="Coste de Puntos" className='p-2 border border-gray-500' required />
             </div>
         ),
         showCancelButton: true,
@@ -26,32 +27,39 @@ export const EditCouponModal = (coupon, updateCoupon) => {
         preConfirm: () => {
             // Validación de los campos
             const nombreCupon = document.getElementById('nombreCupon').value;
-            const costoPuntos = parseInt(document.getElementById('costoPuntos').value); // Obtener el valor de costoPuntos
+            const valorPuntosInput = document.getElementById('valorPuntos').value;
+            const valorPuntos = parseInt(valorPuntosInput); // Obtener el valor de valorPuntos
 
-            if (!nombreCupon || !costoPuntos) {
+            if (!nombreCupon || !valorPuntos) {
                 Swal.showValidationMessage('Todos los campos son obligatorios');
+                return false;
+            }
+
+            if (isNaN(valorPuntos) || valorPuntos.toString() !== valorPuntosInput) {
+                Swal.showValidationMessage('El costo de puntos debe ser un número entero');
                 return false;
             }
 
             const editedCoupon = {
                 ...coupon,
                 nombreCupon,
-                costoPuntos,
+                valorPuntos,
             };
 
-            // Retornar la promesa de updateCoupon con timeout de 2 segundos
-            return updateCoupon(editedCoupon).then(() => {
+            // Llamar a la función para editar el cupón
+            editCoupon(editedCoupon).then(() => {
                 Swal.fire({
-                    title: 'Cupon editado con éxito',
+                    title: 'Cupón Editado',
                     icon: 'success',
+                    text: 'El cupón ha sido editado exitosamente',
                     timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    // Recargar la página después de 2 segundos
-                        window.location.reload();
-                    },);
-                }
-            );
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                });
+                updateCoupon(editedCoupon);
+            }).catch(error => {
+                console.error('Error editing coupon:', error.message);
+            });
         }
     });
 

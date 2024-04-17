@@ -7,6 +7,7 @@ import BarLoader from "react-spinners/BarLoader";
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
 import useInputActive from '../../hooks/useInputActive';
 import { CreateCouponModal } from '../Modals/Coupons/CreateCouponModal';
+import { EditCouponModal } from '../Modals/Coupons/EditCouponModal';
 import ChangeStatusModal from '../Modals/Coupons/ChangeStatusModal';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
@@ -71,6 +72,17 @@ const Redemptions = () => {
         return format(new Date(dateString), 'dd/MM/yyyy');
     };
 
+    // Function to update the coupon on the state
+    const updateCoupon = (editedCoupon) => {
+        const index = coupons.findIndex(coupon => coupon.cuponID === editedCoupon.cuponID);
+
+        setCoupons(prevCoupons => {
+            const updatedCoupons = [...prevCoupons];
+            updatedCoupons[index] = editedCoupon;
+            return updatedCoupons;
+        });
+    }
+
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='m-auto mb-4'>
@@ -97,7 +109,7 @@ const Redemptions = () => {
                                 <p className='max-w-full'>Costo puntos: {coupon.valorPuntos}</p>
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2 text-white'>
-                                    <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon/*, updateService*/)}>Editar</button>
+                                    <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon, updateCoupon)}>Editar</button>
                                     <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => ChangeStatusModal(coupon)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
                                 </div>
                             </div>

@@ -1,14 +1,18 @@
 import axiosInstance from "../config/axiosConfig";
 
-const API_URL = "/api/service"; // Ruta base para las solicitudes de cliente en el backend
+const API_URL = "/api/service"; // Base route for service requests
 
-// Obtener todos los servicios
+/**
+ * Function to get all services
+ *
+ * @returns {Promise<Array>} Array of services
+ */
 export const getServices = async () => {
     try {
         const token = localStorage.getItem('token');
         const response = await axiosInstance.get(`${API_URL}/services`, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;
@@ -17,18 +21,22 @@ export const getServices = async () => {
     }
 }
 
-// Actualizar un servicio
+/**
+ * Function to edit a service
+ *
+ * @param {Object} editedService - Edited service
+ * @returns {Promise<Object>} Response data
+ */
 export const editService = async (editedService) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.put(`${API_URL}/services/${editedService.servicioID}`, editedService, {
+        const response = await axiosInstance.put(`${API_URL}/editService`, editedService, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
         return response.data;
     } catch (error) {
-       // Captura los errores específicos y muestra mensajes de error descriptivos
        if (error.response && error.response.data && error.response.data.message) {
             throw new Error(error.response.data.message);
         } else {
@@ -37,7 +45,12 @@ export const editService = async (editedService) => {
     }
 }
 
-// Crear un nuevo servicio 
+/**
+ * Function to create a service
+ *
+ * @param {Object} newService - Service to create
+ * @returns {Promise<Object>} Response data
+ */
 export const createService = async (newService) => {
     try {
         const token = localStorage.getItem('token');
@@ -56,7 +69,12 @@ export const createService = async (newService) => {
     }
 }
 
-// Eliminar un servicio
+/**
+ * Function to delete a service
+ *
+ * @param {Object} service - Service to delete
+ * @returns {Promise<Object>} Response data
+ */
 export const deleteService = async (service) => {
     try {
         const token = localStorage.getItem('token');

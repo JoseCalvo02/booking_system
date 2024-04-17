@@ -10,7 +10,7 @@ export const CreateCouponModal = async () => {
         html: (
             <div className='flex flex-col max-w-full gap-2 p-2'>
                 <input id="nombreCupon" type="text" placeholder="Nombre del Cupón" className='p-2 border border-gray-500' required />
-                <input id="costoPuntos" type="number" min={0} placeholder="CostoPuntos" className='p-2 border border-gray-500' required />
+                <input id="costoPuntos" type="number" min={0} placeholder="Costo Puntos" className='p-2 border border-gray-500' required />
             </div>
         ),
         showCancelButton: true,

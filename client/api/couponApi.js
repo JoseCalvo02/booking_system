@@ -1,15 +1,19 @@
 import axiosInstance from "../config/axiosConfig";
 import { decodeToken } from "../src/utils/tokenUtils";
 
-const API_URL = "/api/coupon"; // Ruta base para las solicitudes de los cupones en el backend
+const API_URL = "/api/coupon"; // Base route for coupon requests
 
-// Obtener todos los cupones disponibles
+/**
+ * Function to get all coupons
+ *
+ * @returns {Promise<Array>} Array of coupons
+ */
 export const getCoupons = async () => {
     try {
         const token = localStorage.getItem('token');
         const response = await axiosInstance.get(`${API_URL}/coupons`, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;
@@ -18,7 +22,12 @@ export const getCoupons = async () => {
     }
 }
 
-// Redimir un cupón por un cliente logueado
+/**
+ * Function to redeem a coupon
+ *
+ * @param {string} cuponId - The ID of the coupon to redeem
+ * @returns {Promise<number>} Cost of the coupon
+ */
 export const redeemCoupon = async (cuponId) => {
     try {
         const decodedToken = decodeToken();
@@ -29,7 +38,7 @@ export const redeemCoupon = async (cuponId) => {
         };
         const response = await axiosInstance.post(`${API_URL}/redeemCoupon`, data, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
 
@@ -42,14 +51,18 @@ export const redeemCoupon = async (cuponId) => {
     }
 }
 
-// Obtener los cupones canjeados
+/**
+ * Function to get redeemed coupons
+ *
+ * @returns {Promise<Array>} Array of redeemed coupons
+ */
 export const getRedeemedCoupons = async () => {
     try {
         const token = localStorage.getItem('token');
 
         const response = await axiosInstance.get(`${API_URL}/redeemedCoupons`, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;
@@ -58,7 +71,11 @@ export const getRedeemedCoupons = async () => {
     }
 }
 
-// Obtener los cupones canjeados por un cliente logueado
+/**
+ * Function to get redeemed coupons by user
+ *
+ * @returns {Promise<Array>} Array of redeemed coupons by user
+ */
 export const getRedeemedCouponsByUser = async () => {
     try {
         const decodedToken = decodeToken();
@@ -66,7 +83,7 @@ export const getRedeemedCouponsByUser = async () => {
 
         const response = await axiosInstance.get(`${API_URL}/redeemedCoupons${decodedToken.userId}`, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;
@@ -75,15 +92,19 @@ export const getRedeemedCouponsByUser = async () => {
     }
 }
 
-// Crear un nuevo cupón
+/**
+ * Function to create a coupon
+ *
+ * @param {Object} newCoupon - Coupon to create
+ * @returns {Promise<Object>} Response data
+ */
 export const createCoupon = async (newCoupon) => {
     try {
-        console.log(newCoupon, 'newCoupon API');
         const token = localStorage.getItem('token');
 
         const response = await axiosInstance.post(`${API_URL}/createCoupon`, newCoupon, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;
@@ -92,7 +113,32 @@ export const createCoupon = async (newCoupon) => {
     }
 }
 
-// Desactivar un cupón
+/**
+ * Function to edit a coupon
+ *
+ * @param {Object} editedCoupon - Edited coupon
+ * @returns {Promise<Object>} Response data
+ */
+export const editCoupon = async (editedCoupon) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/editCoupon`, editedCoupon, {
+            headers: {
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+/**
+ * Function to change the status of a coupon
+ *
+ * @param {Object} coupon - Coupon to delete
+ * @returns {Promise<Object>} Response data
+ */
 export const ChangeCouponStatus = async (coupon) => {
     try {
         const token = localStorage.getItem('token');
@@ -102,7 +148,7 @@ export const ChangeCouponStatus = async (coupon) => {
         };
         const response = await axiosInstance.put(`${API_URL}/changeStatus`, data, {
             headers: {
-                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+                Authorization: `Bearer ${token}` // Add the token as an authorization header
             }
         });
         return response.data;

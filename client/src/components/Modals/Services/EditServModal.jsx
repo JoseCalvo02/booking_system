@@ -45,16 +45,16 @@ export const openEditModal = (service, updateService) => {
             }
 
             if (isNaN(precio) || precio.toString() !== precioInput) {
-                Swal.showValidationMessage('El precio debe ser un número entero no negativo');
+                Swal.showValidationMessage('El precio debe ser un número entero');
                 return false;
             }
 
             const editedService = {
-                servicioID: service.servicioID,
+                ...service,
                 nombreServicio,
                 descripcion,
                 tiempoEstimado,
-                precio: precio.toString(),
+                precio,
             };
 
             // Llamar a la función para editar el servicio

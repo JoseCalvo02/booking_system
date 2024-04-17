@@ -10,12 +10,11 @@ const router = express.Router();
 router.get("/services", service.getAllServices);
 
 // Actualizar un servicio
-router.put("/services/:serviceID", async (req, res) => {
+router.put("/editService", async (req, res) => {
     try {
-        const { serviceID } = req.params;
-        const { nombreServicio, descripcion, tiempoEstimado, precio } = req.body;
+        const { servicioID, nombreServicio, descripcion, tiempoEstimado, precio } = req.body;
 
-        const updatedService = await service.updateService(serviceID, nombreServicio, descripcion, tiempoEstimado, precio);
+        const updatedService = await service.updateService(servicioID, nombreServicio, descripcion, tiempoEstimado, precio);
 
         res.status(200).json({ updatedService, message: "Servicio actualizado exitosamente" });
     } catch (error) {
