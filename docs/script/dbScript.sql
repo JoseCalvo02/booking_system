@@ -61,13 +61,54 @@ create table Servicios (
 
 -- ------------------------------------- Table Horarios ----------------------------------
 -- La tabla Horarios almacena los horarios de trabajo de los estilistas.
-create table Horarios (
-	horariosID INT PRIMARY KEY IDENTITY(1,1),
-	estilistaID INT,
-	diaSemana VARCHAR(20),
+CREATE TABLE Horarios (
+    horarioID INT PRIMARY KEY IDENTITY(1,1),
+    estilistaID INT,
+    fecha DATE,
+    diaSemana VARCHAR(20),
+    horaInicio TIME,
+    horaFinal TIME,
+    esDiaLibre BIT,
+    CONSTRAINT fk_Horarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT ck_Horarios_diaSemana CHECK (diaSemana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'))
+);
+
+-- ------------------------------------- Table HorariosSemanales ----------------------------------
+-- La tabla HorariosSemanales almacena los horarios establecidos por semana.
+CREATE TABLE HorariosSemanales (
+    horarioSemID INT PRIMARY KEY IDENTITY(1,1),
+	diasLaborables VARCHAR(150),
+    horaInicio TIME,
+    horaFinal TIME
+);
+
+-- Inserts para los horarios semanales
+INSERT INTO HorariosSemanales (diasLaborables, horaInicio, horaFinal) VALUES
+('Lunes,Martes,Miércoles,Jueves,Viernes', '07:00:00', '15:00:00'),
+('Lunes,Martes,Miércoles,Jueves,Viernes', '08:00:00', '16:00:00'),
+('Lunes,Martes,Miércoles,Jueves,Viernes', '10:00:00', '18:00:00')
+
+-- ------------------------------------- Table TipoBloqueo ----------------------------------
+-- La tabla TipoBloqueo almacena los diferentes tipos de bloqueos disponibles.
+CREATE TABLE TipoBloqueo (
+    tipoBloqueoID INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(50) NOT NULL
+);
+
+INSERT INTO TipoBloqueo (nombre) VALUES ('Vacaciones'), ('Incapacidad'), ('Permiso Personal'), ('Asuntos Familiares'), ('Día Festivo'), ('Otro');
+
+-- ------------------------------------- Table BloqueoHorarios ----------------------------------
+-- La tabla BloqueoHorarios almacena los horarios bloqueados manualmente por los estilistas.
+ create table BloqueoHorarios (
+	bloqueoID INT PRIMARY KEY IDENTITY(1,1),
+	estilistaID	INT,
+	fecha DATE NOT NULL,
+	tipoBloqueoID INT,
 	horaInicio TIME,
 	horaFinal TIME,
-    CONSTRAINT fk_Horarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION
+	descripcion VARCHAR(255),
+    CONSTRAINT fk_BloqueoHorarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT fk_BloqueoHorarios_tipoBloqueoID FOREIGN KEY(tipoBloqueoID) REFERENCES TipoBloqueo(tipoBloqueoID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 -- ------------------------------------- Table EstadoCita ----------------------------------
@@ -111,18 +152,6 @@ create table DetallesCita  (
     servicioID INT,
     CONSTRAINT fk_DetallesCita_citaID FOREIGN KEY (citaID) REFERENCES Citas(citaID),
     CONSTRAINT fk_DetallesCita_servicioID FOREIGN KEY (servicioID) REFERENCES Servicios(servicioID)
-);
-
--- ------------------------------------- Table BloqueoHorarios ----------------------------------
--- La tabla BloqueoHorarios almacena los horarios bloqueados manualmente por los estilistas.
- create table BloqueoHorarios (
-	bloqueoID INT PRIMARY KEY IDENTITY(1,1),
-	estilistaID	INT,
-	dia VARCHAR(20),
-	horaInicio TIME,
-	horaFinal TIME,
-	motivo varchar(150),
-    CONSTRAINT fk_BloqueoHorarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 -- ------------------------------------- Table ActividadCliente ----------------------------------
