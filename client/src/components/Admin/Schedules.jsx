@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
-import StylistSchedulePanel from './Stylist/StylistSchedulePanel';
+import StylistSchedulePanel from './Schedule/StylistSchedulePanel';
 
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
