@@ -3,7 +3,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { editService } from '../../../../api/serviceApi';
 
 // Función para abrir el modal de edición
-export const openEditModal = (service, updateService) => {
+export const openEditModal = (service, setServices) => {
     const MySwal = withReactContent(Swal);
 
     MySwal.fire({
@@ -26,7 +26,7 @@ export const openEditModal = (service, updateService) => {
             confirmButton: 'p-2 rounded-md hover:bg-blue-500',
             cancelButton: 'p-2 rounded-md hover:bg-red-500',
         },
-        preConfirm: () => {
+        preConfirm: async () => {
             // Validación de los campos
             const nombreServicio = document.getElementById('nombreServicio').value;
             const descripcion = document.getElementById('descripcion').value;
@@ -58,7 +58,8 @@ export const openEditModal = (service, updateService) => {
             };
 
             // Llamar a la función para editar el servicio
-            editService(editedService).then(() => {
+            try {
+                editService(editedService);
                 Swal.fire({
                     title: '¡Éxito!',
                     text: 'El servicio se actualizó correctamente',
@@ -67,10 +68,9 @@ export const openEditModal = (service, updateService) => {
                     timerProgressBar: true,
                     showConfirmButton: false
                 });
-                // Ejecutar la función de callback con los datos editados
-                updateService(editedService);
-            })
-            .catch(error => {
+                // Actualizar el estado de los servicios
+                setServices(prevServices => prevServices.map(serv => serv.servicioID === editedService.servicioID ? editedService : serv));
+            }catch(error) {
                 // Mostrar mensaje de error si hubo un problema al actualizar
                 Swal.fire({
                     title: 'Error',
@@ -81,7 +81,7 @@ export const openEditModal = (service, updateService) => {
                     showConfirmButton: false
                 });
                 console.error('Error al actualizar el servicio:', error);
-            });
+            };
         }
     });
 };

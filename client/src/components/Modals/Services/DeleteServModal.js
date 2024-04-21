@@ -1,7 +1,7 @@
 import swal from 'sweetalert2';
 import { deleteService } from '../../../../api/serviceApi';
 
-const DeleteServModal = (service) => {
+const DeleteServModal = (service, setServices) => {
     try {
         swal.fire({
             title: '¿Estás seguro?',
@@ -29,10 +29,9 @@ const DeleteServModal = (service) => {
                         timer: 2000, // Tiempo en milisegundos (2 segundos)
                         showConfirmButton: false
                     });
-                    // Actualiza la lista de servicios después de eliminar un servicio
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000); // Recarga después de 2 segundos
+
+                    // Actualizar el estado de los servicios
+                    setServices(prevServices => prevServices.filter(serv => serv.servicioID !== service.servicioID));
                 } catch (error) {
                     swal.fire('Error', error.message, 'error');
                 }

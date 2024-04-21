@@ -23,23 +23,11 @@ const Services = () => {
         fetchServices();
     }, []);
 
-    // Función para actualizar el servicio en el estado
-    const updateService = (editedService) => {
-        // Encuentra el índice del servicio editado en el array de servicios
-        const index = services.findIndex(service => service.servicioID === editedService.servicioID);
-        // Actualiza el array de servicios con el servicio editado
-        setServices(prevServices => {
-            const updatedServices = [...prevServices];
-            updatedServices[index] = editedService;
-            return updatedServices;
-        });
-    };
-
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='m-auto mb-4'>
                 <h1 className='p-1 text-lg font-semibold text-center md:text-xl lg:text-2xl '>Servicios</h1>
-                <button className='p-2 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateServModal()}>Agregar +</button>
+                <button className='p-2 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateServModal(setServices)}>Agregar +</button>
             </header>
 
             {/* Services section for services */}
@@ -51,8 +39,8 @@ const Services = () => {
                         <p>{service.tiempoEstimado}</p>
                         <p>₡{service.precio}</p>
                         <div className='mt-4 space-x-2 text-white'>
-                            <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => openEditModal(service, updateService)}>Editar</button>
-                            <button className='p-2 bg-red-500 rounded-md w-28 hover:bg-red-600' onClick = {() => DeleteServModal(service)}>Eliminar</button>
+                            <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => openEditModal(service, setServices)}>Editar</button>
+                            <button className='p-2 bg-red-500 rounded-md w-28 hover:bg-red-600' onClick = {() => DeleteServModal(service, setServices)}>Eliminar</button>
                         </div>
                     </div>
                 ))}

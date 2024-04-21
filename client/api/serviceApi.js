@@ -59,7 +59,7 @@ export const createService = async (newService) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        return response.data;
+        return response.data.newService;
     } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
             throw new Error(error.response.data.message);

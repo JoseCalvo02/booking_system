@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { createService } from '../../../../api/serviceApi';
 
-export const CreateServModal = async() => {
+export const CreateServModal = async(setServices) => {
     const MySwal = withReactContent(Swal);
 
     MySwal.fire({
@@ -25,7 +25,7 @@ export const CreateServModal = async() => {
             confirmButton: 'text-white p-2 rounded-md hover:bg-blue-600',
             cancelButton: 'text-white p-2 rounded-md hover:bg-red-600',
         },
-        preConfirm: () => {
+        preConfirm: async () => {
             // Validación de los campos
             const nombreServicio = document.getElementById('nombreServicio').value;
             const descripcion = document.getElementById('descripcion').value;
@@ -56,25 +56,23 @@ export const CreateServModal = async() => {
             };
 
              // Retornar la promesa de createService
-            return createService(newService).then(() => {
+            try{
+                const addedServive = await createService(newService);
+
+                setServices(prevServices => [...prevServices, addedServive]);
                 Swal.fire({
                     title: 'Servicio creado con éxito',
                     icon: 'success',
                     timer: 2000,
                     showConfirmButton: false
-                }).then(() => {
-                    // Recargar la página después de 2 segundos
-                        window.location.reload();
-                    },);
-                }
-            ).catch((error) => {
+                })
+            }catch(error) {
                 Swal.fire({
                     title: 'Error al crear el servicio',
                     text: error.message,
                     icon: 'error'
                 });
             }
-            );
         }
     });
 }
