@@ -92,7 +92,7 @@ const Schedules = () => {
                             </div>
                         )}
                     </div>
-                    <MoonLoader color={'#3085d6'} loading={loading} size={25}/> {/* Spinner de carga */}
+                    <MoonLoader color={'#111827'} loading={loading} size={30} className='ml-4'/> {/* Spinner de carga */}
                 </div>
             </header>
 

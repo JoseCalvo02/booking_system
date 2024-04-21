@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import MoonLoader from "react-spinners/MoonLoader";
 // Functions / Api / Components
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
 import { MonthNavigator } from './MonthNavigator';
@@ -10,12 +11,14 @@ import customStyles from '../../../custom/customStyles';
 const StylistSchedulePanel = ({stylist}) => {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [schedule, setSchedule] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
                 const schedules = await getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1);
                 setSchedule(schedules);
+                setLoading(false);
             } catch (error) {
                 console.error('Error al obtener el horario:', error.message);
             }
@@ -32,6 +35,7 @@ const StylistSchedulePanel = ({stylist}) => {
         <>
         <div className='flex mb-2 '>
             <MonthNavigator currentDate={currentDate} onChangeMonth={handleChangeMonth} />
+            <MoonLoader color={'#111827'} loading={loading} size={30} className='ml-4'/> {/* Spinner de carga */}
             <div className='flex justify-end flex-grow gap-2 text-white' >
                 <button
                     className='p-2 bg-green-500 rounded-lg hover:bg-green-600'
@@ -42,7 +46,6 @@ const StylistSchedulePanel = ({stylist}) => {
                 <button className='p-2 bg-red-500 rounded-lg hover:bg-red-600'>+ Bloqueo</button>
             </div>
         </div>
-
 
         <section className='overflow-y-auto max-h-[58vh]'>
             {/* Renderización de los días y horas del horario */}
