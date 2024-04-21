@@ -36,7 +36,7 @@ router.post('/create', async (req, res) => {
         res.json(addedSchedule);
     } catch (error) {
         console.error('Error al crear el horario:', error.message);
-        res.status(500).json({ message: 'Error al crear el horario' });
+        res.status(500).json({ message: error.message });
     }
 });
 

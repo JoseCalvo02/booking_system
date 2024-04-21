@@ -27,7 +27,22 @@ export const getSchedulesByStylist = async (stylistId, year, month) => {
 // Función para crear un nuevo horario diario
 export const createDailySchedule = async (schedule) => {
     try {
-        console.log(schedule);
+        const dateOnly = schedule.fecha.substring(0, 10);
+
+        // Verificar si ya existe un horario para la fecha proporcionada
+        const existingSchedule = await prisma.Horarios.findFirst({
+            where: {
+                estilistaID: schedule.estilistaID,
+                fecha: {
+                    equals: new Date(dateOnly),
+                },
+            },
+        });
+
+        // Si ya existe un horario para la fecha proporcionada, lanzar un error
+        if (existingSchedule) {
+            throw new Error('Ya existe un horario de esta estilista para este día.');
+        }
 
         const newSchedule = await prisma.Horarios.create({
             data: {
@@ -44,6 +59,6 @@ export const createDailySchedule = async (schedule) => {
         return newSchedule;
     } catch (error) {
         console.error('Error al crear el horario:', error.message);
-        throw new Error('Error al crear el horario: ' + error.message);
+        throw new Error(error.message);
     }
 }

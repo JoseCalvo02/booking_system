@@ -32,6 +32,6 @@ export const createSchedule = async (type, schedule) => {
         });
         return response.data;
     } catch (error) {
-        throw new Error('Error al crear el horario: ' + error.message);
+        throw new Error(error.response.data.message);
     }
 }

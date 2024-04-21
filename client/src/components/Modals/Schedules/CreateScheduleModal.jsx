@@ -113,7 +113,7 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
 
             const newSchedule = {
                 estilistaID: stylist.usuarioID,
-                fecha: new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay, 0, 0, 0),
+                fecha: new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay),
                 dia: dayName,
                 horaInicio: startHour,
                 horaFin: endHour
