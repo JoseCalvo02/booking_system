@@ -2,47 +2,38 @@ import React, { useEffect, useState } from 'react';
 // Functions / Api / Components
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
 import { MonthNavigator } from './MonthNavigator';
+import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
+import { daysInMonth, getDayName } from '../../../utils/dateUtils';
 // Styles
 import customStyles from '../../../custom/customStyles';
 
 const StylistSchedulePanel = ({stylist}) => {
-    const [currentMonth, setCurrentMonth] = useState(new Date())
+    const [currentDate, setCurrentDate] = useState(new Date())
     const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const schedules = await getSchedulesByStylist(stylist._id, currentMonth.getFullYear(), currentMonth.getMonth()+1);
+                const schedules = await getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1);
                 setSchedule(schedules);
             } catch (error) {
                 console.error('Error al obtener el horario:', error.message);
             }
         }
         fetchSchedule();
-    }, [currentMonth]);
+    }, [currentDate]);
 
-    // Function to get the number of days in a given month and year
-    const daysInMonth = (month, year) => {
-        return new Date(year, month + 1, 0).getDate();
-    };
-
-    // Function to get the name of the day from a given date
-    const getDayName = (date) => {
-        const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-        return dayNames[date.getDay()];
-    };
-
-    // Function to handle the change of month
-    const handleChangeMonth = (newMonth) => {
-        setCurrentMonth(newMonth);
+    // Function to handle the change of month in the MonthNavigator component
+    const handleChangeMonth = (newDate) => {
+        setCurrentDate(newDate);
     };
 
     return (
         <>
         <div className='flex mb-2 '>
-            <MonthNavigator currentDate={currentMonth} onChangeMonth={handleChangeMonth} />
+            <MonthNavigator currentDate={currentDate} onChangeMonth={handleChangeMonth} />
             <div className='flex justify-end flex-grow gap-2 text-white' >
-                <button className='p-2 bg-green-500 rounded-lg hover:bg-green-600'>+ Horario</button>
+                <button className='p-2 bg-green-500 rounded-lg hover:bg-green-600' onClick={() => CreateScheduleModal(stylist, currentDate)}>+ Horario</button>
                 <button className='p-2 bg-red-500 rounded-lg hover:bg-red-600'>+ Bloqueo</button>
             </div>
         </div>
@@ -62,9 +53,9 @@ const StylistSchedulePanel = ({stylist}) => {
                 </thead>
                 <tbody className='overflow-y-auto'>
                     {/* Creating an array with the number of days in the current month, and mapping over it to generate elements */}
-                    {Array.from({ length: daysInMonth(currentMonth.getMonth(), currentMonth.getFullYear()) }, (_, index) => {
+                    {Array.from({ length: daysInMonth(currentDate.getMonth(), currentDate.getFullYear()) }, (_, index) => {
                         const day = index + 1; // Obtener el día actual en el bucle, empezando desde 1
-                        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day); // Crear una nueva fecha con el día actual en el bucle
+                        const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day); // Crear una nueva fecha con el día actual en el bucle
                         const dayName = getDayName(date); // Obtener el nombre del día
 
                         return (

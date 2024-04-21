@@ -1,15 +1,18 @@
+// Libraries
 import React, { useState, useEffect } from 'react';
+import MoonLoader from "react-spinners/MoonLoader";
+// Functions / Api / Components / Hooks
 import useInputActive from '../../hooks/useInputActive';
 import { getUsersByType } from '../../../api/userApi';
 import StylistSchedulePanel from './Schedule/StylistSchedulePanel';
-
+// Styles / Icons
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
 
 const Schedules = () => {
     const { inputActive, handleInputFocus, handleInputBlur } = useInputActive(); // Custom hook para manejar el estado del input de búsqueda
-
     const [stylists, setStylists] = useState([]);
     const [searchStylist, setSearchStylist] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Llamar a la función para obtener todos los estilistas
@@ -18,6 +21,7 @@ const Schedules = () => {
                 const estilistas  = await getUsersByType(type);
                 // Almacenar los nombres y apellidos en el estado
                 setStylists(estilistas);
+                setLoading(false);
             } catch (error) {
                 console.error('Error al obtener las estilistas:', error.message);
             }
@@ -88,6 +92,7 @@ const Schedules = () => {
                             </div>
                         )}
                     </div>
+                    <MoonLoader color={'#3085d6'} loading={loading} size={25}/> {/* Spinner de carga */}
                 </div>
             </header>
 
