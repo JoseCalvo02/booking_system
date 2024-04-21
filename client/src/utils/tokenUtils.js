@@ -21,12 +21,14 @@ export const decodeToken = () => {
 // Función para verificar si el usuario está autenticado
 export const isAuthenticated = () => {
     try{
-        const token = localStorage.getItem('token');
-        return !!token; // Devuelve true si el token existe, de lo contrario, false
+        const decodedToken = decodeToken(); // Decodificar el token JWT
+        const currentTime = Date.now() / 1000; // Tiempo actual en segundos
+
+        // Verificar si la fecha de expiración (exp) del token es posterior al tiempo actual
+        return decodedToken.exp > currentTime;
     }catch(error){
         return false; // Devuelve false si hay un error al verificar la autenticación
     }
-
 };
 
 // Función para obtener el rol del usuario del token
