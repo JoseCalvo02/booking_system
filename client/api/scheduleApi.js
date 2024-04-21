@@ -35,3 +35,33 @@ export const createSchedule = async (type, schedule) => {
         throw new Error(error.response.data.message);
     }
 }
+
+// Function to delete a schedule
+export const deleteSchedule = async (scheduleId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.delete(`${API_URL}/delete/${scheduleId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}
+
+// Function to update a schedule
+export const updateSchedule = async (scheduleId, schedule) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.put(`${API_URL}/update/${scheduleId}`, schedule, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}

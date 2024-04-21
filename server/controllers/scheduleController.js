@@ -4,18 +4,19 @@ import prisma from '../prisma/prisma.js';
 export const getSchedulesByStylist = async (stylistId, year, month) => {
     try {
         stylistId = parseInt(stylistId);
+        const startOfMonth = new Date(Date.UTC(year, month - 1, 1)).toISOString();
+        const endOfMonth = new Date(Date.UTC(year, month, 0)).toISOString();
 
         // Obtener los horarios de un estilista en un mes y año específico
         const schedule = await prisma.Horarios.findMany({
             where: {
                 estilistaID: stylistId,
                 fecha: {
-                    gte: new Date(year, month - 1, 1), // Fecha mayor o igual al primer día del mes y año especificados
-                    lt: new Date(year, month, 1) // Fecha menor que el primer día del mes siguiente al mes y año especificados
+                    gte: startOfMonth,
+                    lte: endOfMonth,
                 }
             }
         });
-        console.log(schedule);
 
         // Enviar respuesta
         return schedule;
@@ -51,7 +52,7 @@ export const createDailySchedule = async (schedule) => {
                 fecha: new Date(schedule.fecha),
                 diaSemana: schedule.dia,
                 horaInicio: schedule.horaInicio,
-                horaFinal: schedule.horaFin,
+                horaFinal: schedule.horaFinal,
                 esDiaLibre: false
             }
         });
@@ -60,6 +61,27 @@ export const createDailySchedule = async (schedule) => {
         return newSchedule;
     } catch (error) {
         console.error('Error al crear el horario:', error.message);
+        throw new Error(error.message);
+    }
+}
+
+// Función para crear un nuevo horario semanal
+
+
+// Función para eliminar un horario
+export const deleteSchedule = async (scheduleId) => {
+    try {
+        scheduleId = parseInt(scheduleId);
+        const schedule = await prisma.Horarios.delete({
+            where: {
+                horarioID: scheduleId
+            }
+        });
+
+        // Enviar respuesta
+        return schedule;
+    } catch (error) {
+        console.error('Error al eliminar el horario:', error.message);
         throw new Error(error.message);
     }
 }

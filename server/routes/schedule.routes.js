@@ -8,8 +8,7 @@ router.get('/stylist/:stylistId', async (req, res) => {
     try {
         const { stylistId } = req.params;
         const { year, month } = req.query;
-        console.log(year, month);
-        // Obtener los horarios de un estilista en un mes y año específico
+
         const stylistSchedule = await schedule.getSchedulesByStylist(stylistId, year, month);
         res.json(stylistSchedule);
     } catch (error) {
@@ -36,6 +35,19 @@ router.post('/create', async (req, res) => {
         res.json(addedSchedule);
     } catch (error) {
         console.error('Error al crear el horario:', error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Ruta para eliminar un horario
+router.delete('/delete/:scheduleId', async (req, res) => {
+    try {
+        const { scheduleId } = req.params;
+
+        await schedule.deleteSchedule(scheduleId);
+        res.json({ message: 'Horario eliminado' });
+    } catch (error) {
+        console.error('Error al eliminar el horario:', error.message);
         res.status(500).json({ message: error.message });
     }
 });

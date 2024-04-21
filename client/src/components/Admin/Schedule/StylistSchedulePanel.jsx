@@ -3,8 +3,9 @@ import MoonLoader from "react-spinners/MoonLoader";
 // Functions / Api / Components
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
 import { MonthNavigator } from './MonthNavigator';
-import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
 import { daysInMonth, getDayName } from '../../../utils/dateUtils';
+import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
+import { DeleteScheduleModal } from '../../Modals/Schedules/DeleteScheduleModal';
 // Styles
 import customStyles from '../../../custom/customStyles';
 
@@ -19,6 +20,7 @@ const StylistSchedulePanel = ({stylist}) => {
                 const schedules = await getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1);
                 setSchedule(schedules);
                 setLoading(false);
+                console.log('Horario:', schedules);
             } catch (error) {
                 console.error('Error al obtener el horario:', error.message);
             }
@@ -38,12 +40,12 @@ const StylistSchedulePanel = ({stylist}) => {
             <MoonLoader color={'#111827'} loading={loading} size={30} className='ml-4'/> {/* Spinner de carga */}
             <div className='flex justify-end flex-grow gap-2 text-white' >
                 <button
-                    className='p-2 bg-green-500 rounded-lg hover:bg-green-600'
-                    onClick={() => CreateScheduleModal(stylist, currentDate, getSchedulesByStylist, setSchedule)}
+                    className='w-[105px] p-2 bg-green-500 rounded-lg hover:bg-green-600'
+                    onClick={() => CreateScheduleModal(stylist, currentDate, setSchedule)}
                 >
                     + Horario
                 </button>
-                <button className='p-2 bg-red-500 rounded-lg hover:bg-red-600'>+ Bloqueo</button>
+                <button className='w-[105px] p-2 bg-blue-500 rounded-lg hover:bg-blue-600'>+ Bloqueo</button>
             </div>
         </div>
 
@@ -57,6 +59,7 @@ const StylistSchedulePanel = ({stylist}) => {
                         <th className={customStyles.th}>Hora Inicio</th>
                         <th className={customStyles.th}>Hora Salida</th>
                         <th className={customStyles.th}>Bloqueos</th>
+                        <th className={customStyles.th}>Horario</th>
                     </tr>
                 </thead>
                 <tbody className='overflow-y-auto'>
@@ -74,9 +77,22 @@ const StylistSchedulePanel = ({stylist}) => {
                                 <td className={customStyles.td}>{dayName}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaInicio : '-'}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
-                                <td className={customStyles.td}>
-                                    <button className='p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Ver Bloqueos</button>
-                                </td>
+                                {matchingSchedule ? (
+                                    <td className={customStyles.td}>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-800'>Bloqueos</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600'>Remover</button>
+                                    </td>
+                                ) : (
+                                    <td className={customStyles.td}>-</td>
+                                )}
+                                {matchingSchedule ? (
+                                    <td className={customStyles.td}>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Editar</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600' onClick={() => DeleteScheduleModal(matchingSchedule, setSchedule)}>Eliminar</button>
+                                    </td>
+                                ) : (
+                                    <td className={customStyles.td}>-</td>
+                                )}
                             </tr>
                         );
                     })}
