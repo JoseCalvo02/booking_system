@@ -10,11 +10,12 @@ export const getSchedulesByStylist = async (stylistId, year, month) => {
             where: {
                 estilistaID: stylistId,
                 fecha: {
-                    gte: new Date(year, month - 1, 1),
-                    lt: new Date(year, month, 1)
+                    gte: new Date(year, month - 1, 1), // Fecha mayor o igual al primer día del mes y año especificados
+                    lt: new Date(year, month, 1) // Fecha menor que el primer día del mes siguiente al mes y año especificados
                 }
             }
         });
+        console.log(schedule);
 
         // Enviar respuesta
         return schedule;
@@ -47,7 +48,7 @@ export const createDailySchedule = async (schedule) => {
         const newSchedule = await prisma.Horarios.create({
             data: {
                 estilistaID: schedule.estilistaID,
-                fecha: schedule.fecha,
+                fecha: new Date(schedule.fecha),
                 diaSemana: schedule.dia,
                 horaInicio: schedule.horaInicio,
                 horaFinal: schedule.horaFin,

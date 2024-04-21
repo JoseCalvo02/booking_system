@@ -33,13 +33,18 @@ const StylistSchedulePanel = ({stylist}) => {
         <div className='flex mb-2 '>
             <MonthNavigator currentDate={currentDate} onChangeMonth={handleChangeMonth} />
             <div className='flex justify-end flex-grow gap-2 text-white' >
-                <button className='p-2 bg-green-500 rounded-lg hover:bg-green-600' onClick={() => CreateScheduleModal(stylist, currentDate)}>+ Horario</button>
+                <button
+                    className='p-2 bg-green-500 rounded-lg hover:bg-green-600'
+                    onClick={() => CreateScheduleModal(stylist, currentDate, getSchedulesByStylist, setSchedule)}
+                >
+                    + Horario
+                </button>
                 <button className='p-2 bg-red-500 rounded-lg hover:bg-red-600'>+ Bloqueo</button>
             </div>
         </div>
 
 
-        <div className='overflow-y-auto max-h-[58vh]'>
+        <section className='overflow-y-auto max-h-[58vh]'>
             {/* Renderización de los días y horas del horario */}
             <table className='w-full'>
                 <thead className={customStyles.thead}>
@@ -58,12 +63,14 @@ const StylistSchedulePanel = ({stylist}) => {
                         const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day); // Crear una nueva fecha con el día actual en el bucle
                         const dayName = getDayName(date); // Obtener el nombre del día
 
+                        const matchingSchedule = schedule.find(item => new Date(item.fecha).getUTCDate() === day);
+
                         return (
                             <tr key={day} className='hover:bg-gray-100'>
                                 <td className={customStyles.td}>{day}</td>
                                 <td className={customStyles.td}>{dayName}</td>
-                                <td className={customStyles.td}></td>
-                                <td className={customStyles.td}></td>
+                                <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaInicio : '-'}</td>
+                                <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
                                 <td className={customStyles.td}>
                                     <button className='p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Ver Bloqueos</button>
                                 </td>
@@ -71,8 +78,10 @@ const StylistSchedulePanel = ({stylist}) => {
                         );
                     })}
                 </tbody>
+
             </table>
-        </div>
+
+        </section>
         </>
     );
 }

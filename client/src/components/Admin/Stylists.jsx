@@ -116,9 +116,9 @@ const Stylists = () => {
 
                 {/* Loader */}
                 {loading && (
-                <div className="flex items-center justify-center mt-8">
-                    <BarLoader color="#111827" width={200} height={10} />
-                </div>
+                    <div className="flex items-center justify-center mt-8">
+                        <BarLoader color="#111827" width={200} height={10} />
+                    </div>
                 )}
             </section>
 

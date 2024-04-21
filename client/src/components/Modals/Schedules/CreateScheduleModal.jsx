@@ -4,7 +4,7 @@ import { createSchedule } from '../../../../api/scheduleApi';
 import { daysInMonth, getDayName, formatHour } from '../../../utils/dateUtils';
 
 // Function to choose the type of schedule to create
-export const CreateScheduleModal = async(stylist, currentDate) => {
+export const CreateScheduleModal = async(stylist, currentDate, getSchedulesByStylist, setSchedule) => {
     const { value: scheduleType } = await Swal.fire({
         title: 'Crear Horario',
         text: '¿Qué tipo de horario deseas crear?',
@@ -32,15 +32,15 @@ export const CreateScheduleModal = async(stylist, currentDate) => {
     });
     if (scheduleType) {
         if (scheduleType === 'daily') {
-            CreateDailyScheduleModal(stylist, currentDate);
+            CreateDailyScheduleModal(stylist, currentDate, getSchedulesByStylist, setSchedule);
         } else {
-            CreateWeeklyScheduleModal(stylist, currentDate);
+            CreateWeeklyScheduleModal(stylist, currentDate, getSchedulesByStylist, setSchedule);
         }
     }
 }
 
 // Function to create a new schedule per day
-export const CreateDailyScheduleModal = async(stylist, currentDate) => {
+export const CreateDailyScheduleModal = async(stylist, currentDate, getSchedulesByStylist, setSchedule) => {
     const MySwal = withReactContent(Swal);
     const totalDays = daysInMonth(currentDate.getMonth(), currentDate.getFullYear());
     const daysArray = Array.from({ length: totalDays }, (_, i) => i + 1);
@@ -119,7 +119,7 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
                 horaFin: endHour
             };
 
-            return createSchedule("Daily", newSchedule).then(() => {
+            return createSchedule("Daily", newSchedule).then(async () => {
                 Swal.fire({
                     title: 'Horario creado',
                     text: 'El horario se ha creado correctamente',
@@ -127,9 +127,10 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
                     timer: 2000,
                     showConfirmButton: false
                 });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
+                // Vuelve a ejecutar la consulta para obtener los horarios actualizados
+                const updatedSchedules = await getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth() + 1);
+                console.log(updatedSchedules);
+                setSchedule(updatedSchedules);
             }).catch((error) => {
                 Swal.fire({
                     title: 'Error al crear el horario',
@@ -142,7 +143,7 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
 }
 
 // Function to create a new schedule per week
-export const CreateWeeklyScheduleModal = async(stylist, currentDate) => {
+export const CreateWeeklyScheduleModal = async(stylist, currentDate, getSchedulesByStylist, setSchedule) => {
     const MySwal = withReactContent(Swal);
 
     MySwal.fire({
