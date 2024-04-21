@@ -23,3 +23,27 @@ export const getSchedulesByStylist = async (stylistId, year, month) => {
         throw new Error('Error al obtener el horario: ' + error.message);
     }
 }
+
+// Función para crear un nuevo horario diario
+export const createDailySchedule = async (schedule) => {
+    try {
+        console.log(schedule);
+
+        const newSchedule = await prisma.Horarios.create({
+            data: {
+                estilistaID: schedule.estilistaID,
+                fecha: schedule.fecha,
+                diaSemana: schedule.dia,
+                horaInicio: schedule.horaInicio,
+                horaFinal: schedule.horaFin,
+                esDiaLibre: false
+            }
+        });
+
+        // Enviar respuesta
+        return newSchedule;
+    } catch (error) {
+        console.error('Error al crear el horario:', error.message);
+        throw new Error('Error al crear el horario: ' + error.message);
+    }
+}

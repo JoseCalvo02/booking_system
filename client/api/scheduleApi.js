@@ -21,10 +21,11 @@ export const getSchedulesByStylist = async (stylistId, year, month) => {
 }
 
 // Function to create a new schedule
-export const createSchedule = async (schedule) => {
+export const createSchedule = async (type, schedule) => {
     try {
+        const data = { type, newSchedule: schedule};
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.post(`${API_URL}/create`, schedule, {
+        const response = await axiosInstance.post(`${API_URL}/create`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

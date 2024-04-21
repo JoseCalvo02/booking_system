@@ -18,4 +18,26 @@ router.get('/stylist/:stylistId', async (req, res) => {
     }
 });
 
+// Ruta para crear un nuevo horario
+router.post('/create', async (req, res) => {
+    try {
+        const { type, newSchedule } = req.body;
+
+        let addedSchedule;
+
+        if (type === 'Daily') {
+            // Crear un nuevo horario diario
+            addedSchedule = await schedule.createDailySchedule(newSchedule);
+        } else if (type === 'Weekly') {
+            // Crear un nuevo horario semanal
+            addedSchedule = await schedule.createWeeklySchedule(newSchedule);
+        }
+
+        res.json(addedSchedule);
+    } catch (error) {
+        console.error('Error al crear el horario:', error.message);
+        res.status(500).json({ message: 'Error al crear el horario' });
+    }
+});
+
 export default router;

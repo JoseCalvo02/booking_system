@@ -85,12 +85,12 @@ model HistorialRecompensas {
 }
 
 model Horarios {
-  horarioID   Int       @id(map: "PK__Horarios__BFF858D3965C4FB1") @default(autoincrement())
+  horarioID   Int       @id(map: "PK__Horarios__BFF858D3BA02855B") @default(autoincrement())
   estilistaID Int?
   fecha       DateTime? @db.Date
   diaSemana   String?   @db.VarChar(20)
-  horaInicio  DateTime? @db.Time
-  horaFinal   DateTime? @db.Time
+  horaInicio  String?   @db.VarChar(5)
+  horaFinal   String?   @db.VarChar(5)
   esDiaLibre  Boolean?
   Usuarios    Usuarios? @relation(fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Horarios_estilistaID")
 }
@@ -187,4 +187,14 @@ model TipoBloqueo {
   tipoBloqueoID   Int               @id(map: "PK__TipoBloq__389A46C6319D13D2") @default(autoincrement())
   nombre          String            @db.VarChar(50)
   BloqueoHorarios BloqueoHorarios[]
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B6180416BBF") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
 }

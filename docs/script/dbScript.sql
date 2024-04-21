@@ -66,8 +66,8 @@ CREATE TABLE Horarios (
     estilistaID INT,
     fecha DATE,
     diaSemana VARCHAR(20),
-    horaInicio TIME,
-    horaFinal TIME,
+    horaInicio VARCHAR(5) CHECK (horaInicio LIKE '[0-2][0-9]:[0-5][0-9]'),
+    horaFinal VARCHAR(5) CHECK (horaFinal LIKE '[0-2][0-9]:[0-5][0-9]'),
     esDiaLibre BIT,
     CONSTRAINT fk_Horarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 	CONSTRAINT ck_Horarios_diaSemana CHECK (diaSemana IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'))

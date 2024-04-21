@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { createSchedule } from '../../../../api/scheduleApi';
-import { daysInMonth, getDayName } from '../../../utils/dateUtils';
+import { daysInMonth, getDayName, formatHour } from '../../../utils/dateUtils';
 
 // Function to choose the type of schedule to create
 export const CreateScheduleModal = async(stylist, currentDate) => {
@@ -53,9 +53,10 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
                 <div className='flex items-center gap-2 felx-col' >
                     <label htmlFor="daySelect" className="text-base text-gray-800 w-[150px]">Día:</label>
                     <select id="daySelect" className="flex-grow p-2 origin-bottom border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary">
-                        {daysArray.map(day => (
-                            <option className='checked:bg-primary checked:text-white' key={day} value={day}>{day}</option>
-                        ))}
+                        {daysArray.map(day => {
+                            const dayName = getDayName(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
+                            return <option className='checked:bg-primary checked:text-white' key={day} value={day}>{`${day} - ${dayName}`}</option>
+                        })}
                     </select>
                 </div>
                 {/* Label y select para la hora de inicio */}
@@ -94,6 +95,8 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
             const selectedStartHour = parseInt(document.getElementById('startHourSelect').value);
             const selectedEndHour = parseInt(document.getElementById('endHourSelect').value);
 
+            const dayName = getDayName(new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay));
+
             // Validar que la hora de inicio no sea igual o posterior a la hora de salida
             if (selectedStartHour > selectedEndHour) {
                 Swal.showValidationMessage('La hora de inicio debe ser anterior a la hora de fin.');
@@ -105,8 +108,35 @@ export const CreateDailyScheduleModal = async(stylist, currentDate) => {
                 return false; // Impide que se cierre el modal si la validación falla
             }
 
-            // Aquí puedes realizar las acciones necesarias con los valores seleccionados
-            console.log(selectedDay, selectedStartHour, selectedEndHour);
+            const startHour = formatHour(selectedStartHour);
+            const endHour = formatHour(selectedEndHour);
+
+            const newSchedule = {
+                estilistaID: stylist.usuarioID,
+                fecha: new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDay, 0, 0, 0),
+                dia: dayName,
+                horaInicio: startHour,
+                horaFin: endHour
+            };
+
+            return createSchedule("Daily", newSchedule).then(() => {
+                Swal.fire({
+                    title: 'Horario creado',
+                    text: 'El horario se ha creado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            }).catch((error) => {
+                Swal.fire({
+                    title: 'Error al crear el horario',
+                    text: error.message,
+                    icon: 'error'
+                });
+            });
         }
     });
 }
