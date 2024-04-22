@@ -16,6 +16,7 @@ import serviceRoutes from "./routes/service.routes.js";
 import apptRoutes from "./routes/appt.routes.js";
 import couponRoutes from "./routes/coupon.routes.js";
 import scheduleRoutes from "./routes/schedule.routes.js";
+import blockRoutes from "./routes/block.routes.js";
 
 const PORT = 3000; // Puerto en el que se ejecutará el servidor
 
@@ -49,6 +50,7 @@ app.use("/api/service",authenticateToken, serviceRoutes);
 app.use("/api/appt",authenticateToken, apptRoutes);
 app.use("/api/coupon",authenticateToken, couponRoutes);
 app.use("/api/schedule",authenticateToken, scheduleRoutes);
+app.use("/api/block",authenticateToken, blockRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {

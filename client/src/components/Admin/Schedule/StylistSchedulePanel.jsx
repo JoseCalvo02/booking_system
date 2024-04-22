@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MoonLoader from "react-spinners/MoonLoader";
 // Functions / Api / Components / Modals
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
+import { getBlocksByStylist } from '../../../../api/blockApi';
 import { MonthNavigator } from './MonthNavigator';
 import { daysInMonth, getDayName } from '../../../utils/dateUtils';
 import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
@@ -13,15 +14,20 @@ import customStyles from '../../../custom/customStyles';
 const StylistSchedulePanel = ({stylist}) => {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [schedule, setSchedule] = useState([]);
+    const [blocks, setBlocks] = useState([]); // Bloqueos del estilista
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const schedules = await getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1);
+                const [schedules, blocks] = await Promise.all([
+                    getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1),
+                    getBlocksByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1)
+                ]);
                 setSchedule(schedules);
+                setBlocks(blocks);
+
                 setLoading(false);
-                console.log('Horario:', schedules);
             } catch (error) {
                 console.error('Error al obtener el horario:', error.message);
             }
@@ -71,6 +77,7 @@ const StylistSchedulePanel = ({stylist}) => {
                         const dayName = getDayName(date); // Obtener el nombre del día
 
                         const matchingSchedule = schedule.find(item => new Date(item.fecha).getUTCDate() === day);
+                        const matchingBlocks = blocks.find(item => new Date(item.fecha).getUTCDate() === day);
 
                         return (
                             <tr key={day} className='hover:bg-gray-100'>
@@ -78,7 +85,7 @@ const StylistSchedulePanel = ({stylist}) => {
                                 <td className={customStyles.td}>{dayName}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaInicio : '-'}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
-                                {matchingSchedule ? (
+                                {matchingBlocks ? (
                                     <td className={customStyles.td}>
                                         <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900'>Bloqueos</button>
                                         <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600'>Remover</button>
