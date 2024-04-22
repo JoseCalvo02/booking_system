@@ -104,8 +104,8 @@ INSERT INTO TipoBloqueo (nombre) VALUES ('Vacaciones'), ('Incapacidad'), ('Permi
 	estilistaID	INT,
 	fecha DATE NOT NULL,
 	tipoBloqueoID INT,
-	horaInicio TIME,
-	horaFinal TIME,
+    horaInicio VARCHAR(5) CHECK (horaInicio LIKE '[0-2][0-9]:[0-5][0-9]'),
+    horaFinal VARCHAR(5) CHECK (horaFinal LIKE '[0-2][0-9]:[0-5][0-9]'),
 	descripcion VARCHAR(255),
     CONSTRAINT fk_BloqueoHorarios_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
 	CONSTRAINT fk_BloqueoHorarios_tipoBloqueoID FOREIGN KEY(tipoBloqueoID) REFERENCES TipoBloqueo(tipoBloqueoID) ON DELETE NO ACTION ON UPDATE NO ACTION

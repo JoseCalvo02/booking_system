@@ -10,9 +10,14 @@ export const getDayName = (date) => {
 };
 
 // Función para convertir un número de hora en un formato de tiempo compatible con la base de datos
-export const formatHour = (hour) => {
+export const formatHour = (hour, min = '') => {
     // Añadir un cero delante si la hora es menor que 10 (para que tenga dos dígitos)
     const formattedHour = hour < 10 ? `0${hour}` : hour.toString();
+
+    if (min !== '') {
+        return `${formattedHour}:${min}`;
+    }
+
     // Retornar la hora formateada en formato de 24 horas (HH:mm)
     return `${formattedHour}:00`;
 };

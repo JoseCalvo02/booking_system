@@ -32,12 +32,12 @@ model BitacoraEstilista {
 }
 
 model BloqueoHorarios {
-  bloqueoID     Int          @id(map: "PK__BloqueoH__3314B8A02B47CE8C") @default(autoincrement())
+  bloqueoID     Int          @id(map: "PK__BloqueoH__3314B8A02CC72FB9") @default(autoincrement())
   estilistaID   Int?
   fecha         DateTime     @db.Date
   tipoBloqueoID Int?
-  horaInicio    DateTime?    @db.Time
-  horaFinal     DateTime?    @db.Time
+  horaInicio    String?      @db.VarChar(5)
+  horaFinal     String?      @db.VarChar(5)
   descripcion   String?      @db.VarChar(255)
   Usuarios      Usuarios?    @relation(fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_BloqueoHorarios_estilistaID")
   TipoBloqueo   TipoBloqueo? @relation(fields: [tipoBloqueoID], references: [tipoBloqueoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_BloqueoHorarios_tipoBloqueoID")

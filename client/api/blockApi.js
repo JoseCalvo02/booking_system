@@ -19,3 +19,33 @@ export const getBlocksByStylist = async (stylistId, year, month) => {
         throw new Error('Error al obtener los bloqueos: ' + error.message);
     }
 }
+
+// Function to get all block types
+export const getTypeBlocks = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/types`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener los tipos de bloqueos: ' + error.message);
+    }
+}
+
+// Function to create a new block
+export const createBlock = async (block) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.post(`${API_URL}/create`, block, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}

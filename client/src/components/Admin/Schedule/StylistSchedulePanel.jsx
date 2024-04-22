@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import MoonLoader from "react-spinners/MoonLoader";
 // Functions / Api / Components / Modals
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
-import { getBlocksByStylist } from '../../../../api/blockApi';
+import { getBlocksByStylist, getTypeBlocks } from '../../../../api/blockApi';
 import { MonthNavigator } from './MonthNavigator';
 import { daysInMonth, getDayName } from '../../../utils/dateUtils';
 import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
 import { DeleteScheduleModal } from '../../Modals/Schedules/DeleteScheduleModal';
 import { UpdateScheduleModal } from '../../Modals/Schedules/UpdateScheduleModal';
+import { CreateBlockModal } from '../../Modals/Blocks/CreateBlockModal';
 // Styles
 import customStyles from '../../../custom/customStyles';
 
@@ -15,17 +16,20 @@ const StylistSchedulePanel = ({stylist}) => {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [schedule, setSchedule] = useState([]);
     const [blocks, setBlocks] = useState([]); // Bloqueos del estilista
+    const [typeBlocks, setTypeBlocks] = useState(''); // Tipo de bloqueo [Horario, Bloqueo
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const [schedules, blocks] = await Promise.all([
+                const [schedules, blocks, typeBlocks] = await Promise.all([
                     getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1),
-                    getBlocksByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1)
+                    getBlocksByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1),
+                    getTypeBlocks()
                 ]);
                 setSchedule(schedules);
                 setBlocks(blocks);
+                setTypeBlocks(typeBlocks);
 
                 setLoading(false);
             } catch (error) {
@@ -46,13 +50,16 @@ const StylistSchedulePanel = ({stylist}) => {
             <MonthNavigator currentDate={currentDate} onChangeMonth={handleChangeMonth} />
             <MoonLoader color={'#111827'} loading={loading} size={30} className='ml-4'/> {/* Spinner de carga */}
             <div className='flex justify-end flex-grow gap-2 text-white' >
-                <button
-                    className='w-[105px] p-2 bg-green-500 rounded-lg hover:bg-green-600'
+                <button className='w-[105px] p-2 bg-green-500 rounded-lg hover:bg-green-600'
                     onClick={() => CreateScheduleModal(stylist, currentDate, setSchedule)}
                 >
                     + Horario
                 </button>
-                <button className='w-[105px] p-2 bg-blue-500 rounded-lg hover:bg-blue-600'>+ Bloqueo</button>
+                <button className='w-[105px] p-2 bg-blue-500 rounded-lg hover:bg-blue-600'
+                    onClick={() => CreateBlockModal(stylist, currentDate, setBlocks, typeBlocks)}
+                >
+                    + Bloqueo
+                </button>
             </div>
         </div>
 

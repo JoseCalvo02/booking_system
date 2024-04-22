@@ -17,4 +17,27 @@ router.get('/stylist/:stylistId', async (req, res) => {
     }
 });
 
+// Route to get all block types
+router.get('/types', async (req, res) => {
+    try {
+        const blockTypes = await block.getTypeBlocks();
+        res.json(blockTypes);
+    } catch (error) {
+        console.error('Error getting block types:', error.message);
+        res.status(500).json({ message: 'Error getting block types' });
+    }
+});
+
+// Route to create a new block
+router.post('/create', async (req, res) => {
+    try {
+        const newBlock = req.body;
+        const createdBlock = await block.createBlock(newBlock);
+        res.json(createdBlock);
+    } catch (error) {
+        console.error('Error creating block:', error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;
