@@ -52,4 +52,17 @@ router.delete('/delete/:scheduleId', async (req, res) => {
     }
 });
 
+// Ruta para actualizar un horario
+router.put('/update', async (req, res) => {
+    try {
+        const updatedSchedule = req.body;
+
+        const newSchedule = await schedule.updateSchedule(updatedSchedule);
+        res.json(newSchedule);
+    } catch (error) {
+        console.error('Error al actualizar el horario:', error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;

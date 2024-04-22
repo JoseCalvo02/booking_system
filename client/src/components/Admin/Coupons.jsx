@@ -79,8 +79,8 @@ const Redemptions = () => {
 
                 {/* Buttons to switch between content */}
                 <div className="flex justify-center gap-2 my-4 text-xs text-white md:text-base lg:text-lg">
-                    <button className="p-2 bg-gray-800 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('redeemedCoupons')}>Canjeados</button>
-                    <button className="p-2 bg-gray-800 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('coupons')}>Ver Cupones</button>
+                    <button className="p-2 bg-gray-700 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('redeemedCoupons')}>Canjeados</button>
+                    <button className="p-2 bg-gray-700 rounded-md hover:bg-gray-900" onClick={() => setDisplayContent('coupons')}>Ver Cupones</button>
                 </div>
             </header>
 

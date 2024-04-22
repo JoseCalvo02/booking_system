@@ -52,10 +52,10 @@ export const deleteSchedule = async (scheduleId) => {
 }
 
 // Function to update a schedule
-export const updateSchedule = async (scheduleId, schedule) => {
+export const updateSchedule = async (schedule) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.put(`${API_URL}/update/${scheduleId}`, schedule, {
+        const response = await axiosInstance.put(`${API_URL}/update`, schedule, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

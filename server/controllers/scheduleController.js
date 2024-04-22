@@ -85,3 +85,24 @@ export const deleteSchedule = async (scheduleId) => {
         throw new Error(error.message);
     }
 }
+
+// Función para actualizar un horario
+export const updateSchedule = async (schedule) => {
+    try {
+        const updatedSchedule = await prisma.Horarios.update({
+            where: {
+                horarioID: schedule.horarioID
+            },
+            data: {
+                horaInicio: schedule.horaInicio,
+                horaFinal: schedule.horaFinal
+            }
+        });
+
+        // Enviar respuesta
+        return updatedSchedule;
+    } catch (error) {
+        console.error('Error al actualizar el horario:', error.message);
+        throw new Error(error.message);
+    }
+}

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import MoonLoader from "react-spinners/MoonLoader";
-// Functions / Api / Components
+// Functions / Api / Components / Modals
 import { getSchedulesByStylist } from '../../../../api/scheduleApi';
 import { MonthNavigator } from './MonthNavigator';
 import { daysInMonth, getDayName } from '../../../utils/dateUtils';
 import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal';
 import { DeleteScheduleModal } from '../../Modals/Schedules/DeleteScheduleModal';
+import { UpdateScheduleModal } from '../../Modals/Schedules/UpdateScheduleModal';
 // Styles
 import customStyles from '../../../custom/customStyles';
 
@@ -79,7 +80,7 @@ const StylistSchedulePanel = ({stylist}) => {
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
                                 {matchingSchedule ? (
                                     <td className={customStyles.td}>
-                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-800'>Bloqueos</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900'>Bloqueos</button>
                                         <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600'>Remover</button>
                                     </td>
                                 ) : (
@@ -87,7 +88,7 @@ const StylistSchedulePanel = ({stylist}) => {
                                 )}
                                 {matchingSchedule ? (
                                     <td className={customStyles.td}>
-                                        <button className='w-[105px] p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Editar</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600' onClick={() => UpdateScheduleModal(matchingSchedule, setSchedule)}>Editar</button>
                                         <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600' onClick={() => DeleteScheduleModal(matchingSchedule, setSchedule)}>Eliminar</button>
                                     </td>
                                 ) : (
