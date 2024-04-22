@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { createCoupon } from '../../../../api/couponApi';
 
-export const CreateCouponModal = async () => {
+export const CreateCouponModal = async (coupons, setCoupons) => {
     const MySwal = withReactContent(Swal);
 
     MySwal.fire({
@@ -23,7 +23,7 @@ export const CreateCouponModal = async () => {
             confirmButton: 'text-white p-2 rounded-md hover:bg-blue-600',
             cancelButton: 'text-white p-2 rounded-md hover:bg-red-600',
         },
-        preConfirm: () => {
+        preConfirm: async () => {
             // Validación de los campos
             const nombreCupon = document.getElementById('nombreCupon').value;
             const costoPuntos = parseInt(document.getElementById('costoPuntos').value); // Obtener el valor de costoPuntos
@@ -38,19 +38,22 @@ export const CreateCouponModal = async () => {
                 costoPuntos,
             };
 
-            // Retornar la promesa de createCoupon con timeout de 2 segundos
-            return createCoupon(newCoupon).then(() => {
+            try {
+                const addedCoupon = await createCoupon(newCoupon);
+
+                // Actualizar el estado de los cupones y ordenarlos
+                const updatedCoupons = [...coupons, addedCoupon].sort((a, b) => a.estado === 'Activo' ? -1 : 1);
+                setCoupons(updatedCoupons);
+
                 Swal.fire({
                     title: 'Cupon creado con éxito',
                     icon: 'success',
                     timer: 2000,
                     showConfirmButton: false
-                }).then(() => {
-                    // Recargar la página después de 2 segundos
-                        window.location.reload();
-                    },);
-                }
-            );
+                });
+            } catch (error) {
+                Swal.fire('Error', error.message, 'error');
+            }
         }
     });
 }

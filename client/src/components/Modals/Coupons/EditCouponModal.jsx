@@ -3,7 +3,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { editCoupon } from '../../../../api/couponApi';
 
 // Función para abrir el modal de edición
-export const EditCouponModal = (coupon, updateCoupon) => {
+export const EditCouponModal = (coupon, setCoupons) => {
     const MySwal = withReactContent(Swal);
 
     MySwal.fire({
@@ -24,7 +24,7 @@ export const EditCouponModal = (coupon, updateCoupon) => {
             confirmButton: 'text-white p-2 rounded-md hover:bg-blue-600',
             cancelButton: 'text-white p-2 rounded-md hover:bg-red-600',
         },
-        preConfirm: () => {
+        preConfirm: async () => {
             // Validación de los campos
             const nombreCupon = document.getElementById('nombreCupon').value;
             const valorPuntosInput = document.getElementById('valorPuntos').value;
@@ -46,8 +46,9 @@ export const EditCouponModal = (coupon, updateCoupon) => {
                 valorPuntos,
             };
 
-            // Llamar a la función para editar el cupón
-            editCoupon(editedCoupon).then(() => {
+            try {
+                // Llamar a la función para editar el cupón
+                await editCoupon(editedCoupon);
                 Swal.fire({
                     title: 'Cupón Editado',
                     icon: 'success',
@@ -56,11 +57,10 @@ export const EditCouponModal = (coupon, updateCoupon) => {
                     timerProgressBar: true,
                     showConfirmButton: false,
                 });
-                updateCoupon(editedCoupon);
-            }).catch(error => {
+                setCoupons((prev) => prev.map((oldCoupon) => oldCoupon.cuponID === editedCoupon.cuponID ? editedCoupon : oldCoupon));
+            } catch(error) {
                 console.error('Error editing coupon:', error.message);
-            });
+            };
         }
     });
-
 }

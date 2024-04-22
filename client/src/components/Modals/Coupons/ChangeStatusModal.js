@@ -1,7 +1,7 @@
 import swal from 'sweetalert2';
 import { ChangeCouponStatus } from '../../../../api/couponApi';
 
-const ChangeStatusModal = async (coupon) => {
+const ChangeStatusModal = async (coupon, coupons, setCoupons) => {
     let action = '';
     let message = '';
     let icon = '';
@@ -38,6 +38,17 @@ const ChangeStatusModal = async (coupon) => {
         try {
             await ChangeCouponStatus(coupon);
 
+            // Cambiar el estado del cupón
+            const updatedCoupons = coupons.map(coup =>
+                coup.cuponID === coupon.cuponID ? { ...coup, estado: coupon.estado === 'Activo' ? 'Inactivo' : 'Activo' } : coup
+            );
+
+            // Ordenar los cupones
+            updatedCoupons.sort((a, b) => a.estado === 'Activo' ? -1 : 1);
+
+            // Actualizar los cupones
+            setCoupons(updatedCoupons);
+
             swal.fire({
                 title: '¡Hecho!',
                 text: message,
@@ -47,10 +58,6 @@ const ChangeStatusModal = async (coupon) => {
                 timerProgressBar: true,
                 showConfirmButton: false
             });
-
-            setTimeout(() => {
-                window.location.reload();
-            }, 2000);
         } catch (error) {
             swal.fire({
                 title: 'Error',

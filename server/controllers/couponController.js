@@ -219,6 +219,3 @@ export const changeStatus = async (cuponId, estado) => {
         throw new Error('Error al desactivar el cupón: ' + error.message);
     }
 }
-
-
-

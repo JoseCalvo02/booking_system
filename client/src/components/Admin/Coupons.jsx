@@ -72,17 +72,6 @@ const Redemptions = () => {
         return format(new Date(dateString), 'dd/MM/yyyy');
     };
 
-    // Function to update the coupon on the state
-    const updateCoupon = (editedCoupon) => {
-        const index = coupons.findIndex(coupon => coupon.cuponID === editedCoupon.cuponID);
-
-        setCoupons(prevCoupons => {
-            const updatedCoupons = [...prevCoupons];
-            updatedCoupons[index] = editedCoupon;
-            return updatedCoupons;
-        });
-    }
-
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
             <header className='m-auto mb-4'>
@@ -99,7 +88,7 @@ const Redemptions = () => {
             {displayContent === 'coupons' ? (
                 /* Section for adding coupons */
                 <section>
-                    <button className='p-2 mb-4 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateCouponModal()}>Agregar +</button>
+                    <button className='p-2 mb-4 text-white bg-green-500 rounded text-md hover:bg-green-600 lg:text-lg' onClick={() => CreateCouponModal(coupons, setCoupons)}>Agregar +</button>
 
                     {/* Section for Coupons */}
                     <div className='grid grid-cols-1 gap-8 p-4 md:grid-cols-2 lg:grid-cols-3'>
@@ -109,8 +98,8 @@ const Redemptions = () => {
                                 <p className='max-w-full'>Costo puntos: {coupon.valorPuntos}</p>
                                 <p>Estado: {coupon.estado}</p>
                                 <div className='mt-4 space-x-2 text-white'>
-                                    <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon, updateCoupon)}>Editar</button>
-                                    <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => ChangeStatusModal(coupon)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
+                                    <button className='p-2 bg-blue-500 rounded-md w-28 hover:bg-blue-600' onClick={() => EditCouponModal(coupon, setCoupons)}>Editar</button>
+                                    <button className={`w-28 p-2 rounded-md ${coupon.estado === 'Activo' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`} onClick={() => ChangeStatusModal(coupon, coupons, setCoupons)}>{coupon.estado === 'Activo' ? 'Desactivar' : 'Activar'}</button>
                                 </div>
                             </div>
                         ))}
