@@ -89,7 +89,7 @@ export const CreateDailyScheduleModal = async(stylist, currentDate, setSchedule)
             confirmButton: 'text-white p-2 rounded-md hover:bg-blue-600',
             cancelButton: 'text-white p-2 rounded-md hover:bg-red-600',
         },
-        preConfirm: () => {
+        preConfirm: async() => {
             // Obtener los valores seleccionados
             const selectedDay = parseInt(document.getElementById('daySelect').value);
             const selectedStartHour = parseInt(document.getElementById('startHourSelect').value);
@@ -119,7 +119,8 @@ export const CreateDailyScheduleModal = async(stylist, currentDate, setSchedule)
                 horaFinal: endHour
             };
 
-            return createSchedule("Daily", newSchedule).then(async () => {
+            try{
+                const addedSchedule = await createSchedule("Daily", newSchedule);
                 Swal.fire({
                     title: 'Horario creado',
                     text: 'El horario se ha creado correctamente',
@@ -128,14 +129,14 @@ export const CreateDailyScheduleModal = async(stylist, currentDate, setSchedule)
                     showConfirmButton: false
                 });
                 // Agregar el horario con el setSchedule
-                setSchedule((prevSchedule) => [...prevSchedule, newSchedule]);
-            }).catch((error) => {
+                setSchedule((prevSchedule) => [...prevSchedule, addedSchedule]);
+            }catch(error) {
                 Swal.fire({
                     title: 'Error al crear el horario',
                     text: error.message,
                     icon: 'error'
                 });
-            });
+            };
         }
     });
 }
