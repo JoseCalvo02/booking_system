@@ -16,7 +16,13 @@ export const DeleteScheduleModal = (schedule, setSchedule) => {
             try {
                 await deleteSchedule(schedule.horarioID);
                 setSchedule((prevSchedule) => prevSchedule.filter((item) => item.horarioID !== schedule.horarioID));
-                Swal.fire('Eliminado', 'El horario ha sido eliminado', 'success');
+                Swal.fire({
+                    title: 'Horario Eliminado',
+                    text: 'El horario se ha eliminado correctamente',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             } catch (error) {
                 Swal.fire('Error', error.message, 'error');
             }

@@ -76,7 +76,9 @@ export const UpdateScheduleModal = (schedule, setSchedule) => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Horario actualizado',
-                    text: 'El horario se ha actualizado correctamente.'
+                    text: 'El horario se ha actualizado correctamente.',
+                    timer: 2000,
+                    showConfirmButton: false
                 });
             } catch (error) {
                 Swal.fire({

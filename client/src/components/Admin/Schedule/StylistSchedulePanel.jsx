@@ -9,6 +9,7 @@ import { CreateScheduleModal } from '../../Modals/Schedules/CreateScheduleModal'
 import { DeleteScheduleModal } from '../../Modals/Schedules/DeleteScheduleModal';
 import { UpdateScheduleModal } from '../../Modals/Schedules/UpdateScheduleModal';
 import { CreateBlockModal } from '../../Modals/Blocks/CreateBlockModal';
+import { ShowBlocksModal } from '../../Modals/Blocks/ShowBlocksModal';
 // Styles
 import customStyles from '../../../custom/customStyles';
 
@@ -84,7 +85,7 @@ const StylistSchedulePanel = ({stylist}) => {
                         const dayName = getDayName(date); // Obtener el nombre del día
 
                         const matchingSchedule = schedule.find(item => new Date(item.fecha).getUTCDate() === day);
-                        const matchingBlocks = blocks.find(item => new Date(item.fecha).getUTCDate() === day);
+                        const matchingBlocks = blocks.filter(item => new Date(item.fecha).getUTCDate() === day);
 
                         return (
                             <tr key={day} className='hover:bg-gray-100'>
@@ -92,9 +93,9 @@ const StylistSchedulePanel = ({stylist}) => {
                                 <td className={customStyles.td}>{dayName}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaInicio : '-'}</td>
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
-                                {matchingBlocks ? (
+                                {matchingBlocks.length > 0 ? (
                                     <td className={customStyles.td}>
-                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900'>Bloqueos</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900' onClick={() => ShowBlocksModal(matchingBlocks)}>Bloqueos</button>
                                         <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600'>Remover</button>
                                     </td>
                                 ) : (

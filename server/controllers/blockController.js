@@ -15,7 +15,10 @@ export const getBlocksByStylist = async (stylistId, year, month) => {
                 fecha: {
                     gte: startOfMonth,
                     lte: endOfMonth,
-                }
+                },
+            },
+            include: {
+                TipoBloqueo: true,
             }
         });
 
@@ -51,7 +54,6 @@ export const createBlock = async (block) => {
                 },
             }
         });
-        console.log('Blocks:', blocks);
 
         // Check if the new block overlaps with any existing block
         if (checkOverlap(block, blocks)) {
@@ -66,7 +68,10 @@ export const createBlock = async (block) => {
                 horaInicio: block.horaInicio,
                 horaFinal: block.horaFinal,
                 descripcion: block.descripcion,
-            }
+            },
+            include: {
+                TipoBloqueo: true, // Incluye el tipo de bloqueo en la respuesta
+            },
         });
 
         // Send response
