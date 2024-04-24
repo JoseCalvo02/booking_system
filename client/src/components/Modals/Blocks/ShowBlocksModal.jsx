@@ -4,14 +4,10 @@ import withReactContent from 'sweetalert2-react-content';
 export const ShowBlocksModal = (matchingBlocks) => {
     const MySwal = withReactContent(Swal);
 
-    console.log('Blocks:', matchingBlocks.length);
-    console.log('Blocks:', matchingBlocks);
-
     // Función para manejar el cambio de la opción seleccionada en el select
     const handleSelectChange = (e) => {
         const selectedBlockID = e.target.value;
         const selectedBlock = matchingBlocks.find(block => block.bloqueoID.toString() === selectedBlockID);
-        console.log('Selected block:', selectedBlock);
         if (selectedBlock) {
             // Actualizar los valores de los inputs con la información del bloque seleccionado
             document.getElementById('horaInicioInput').value = selectedBlock.horaInicio;
@@ -24,6 +20,8 @@ export const ShowBlocksModal = (matchingBlocks) => {
         title: 'Bloqueos del día',
         html: (
             <div className='flex flex-col max-w-full gap-2 p-2'>
+
+                <h1 className='mb-2 text-xl text-gray-800'>Hay {matchingBlocks.length} bloqueo(s) </h1>
 
                 <div className='flex items-center gap-2 felx-col' >
                     <label htmlFor="matchingBlockSelect" className="text-base text-gray-800 w-[150px]">Tipo de bloqueo:</label>
