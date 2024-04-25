@@ -65,4 +65,15 @@ router.put('/update', async (req, res) => {
     }
 });
 
+// Ruta para obtener los tipos de bloqueos por semana
+router.get('/weekly', async (req, res) => {
+    try {
+        const weeklySchedules = await schedule.getWeeklySchedules();
+        res.json(weeklySchedules);
+    } catch (error) {
+        console.error('Error al obtener los tipos de bloqueos:', error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;

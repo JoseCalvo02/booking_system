@@ -65,3 +65,18 @@ export const updateSchedule = async (schedule) => {
         throw new Error(error.response.data.message);
     }
 }
+
+// Function to get week schedule types
+export const getWeeklySchedules = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/weekly`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}

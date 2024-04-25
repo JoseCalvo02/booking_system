@@ -78,15 +78,15 @@ CREATE TABLE Horarios (
 CREATE TABLE HorariosSemanales (
     horarioSemID INT PRIMARY KEY IDENTITY(1,1),
 	diasLaborables VARCHAR(150),
-    horaInicio TIME,
-    horaFinal TIME
+    horaInicio VARCHAR(5) CHECK (horaInicio LIKE '[0-2][0-9]:[0-5][0-9]'),
+    horaFinal VARCHAR(5) CHECK (horaFinal LIKE '[0-2][0-9]:[0-5][0-9]'),
 );
 
 -- Inserts para los horarios semanales
 INSERT INTO HorariosSemanales (diasLaborables, horaInicio, horaFinal) VALUES
-('Lunes,Martes,Miércoles,Jueves,Viernes', '07:00:00', '15:00:00'),
-('Lunes,Martes,Miércoles,Jueves,Viernes', '08:00:00', '16:00:00'),
-('Lunes,Martes,Miércoles,Jueves,Viernes', '10:00:00', '18:00:00')
+('Lunes,Martes,Miércoles,Jueves,Viernes', '08:00', '16:00'),
+('Lunes,Martes,Miércoles,Jueves,Viernes', '08:00', '17:00'),
+('Lunes,Martes,Miércoles,Jueves,Viernes', '09:00', '17:00')
 
 -- ------------------------------------- Table TipoBloqueo ----------------------------------
 -- La tabla TipoBloqueo almacena los diferentes tipos de bloqueos disponibles.

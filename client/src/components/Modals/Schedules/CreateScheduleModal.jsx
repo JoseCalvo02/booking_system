@@ -4,7 +4,7 @@ import { createSchedule } from '../../../../api/scheduleApi';
 import { daysInMonth, getDayName, formatHour } from '../../../utils/dateUtils';
 
 // Function to choose the type of schedule to create
-export const CreateScheduleModal = async(stylist, currentDate, setSchedule) => {
+export const CreateScheduleModal = async(stylist, currentDate, setSchedule, weeklySchedules) => {
     const { value: scheduleType } = await Swal.fire({
         title: 'Crear Horario',
         text: '¿Qué tipo de horario deseas crear?',
@@ -34,7 +34,7 @@ export const CreateScheduleModal = async(stylist, currentDate, setSchedule) => {
         if (scheduleType === 'daily') {
             CreateDailyScheduleModal(stylist, currentDate, setSchedule);
         } else {
-            CreateWeeklyScheduleModal(stylist, currentDate, setSchedule);
+            CreateWeeklyScheduleModal(stylist, currentDate, setSchedule, weeklySchedules);
         }
     }
 }
@@ -142,15 +142,78 @@ export const CreateDailyScheduleModal = async(stylist, currentDate, setSchedule)
 }
 
 // Function to create a new schedule per week
-export const CreateWeeklyScheduleModal = async(stylist, currentDate, setSchedule) => {
+export const CreateWeeklyScheduleModal = async(stylist, currentDate, setSchedule, weeklySchedules) => {
     const MySwal = withReactContent(Swal);
+    const totalDays = daysInMonth(currentDate.getMonth(), currentDate.getFullYear());
+
+    // Dividir el mes en semanas
+    const weeks = [];
+    for (let i = 1; i <= Math.ceil(totalDays / 7); i++) {
+        let startDay = (i - 1) * 7 + 1;
+        let endDay = Math.min(i * 7, totalDays);
+
+        const totalDayPerWeek = endDay - startDay + 1;
+        if(totalDayPerWeek < 7){
+            // Si la semana no tiene 7 días, se modifica el endDay y se agregan los días restantes empezando desde 1 hasta completar 7 días
+            endDay = 7 - totalDayPerWeek;
+        }
+
+        weeks.push({ startDay, endDay });
+    }
+
+    // Función para manejar el cambio de la semana seleccionada
+    const handleWeekChange = (e) => {
+        const selectedWeekIndex = e.target.value;
+        const selectedWeek = weeks[selectedWeekIndex];
+        // Aquí puedes realizar alguna acción con la semana seleccionada, como mostrar los horarios correspondientes
+        console.log(selectedWeek);
+    };
+
+    const handleScheduleChange = (e) => {
+        const selectedScheduleID = e.target.value;
+        const selectedSchedule = weeklySchedules.find(schedule => schedule.horarioSemID.toString() === selectedScheduleID);
+
+        if (selectedSchedule){
+            document.getElementById('diasLaboradosTextarea').value = selectedSchedule.diasLaborables;
+            document.getElementById('horaInicioInput').value = selectedSchedule.horaInicio;
+            document.getElementById('horaFinalInput').value = selectedSchedule.horaFinal;
+        }
+    }
 
     MySwal.fire({
-        title: `Crear Horario para ${stylist.nombre + ' ' + stylist.apellidos}`,
+        title: `Crear Horario semanal para ${stylist.nombre + ' ' + stylist.apellidos}`,
         html: (
             <div>
                 <div className='flex flex-col max-w-full gap-2 p-2'>
-                    //Agregar horario semanal
+                    <div className='flex items-center gap-2 felx-col'>
+                        <label htmlFor="weekSelect" className="text-base text-gray-800 w-[150px]">Seleccionar semana:</label>
+                        <select id="weekSelect" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" onChange={handleWeekChange}>
+                            {weeks.map((week, index) => (
+                                <option key={index} value={index}>Semana {index + 1}: del {week.startDay} al {week.endDay}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='flex items-center gap-2 felx-col' >
+                        <label htmlFor="daySelect" className="text-base text-gray-800 w-[150px]">Horarios semanales:</label>
+                        <select id="daySelect" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" onClick={handleScheduleChange}>
+                            {weeklySchedules.map(schedule => (
+                                <option key={schedule.horarioSemID} value={schedule.horarioSemID}>Horario: {schedule.horarioSemID}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='flex items-center gap-2 felx-col' >
+                        <label htmlFor="diasLaboradosTextarea" className="text-base text-gray-800 w-[150px]">Días laborados:</label>
+                        <textarea id='diasLaboradosTextarea' className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" defaultValue={weeklySchedules[0].diasLaborables !== '' ? weeklySchedules[0].diasLaborables :'No hay horarios semanales'} readOnly/>
+                    </div>
+                    <div className='flex items-center gap-2 felx-col' >
+                    <label htmlFor="horaInicioInput" className="text-base text-gray-800 w-[150px]">Hora de Inicio:</label>
+                    <input id="horaInicioInput" type="text" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" readOnly defaultValue={weeklySchedules[0].horaInicio !== '' ? weeklySchedules[0].horaInicio :'No hay horarios semanales'}/>
+                </div>
+                {/* Label and input for Hora final */}
+                <div className='flex items-center gap-2 felx-col' >
+                    <label htmlFor="horaFinalInput" className="text-base text-gray-800 w-[150px]">Hora salida:</label>
+                    <input id="horaFinalInput" type="text" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" readOnly defaultValue={weeklySchedules[0].horaFinal !== '' ? weeklySchedules[0].horaFinal :'No hay horarios semanales'}/>
+                </div>
                 </div>
             </div>
         ),

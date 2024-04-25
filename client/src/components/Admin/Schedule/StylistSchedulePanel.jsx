@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MoonLoader from "react-spinners/MoonLoader";
 // Functions / Api / Components / Modals
-import { getSchedulesByStylist } from '../../../../api/scheduleApi';
+import { getSchedulesByStylist, getWeeklySchedules } from '../../../../api/scheduleApi';
 import { getBlocksByStylist, getTypeBlocks } from '../../../../api/blockApi';
 import { MonthNavigator } from './MonthNavigator';
 import { daysInMonth, getDayName } from '../../../utils/dateUtils';
@@ -16,29 +16,44 @@ import customStyles from '../../../custom/customStyles';
 const StylistSchedulePanel = ({stylist}) => {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [schedule, setSchedule] = useState([]);
+    const [weeklySchedules, setWeeklySchedules] = useState(''); // Tipo de horario
     const [blocks, setBlocks] = useState([]); // Bloqueos del estilista
-    const [typeBlocks, setTypeBlocks] = useState(''); // Tipo de bloqueo [Horario, Bloqueo
+    const [typeBlocks, setTypeBlocks] = useState(''); // Tipo de bloqueo
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchSchedule = async () => {
+    useEffect(() => { // Obtener los horarios y bloqueos del estilista en el mes actual
+        const fetchDynamicData = async () => {
             try {
-                const [schedules, blocks, typeBlocks] = await Promise.all([
+                const [schedules, blocks] = await Promise.all([
                     getSchedulesByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1),
-                    getBlocksByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1),
-                    getTypeBlocks()
+                    getBlocksByStylist(stylist.usuarioID, currentDate.getFullYear(), currentDate.getMonth()+1)
                 ]);
                 setSchedule(schedules);
                 setBlocks(blocks);
-                setTypeBlocks(typeBlocks);
 
                 setLoading(false);
             } catch (error) {
                 console.error('Error al obtener el horario:', error.message);
             }
         }
-        fetchSchedule();
+        fetchDynamicData();
     }, [currentDate]);
+
+    useEffect(() => { // Obtener los tipos de bloqueos y horarios semanales
+        const fetchDataTypes = async () => {
+            try {
+                const [weeklySchedules, typeBlocks] = await Promise.all([
+                    getWeeklySchedules(),
+                    getTypeBlocks()
+                ]);
+                setWeeklySchedules(weeklySchedules);
+                setTypeBlocks(typeBlocks);
+            } catch (error) {
+                console.error('Error al obtener los tipos de bloqueos:', error.message);
+            }
+        }
+        fetchDataTypes();
+    }, []);
 
     // Function to handle the change of month in the MonthNavigator component
     const handleChangeMonth = (newDate) => {
@@ -52,7 +67,7 @@ const StylistSchedulePanel = ({stylist}) => {
             <MoonLoader color={'#111827'} loading={loading} size={30} className='ml-4'/> {/* Spinner de carga */}
             <div className='flex justify-end flex-grow gap-2 text-white' >
                 <button className='w-[105px] p-2 bg-green-500 rounded-lg hover:bg-green-600'
-                    onClick={() => CreateScheduleModal(stylist, currentDate, setSchedule)}
+                    onClick={() => CreateScheduleModal(stylist, currentDate, setSchedule, weeklySchedules)}
                 >
                     + Horario
                 </button>

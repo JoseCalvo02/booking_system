@@ -177,10 +177,10 @@ model CuponesCanjeados {
 }
 
 model HorariosSemanales {
-  horarioSemID   Int       @id(map: "PK__Horarios__2A976C8C110134C0") @default(autoincrement())
-  diasLaborables String?   @db.VarChar(150)
-  horaInicio     DateTime? @db.Time
-  horaFinal      DateTime? @db.Time
+  horarioSemID   Int     @id(map: "PK__Horarios__2A976C8CF93B2EA4") @default(autoincrement())
+  diasLaborables String? @db.VarChar(150)
+  horaInicio     String? @db.VarChar(5)
+  horaFinal      String? @db.VarChar(5)
 }
 
 model TipoBloqueo {

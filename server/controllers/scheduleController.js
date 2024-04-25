@@ -106,3 +106,17 @@ export const updateSchedule = async (schedule) => {
         throw new Error(error.message);
     }
 }
+
+// Función para obtener los horarios semanales
+export const getWeeklySchedules = async () => {
+    try {
+        const weeklySchedules = await prisma.HorariosSemanales.findMany();
+
+        console.log(weeklySchedules);
+        // Enviar respuesta
+        return weeklySchedules;
+    } catch (error) {
+        console.error('Error al obtener los tipos de bloqueos:', error.message);
+        throw new Error('Error al obtener los tipos de bloqueos: ' + error.message);
+    }
+}
