@@ -81,3 +81,21 @@ export const createBlock = async (block) => {
         throw new Error(error.message);
     }
 }
+
+// Function to delete a block
+export const deleteBlock = async (blockId) => {
+    try {
+        blockId = parseInt(blockId);
+        await prisma.BloqueoHorarios.delete({
+            where: {
+                bloqueoID: blockId,
+            }
+        });
+
+        // Send response
+        return { message: 'Block deleted' };
+    } catch (error) {
+        console.error('Error deleting block:', error.message);
+        throw new Error(error.message);
+    }
+}

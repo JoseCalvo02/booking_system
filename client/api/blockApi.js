@@ -49,3 +49,18 @@ export const createBlock = async (block) => {
         throw new Error(error.response.data.message);
     }
 }
+
+// Function to delete a block
+export const deleteBlock = async (blockId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.delete(`${API_URL}/delete/${blockId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}

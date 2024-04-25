@@ -95,8 +95,7 @@ const StylistSchedulePanel = ({stylist}) => {
                                 <td className={customStyles.td}>{matchingSchedule ? matchingSchedule.horaFinal : '-'}</td>
                                 {matchingBlocks.length > 0 ? (
                                     <td className={customStyles.td}>
-                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900' onClick={() => ShowBlocksModal(matchingBlocks)}>Bloqueos</button>
-                                        <button className='w-[105px] p-2 mr-2 text-white bg-red-500 rounded-lg hover:bg-red-600'>Remover</button>
+                                        <button className='w-[105px] p-2 mr-2 text-white bg-gray-700 rounded-lg hover:bg-gray-900' onClick={() => ShowBlocksModal(matchingBlocks, setBlocks)}>Bloqueos</button>
                                     </td>
                                 ) : (
                                     <td className={customStyles.td}>-</td>

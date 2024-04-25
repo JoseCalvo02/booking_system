@@ -1,8 +1,15 @@
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { handleDeleteBlock } from './DeleteBlockModal';
 
-export const ShowBlocksModal = (matchingBlocks) => {
+export const ShowBlocksModal = (blocks, setBlocks) => {
     const MySwal = withReactContent(Swal);
+
+    // Ordenar los bloqueos por horaInicio
+    const matchingBlocks = [...blocks].sort((a, b) => {
+        // Comparar las horas de inicio como cadenas de texto
+        return a.horaInicio.localeCompare(b.horaInicio);
+    });
 
     // Función para manejar el cambio de la opción seleccionada en el select
     const handleSelectChange = (e) => {
@@ -26,30 +33,44 @@ export const ShowBlocksModal = (matchingBlocks) => {
                 <div className='flex items-center gap-2 felx-col' >
                     <label htmlFor="matchingBlockSelect" className="text-base text-gray-800 w-[150px]">Tipo de bloqueo:</label>
                     <select id="matchingBlockSelect"  className="flex-grow p-2 origin-bottom border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" onChange={handleSelectChange}>
-                    {matchingBlocks.map(block => (
-                        <option key={block.bloqueoID} value={block.bloqueoID} className='checked:bg-primary checked:text-white'>{block.TipoBloqueo.nombre}</option>
-                    ))}
-                </select>
+                        {matchingBlocks.map(block => (
+                            <option key={block.bloqueoID} value={block.bloqueoID} className='checked:bg-primary checked:text-white'>{block.TipoBloqueo.nombre}</option>
+                        ))}
+                    </select>
                 </div>
-                {/* Based on the selected option display the information of the specific block like: horaInicio, horaFinal and description*/}
+                {/* Label and input for Hora de inicio */}
                 <div className='flex items-center gap-2 felx-col' >
                     <label htmlFor="horaInicioInput" className="text-base text-gray-800 w-[150px]">Hora de Inicio:</label>
                     <input id="horaInicioInput" type="text" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" readOnly defaultValue={matchingBlocks[0].horaInicio}/>
                 </div>
+                {/* Label and input for Hora final */}
                 <div className='flex items-center gap-2 felx-col' >
-                    <label htmlFor="horaFinalInput" className="text-base text-gray-800 w-[150px]">Tipo de bloqueo:</label>
+                    <label htmlFor="horaFinalInput" className="text-base text-gray-800 w-[150px]">Hora Final:</label>
                     <input id="horaFinalInput" type="text" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" readOnly defaultValue={matchingBlocks[0].horaFinal}/>
                 </div>
+                {/* Label and textarea for Descripción */}
                 <div className='flex items-center gap-2 felx-col' >
-                    <label htmlFor="descripcionTextarea" className="text-base text-gray-800 w-[150px]">Tipo de bloqueo:</label>
+                    <label htmlFor="descripcionTextarea" className="text-base text-gray-800 w-[150px]">Descripción:</label>
                     <textarea id="descripcionTextarea" className="flex-grow p-2 border border-gray-500 rounded-md focus:border-blue-500 focus:outline-primary" readOnly defaultValue={matchingBlocks[0].descripcion !== '' ? matchingBlocks[0].descripcion :'No hay descripción disponible'}/>
                 </div>
             </div>
         ),
+        confirmButtonText: 'Cerrar',
+        showCancelButton: true,
+        cancelButtonText: 'Eliminar',
         confirmButtonColor: '#3b82f6',
+        cancelButtonColor: '#ef4444',
         customClass: {
             title: 'text-2xl font-semibold text-gray-800',
             confirmButton: 'text-white p-2 rounded-md hover:bg-blue-600 w-[105px]',
+
         },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            MySwal.close();
+        } else {
+            const selectedBlockID = parseInt(document.getElementById('matchingBlockSelect').value);
+            handleDeleteBlock(selectedBlockID, setBlocks);
+        }
     });
 }

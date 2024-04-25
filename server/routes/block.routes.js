@@ -40,4 +40,17 @@ router.post('/create', async (req, res) => {
     }
 });
 
+// Route to delete a block
+router.delete('/delete/:blockId', async (req, res) => {
+    try {
+        const { blockId } = req.params;
+        await block.deleteBlock(blockId);
+
+        res.json({ message: 'Block deleted' });
+    } catch (error) {
+        console.error('Error deleting block:', error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;
