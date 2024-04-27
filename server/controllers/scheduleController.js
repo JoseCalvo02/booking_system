@@ -120,3 +120,20 @@ export const getWeeklySchedules = async () => {
         throw new Error('Error al obtener los tipos de bloqueos: ' + error.message);
     }
 }
+
+// Función para obtener los horarios por fecha
+export const getSchedulesByDate = async (date) => {
+    try {
+        const schedules = await prisma.Horarios.findMany({
+            where: {
+                fecha: new Date(date)
+            }
+        }); // Obtener los horarios por fecha
+
+        // Enviar respuesta
+        return schedules;
+    } catch (error) {
+        console.error('Error al obtener los horarios:', error.message);
+        throw new Error('Error al obtener los horarios: ' + error.message);
+    }
+}

@@ -80,3 +80,18 @@ export const getWeeklySchedules = async () => {
         throw new Error(error.response.data.message);
     }
 }
+
+// Funcion para obtener los horarios por fecha
+export const getSchedulesByDate = async (date) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/date/${date}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener el horario: ' + error.message);
+    }
+}

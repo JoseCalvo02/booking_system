@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getServices } from '../../../api/serviceApi';
 import { getUsersByType } from '../../../api/userApi';
 import { getRedeemedCoupons } from '../../../api/couponApi';
+import { getSchedulesByDate } from '../../../api/scheduleApi';
 
 function MainContent() {
     const [services, setServices] = useState([]);
@@ -12,6 +13,8 @@ function MainContent() {
     const currentDate = new Date().toISOString().split('T')[0];
     const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
     const [selectedCoupon, setSelectedCoupon] = useState('');
+    const [schedules, setSchedules] = useState([]);
+    const [availableStylists, setAvailableStylists] = useState(stylists);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,15 +29,15 @@ function MainContent() {
 
         const loadRedeemedCoupons = async () => {
             try {
-                const redeemedCoupons = await getRedeemedCoupons(); // Obtener los cupones canjeados de la base de datos
-                const pendientesCoupons = redeemedCoupons.filter(coupon => coupon.estado === "Pendiente"); // Filtrar los cupones con estado "Pendientes"
-                setCuponesCanjeados(pendientesCoupons); // Establecer los cupones pendientes en el estado local
+                const redeemedCoupons = await getRedeemedCoupons();
+                const pendientesCoupons = redeemedCoupons.filter(coupon => coupon.estado === "Pendiente");
+                setCuponesCanjeados(pendientesCoupons);
             } catch (error) {
                 console.error('Error al obtener los cupones canjeados:', error.message);
             }
         };
 
-        loadRedeemedCoupons(); // Llamar a la función para cargar los cupones canjeados
+        loadRedeemedCoupons();
         fetchData();
     }, []);
 
@@ -46,13 +49,37 @@ function MainContent() {
         setSelectedStylist(event.target.value);
     };
 
-    const handleDateChange = (event) => {
-        setSelectedDate(event.target.value);
+    // Manejo del cambio de fecha
+    const handleDateChange = async (event) => {
+        const selectedDate = event.target.value; // Obtener la fecha seleccionada
+
+        setSelectedDate(selectedDate); // Actualizar el estado de la fecha seleccionada
+        try {
+            const schedules = await getSchedulesByDate(selectedDate); // Obtener los horarios para la fecha seleccionada
+            setSchedules(schedules); // Actualizar el estado de los horarios
+
+            // Obtener los IDs de estilistas con horarios activos para la fecha seleccionada
+            const activeStylistIDs = schedules.map(schedule => schedule.estilistaID);
+
+            // Filtrar los estilistas disponibles para la fecha seleccionada
+            const availableStylists = stylists.filter((stylist) => {
+                return activeStylistIDs.includes(stylist.usuarioID);
+            });
+
+            // Actualizar el estado de los estilistas con los disponibles
+            if (selectedStylist !== '') {
+                setSelectedStylist('');
+            }
+            setAvailableStylists(availableStylists); // Usar un estado separado para los estilistas disponibles
+
+        } catch (error) {
+            console.error('Error al obtener los horarios:', error.message);
+        }
     };
 
     const handleCouponChange = (event) => {
         setSelectedCoupon(event.target.value);
-    }
+    };
 
     return (
         <main className="flex flex-col w-full">
@@ -72,12 +99,13 @@ function MainContent() {
                             </option>
                             {services.map((service) => (
                                 <option key={service.servicioID} value={service.nombreServicio}>
-                                    {service.nombreServicio} - Precio - ₡{service.precio}
+                                    {service.nombreServicio} | ₡{service.precio} | {service.tiempoEstimado}
                                 </option>
                             ))}
                         </select>
 
                         <input
+                            disabled={selectedService === ''}
                             type="date"
                             className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             min={currentDate}
@@ -86,21 +114,25 @@ function MainContent() {
                         />
 
                         <select
+                            disabled={selectedDate === ''}
                             value={selectedStylist}
                             onChange={handleStylistChange}
                             className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="" disabled={selectedStylist !== ''} defaultValue hidden className="text-gray-500">
+                            <option value="" disabled={selectedStylist !== ''} defaultValue hidden className="text-gray-900">
                                 Seleccionar estilista
                             </option>
-                            {stylists.map((stylist) => (
+                            {availableStylists.map((stylist) => (
                                 <option key={stylist.usuarioID} value={stylist.nombre}>
                                     {stylist.nombre}
                                 </option>
                             ))}
                         </select>
 
-                        <select className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                        <select className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            disabled={selectedStylist === ''}
+                        >
                             <option value="">Seleccionar hora</option>
                             <option value="">7:00 am</option>
                             <option value="">8:00 am</option>
@@ -113,7 +145,8 @@ function MainContent() {
                             <option value="">4:00 pm</option>
                         </select>
 
-                        <select 
+                        <select
+                            disabled={selectedStylist === ''}
                             value={selectedCoupon}
                             onChange={handleCouponChange}
                             className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -127,7 +160,7 @@ function MainContent() {
                                 </option>
                             ))}
                         </select>
-                        
+
                         <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-800 border border-blue-600 rounded-md md:w-40 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg">
                             Reservar cita
                         </button>

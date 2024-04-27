@@ -76,4 +76,16 @@ router.get('/weekly', async (req, res) => {
     }
 });
 
+// Ruta para obtener los horarios por fecha
+router.get('/date/:date', async (req, res) => {
+    try {
+        const { date } = req.params;
+        const schedules = await schedule.getSchedulesByDate(date);
+        res.json(schedules);
+    } catch (error) {
+        console.error('Error al obtener los horarios:', error.message);
+        res.status(500).json({ message: 'Error al obtener los horarios' });
+    }
+});
+
 export default router;
