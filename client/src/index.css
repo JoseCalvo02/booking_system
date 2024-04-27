@@ -36,3 +36,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: white;
 }
+
+svg circle {
+  stroke-linecap: round;
+}

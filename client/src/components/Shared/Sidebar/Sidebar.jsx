@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { handleLogout } from '../../../../api/authApi';
 import customStyles from '../../../custom/customStyles';
 import {
-    TbLayoutGrid, TbCalendarEvent, TbUserSearch, TbNotebook, TbUserEdit , TbCalendarUser, TbCoins, TbReport, TbSettings, TbLogout2
+    TbLayoutGrid, TbCalendarEvent, TbUserSearch, TbNotebook, TbUserEdit , TbCalendarUser, TbTicket , TbReport, TbSettings, TbLogout2
 } from "react-icons/tb";
 
 const Sidebar = () => {
@@ -90,7 +90,7 @@ const Sidebar = () => {
                             <Link className={`${customStyles.link} ${activeOption === "canjes" && customStyles.activeLink}`}
                                 to="/admin/canjes"
                             >
-                                <TbCoins  size={20}/>
+                                <TbTicket   size={20}/>
                                 <span className={customStyles.span}>Cupones</span>
                             </Link>
                         </li>
