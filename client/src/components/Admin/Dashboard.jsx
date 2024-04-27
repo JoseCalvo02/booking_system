@@ -4,9 +4,10 @@ import { twMerge } from 'tailwind-merge'
 import { getUserStats } from '../../../api/userApi';
 import { getCouponsStats } from '../../../api/couponApi';
 import DashboardTable from '../Tables/DashboardTable';
+import DashboardCards from '../Cards/DashboardCards';
 // Styles & icons
 import customStyles from '../../custom/customStyles';
-import { TbCalendarCheck , TbCalendarX , TbCalendarTime  , TbUsers, TbTicket } from "react-icons/tb";
+import { TbUsers, TbTicket } from "react-icons/tb";
 
 const Dashboard = () => {
     const [userStats, setUserStats] = useState([]);
@@ -33,62 +34,8 @@ const Dashboard = () => {
                 <header className='mb-4 text-xl font-bold'>
                     <h1>Módulo de Citas</h1>
                 </header>
-
-                <section className='flex flex-col gap-4 mb-4 md:flex-row'>
-                    { /* Card #1 */}
-                    <div className={customStyles.insights}>
-                        <TbCalendarX  size={50} className={twMerge(customStyles.dashICon, 'bg-red-400')}/>
-                        <div className='flex flex-row items-center justify-between'>
-                            <div>
-                                <h3>Cantidad (15)</h3>
-                                <h1 className='text-xl font-bold'>Realizadas</h1>
-                            </div>
-                            <div className='relative w-24 h-24 rounded-full'>
-                                <svg className='w-24 h-24'>
-                                    <circle className={customStyles.circle} cx='38' cy='38' r='36'></circle>
-                                </svg>
-                                <div className={customStyles.dashParag}>
-                                    <p>50%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={customStyles.insights}>
-                        <TbCalendarTime  size={50} className={twMerge(customStyles.dashICon, 'bg-yellow-400')}/>
-                        <div className='flex flex-row items-center justify-between'>
-                            <div>
-                                <h3>Cantidad (10)</h3>
-                                <h1 className='text-xl font-bold'>Pendientes(Hoy)</h1>
-                            </div>
-                            <div className='relative w-24 h-24 rounded-full'>
-                                <svg className='w-24 h-24'>
-                                    <circle className={customStyles.circle} cx='38' cy='38' r='36'></circle>
-                                </svg>
-                                <div className={customStyles.dashParag}>
-                                    <p>30%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={customStyles.insights}>
-                        <TbCalendarCheck  size={50} className={twMerge(customStyles.dashICon, 'bg-green-400')}/>
-                        <div className='flex flex-row items-center justify-between'>
-                            <div>
-                                <h3>Cantidad (8)</h3>
-                                <h1 className='text-xl font-bold'>Programadas</h1>
-                            </div>
-                            <div className='relative w-24 h-24 rounded-full'>
-                                <svg className='w-24 h-24'>
-                                    <circle className={customStyles.circle} cx='38' cy='38' r='36'></circle>
-                                </svg>
-                                <div className={customStyles.dashParag}>
-                                    <p>20%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/* Cards with insights */}
+                <DashboardCards />
 
                 {/* Table with citas and schedule module*/}
                 <DashboardTable />

@@ -17,8 +17,8 @@ const customStyles = {
     // Styles used in Dashboard
     insights: 'flex flex-col w-1/3 border border-gray-300 p-4 rounded-3xl bg-white shadow-custom hover:shadow-none transition-all duration-300 ease-in-out',
     dashICon: 'p-2 text-white rounded-2xl',
-    circle: 'fill-none stroke-blue-400 stroke-[12] translate-x-[10px] translate-y-[10px]',
-    dashParag: 'absolute top-0 flex items-center justify-center w-full h-full',
+    circle: 'fill-none stroke-[10] translate-x-[10px] translate-y-[10px]',
+    dashParag: 'absolute top-0 flex items-center justify-center w-full h-full text-sm',
 
     dashBtns: 'flex items-center gap-1 transition-all duration-300 ease-in-out hover:text-blue-400',
 
