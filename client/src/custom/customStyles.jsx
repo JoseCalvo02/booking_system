@@ -15,11 +15,17 @@ const customStyles = {
     th: 'p-2',
     td: 'p-2 border border-gray-200 text-center overflow-x-auto max-w-[100px] overflow-y-auto max-h-[10px] whitespace-nowrap',
     // Styles used in Dashboard
-    insights: 'flex flex-col w-1/3 border border-gray-300 p-4 rounded-3xl bg-white shadow-custom hover:shadow-none',
+    insights: 'flex flex-col w-1/3 border border-gray-300 p-4 rounded-3xl bg-white shadow-custom hover:shadow-none transition-all duration-300 ease-in-out',
     dashICon: 'p-2 text-white rounded-2xl',
     circle: 'fill-none stroke-blue-400 stroke-[12] translate-x-[10px] translate-y-[10px]',
     dashParag: 'absolute top-0 flex items-center justify-center w-full h-full',
+
+    dashBtns: 'flex items-center gap-1 transition-all duration-300 ease-in-out hover:text-blue-400',
+
+    dashTh: 'text-lg h-11',
+    dashTd: ' h-11 overflow-x-auto max-w-[480px] whitespace-nowrap',
     rCard: 'flex p-4 bg-white border border-l-[10px] border-gray-300 rounded-xl shadow-custom hover:shadow-none items-center gap-2',
+    rTitle: 'flex items-center gap-2 mb-4',
 };
 
 export default customStyles;

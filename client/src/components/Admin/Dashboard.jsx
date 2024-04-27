@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-// Functions | API
+// Functions | API | Hooks | Components
 import { getUserStats } from '../../../api/userApi';
 import { getCouponsStats } from '../../../api/couponApi';
+import DashboardTable from '../Tables/DashboardTable';
 // Styles & icons
 import customStyles from '../../custom/customStyles';
-import { TbCalendarCheck , TbCalendarX , TbCalendarTime  , TbUsers, TbTicket  } from "react-icons/tb";
+import { TbCalendarCheck , TbCalendarX , TbCalendarTime  , TbUsers, TbTicket } from "react-icons/tb";
 
 const Dashboard = () => {
     const [userStats, setUserStats] = useState([]);
@@ -89,18 +90,13 @@ const Dashboard = () => {
                     </div>
                 </section>
 
-                {/* Schedules and appoitments tables */}
-                <header className='mb-4 text-xl font-bold'>
-                    <h1>Módulo de Citas</h1>
-                </header>
-
-                <section className='flex flex-col gap-4'>
-                </section>
+                {/* Table with citas and schedule module*/}
+                <DashboardTable />
             </main>
 
             {/* Right Panel */}
             <section className='w-1/4 p-8 bg-white shadow-custom rounded-xl'>
-                <div className='flex items-center gap-2 mb-4'>
+                <div className={customStyles.rTitle}>
                     <TbUsers size={25} />
                     <h1 className='text-lg font-semibold'>Módulo de Clientes </h1>
                 </div>
@@ -117,7 +113,7 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className='flex items-center gap-2 mb-4'>
+                <div className={customStyles.rTitle}>
                     <TbTicket size={25} />
                     <h1 className='text-lg font-semibold'>Módulo de Cupones </h1>
                 </div>

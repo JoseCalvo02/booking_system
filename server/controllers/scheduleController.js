@@ -127,6 +127,14 @@ export const getSchedulesByDate = async (date) => {
         const schedules = await prisma.Horarios.findMany({
             where: {
                 fecha: new Date(date)
+            },
+            include: {
+                Usuarios: {
+                    select: {
+                        nombre: true,
+                        apellidos: true
+                    }
+                }
             }
         }); // Obtener los horarios por fecha
 
