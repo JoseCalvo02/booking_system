@@ -287,5 +287,38 @@ export const changeUserRole = async (userId, newRole) => {
     }
 };
 
+// Función para obtener las estadísticas de los usuarios
+export const getUsersStats = async () => {
+    try {
+        const stats = await prisma.$transaction(async (prisma) => {
+            const totalUsers = await prisma.Usuarios.count({
+                where: {
+                    rolID: 3
+                }
+            }); // Contar el total de usuarios
+            const activeUsers = await prisma.Usuarios.count({ // Contar el total de usuarios activos
+                where: {
+                    rolID: 3,
+                    estado: 'Activo'
+                }
+            });
+            const inactiveUsers = await prisma.Usuarios.count({ // Contar el total de usuarios inactivos
+                where: {
+                    rolID: 3,
+                    estado: 'Inactivo'
+                }
+            });
 
+            return {
+                totalUsers,
+                activeUsers,
+                inactiveUsers
+            };
+        });
 
+        return stats;
+    } catch (error) {
+        console.error("Error en getUsersStats:", error);
+        throw new Error('Error de servidor');
+    }
+};

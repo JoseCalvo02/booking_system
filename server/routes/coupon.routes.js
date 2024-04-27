@@ -82,4 +82,16 @@ router.put("/changeStatus", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// Ruta para obtener los stats de los cupones
+router.get("/stats", async (req, res) => {
+    try {
+        const couponsStats = await coupon.getCouponsStats();
+
+        res.status(200).json(couponsStats);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;

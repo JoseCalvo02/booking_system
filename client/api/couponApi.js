@@ -156,3 +156,19 @@ export const ChangeCouponStatus = async (coupon) => {
         throw new Error(error);
     }
 }
+
+// Function to get the stats of the coupons
+export const getCouponsStats = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/stats`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudieron obtener las estadísticas de los cupones: ${error.response.data.error || error.message}`);
+    }
+}

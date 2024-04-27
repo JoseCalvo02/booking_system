@@ -219,3 +219,34 @@ export const changeStatus = async (cuponId, estado) => {
         throw new Error('Error al desactivar el cupón: ' + error.message);
     }
 }
+
+// Función para obtener los stats de los cupones
+export const getCouponsStats = async () => {
+    try {
+        // Obtener el total de cupones
+        const totalCoupons = await prisma.CuponesCanjeados.count();
+
+        // Obtener el total de cupones activos
+        const pendingCoupons = await prisma.CuponesCanjeados.count({
+            where: {
+                estado: 'Pendiente'
+            }
+        });
+
+        // Obtener el total de cupones inactivos
+        const redeemedCoupons = await prisma.CuponesCanjeados.count({
+            where: {
+                estado: 'Canjeado'
+            }
+        });
+
+        // Enviar respuesta
+        return {
+            totalCoupons,
+            pendingCoupons,
+            redeemedCoupons
+        };
+    } catch (error) {
+        throw new Error('Error al obtener las estadísticas de los cupones: ' + error.message);
+    }
+}

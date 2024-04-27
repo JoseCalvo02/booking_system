@@ -14,6 +14,12 @@ const customStyles = {
     thead: 'sticky top-0 z-10 text-white bg-gray-900',
     th: 'p-2',
     td: 'p-2 border border-gray-200 text-center overflow-x-auto max-w-[100px] overflow-y-auto max-h-[10px] whitespace-nowrap',
+    // Styles used in Dashboard
+    insights: 'flex flex-col w-1/3 border border-gray-300 p-4 rounded-3xl bg-white shadow-custom hover:shadow-none',
+    dashICon: 'p-2 text-white rounded-2xl',
+    circle: 'fill-none stroke-blue-400 stroke-[12] translate-x-[10px] translate-y-[10px]',
+    dashParag: 'absolute top-0 flex items-center justify-center w-full h-full',
+    rCard: 'flex p-4 bg-white border border-l-[10px] border-gray-300 rounded-xl shadow-custom hover:shadow-none items-center gap-2',
 };
 
 export default customStyles;

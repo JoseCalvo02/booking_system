@@ -7,7 +7,7 @@ const API_URL = "/api/user"; // Ruta base para las solicitudes de cliente en el 
 export const getUsersByType = async (type) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.get(`${API_URL}/${type}`, {
+        const response = await axiosInstance.get(`${API_URL}/getUsers/${type}`, {
             headers: {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
@@ -107,7 +107,7 @@ export const desactivateUser = async (userId) => {
 export const changePassword = async (userId, currentPassword, newPassword) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.put(`/api/user/password/${userId}`, { currentPassword, newPassword }, {
+        const response = await axiosInstance.put(`${API_URL}/password/${userId}`, { currentPassword, newPassword }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -152,5 +152,21 @@ export const changeUserRole = async (usuarioID, newRole) => {
         return response.data;
     } catch (error) {
         throw new Error(`No se pudo cambiar el rol del usuario: ${error.response.data.error || error.message}`);
+    }
+}
+
+// Funcion para obtener los stats de los usuarios
+export const getUserStats = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/stats`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudieron obtener las estadísticas de los usuarios: ${error.response.data.error || error.message}`);
     }
 }

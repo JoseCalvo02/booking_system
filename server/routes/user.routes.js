@@ -1,14 +1,13 @@
 import express from "express";
-import { getUsersByType, updateUserEmail, updateUserAddress, updateUserPhone, desactivateUser, changePassword, changeUserStatus, changeUserRole } from "../controllers/userController.js";
-
+import * as Users from "../controllers/userController.js";
 
 const router = express.Router();
 
 // Ruta para obtener todos los usuarios por tipo
-router.get("/:type", async (req, res) => {
+router.get("/getUsers/:type", async (req, res) => {
     try {
         const { type } = req.params;
-        const users = await getUsersByType(type);
+        const users = await Users.getUsersByType(type);
         res.status(200).json(users);
     } catch (error) {
         console.error("Error:", error);
@@ -21,12 +20,12 @@ router.put("/:userId/email", async (req, res) => {
     try {
         const { userId } = req.params;
         const { newEmail } = req.body;
-        // Llamar a la función para actualizar el correo electrónico de un usuario
-        const newToken = await updateUserEmail(userId, newEmail);
+
+        const newToken = await Users.updateUserEmail(userId, newEmail);
         res.status(200).json({ newToken, message: 'Correo electrónico actualizado'});
     } catch (error) {
         console.error("Error:", error);
-        // Enviar mensajes específicos de error al frontend
+
         res.status(error.message === 'El correo electrónico ya está en uso' ? 400 : 500)
             .json({ error: error.message === 'El correo electrónico ya está en uso' ? 'El correo electrónico ya está en uso' : 'Error de servidor' });
     }
@@ -37,8 +36,8 @@ router.put("/:userId/address", async (req, res) => {
     try {
         const { userId } = req.params;
         const { newAddress } = req.body;
-        // Llamar a la función para actualizar la dirección de un usuario
-        const newToken = await updateUserAddress(userId, newAddress);
+
+        const newToken = await Users.updateUserAddress(userId, newAddress);
         res.status(200).json({ newToken, message: 'Dirección actualizada' });
     } catch (error) {
         console.error("Error:", error);
@@ -51,8 +50,8 @@ router.put("/:userId/phone", async (req, res) => {
     try {
         const { userId } = req.params;
         const { newPhone } = req.body;
-        // Llamar a la función para actualizar el teléfono de un usuario
-        const newToken = await updateUserPhone(userId, newPhone);
+
+        const newToken = await Users.updateUserPhone(userId, newPhone);
         res.status(200).json({ newToken, message: 'Teléfono actualizado' });
     } catch (error) {
         console.error("Error:", error);
@@ -64,8 +63,8 @@ router.put("/:userId/phone", async (req, res) => {
 router.put("/desactivate/:userId", async (req, res) => {
     try {
         const { userId } = req.params; // Obtener el userId de los parámetros de la URL
-        // Llamar a la función para desactivar un usuario
-        const newToken = await desactivateUser(userId);
+
+        const newToken = await Users.desactivateUser(userId);
         res.status(200).json({ newToken, message: 'Usuario desactivado' });
     } catch (error) {
         console.error("Error:", error);
@@ -78,21 +77,17 @@ router.put("/password/:userId", async (req, res) => {
     try {
         const { userId } = req.params; // Obtener el userId de los parámetros de la URL
         const { currentPassword, newPassword } = req.body; // Obtener las contraseñas actuales y nuevas del cuerpo de la petición
-        
+
         // Validar que currentPassword y newPassword no estén vacíos
         if (!currentPassword || !newPassword) {
             return res.status(400).json({ error: 'Las contraseñas no pueden estar vacías' });
         }
 
-        // Llamar a la función para cambiar la contraseña de un usuario
-        console.log(userId, currentPassword, newPassword, 'changePassword ROUTE');
-        const newToken = await changePassword(userId, currentPassword, newPassword); // Obtener el nuevo token
-        
-        // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
-        res.status(200).json({ newToken, message: 'Contraseña cambiada exitosamente' }); 
+        const newToken = await Users.changePassword(userId, currentPassword, newPassword); // Obtener el nuevo token
+
+        res.status(200).json({ newToken, message: 'Contraseña cambiada exitosamente' });
     } catch (error) {
         console.error("Error:", error);
-        // Si ocurre un error, enviar un mensaje de error al frontend
         res.status(500).json({ error: 'Error al cambiar la contraseña' });
     }
 });
@@ -104,12 +99,11 @@ router.put("/status/:userId", async (req, res) => {
         const { estado } = req.body; // Obtener el estado del cuerpo de la petición
         // Llamar a la función para cambiar el estado de un usuario
 
-        const updatedUser = await changeUserStatus(userId, estado); // Obtener el usuario actualizado
+        const updatedUser = await Users.changeUserStatus(userId, estado); // Obtener el usuario actualizado
         // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
         res.status(200).json({ updatedUser, message: 'Estado de usuario cambiado exitosamente' });
     } catch (error) {
         console.error("Error:", error);
-        // Si ocurre un error, enviar un mensaje de error al frontend
         res.status(500).json({ error: 'Error al cambiar el estado del usuario' });
     }
 });
@@ -117,16 +111,27 @@ router.put("/status/:userId", async (req, res) => {
 // Funcion para cambiar el rol de un usuario
 router.put("/role/:userId", async (req, res) => {
     try {
-        const { userId } = req.params; // Obtener el userId de los parámetros de la URL
-        const { newRole } = req.body; // Obtener el nuevo rol del cuerpo de la petición
-        // Llamar a la función para cambiar el rol de un usuario
-        const updatedUser = await changeUserRole(userId, newRole); // Obtener el usuario actualizado
-        // Si la función no arroja ningún error, enviar una respuesta exitosa al frontend
+        const { userId } = req.params;
+        const { newRole } = req.body;
+
+        const updatedUser = await Users.changeUserRole(userId, newRole); // Obtener el usuario actualizado
+
         res.status(200).json({ updatedUser, message: 'Rol de usuario cambiado exitosamente' });
     } catch (error) {
         console.error("Error:", error);
-        // Si ocurre un error, enviar un mensaje de error al frontend
         res.status(500).json({ error: 'Error al cambiar el rol del usuario' });
+    }
+});
+
+// Funcion para obtener los stats de los usuarios
+router.get("/stats", async (req, res) => {
+    try {
+        const stats = await Users.getUsersStats();
+
+        res.status(200).json(stats);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: 'Error al obtener los stats de los usuarios' });
     }
 });
 
