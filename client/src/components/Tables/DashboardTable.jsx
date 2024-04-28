@@ -14,6 +14,7 @@ const DashboardTable = () => {
         const fetchData = async () => {
             // Obtener la fecha de hoy en la zona horaria local
             const date = getCurrentDate();
+            console.log(date);
             const schedules = await getSchedulesByDate(date);
             setSchedules(schedules);
         };
@@ -56,13 +57,21 @@ const DashboardTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {schedules.map((schedule, index) => (
-                                <tr className={index === schedules.length - 1 ? '' : 'border-b border-gray-300'} key={schedule.horarioID}>
-                                    <td className={customStyles.dashTd}> {schedule.Usuarios.nombre + " " + schedule.Usuarios.apellidos}</td>
-                                    <td className={customStyles.dashTd}>{schedule.horaInicio}</td>
-                                    <td className={customStyles.dashTd}>{schedule.horaFinal}</td>
+                            {/* Verificar si la lista de horarios está vacía */}
+                            { schedules.length === 0 ? (
+                                <tr>
+                                    <td colSpan="3" className={customStyles.dashTd}>No hay horarios</td>
                                 </tr>
-                            ))}
+                            ) : (
+                                /* Si hay horarios, mapear la lista de horarios */
+                                schedules.map((schedule, index) => (
+                                    <tr className={index === schedules.length - 1 ? '' : 'border-b border-gray-300'} key={schedule.horarioID}>
+                                        <td className={customStyles.dashTd}> {schedule.Usuarios.nombre + " " + schedule.Usuarios.apellidos}</td>
+                                        <td className={customStyles.dashTd}>{schedule.horaInicio}</td>
+                                        <td className={customStyles.dashTd}>{schedule.horaFinal}</td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 ) : (
