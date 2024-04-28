@@ -14,7 +14,8 @@ function MainContent() {
     const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
     const [selectedCoupon, setSelectedCoupon] = useState('');
     const [schedules, setSchedules] = useState([]);
-    const [availableStylists, setAvailableStylists] = useState(stylists);
+    const [availableStylists, setAvailableStylists] = useState([]);
+    const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,29 +50,20 @@ function MainContent() {
         setSelectedStylist(event.target.value);
     };
 
-    // Manejo del cambio de fecha
     const handleDateChange = async (event) => {
-        const selectedDate = event.target.value; // Obtener la fecha seleccionada
-
-        setSelectedDate(selectedDate); // Actualizar el estado de la fecha seleccionada
+        const selectedDate = event.target.value;
+        setSelectedDate(selectedDate);
         try {
-            const schedules = await getSchedulesByDate(selectedDate); // Obtener los horarios para la fecha seleccionada
-            setSchedules(schedules); // Actualizar el estado de los horarios
-
-            // Obtener los IDs de estilistas con horarios activos para la fecha seleccionada
+            const schedules = await getSchedulesByDate(selectedDate);
+            setSchedules(schedules);
             const activeStylistIDs = schedules.map(schedule => schedule.estilistaID);
-
-            // Filtrar los estilistas disponibles para la fecha seleccionada
-            const availableStylists = stylists.filter((stylist) => {
-                return activeStylistIDs.includes(stylist.usuarioID);
-            });
-
-            // Actualizar el estado de los estilistas con los disponibles
+            const availableStylists = stylists.filter((stylist) => activeStylistIDs.includes(stylist.usuarioID));
+            setAvailableStylists(availableStylists);
             if (selectedStylist !== '') {
                 setSelectedStylist('');
             }
-            setAvailableStylists(availableStylists); // Usar un estado separado para los estilistas disponibles
-
+            setAvailableTimeSlots([]); // Clear time slots when the date changes
+            console.log('Horarios:', schedules);
         } catch (error) {
             console.error('Error al obtener los horarios:', error.message);
         }
@@ -80,6 +72,48 @@ function MainContent() {
     const handleCouponChange = (event) => {
         setSelectedCoupon(event.target.value);
     };
+
+    useEffect(() => {
+        if (selectedStylist !== '' && selectedService !== '') {
+            // Obtener la duración del servicio seleccionado y convertirla a tiempo
+            const selectedServiceData = services.find(service => service.nombreServicio === selectedService);
+            const serviceDurationString = selectedServiceData.tiempoEstimado; // Duración en formato de cadena
+            const [hoursString, minutesString] = serviceDurationString.split(':'); // Separar horas y minutos
+            const serviceDuration = parseInt(hoursString) * 60 + parseInt(minutesString); // Duración en minutos
+    
+            // Calcular la hora de inicio y fin del primer horario disponible
+            const stylistID = stylists.find(stylist => stylist.nombre === selectedStylist).usuarioID;
+            const stylistSchedules = schedules.filter(schedule => schedule.estilistaID === stylistID);
+            const startTime = stylistSchedules[0].horaInicio;
+            const endTime = stylistSchedules[0].horaFinal;
+    
+            // Convertir la hora de inicio y fin a objetos Date para cálculos
+            const startDate = new Date(`2000-01-01T${startTime}`);
+            const endDate = new Date(`2000-01-01T${endTime}`);
+    
+            // Array para almacenar los intervalos de tiempo
+            const timeSlots = [];
+    
+            // Iterar desde la hora de inicio hasta la hora final con el intervalo de tiempo calculado
+            let currentTime = startDate;
+            while (currentTime <= endDate) {
+                // Formatear el tiempo actual a una cadena de formato HH:MM
+                const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+                // Agregar el intervalo de tiempo al array
+                timeSlots.push(formattedTime);
+    
+                // Aumentar el tiempo actual por la duración del servicio en minutos
+                currentTime = new Date(currentTime.getTime() + serviceDuration * 60000); // Convertir minutos a milisegundos
+            }
+    
+            setAvailableTimeSlots(timeSlots);
+        }
+    }, [selectedStylist, selectedService, schedules, stylists, services]);
+    
+    
+    
+    
 
     return (
         <main className="flex flex-col w-full">
@@ -129,20 +163,18 @@ function MainContent() {
                             ))}
                         </select>
 
-
-                        <select className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        <select
                             disabled={selectedStylist === ''}
+                            className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            <option value="">Seleccionar hora</option>
-                            <option value="">7:00 am</option>
-                            <option value="">8:00 am</option>
-                            <option value="">9:00 am</option>
-                            <option value="">10:00 am</option>
-                            <option value="">11:00 am</option>
-                            <option value="">1:00 pm</option>
-                            <option value="">2:00 pm</option>
-                            <option value="">3:00 pm</option>
-                            <option value="">4:00 pm</option>
+                            <option value="" defaultValue hidden className="text-gray-500">
+                                Seleccionar hora
+                            </option>
+                            {availableTimeSlots.map((timeSlot) => (
+                                <option key={timeSlot} value={timeSlot}>
+                                    {timeSlot}
+                                </option>
+                            ))}
                         </select>
 
                         <select
