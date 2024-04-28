@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
+// Functions | API | Hooks | Components
+import { getApptsStats } from '../../../api/apptApi';
 // Styles & icons
 import customStyles from '../../custom/customStyles';
 import { TbCalendarCheck , TbCalendarX , TbCalendarTime } from "react-icons/tb";
 
 const DashboardCards = () => {
+    const [apptStats, setApptStats] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const date = new Date();
+            const apptStats = await getApptsStats(date.getMonth() + 1, date.getFullYear());
+
+            setApptStats(apptStats);
+        }
+
+        fetchData();
+    }, []);
+
     // Definir los valores de cantidad específicos para cada card
-    const cantidadRealizadas = 6;
-    const cantidadPendientes = 4;
-    const cantidadProgramadas = 10;
+    const cantidadRealizadas = 4;
+    const cantidadPendientes = 10;
+    const cantidadProgramadas = 6;
 
     // Calcular el total de cantidad
     const totalCantidad = cantidadRealizadas + cantidadPendientes + cantidadProgramadas;

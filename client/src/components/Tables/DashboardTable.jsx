@@ -8,13 +8,13 @@ import { TbMassage, TbClockPlay, TbClockShare, TbClick } from "react-icons/tb";
 
 const DashboardTable = () => {
     const [schedules, setSchedules] = useState([]);
+    const [appointments, setAppointments] = useState([]);
     const [displayContent, setDisplayContent] = useState('schedules');
 
     useEffect(() => {
         const fetchData = async () => {
             // Obtener la fecha de hoy en la zona horaria local
             const date = getCurrentDate();
-            console.log(date);
             const schedules = await getSchedulesByDate(date);
             setSchedules(schedules);
         };
@@ -75,20 +75,35 @@ const DashboardTable = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <table>
+                    <table className='w-full text-center'>
                         <thead>
                             <tr>
-                                <th>Cita</th>
-                                <th>Estilista</th>
-                                <th>Servicio</th>
-                                <th>Actions</th>
+                                <th className={customStyles.dashTh}>Cita</th>
+                                <th className={customStyles.dashTh}>Estilista</th>
+                                <th className={customStyles.dashTh}>Servicio</th>
+                                <th className={customStyles.dashTh}>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                                <td>Cita</td>
-                                <td>Estilista</td>
-                                <td>Servicio</td>
-                                <td>Actions</td>
+                            {/* Verificar si la lista de citas está vacía */}
+                            { appointments.length === 0 ? (
+                                <tr>
+                                    <td colSpan="4" className={customStyles.dashTd}>No hay citas</td>
+                                </tr>
+                            ) : (
+                                /* Si hay citas, mapear la lista de citas */
+                                appointments.map((appointment, index) => (
+                                    <tr key={appointment.citaID}>
+                                        <td>{appointment.citaID}</td>
+                                        <td>{appointment.Usuarios.nombre + " " + appointment.Usuarios.apellidos}</td>
+                                        <td>{appointment.Servicios.nombre}</td>
+                                        <td>
+                                            <button>Editar</button>
+                                            <button>Eliminar</button>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 )}

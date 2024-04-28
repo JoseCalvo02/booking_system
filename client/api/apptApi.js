@@ -31,3 +31,18 @@ export const cancelAppointment = async (appointmentID) => {
         throw new Error(error);
     }
 }
+
+// Obtener las estadísticas de las citas del mes actual
+export const getApptsStats = async (month, year) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/stats/${month}/${year}`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data.stats;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

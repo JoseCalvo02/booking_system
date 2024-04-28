@@ -1,7 +1,6 @@
 // Libraries
 import React, { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { format } from 'date-fns';
 import BarLoader from "react-spinners/BarLoader";
 // Fuctions / Hooks / API / Modals
 import { getCoupons, getRedeemedCoupons } from '../../../api/couponApi';
@@ -9,6 +8,7 @@ import useInputActive from '../../hooks/useInputActive';
 import { CreateCouponModal } from '../Modals/Coupons/CreateCouponModal';
 import { EditCouponModal } from '../Modals/Coupons/EditCouponModal';
 import ChangeStatusModal from '../Modals/Coupons/ChangeStatusModal';
+import { formatDate } from '../../utils/dateUtils';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX  } from "react-icons/tb";
@@ -66,11 +66,6 @@ const Redemptions = () => {
         }
         return true;
     });
-
-    // Función para formatear la fecha en "dd/mm/yyyy"
-    const formatDate = (dateString) => {
-        return format(new Date(dateString), 'dd/MM/yyyy');
-    };
 
     return (
         <div className='w-full h-full p-8 overflow-auto bg-white shadow-custom rounded-xl'>
