@@ -33,4 +33,15 @@ router.get("/stats/:date", async (req, res) => {
     }
 });
 
+// Obtener todas las citas
+router.get("/all", async (req, res) => {
+    try {
+        const appointmentsWithNames = await appt.getAllAppointments();
+
+        res.status(200).json({appointmentsWithNames, message: "Citas cargadas exitosamente"});
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;

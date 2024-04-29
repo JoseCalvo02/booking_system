@@ -101,5 +101,16 @@ router.get('/date/:date/:stylistId', async (req, res) => {
     }
 });
 
+// Ruta para obtener todos los horarios
+router.get('/all', async (req, res) => {
+    try {
+        const schedules = await schedule.getAllSchedules();
+        res.json(schedules);
+    } catch (error) {
+        console.error('Error al obtener los horarios:', error.message);
+        res.status(500).json({ message: 'Error al obtener los horarios' });
+    }
+});
+
 
 export default router;

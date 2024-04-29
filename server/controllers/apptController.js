@@ -98,3 +98,39 @@ export const getApptsStats = async (date) => {
         throw new Error(error);
     }
 }
+
+// Función para obtener todas las citas programadas
+export const getAllAppointments = async () => {
+    try {
+        const appointments = await prisma.Citas.findMany({
+            where: {
+                estadoID: 1
+            }
+        });
+
+        // dame el nombre del cliente y del estilista
+        const appointmentsWithNames = await Promise.all(appointments.map(async (appointment) => {
+            const client = await prisma.Usuarios.findUnique({
+                where: {
+                    usuarioID: appointment.clienteID
+                }
+            });
+            const stylist = await prisma.Usuarios.findUnique({
+                where: {
+                    usuarioID: appointment.estilistaID
+                }
+            });
+
+            return {
+                ...appointment,
+                nombreCliente: client.nombre,
+                nombreEstilista: stylist.nombre
+            };
+        }));
+
+        return appointmentsWithNames;
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+}

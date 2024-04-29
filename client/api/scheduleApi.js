@@ -111,3 +111,18 @@ export const getScheduleByDateAndStylist = async (date, stylistId) => {
         throw new Error('Error al obtener los horarios: ' + error.message);
     }
 }
+
+// Function to get all schedules
+export const getAllSchedules = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/all`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener el horario: ' + error.message);
+    }
+}

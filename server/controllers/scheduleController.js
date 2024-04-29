@@ -163,3 +163,25 @@ export const getScheduleByDateAndStylist = async (stylistId, date) => {
         throw new Error('Error al obtener el horario: ' + error.message);
     }
 }
+
+// Función para obtener todos los horarios
+export const getAllSchedules = async () => {
+    try {
+        const schedules = await prisma.Horarios.findMany({
+            include: {
+                Usuarios: {
+                    select: {
+                        nombre: true,
+                        apellidos: true,
+                    }
+                }
+            }
+        }); // Obtener todos los horarios
+
+        // Enviar respuesta
+        return schedules;
+    } catch (error) {
+        console.error('Error al obtener los horarios:', error.message);
+        throw new Error('Error al obtener los horarios: ' + error.message);
+    }
+}

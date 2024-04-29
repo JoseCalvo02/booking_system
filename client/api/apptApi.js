@@ -46,3 +46,18 @@ export const getApptsStats = async (date) => {
         throw new Error(error);
     }
 }
+
+// Obtener todas las citas
+export const getAllAppointments = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/all`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data.appointmentsWithNames;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
