@@ -33,10 +33,10 @@ export const cancelAppointment = async (appointmentID) => {
 }
 
 // Obtener las estadísticas de las citas del mes actual
-export const getApptsStats = async (month, year) => {
+export const getApptsStats = async (date) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.get(`${API_URL}/stats/${month}/${year}`, {
+        const response = await axiosInstance.get(`${API_URL}/stats/${date}`, {
             headers: {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }

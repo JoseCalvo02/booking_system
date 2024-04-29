@@ -20,4 +20,17 @@ router.get("/appointments/:userId", async (req, res) => {
 // Cancelar una cita de un cliente
 router.delete("/appointment/:appointmentID", appt.cancelAppointment);
 
+// Obtener las estadísticas de las citas del mes actual
+router.get("/stats/:date", async (req, res) => {
+    try {
+        const { date } = req.params;
+
+        const stats = await appt.getApptsStats(date);
+
+        res.status(200).json({stats, message: "Estadísticas cargadas exitosamente"});
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 export default router;

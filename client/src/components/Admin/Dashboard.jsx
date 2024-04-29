@@ -30,10 +30,6 @@ const Dashboard = () => {
     return (
         <>
             <main className='w-3/4 p-8 bg-white shadow-custom rounded-xl'>
-                {/* Module*/}
-                <header className='mb-4 text-xl font-bold'>
-                    <h1>Módulo de Citas | Citas del mes</h1>
-                </header>
                 {/* Cards with insights */}
                 <DashboardCards />
 

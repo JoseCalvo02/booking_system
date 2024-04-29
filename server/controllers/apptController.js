@@ -56,3 +56,48 @@ export const cancelAppointment = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+// Función para obtener las estadísticas de las citas del mes actual getApptsStats
+export const getApptsStats = async (date) => {
+    try {
+        // Obtener el año y mes actual
+        const year = new Date(date).getFullYear();
+        const month = new Date(date).getMonth() + 1;
+        const day = new Date(date).getUTCDate();
+        console.log(year, month, day);
+
+        // Obtener las citas del mes actual
+        const stats = await prisma.$transaction(async (prisma) => {
+            const appointments = await prisma.HorariosReservados.findMany({
+                where: {
+                    dia: {
+                        gte: new Date(Date.UTC(year, month - 1, 1)),
+                        lt: new Date(Date.UTC(year, month, 0))
+                    }
+                }
+            });
+
+            const stats = {
+                citasDelMes: appointments.length,
+                citasPasadas: appointments.filter((appointment) => {
+                    return appointment.dia.getUTCDate() < day;
+                }).length,
+                citasHoy: appointments.filter((appointment) => {
+                    return appointment.dia.getUTCDate() === day;
+                }).length,
+                citasFuturas: appointments.filter((appointment) => {
+                    return appointment.dia.getUTCDate() > day;
+                }).length
+            };
+            return stats;
+        });
+
+        console.log(stats);
+
+        return stats;
+
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
