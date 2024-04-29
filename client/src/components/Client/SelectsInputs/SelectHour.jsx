@@ -5,6 +5,7 @@ import { roundServiceDuration } from '../../../utils/dateUtils';
 const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylistBlocks }) => {
     // Estados para almacenar los datos de los estilistas y horarios disponibles
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
 
     useEffect(() => {
         // Función para generar los segmentos de tiempo disponibles
@@ -29,30 +30,33 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
             const startDateTime = new Date(`2000-01-01T${horaInicio}`);
             const endDateTime = new Date(`2000-01-01T${horaFinal}`);
 
-            console.log(stylistBlocks);
             // Filtrar los bloqueos del horario de la estilista
             const blockedTimeRanges = stylistBlocks.map(block => {
-                const [blockStartHour, blockStartMinute] = block.horaInicio.split(':');
-                const [blockEndHour, blockEndMinute] = block.horaFinal.split(':');
-
-                // Obtener la fecha real de los bloqueos
-                const blockStartDateTime = new Date(block.fecha);
-                console.log(blockStartHour, blockStartMinute)
-                console.log(blockEndHour, blockEndMinute);
-                blockStartDateTime.setHours(parseInt(blockStartHour), parseInt(blockStartMinute), 0, 0);
-                console.log(blockStartDateTime);
-
-                const blockEndDateTime = new Date(block.fecha);
-                blockEndDateTime.setHours(parseInt(blockEndHour), parseInt(blockEndMinute), 0, 0);
-
+                const blockStartDateTime = new Date(`2000-01-01T${block.horaInicio}`);
+                const blockEndDateTime = new Date(`2000-01-01T${block.horaFinal}`);
                 return [blockStartDateTime, blockEndDateTime];
             });
 
-            console.log(blockedTimeRanges);
-
             // Iterar desde la hora de inicio hasta la hora final y agregar los segmentos disponibles
             let currentTime = startDateTime;
-            while (currentTime < endDateTime) { // Cambiar la condición para que sea estrictamente menor que la hora de finalización
+            while (currentTime < endDateTime) {
+                // Encontrar el próximo tiempo disponible después del bloqueo más temprano
+                const nextAvailableTime = blockedTimeRanges.reduce((nextTime, [blockStart, blockEnd]) => {
+                    // Si el bloque termina después del tiempo actual y es el más temprano hasta ahora, actualizar el próximo tiempo disponible
+                    if (blockEnd > currentTime && (nextTime === null || blockStart < nextTime)) {
+                        return blockEnd;
+                    }
+                    return nextTime;
+                }, null);
+
+                // Si hay un próximo tiempo disponible después del bloqueo, establecer currentTime en ese momento
+                if (nextAvailableTime !== null) {
+                    currentTime = new Date(nextAvailableTime);
+                } else {
+                    // Si no hay próximo tiempo disponible después del bloqueo, salir del bucle
+                    break;
+                }
+
                 // Calcular el tiempo final sumando el tiempo estimado del servicio
                 let endTime = new Date(currentTime.getTime() + serviceTimeInMinutes * 60000); // Convertir minutos a milisegundos
 
@@ -61,24 +65,27 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
                     break; // Salir del bucle si el tiempo final excede la hora de salida
                 }
 
-                // Verificar si el segmento está bloqueado
-                const isSegmentBlocked = blockedTimeRanges.some(([blockStart, blockEnd]) => {
-                    return (currentTime >= blockStart && currentTime < blockEnd) || (endTime > blockStart && endTime <= blockEnd);
+                // Verificar si el segmento disponible choca con algún bloque de tiempo
+                const isOverlap = blockedTimeRanges.some(([blockStart, blockEnd]) => {
+                    // Condición 1: El tiempo actual está dentro del bloque de tiempo
+                    const condition1 = currentTime >= blockStart && currentTime < blockEnd;
+                    // Condición 2: El tiempo final está dentro del bloque de tiempo
+                    const condition2 = endTime > blockStart && endTime <= blockEnd;
+                    // Condición 3: El bloque de tiempo está completamente dentro del segmento disponible
+                    const condition3 = currentTime <= blockStart && endTime >= blockEnd;
+
+                    // Si alguna de las condiciones es verdadera, hay solapamiento
+                    return condition1 || condition2 || condition3;
                 });
 
-                // Si el segmento no está bloqueado, agregarlo a la lista de segmentos disponibles
-                if (!isSegmentBlocked) {
+                if (!isOverlap && endTime <= endDateTime) {
                     // Formatear el tiempo actual y el tiempo final a cadenas de formato HH:MM
                     const formattedStartTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const formattedEndTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-                    // Agregar el intervalo de tiempo al array de slots disponibles
-                    availableSlots.push(`${formattedStartTime}-${formattedEndTime}`);
+                    availableSlots.push(`${formattedStartTime}-${formattedEndTime}`)
                 }
-
-                // Aumentar el tiempo actual por el tiempo estimado del servicio en minutos
-                currentTime = new Date(endTime); // Usar el tiempo final como nuevo tiempo actual
             }
+
 
             console.log(availableSlots);
             setAvailableTimeSlots(availableSlots);
@@ -87,11 +94,16 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
         generateAvailableTimeSlots();
     }, [selectedStylist, selectedService, stylistSchedule, stylistBlocks]);
 
+    const handleTimeSlotChange = (event) => {
+        setSelectedTimeSlot(event.target.value);
+    };
 
     return (
         <select
             disabled={selectedStylist === ''}
             className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={selectedTimeSlot} // Establecer el valor seleccionado del select
+            onChange={handleTimeSlotChange}
         >
             <option value="" defaultValue hidden className="text-gray-500">
                 Seleccionar hora
