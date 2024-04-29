@@ -62,7 +62,13 @@ function App() {
             <Route path="profile" element={<Profile />} />
           </Route>
           { /* Rutas protegidas para el rol de estilista */ }
-          <Route path="/stylist" element={userRole  === 'Estilista' || userRole  === 'Administrador' ? <Stylist /> : <Navigate to="/auth" replace />} />
+          <Route path="/stylist" element={userRole  === 'Estilista' || userRole  === 'Administrador' ? <Stylist /> : <Navigate to="/auth" replace />} >
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="citas" element={<Citas />} />
+            <Route path="schedules" element={<Schedules />} />
+            <Route path="profile" element={<Profile />} />
+          </Route>
           { /* Rutas protegidas para el rol de cliente */ }
           <Route path="/client" element={userRole  === 'Cliente' || userRole  === 'Administrador' ? <Client /> : <Navigate to="/auth" replace /> } >
             <Route index element={<ClientHome />} />
