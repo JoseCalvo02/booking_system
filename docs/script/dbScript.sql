@@ -133,7 +133,7 @@ CREATE TABLE Citas (
     CONSTRAINT fk_Citas_clienteID FOREIGN KEY(clienteID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Citas_estilistaID FOREIGN KEY(estilistaID) REFERENCES Usuarios(usuarioID) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_Citas_estadoID FOREIGN KEY(estadoID) REFERENCES EstadoCita(estadoID) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_Citas_cuponID FOREIGN KEY(cuponID) REFERENCES Cupones(cuponID) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_Citas_cuponID FOREIGN KEY(cuponID) REFERENCES CuponesCanjeados(CuponesCanjeados) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 -- ------------------------------------- Table HorariosReservados ----------------------------------
 -- La tabla HorariosReservados almacena los horarios bloqueados debido a citas reservadas.

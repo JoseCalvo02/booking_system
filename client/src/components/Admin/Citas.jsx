@@ -97,7 +97,7 @@ const Citas = () => {
                                 <td className={customStyles.td}>{appt.Usuarios_Estilistas.nombre + ' ' + appt.Usuarios_Estilistas.apellidos}</td>
                                 <td className={customStyles.td}>D</td>
                                 {/** Si no hay cupon imprimir mensaje y si lo hay entonces imprimir  */}
-                                <td className={customStyles.td}>{}</td>
+                                <td className={customStyles.td}>{appt.Cupones ? appt.Cupones.codigo : 'No hay cupón'}</td>
                                 <td className={customStyles.td}>H</td>
                                 <td className={customStyles.td}>
                                     <button className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
