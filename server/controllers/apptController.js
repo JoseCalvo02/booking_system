@@ -195,7 +195,6 @@ export const bookAppointment = async (appointmentData) => {
                     clienteID: clienteID
                 }
             });
-            console.log(puntosCliente.puntosID);
 
             // Generar puntos para el cliente en la tabla PuntosClientes
             await prisma.PuntosClientes.update({
