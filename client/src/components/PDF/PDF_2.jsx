@@ -83,7 +83,7 @@ const PDF_1 = () => {
                   <Text style={styles.tableDataText}>{(cita.HorariosReservados.horaFinal)}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableDataText}></Text>
+                  <Text style={styles.tableDataText}>{(cita.DetallesCita.Servicios.nombreServicio)}</Text>
                 </View>
               </View>
             ))}
