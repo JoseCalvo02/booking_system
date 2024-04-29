@@ -5,8 +5,7 @@ const HorarioModal = async () => {
     Swal.fire({
         title: 'Horario de Atención',
         html: `
-            <p>Lunes a Jueves: 7:00am - 5:00pm</p>
-            <p>Viernes: 7:00am - 3:00pm</p>
+            <p>Lunes a Sabado: 8:00am - 5:00pm</p>
             <p>Domingo: Cerrado</p>
             <br>
             <p>¡Esperamos su visita!</p>
