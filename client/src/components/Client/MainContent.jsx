@@ -14,6 +14,9 @@ function MainContent() {
     // Estados para almacenar los datos de los servicios
     const [services, setServices] = useState([]);
     const [selectedService, setSelectedService] = useState('');
+    // Estados para almacenar los datos de los cupones canjeados
+    const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
+    const [selectedCoupon, setSelectedCoupon] = useState('');
     // Estados para almacenar la fecha seleccionada
     const [selectedDate, setSelectedDate] = useState('');
     // Estados para almacenar los datos de los estilistas
@@ -22,9 +25,6 @@ function MainContent() {
     // Estados para almacenar los datos del horario y bloqueo
     const [stylistSchedule, setStylistSchedule] = useState([]);
     const [stylistBlocks, setStylistBlocks] = useState([]);
-    // Estados para almacenar los datos de los cupones canjeados
-    const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
-    const [selectedCoupon, setSelectedCoupon] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -67,15 +67,15 @@ function MainContent() {
                 <div className="w-full p-6 rounded-lg md:w-auto">
                     <div className="flex flex-wrap justify-center gap-4 p-6 bg-gray-400 rounded-lg shadow-lg md:gap-8 md:ml-6 md:mr-6">
 
-                        <SelectService  services={services} selectedService={selectedService} setSelectedService={setSelectedService} />
+                        <SelectService  services={services} selectedService={selectedService} setSelectedService={setSelectedService}  />
+
+                        <SelectCupon cuponesCanjeados={cuponesCanjeados} selectedService={selectedService} selectedCoupon={selectedCoupon} setSelectedCoupon={setSelectedCoupon}/>
 
                         <DateInput selectedService={selectedService} setAvailableStylists={setAvailableStylists} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
 
                         <SelectStylist selectedDate={selectedDate} availableStylists={availableStylists} selectedStylist={selectedStylist} setSelectedStylist={setSelectedStylist} />
 
                         <SelectHour selectedStylist={selectedStylist} selectedService={selectedService} stylistSchedule={stylistSchedule} stylistBlocks={stylistBlocks} />
-
-                        <SelectCupon />
 
                         <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-800 border border-blue-600 rounded-md md:w-40 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg">
                             Reservar cita

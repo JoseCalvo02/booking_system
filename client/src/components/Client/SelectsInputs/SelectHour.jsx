@@ -29,6 +29,27 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
             const startDateTime = new Date(`2000-01-01T${horaInicio}`);
             const endDateTime = new Date(`2000-01-01T${horaFinal}`);
 
+            console.log(stylistBlocks);
+            // Filtrar los bloqueos del horario de la estilista
+            const blockedTimeRanges = stylistBlocks.map(block => {
+                const [blockStartHour, blockStartMinute] = block.horaInicio.split(':');
+                const [blockEndHour, blockEndMinute] = block.horaFinal.split(':');
+            
+                // Obtener la fecha real de los bloqueos
+                const blockStartDateTime = new Date(block.fecha);
+                console.log(blockStartHour, blockStartMinute)
+                console.log(blockEndHour, blockEndMinute);
+                blockStartDateTime.setHours(parseInt(blockStartHour), parseInt(blockStartMinute), 0, 0);
+                console.log(blockStartDateTime);
+            
+                const blockEndDateTime = new Date(block.fecha);
+                blockEndDateTime.setHours(parseInt(blockEndHour), parseInt(blockEndMinute), 0, 0);
+            
+                return [blockStartDateTime, blockEndDateTime];
+            });
+
+            console.log(blockedTimeRanges);
+
             // Iterar desde la hora de inicio hasta la hora final y agregar los segmentos disponibles
             let currentTime = startDateTime;
             while (currentTime < endDateTime) { // Cambiar la condición para que sea estrictamente menor que la hora de finalización
@@ -40,12 +61,20 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
                     break; // Salir del bucle si el tiempo final excede la hora de salida
                 }
 
-                // Formatear el tiempo actual y el tiempo final a cadenas de formato HH:MM
-                const formattedStartTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                const formattedEndTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                // Verificar si el segmento está bloqueado
+                const isSegmentBlocked = blockedTimeRanges.some(([blockStart, blockEnd]) => {
+                    return (currentTime >= blockStart && currentTime < blockEnd) || (endTime > blockStart && endTime <= blockEnd);
+                });
 
-                // Agregar el intervalo de tiempo al array de slots disponibles
-                availableSlots.push(`${formattedStartTime}-${formattedEndTime}`);
+                // Si el segmento no está bloqueado, agregarlo a la lista de segmentos disponibles
+                if (!isSegmentBlocked) {
+                    // Formatear el tiempo actual y el tiempo final a cadenas de formato HH:MM
+                    const formattedStartTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const formattedEndTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    // Agregar el intervalo de tiempo al array de slots disponibles
+                    availableSlots.push(`${formattedStartTime}-${formattedEndTime}`);
+                }
 
                 // Aumentar el tiempo actual por el tiempo estimado del servicio en minutos
                 currentTime = new Date(endTime); // Usar el tiempo final como nuevo tiempo actual
