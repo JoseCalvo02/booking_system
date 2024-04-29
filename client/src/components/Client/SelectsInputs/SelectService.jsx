@@ -4,13 +4,13 @@ export default function SelectService({ services, selectedService, setSelectedSe
 
     const handleServiceChange = (event) => {
         const serviceID = parseInt(event.target.value);
-        console.log(serviceID);
-        setSelectedService(serviceID);
+        const service = services.find(service => service.servicioID === serviceID);
+        setSelectedService(service);
     };
 
     return (
         <select
-            value={selectedService}
+            value={selectedService.servicioID}
             onChange={handleServiceChange}
             className="w-full p-3 mt-2 mb-2 text-gray-800 bg-white border border-gray-300 rounded-md shadow-md md:w-80 h-14 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >

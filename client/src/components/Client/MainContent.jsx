@@ -22,8 +22,6 @@ function MainContent() {
     // Estados para almacenar los datos del horario y bloqueo
     const [stylistSchedule, setStylistSchedule] = useState([]);
     const [stylistBlocks, setStylistBlocks] = useState([]);
-    // Estados para almacenar los datos de los estilistas y horarios disponibles
-    const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
     // Estados para almacenar los datos de los cupones canjeados
     const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
     const [selectedCoupon, setSelectedCoupon] = useState('');
@@ -75,7 +73,7 @@ function MainContent() {
 
                         <SelectStylist selectedDate={selectedDate} availableStylists={availableStylists} selectedStylist={selectedStylist} setSelectedStylist={setSelectedStylist} />
 
-                        <SelectHour />
+                        <SelectHour selectedStylist={selectedStylist} selectedService={selectedService} stylistSchedule={stylistSchedule} stylistBlocks={stylistBlocks} />
 
                         <SelectCupon />
 
