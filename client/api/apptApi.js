@@ -59,6 +59,21 @@ export const getAllAppointments = async () => {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
+        return response.data.appointments;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+// Obtener todas las citas programadas
+export const getAllPendingAppointments = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/all/pending`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
         return response.data.appointmentsWithNames;
     } catch (error) {
         throw new Error(error);

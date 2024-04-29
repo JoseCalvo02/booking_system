@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import Logo from '../../assets/logo.png';
-import { getAllAppointments } from '../../../api/apptApi';
+import { getAllPendingAppointments } from '../../../api/apptApi';
 
 const PDFAppt = () => {
     const [appointments, setAppointments] = useState([]);
@@ -10,7 +10,7 @@ const PDFAppt = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const allAppointments = await getAllAppointments();
+                const allAppointments = await getAllPendingAppointments();
                 setAppointments(allAppointments);
                 setLoading(false);
             }
