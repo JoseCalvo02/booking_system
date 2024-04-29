@@ -29,7 +29,7 @@ const Reports = () => {
                 <div className={customStyles.repCard}>
                     <TbClipboardList className='w-12 h-12 mx-auto text-red-500' />
                     <h2 className='mb-2 text-xl font-semibold'>Cupones</h2>
-                    <p>Generar reporte de citas por mes.</p>
+                    <p>Generar reporte de cupones por mes.</p>
                     <button className={twMerge(customStyles.repBtn, 'bg-red-500 hover:bg-red-600')}>Generar reporte</button>
                 </div>
             </ section>
