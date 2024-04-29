@@ -71,6 +71,13 @@ function MainContent() {
         };
 
         bookAppointment(appointmentData);
+
+        // Reiniciar los estados a sus valores iniciales o vacíos
+        setSelectedService('');
+        setSelectedCoupon('');
+        setSelectedDate('');
+        setSelectedStylist('');
+        setSelectedTimeSlot('');
     }
 
     return (
@@ -93,7 +100,7 @@ function MainContent() {
                         <SelectHour selectedStylist={selectedStylist} selectedService={selectedService} stylistSchedule={stylistSchedule} stylistBlocks={stylistBlocks} selectedTimeSlot={selectedTimeSlot} setSelectedTimeSlot={setSelectedTimeSlot}/>
 
                         <button className={`w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out ${selectedService === '' || selectedDate === '' || selectedStylist === '' || selectedTimeSlot === '' ? 'bg-gray-400 cursor-not-allowed border' : 'bg-blue-800 border border-blue-600 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg'} md:w-40 rounded-md`}
-                            disabled={selectedService === '' || selectedCoupon === '' || selectedDate === '' || selectedStylist === '' || selectedTimeSlot === ''}
+                            disabled={selectedService === '' || selectedDate === '' || selectedStylist === '' || selectedTimeSlot === ''}
                             onClick={() => handleBookAppointment()}
                         >
                             Reservar cita
