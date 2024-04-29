@@ -254,3 +254,33 @@ export const bookAppointment = async (appointmentData) => {
         throw new Error(error);
     }
 }
+
+// Función para obtener todas las citas de un día específico
+export const getAppointmentsByDate = async (date) => {
+    try {
+        // Obtener las citas del día especificado
+        const appointments = await prisma.HorariosReservados.findMany({
+            where: {
+                dia: new Date(date)
+            },
+            include: {
+                Citas: {
+                    include: {
+                        Usuarios_Clientes: true,
+                        Usuarios_Estilistas: true,
+                        DetallesCita: {
+                            include: {
+                                Servicios: true
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        return appointments;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}

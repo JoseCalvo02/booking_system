@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // Functions | API | Hooks | Components
 import { getCurrentDate } from '../../utils/dateUtils';
 import { getSchedulesByDate } from '../../../api/scheduleApi';
+import { getAppointmentsByDate } from '../../../api/apptApi';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
 import { TbMassage, TbClockPlay, TbClockShare, TbClick } from "react-icons/tb";
@@ -15,8 +16,16 @@ const DashboardTable = () => {
         const fetchData = async () => {
             // Obtener la fecha de hoy en la zona horaria local
             const date = getCurrentDate();
-            const schedules = await getSchedulesByDate(date);
+
+            // Obtener los horarios y citas del día
+            const [schedules, appointments] = await Promise.all([
+                getSchedulesByDate(date),
+                getAppointmentsByDate(date),
+            ]);
+
             setSchedules(schedules);
+            setAppointments(appointments);
+            console.log(appointments);
         };
 
         fetchData();
@@ -31,7 +40,7 @@ const DashboardTable = () => {
                 <button className={customStyles.dashBtns} onClick={() => setDisplayContent('citas')}>Citas del día <TbClick size={25}/></button>
             </header>
 
-            <section className='flex flex-col p-4 max-h-[50vh] overflow-auto transition-all duration-200 ease-in-out bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
+            <section className='flex flex-col p-4 max-h-[45vh] overflow-auto transition-all duration-200 ease-in-out bg-white border border-gray-300 rounded-xl shadow-custom hover:shadow-none'>
                 {displayContent === 'schedules' ? (
                     <table className='w-full text-center'>
                         <thead>
@@ -78,10 +87,11 @@ const DashboardTable = () => {
                     <table className='w-full text-center'>
                         <thead>
                             <tr>
-                                <th className={customStyles.dashTh}>Cita</th>
+                                <th className={customStyles.dashTh}>Cliente</th>
                                 <th className={customStyles.dashTh}>Estilista</th>
                                 <th className={customStyles.dashTh}>Servicio</th>
-                                <th className={customStyles.dashTh}>Actions</th>
+                                <th className={customStyles.dashTh}>Inicio</th>
+                                <th className={customStyles.dashTh}>Final</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,14 +103,12 @@ const DashboardTable = () => {
                             ) : (
                                 /* Si hay citas, mapear la lista de citas */
                                 appointments.map((appointment, index) => (
-                                    <tr key={appointment.citaID}>
-                                        <td>{appointment.citaID}</td>
-                                        <td>{appointment.Usuarios.nombre + " " + appointment.Usuarios.apellidos}</td>
-                                        <td>{appointment.Servicios.nombre}</td>
-                                        <td>
-                                            <button>Editar</button>
-                                            <button>Eliminar</button>
-                                        </td>
+                                    <tr className={index === appointment.length - 1 ? '' : 'border-b border-gray-300'}  key={appointment.citaID}>
+                                        <td className={customStyles.dashTd}>{appointment.Citas.Usuarios_Clientes.nombre + ' ' + appointment.Citas.Usuarios_Clientes.apellidos}</td>
+                                        <td className={customStyles.dashTd}>{appointment.Citas.Usuarios_Estilistas.nombre + ' ' + appointment.Citas.Usuarios_Estilistas.apellidos}</td>
+                                        <td className={customStyles.dashTd}>{appointment.Citas.DetallesCita.Servicios.nombreServicio}</td>
+                                        <td className={customStyles.dashTd}>{appointment.horaInicio}</td>
+                                        <td className={customStyles.dashTd}>{appointment.horaFinal}</td>
                                     </tr>
                                 ))
                             )}

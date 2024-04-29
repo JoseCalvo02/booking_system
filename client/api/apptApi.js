@@ -103,3 +103,18 @@ export const bookAppointment = async (appointmentData) => {
         throw new Error(error);
     }
 }
+
+// Obtener citas de un dia especifico
+export const getAppointmentsByDate = async (date) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/date/${date}`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data.appointments;
+    } catch (error) {
+        throw new Error(error);
+    }
+}

@@ -67,5 +67,18 @@ router.post("/create/appoitnment", async (req, res) => {
     }
 });
 
+// Ruta para obtener todas las citas de un dia especifico
+router.get("/date/:date", async (req, res) => {
+    try {
+        const { date } = req.params;
+
+        const appointments = await appt.getAppointmentsByDate(date);
+
+        res.status(200).json({ appointments, message: "Citas cargadas exitosamente" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Exportar el router
 export default router;
