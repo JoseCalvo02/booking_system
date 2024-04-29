@@ -3,6 +3,7 @@ import BarLoader from "react-spinners/BarLoader";
 // Functions / Api / Hooks / Modals
 import useInputActive from '../../hooks/useInputActive';
 import { getAllAppointments } from '../../../api/apptApi';
+import { formatDate } from '../../utils/dateUtils';
 // Styles & Icons
 import customStyles from '../../custom/customStyles';
 import { TbUserSearch, TbFilterX } from "react-icons/tb";
@@ -36,11 +37,13 @@ const Citas = () => {
             return (
                 searchRegex.test(appointment.citaID.toString()) ||
                 searchRegex.test(appointment.Usuarios_Clientes.apellidos) ||
+                searchRegex.test(formatDate(appointment.HorariosReservados.dia)) ||
                 searchRegex.test(appointment.Usuarios_Clientes.nombre) ||
                 searchRegex.test(`${appointment.Usuarios_Clientes.nombre} ${appointment.Usuarios_Clientes.apellidos}`) ||
                 searchRegex.test(appointment.Usuarios_Estilistas.apellidos) ||
                 searchRegex.test(appointment.Usuarios_Estilistas.nombre) ||
                 searchRegex.test(`${appointment.Usuarios_Estilistas.nombre} ${appointment.Usuarios_Estilistas.apellidos}`)
+
             );
         }
         return true;
@@ -83,9 +86,11 @@ const Citas = () => {
                             <th className={customStyles.th}>Cliente</th>
                             <th className={customStyles.th}>Estilista</th>
                             <th className={customStyles.th}>Servicio</th>
-                            <th className={customStyles.th}>Cupon</th>
+                            <th className={customStyles.th}>Fecha</th>
+                            <th className={customStyles.th}>Inicio</th>
+                            <th className={customStyles.th}>Final</th>
+                            <th className={customStyles.th}>CuponID</th>
                             <th className={customStyles.th}>Estado</th>
-                            <th className={customStyles.th}>Actions</th>
                         </tr>
                     </thead>
                     <tbody className='overflow-x-auto'>
@@ -95,13 +100,12 @@ const Citas = () => {
                                 <td className={customStyles.td}>{appt.citaID}</td>
                                 <td className={customStyles.td}>{appt.Usuarios_Clientes.nombre + ' ' + appt.Usuarios_Clientes.apellidos}</td>
                                 <td className={customStyles.td}>{appt.Usuarios_Estilistas.nombre + ' ' + appt.Usuarios_Estilistas.apellidos}</td>
-                                <td className={customStyles.td}>D</td>
-                                {/** Si no hay cupon imprimir mensaje y si lo hay entonces imprimir  */}
-                                <td className={customStyles.td}>{appt.Cupones ? appt.Cupones.codigo : 'No hay cupón'}</td>
-                                <td className={customStyles.td}>H</td>
-                                <td className={customStyles.td}>
-                                    <button className='w-12 p-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600'>Rol</button>
-                                </td>
+                                <td className={customStyles.td}>{appt.DetallesCita.Servicios.nombreServicio}</td>
+                                <td className={customStyles.td}>{formatDate(appt.HorariosReservados.dia)}</td>
+                                <td className={customStyles.td}>{appt.HorariosReservados.horaInicio}</td>
+                                <td className={customStyles.td}>{appt.HorariosReservados.horaFinal}</td>
+                                <td className={customStyles.td}>{appt.Cupones ? appt.Cupones.cuponCanjeadoID : 'No hay cupón'}</td>
+                                <td className={customStyles.td}>{appt.EstadoCita.nombre}</td>
                             </tr>
                         ))}
                     </tbody>

@@ -115,8 +115,16 @@ export const getAllAppointments = async () => {
                 Cupones: true,
                 Usuarios_Clientes: true,
                 Usuarios_Estilistas: true,
+                EstadoCita: true,
+                HorariosReservados: true,
+                DetallesCita: {
+                    include: {
+                        Servicios: true
+                    }
+                }
             }
         });
+
         return appointments;
     }
     catch (error) {
