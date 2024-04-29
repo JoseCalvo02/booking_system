@@ -59,6 +59,7 @@ export const getAllAppointments = async () => {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
+
         return response.data.appointments;
     } catch (error) {
         throw new Error(error);

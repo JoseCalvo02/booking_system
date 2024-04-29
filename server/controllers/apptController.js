@@ -109,29 +109,14 @@ export const getApptsStats = async (date) => {
 // Función para obtener todas las citas getAllAppointments
 export const getAllAppointments = async () => {
     try {
-        const appointments = await prisma.Citas.findMany();
-
-        // dame el nombre del cliente y del estilista
-        const appointmentsWithNames = await Promise.all(appointments.map(async (appointment) => {
-            const client = await prisma.Usuarios.findUnique({
-                where: {
-                    usuarioID: appointment.clienteID
-                }
-            });
-            const stylist = await prisma.Usuarios.findUnique({
-                where: {
-                    usuarioID: appointment.estilistaID
-                }
-            });
-
-            return {
-                ...appointment,
-                nombreCliente: client.nombre,
-                nombreEstilista: stylist.nombre
-            };
-        }));
-
-        return appointmentsWithNames;
+        // Obtener todas las citas e incluir los datos de los usuarios y estilistas
+        const appointments = await prisma.Citas.findMany({
+            include: {
+                Usuarios_Citas_clienteIDToUsuarios: true,
+                Usuarios_Citas_estilistaIDToUsuarios: true,
+            }
+        });
+        return appointments;
     }
     catch (error) {
         throw new Error(error);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAppointments } from '../../../api/apptApi';
+import { getAllAppointments } from '../../../api/apptApi';
 
 const Citas = () => {
     const [appointments, setAppointments] = useState([]);
@@ -8,8 +8,9 @@ const Citas = () => {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const appointments = await getAppointments();
+                const appointments = await getAllAppointments();
                 setAppointments(appointments);
+                console.log(appointments);
                 setLoading(false);
             } catch (error) {
                 console.error('Error al obtener las citas:', error.message);
