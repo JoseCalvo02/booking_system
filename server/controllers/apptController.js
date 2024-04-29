@@ -1,40 +1,50 @@
 import prisma from "../prisma/prisma.js";
 
-// Función para obtener todas las citas que tenga estado 1 del usuario logueado getAppointments
+// Función para obtener todas las citas que tenga estado 1 del usuario logueado
 export const getAppointments = async (userId) => {
     try {
         // Obtener el ID del usuario
         userId = parseInt(userId);
 
-        const appointments = await prisma.$transaction(async (prisma) => {
-            const appointments = await prisma.Citas.findMany({
+        // Obtener todas las citas del usuario con estado 1
+        const appointments = await prisma.Citas.findMany({
+            where: {
+                clienteID: userId,
+                estadoID: 1
+            }, 
+            include: {
+                HorariosReservados: true,
+                DetallesCita: {
+                    include: {
+                        Servicios: true
+                    }
+                }
+            }
+        });
+        console.log(appointments.DetallesCita);
+
+        // Obtener el nombre del estilista
+        const appointmentsWithNames = await Promise.all(appointments.map(async (appointment) => {
+            const stylist = await prisma.Usuarios.findUnique({
                 where: {
-                    clienteID: userId,
-                    estadoID: 1
+                    usuarioID: appointment.estilistaID
                 }
             });
 
-            const appointmentsWithStylist = await Promise.all(appointments.map(async (appointment) => {
-                const stylist = await prisma.Usuarios.findUnique({
-                    where: {
-                        usuarioID: appointment.estilistaID
-                    }
-                });
-                return {
-                    ...appointment,
-                    nombreEstilista: stylist.nombre
-                };
-            }));
-            return appointmentsWithStylist;
-        });
+            return {
+                ...appointment,
+                nombreEstilista: stylist.nombre
+            };
+        }));
 
-        // Enviar respuesta
-        return appointments;
-    }
-    catch (error) {
-        throw new Error('Error de servidor:', error);
+
+        return appointmentsWithNames;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
     }
 }
+
 
 // Función para cancelar una cita cancelAppointment
 export const cancelAppointment = async (req, res) => {

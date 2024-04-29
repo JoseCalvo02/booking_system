@@ -2,7 +2,7 @@ import axiosInstance from "../config/axiosConfig";
 
 const API_URL = "/api/appt"; // Ruta base para las solicitudes de citas en el backend
 
-// Obtener todas las citas del cliente logueado
+// Obtener las citas de un usuario
 export const getAppointments = async (userId) => {
     try {
         const token = localStorage.getItem('token');
@@ -11,11 +11,13 @@ export const getAppointments = async (userId) => {
                 Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
             }
         });
-        return response.data.appointments;
+        console.log(response.data.appointments);
+        return response.data.appointments; // Devuelve el arreglo de citas
     } catch (error) {
         throw new Error(error);
     }
 }
+
 
 // Cancelar una cita de un cliente
 export const cancelAppointment = async (appointmentID) => {

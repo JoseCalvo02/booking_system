@@ -35,6 +35,7 @@ function CitasPage() {
             console.error("Error al cargar las citas:", error);
         }
     }
+    console.log(citas); 
 
     // funcion para mostrar el modal de cancelar cita y recarga la pagina al cancelar la cita para actualizar la lista de citas
     const handleCancel = async (appointmentID) => {
@@ -66,7 +67,10 @@ function CitasPage() {
                                     Fecha de la Cita
                                 </th>
                                 <th scope="col" className="px-6 py-3 md:px-8">
-                                    Hora de la Cita
+                                    Hora Inicio
+                                </th>
+                                <th scope="col" className="px-6 py-3 md:px-8">
+                                    Hora Final 
                                 </th>
                                 <th scope="col" className="px-6 py-3 md:px-8">
                                     Servicio
@@ -89,17 +93,22 @@ function CitasPage() {
                                     </td>
                                     <td className="px-6 md:px-8">
                                         <div className="flex items-center">
-                                            <p>{new Date(cita.fechaCita).toISOString().split('T')[0]}</p>
+                                            <p>{new Date(cita.HorariosReservados.dia).toISOString().split('T')[0]}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 md:px-8">
                                         <div className="flex items-center">
-                                        <p>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</p>
+                                        <p>{cita.HorariosReservados.horaInicio}</p>
+                                        </div>
+                                    </td>
+                                    <td className="px-6 md:px-8">
+                                        <div className="flex items-center">
+                                        <p>{cita.HorariosReservados.horaFinal}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 md:px-8 ">
                                         <div className="flex items-center">
-                                            <p>{cita.servicioCita}</p>
+                                            <p>{cita.nombreServicio}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 md:px-8 ">
@@ -109,9 +118,6 @@ function CitasPage() {
                                     </td>
                                     <td className="p-2 px-6 md:px-8">
                                         <div className="flex items-center justify-center space-x-3">
-                                            <button onClick={handleReprogram} className="px-6 py-2 font-medium text-white rounded-lg bg-primary hover:bg-primary_h md:w-[200px]">
-                                                Reprogramar
-                                            </button>
                                             <button onClick={() => handleCancel(cita.citaID)} className="px-6 py-2 font-medium text-white rounded-lg bg-red-700 y hover:bg-red-500 md:w-[200px]">
                                                 Cancelar
                                             </button>

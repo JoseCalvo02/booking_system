@@ -53,7 +53,7 @@ model Citas {
   Usuarios_Citas_clienteIDToUsuarios   Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
   EstadoCita                           EstadoCita?         @relation(fields: [estadoID], references: [estadoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estadoID")
   Usuarios_Citas_estilistaIDToUsuarios Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
-  DetallesCita                         DetallesCita[]
+  DetallesCita                         DetallesCita?
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
 }
@@ -199,9 +199,8 @@ model sysdiagrams {
 }
 
 model DetallesCita {
-  detalleID  Int        @id(map: "PK__Detalles__4C49966D1C21A80F") @default(autoincrement())
-  citaID     Int?
+  citaID     Int        @id(map: "PK__Detalles__A9534FECFF0A163D") @default(autoincrement())
   servicioID Int?
-  Citas      Citas?     @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_citaID")
+  Citas      Citas      @relation(fields: [citaID], references: [citaID], onUpdate: NoAction, map: "fk_DetallesCita_citaID")
   Servicios  Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_servicioID")
 }
