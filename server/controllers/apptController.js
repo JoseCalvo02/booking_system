@@ -92,8 +92,6 @@ export const getApptsStats = async (date) => {
             return stats;
         });
 
-        console.log(stats);
-
         return stats;
 
     } catch (error) {

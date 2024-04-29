@@ -19,13 +19,16 @@ const customStyles = {
     dashICon: 'p-2 text-white rounded-2xl',
     circle: 'fill-none stroke-[10] translate-x-[10px] translate-y-[10px]',
     dashParag: 'absolute top-0 flex items-center justify-center w-full h-full text-sm',
-
     dashBtns: 'flex items-center gap-1 transition-all duration-300 ease-in-out hover:text-blue-400',
-
     dashTh: 'text-lg h-11',
     dashTd: ' h-11 overflow-x-auto max-w-[480px] whitespace-nowrap',
     rCard: 'flex p-4 bg-white border border-l-[10px] border-gray-300 rounded-xl shadow-custom hover:shadow-none items-center gap-2',
     rTitle: 'flex items-center gap-2 mb-4',
+
+    // Styles used in Reports
+    repCard: 'content-center p-4 text-center border border-gray-300 rounded-3xl bg-red-white shadow-custom hover:shadow-none h-72',
+    repBtn: 'py-2 px-4 m-4 text-white rounded-xl text-md lg:text-lg',
+
 };
 
 export default customStyles;
