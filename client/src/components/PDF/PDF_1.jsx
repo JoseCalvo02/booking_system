@@ -66,7 +66,7 @@ const PDF_1 = () => {
         <View style={styles.userData}>
           <Text style={styles.userDataText}>Nombre: {userData.nombre + ' ' + userData.apellido}</Text>
           <Text style={styles.userDataText}>Correo: {userData.correo}</Text>
-          <Text style={styles.userDataText}>Fecha última Cita: {ultimaCita ? new Date(ultimaCita.fechaCita).toISOString().split('T')[0] : 'No hay citas'}</Text>
+          <Text style={styles.userDataText}>Fecha última Cita: {ultimaCita ? new Date(ultimaCita.HorariosReservados.dia).toISOString().split('T')[0] : 'No hay citas'}</Text>
           <Text style={styles.userDataText}>Último Servicio Utilizado: {ultimaCita ? ultimaCita.servicioCita : 'No hay citas'}</Text>
           <Text style={styles.userDataText}>País de Conexión: {country + ', ' + region + ', ' + city}</Text>
           <Text style={styles.userDataText}>Dirección IP: {ipAddress}</Text>

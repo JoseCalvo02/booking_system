@@ -59,7 +59,10 @@ const PDF_1 = () => {
                 <Text style={styles.tableHeaderText}>Estilista</Text>
               </View>
               <View style={styles.tableColHeader}>
-                <Text style={styles.tableHeaderText}>Hora Cita</Text>
+                <Text style={styles.tableHeaderText}>Hora Inicio</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableHeaderText}>Hora Final</Text>
               </View>
               <View style={styles.tableColHeader}>
                 <Text style={styles.tableHeaderText}>Servicio</Text>
@@ -68,16 +71,19 @@ const PDF_1 = () => {
             {citas.map((cita) => (
               <View style={styles.tableRow} key={cita.citaID}>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableDataText}>{new Date(cita.fechaCita).toISOString().split('T')[0]}</Text>
+                  <Text style={styles.tableDataText}>{new Date(cita.HorariosReservados.dia).toISOString().split('T')[0]}</Text>
                 </View>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableDataText}>{cita.nombreEstilista}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableDataText}>{new Date(cita.horaCita).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second: '2-digit'})}</Text>
+                  <Text style={styles.tableDataText}>{(cita.HorariosReservados.horaInicio)}</Text>
                 </View>
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableDataText}>{cita.servicioCita}</Text>
+                  <Text style={styles.tableDataText}>{(cita.HorariosReservados.horaFinal)}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableDataText}></Text>
                 </View>
               </View>
             ))}
