@@ -64,3 +64,18 @@ export const deleteBlock = async (blockId) => {
         throw new Error(error.response.data.message);
     }
 }
+
+// Funcion para obtener los blockes por fecha y estilista
+export const getBlocksByDateAndStylist = async (date, stylistId) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/date/${date}/${stylistId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener los bloqueos: ' + error.message);
+    }
+}

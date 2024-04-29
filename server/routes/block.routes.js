@@ -53,4 +53,19 @@ router.delete('/delete/:blockId', async (req, res) => {
     }
 });
 
+//Ruta para obtener todos los bloques por estilista y fecha
+router.get('/date/:date/:stylistId', async (req, res) => {
+    try {
+        const { date, stylistId } = req.params;
+
+        const stylistBlocks = await block.getBlocksByDateAndStylist(stylistId, date);
+        res.json(stylistBlocks);
+    } catch (error) {
+        console.error('Error getting blocks:', error.message);
+        res.status(500).json({ message: 'Error getting blocks' });
+    }
+});
+
+
+
 export default router;

@@ -99,3 +99,26 @@ export const deleteBlock = async (blockId) => {
         throw new Error(error.message);
     }
 }
+
+// Function to get all blocks by stylist and date
+export const getBlocksByDateAndStylist = async (stylistId, date) => {
+    try {
+        stylistId = parseInt(stylistId);
+
+        const blocks = await prisma.BloqueoHorarios.findMany({
+            where: {
+                estilistaID: stylistId,
+                fecha: new Date(date),
+            },
+            include: {
+                TipoBloqueo: true,
+            }
+        });
+
+        // Send response
+        return blocks;
+    } catch (error) {
+        console.error('Error getting blocks:', error.message);
+        throw new Error('Error getting blocks: ' + error.message);
+    }
+}

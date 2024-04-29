@@ -112,7 +112,6 @@ export const getWeeklySchedules = async () => {
     try {
         const weeklySchedules = await prisma.HorariosSemanales.findMany();
 
-        console.log(weeklySchedules);
         // Enviar respuesta
         return weeklySchedules;
     } catch (error) {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getServices } from '../../../api/serviceApi';
 import { getRedeemedCoupons } from '../../../api/couponApi';
 import { getScheduleByDateAndStylist } from '../../../api/scheduleApi';
+import { getBlocksByDateAndStylist } from '../../../api/blockApi';
 
 import DateInput from './SelectsInputs/DateInput';
 import SelectService from './SelectsInputs/SelectService';
@@ -18,10 +19,11 @@ function MainContent() {
     // Estados para almacenar los datos de los estilistas
     const [availableStylists, setAvailableStylists] = useState([]);
     const [selectedStylist, setSelectedStylist] = useState('');
+    // Estados para almacenar los datos del horario y bloqueo
+    const [stylistSchedule, setStylistSchedule] = useState([]);
+    const [stylistBlocks, setStylistBlocks] = useState([]);
     // Estados para almacenar los datos de los estilistas y horarios disponibles
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-    // Estados para almacenar los datos de los horarios
-    const [stylistSchedule, setStylistSchedule] = useState([]);
     // Estados para almacenar los datos de los cupones canjeados
     const [cuponesCanjeados, setCuponesCanjeados] = useState([]);
     const [selectedCoupon, setSelectedCoupon] = useState('');
@@ -43,17 +45,18 @@ function MainContent() {
 
     useEffect(() => {
         if (selectedService !== '' && selectedDate !== '' && selectedStylist !== '') {
-            try {
-                const fetchData = async () => {
+            const fetchData = async () => {
+                try{
                     // Obtener el horario del estilista seleccionado en la fecha seleccionada
-                    const stylistSchedule = await getScheduleByDateAndStylist(selectedDate, selectedStylist);
+                    const [stylistSchedule, stylistBlocks] = await Promise.all([getScheduleByDateAndStylist(selectedDate, selectedStylist), getBlocksByDateAndStylist(selectedDate, selectedStylist)]);
                     setStylistSchedule(stylistSchedule);
-                };
+                    setStylistBlocks(stylistBlocks);
+                } catch (error) {
+                    console.error('Error al obtener los datos:', error.message);
+                }
+            };
 
-                fetchData();
-            } catch (error) {
-                console.error('Error al obtener los horarios:', error.message);
-            }
+            fetchData();
         }
     }, [selectedDate, selectedStylist]);
 
