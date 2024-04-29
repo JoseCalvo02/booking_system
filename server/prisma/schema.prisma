@@ -8,7 +8,7 @@ datasource db {
 }
 
 model ActividadCliente {
-  actividadID    Int       @id(map: "PK__Activida__E4EF86949FA441E5") @default(autoincrement())
+  actividadID    Int       @id(map: "PK__Activida__E4EF869453E3E960") @default(autoincrement())
   clienteID      Int?
   ultimaConexion DateTime? @db.DateTime
   ultimaCitaID   Int?
@@ -44,18 +44,16 @@ model BloqueoHorarios {
 }
 
 model Citas {
-  citaID                               Int                 @id(map: "PK__Citas__A9534FECD64FD7E3") @default(autoincrement())
+  citaID                               Int                 @id(map: "PK__Citas__A9534FEC2F99141B") @default(autoincrement())
   clienteID                            Int?
   estilistaID                          Int?
   comentarios                          String?             @db.VarChar(150)
   estadoID                             Int?
-  fechaCita                            DateTime?           @db.Date
-  horaCita                             DateTime?           @db.Time
-  servicioCita                         String?             @db.VarChar(20)
   ActividadCliente                     ActividadCliente[]
   Usuarios_Citas_clienteIDToUsuarios   Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
   EstadoCita                           EstadoCita?         @relation(fields: [estadoID], references: [estadoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estadoID")
   Usuarios_Citas_estilistaIDToUsuarios Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
+  DetallesCita                         DetallesCita[]
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
 }
@@ -67,7 +65,7 @@ model EstadoCita {
 }
 
 model HistorialCitas {
-  historialCitasID Int       @id(map: "PK__Historia__1E8361EE82FFD90E") @default(autoincrement())
+  historialCitasID Int       @id(map: "PK__Historia__1E8361EE389232A0") @default(autoincrement())
   clienteID        Int?
   citaID           Int?
   Citas            Citas?    @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialCitas_citaID")
@@ -96,11 +94,11 @@ model Horarios {
 }
 
 model HorariosReservados {
-  citaID      Int       @id(map: "PK__Horarios__A9534FEC57ACF13B") @default(autoincrement())
-  dia         DateTime? @db.Date
-  hora_inicio DateTime? @db.Time
-  hora_fin    DateTime? @db.Time
-  Citas       Citas     @relation(fields: [citaID], references: [citaID], onUpdate: NoAction, map: "fk_HorariosReservados_citaID")
+  citaID     Int       @id(map: "PK__Horarios__A9534FEC05618C4D") @default(autoincrement())
+  dia        DateTime? @db.Date
+  horaInicio String?   @db.VarChar(5)
+  horaFinal  String?   @db.VarChar(5)
+  Citas      Citas     @relation(fields: [citaID], references: [citaID], onUpdate: NoAction, map: "fk_HorariosReservados_citaID")
 }
 
 model PuntosClientes {
@@ -130,6 +128,7 @@ model Servicios {
   precio               Int?
   rutaImagen           String?                @db.VarChar(150)
   tiempoEstimado       String?                @db.VarChar(5)
+  DetallesCita         DetallesCita[]
   HistorialRecompensas HistorialRecompensas[]
   PuntosServicio       PuntosServicio?
 }
@@ -197,4 +196,12 @@ model sysdiagrams {
   definition   Bytes?
 
   @@unique([principal_id, name], map: "UK_principal_name")
+}
+
+model DetallesCita {
+  detalleID  Int        @id(map: "PK__Detalles__4C49966D1C21A80F") @default(autoincrement())
+  citaID     Int?
+  servicioID Int?
+  Citas      Citas?     @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_citaID")
+  Servicios  Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_servicioID")
 }

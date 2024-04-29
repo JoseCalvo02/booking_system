@@ -123,7 +123,7 @@ VALUES ('Programada'), ('Confirmada'), ('Cancelada');
 
 -- ------------------------------------- Table Citas ----------------------------------
 -- La tabla Citas almacena información sobre las citas programadas entre clientes y estilistas.
-create table Citas (
+CREATE TABLE Citas (
 	citaID INT PRIMARY KEY IDENTITY(1,1),
 	clienteID INT,
 	estilistaID INT,
@@ -136,11 +136,11 @@ create table Citas (
 
 -- ------------------------------------- Table HorariosReservados ----------------------------------
 -- La tabla HorariosReservados almacena los horarios bloqueados debido a citas reservadas.
-create table HorariosReservados (
+CREATE TABLE HorariosReservados (
 	citaID INT PRIMARY KEY IDENTITY(1,1),
     dia DATE,
-    hora_inicio TIME,
-    hora_fin TIME,
+    horaInicio VARCHAR(5) CHECK (horaInicio LIKE '[0-2][0-9]:[0-5][0-9]'),
+    horaFinal VARCHAR(5) CHECK (horaFinal LIKE '[0-2][0-9]:[0-5][0-9]'),
     CONSTRAINT fk_HorariosReservados_citaID FOREIGN KEY(citaID) REFERENCES Citas(citaID) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
