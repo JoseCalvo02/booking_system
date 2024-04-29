@@ -189,12 +189,23 @@ export const bookAppointment = async (appointmentData) => {
                 }
             });
 
+            // Buscar el puntosID asociado al clienteID
+            const puntosCliente = await prisma.PuntosClientes.findFirst({
+                where: {
+                    clienteID: clienteID
+                }
+            });
+            console.log(puntosCliente.puntosID);
+
             // Generar puntos para el cliente en la tabla PuntosClientes
-            await prisma.PuntosClientes.create({
+            await prisma.PuntosClientes.update({
+                where: {
+                    puntosID: puntosCliente.puntosID
+                },
                 data: {
-                    clienteID,
-                    puntosAcumulados: puntosGenerados,
-                    puntosCanjeados: 0,
+                    puntosAcumulados: {
+                        increment: puntosGenerados
+                    },
                 }
             });
 
