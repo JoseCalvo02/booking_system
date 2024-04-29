@@ -6,7 +6,6 @@ const ChangeRoleModal = async ({user}) => {
         title: `Cambiar el rol de ${user.nombre} ${user.apellidos}`,
         input: 'select',
         inputOptions: {
-            'Administrador': 'Administrador',
             'Estilista': 'Estilista',
             'Cliente': 'Cliente'
         },
