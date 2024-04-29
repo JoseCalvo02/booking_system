@@ -37,7 +37,7 @@ const Sidebar = () => {
                                 to="/admin/dashboard"
                             >
                                 <TbLayoutGrid size={20}/>
-                                <span className={customStyles.span}>Dashboard</span>
+                                <span className={customStyles.span}>Panel de control</span>
                             </Link>
                         </li>
                         {/* Enlace a la opción Citas */}
@@ -116,7 +116,7 @@ const Sidebar = () => {
                         <li className='mt-auto'>
                             <a className={customStyles.link} onClick={ () => handleLogout(navigate) }>
                                 <TbLogout2 size={20}/>
-                                <span className={customStyles.span}>Log out</span>
+                                <span className={customStyles.span}>Cerrar Sesión</span>
                             </a>
                         </li>
                     </ul>

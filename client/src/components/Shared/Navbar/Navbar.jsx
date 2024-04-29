@@ -48,25 +48,25 @@ const Navbar = ({ isHome = false }) => {
             <ul className={`fixed flex flex-col items-center justify-center w-[80%] md:w-full xl:w-full h-full gap-5 top-0 xl:justify-end xl:items-end xl:flex-row xl:static md:justify-end md:items-end md:flex-row md:static transition-all duration-500 ${showMenu ? "left-0 bg-gray-900" : "-left-full"}`}>
                 <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
                     <NavLink to="/" className={`text-w p-2 hover:bg-primary_h hover:rounded-lg ${location.pathname === "/" ? "md:bg-primary md:rounded-lg" : ""}`}>
-                        Home
+                        Inicio
                     </NavLink>
                 </li>
                 {currentPage !== "/auth" && currentPage !== "/notFound" &&
                     <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
-                        <a className="p-2 text-w hover:bg-primary_h hover:rounded-lg" href="#contact-us">Contact</a>
+                        <a className="p-2 text-w hover:bg-primary_h hover:rounded-lg" href="#contact-us">Contáctenos</a>
                     </li>
                 }
                 {currentPage !== "/auth" &&
                     <li className='p-4 transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
                         <NavLink to="/auth?signIn=true" className='p-2 text-w hover:bg-primary_h hover:rounded-lg'>
-                            Login
+                            Acceso
                         </NavLink>
                     </li>
                 }
                 {currentPage !== "/auth" &&
                     <li className='p-4 transition-colors duration-500 md:p-0 md:transition-none md:border-none'>
                         <NavLink to="/auth?signIn=false" className='p-2 text-w hover:bg-primary_h hover:rounded-lg'>
-                            Signup
+                            Registrarse
                         </NavLink>
                     </li>
                 }

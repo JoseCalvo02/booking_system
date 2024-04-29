@@ -79,7 +79,7 @@ const Navbar = () => {
                     <li className='flex justify-center p-4 text-white transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
                         <NavLink to="/client" className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg'>
                             <TbLayoutGrid className="mr-1" size={20} />
-                            Home
+                            Inicio
                         </NavLink>
                     </li>
                     <li className='flex justify-center p-4 text-white transition-colors duration-500 border-b border-gray-600 md:p-0 md:transition-none md:border-none'>
@@ -127,8 +127,8 @@ const Navbar = () => {
                                     </li>
                                     <li className='flex p-2'>
                                         <a className='flex items-center p-2 text-white hover:bg-blue-950 hover:rounded-lg' onClick={() => handleLogout(navigate)}>
-                                            <CgLogOut className='mr-1'  size={20}/>
-                                            <span>Log out</span>
+                                            <CgLogOut  size={20}/>
+                                            <span>Cerrar Sesión</span>
                                         </a>
                                     </li>
                                 </ul>
