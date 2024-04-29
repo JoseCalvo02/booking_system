@@ -49,10 +49,12 @@ model Citas {
   estilistaID                          Int?
   comentarios                          String?             @db.VarChar(150)
   estadoID                             Int?
+  cuponID                              Int?
   ActividadCliente                     ActividadCliente[]
-  Usuarios_Citas_clienteIDToUsuarios   Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
+  Usuarios_Clientes                    Usuarios?           @relation("Citas_clienteIDToUsuarios", fields: [clienteID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_clienteID")
+  Cupones                              Cupones?            @relation(fields: [cuponID], references: [cuponID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_cuponID")
   EstadoCita                           EstadoCita?         @relation(fields: [estadoID], references: [estadoID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estadoID")
-  Usuarios_Citas_estilistaIDToUsuarios Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
+  Usuarios_Estilistas                  Usuarios?           @relation("Citas_estilistaIDToUsuarios", fields: [estilistaID], references: [usuarioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Citas_estilistaID")
   DetallesCita                         DetallesCita?
   HistorialCitas                       HistorialCitas[]
   HorariosReservados                   HorariosReservados?
@@ -162,6 +164,7 @@ model Cupones {
   nombreCupon      String?            @db.VarChar(100)
   valorPuntos      Int?
   estado           String?            @db.VarChar(15)
+  Citas            Citas[]
   CuponesCanjeados CuponesCanjeados[]
 }
 

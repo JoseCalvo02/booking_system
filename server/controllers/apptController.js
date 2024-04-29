@@ -112,13 +112,15 @@ export const getAllAppointments = async () => {
         // Obtener todas las citas e incluir los datos de los usuarios y estilistas
         const appointments = await prisma.Citas.findMany({
             include: {
-                Usuarios_Citas_clienteIDToUsuarios: true,
-                Usuarios_Citas_estilistaIDToUsuarios: true,
+                Cupones: true,
+                Usuarios_Clientes: true,
+                Usuarios_Estilistas: true,
             }
         });
         return appointments;
     }
     catch (error) {
+        console.log(error);
         throw new Error(error);
     }
 }
@@ -184,6 +186,7 @@ export const bookAppointment = async (appointmentData) => {
                 data: {
                     clienteID,
                     estilistaID: stylistId,
+                    cuponID: couponId,
                     estadoID: 1,
                 }
             });
