@@ -3,6 +3,7 @@ import { getServices } from '../../../api/serviceApi';
 import { getRedeemedCoupons } from '../../../api/couponApi';
 import { getScheduleByDateAndStylist } from '../../../api/scheduleApi';
 import { getBlocksByDateAndStylist } from '../../../api/blockApi';
+import { bookAppointment } from '../../../api/apptApi';
 
 import DateInput from './SelectsInputs/DateInput';
 import SelectService from './SelectsInputs/SelectService';
@@ -25,6 +26,8 @@ function MainContent() {
     // Estados para almacenar los datos del horario y bloqueo
     const [stylistSchedule, setStylistSchedule] = useState([]);
     const [stylistBlocks, setStylistBlocks] = useState([]);
+    // Estados para almacenar el segmento de tiempo seleccionado
+    const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,6 +61,18 @@ function MainContent() {
         }
     }, [selectedDate, selectedStylist]);
 
+    const handleBookAppointment = () => {
+        const appointmentData = {
+            servicio: selectedService,
+            cupon: selectedCoupon,
+            fecha: selectedDate,
+            estilista: selectedStylist,
+            hora: selectedTimeSlot
+        };
+
+        bookAppointment(appointmentData);
+    }
+
     return (
         <main className="flex flex-col w-full">
             <h1 className="m-auto text-4xl font-extrabold leading-none tracking-tight text-gray-900 align-middle mt-28 md:text-5xl lg:text-6xl dark:text-black">
@@ -75,9 +90,12 @@ function MainContent() {
 
                         <SelectStylist selectedDate={selectedDate} availableStylists={availableStylists} selectedStylist={selectedStylist} setSelectedStylist={setSelectedStylist} />
 
-                        <SelectHour selectedStylist={selectedStylist} selectedService={selectedService} stylistSchedule={stylistSchedule} stylistBlocks={stylistBlocks} />
+                        <SelectHour selectedStylist={selectedStylist} selectedService={selectedService} stylistSchedule={stylistSchedule} stylistBlocks={stylistBlocks} selectedTimeSlot={selectedTimeSlot} setSelectedTimeSlot={setSelectedTimeSlot}/>
 
-                        <button className="w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out bg-blue-800 border border-blue-600 rounded-md md:w-40 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg">
+                        <button className={`w-full px-4 py-2 mt-1 mb-1 mr-1 text-white transition duration-300 ease-in-out ${selectedService === '' || selectedDate === '' || selectedStylist === '' || selectedTimeSlot === '' ? 'bg-gray-400 cursor-not-allowed border' : 'bg-blue-800 border border-blue-600 hover:bg-blue-950 hover:border-blue-700 hover:shadow-lg'} md:w-40 rounded-md`}
+                            disabled={selectedService === '' || selectedCoupon === '' || selectedDate === '' || selectedStylist === '' || selectedTimeSlot === ''}
+                            onClick={() => handleBookAppointment()}
+                        >
                             Reservar cita
                         </button>
                     </div>

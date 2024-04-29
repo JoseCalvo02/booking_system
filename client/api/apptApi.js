@@ -1,4 +1,5 @@
 import axiosInstance from "../config/axiosConfig";
+import { decodeToken } from "../src/utils/tokenUtils";
 
 const API_URL = "/api/appt"; // Ruta base para las solicitudes de citas en el backend
 
@@ -59,6 +60,29 @@ export const getAllAppointments = async () => {
             }
         });
         return response.data.appointmentsWithNames;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+// Crear una cita
+export const bookAppointment = async (appointmentData) => {
+    try {
+        // Decodificar el token JWT para obtener las propiedades del usuario
+        const decodedToken = decodeToken();
+
+        appointmentData = {
+            ...appointmentData,
+            clienteID: decodedToken.userId
+        };
+
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.post(`${API_URL}/create/appoitnment`, appointmentData, {
+            headers: {
+                Authorization: `Bearer ${token}` // Agrega el token como encabezado de autorización
+            }
+        });
+        return response.data;
     } catch (error) {
         throw new Error(error);
     }

@@ -137,7 +137,7 @@ CREATE TABLE Citas (
 -- ------------------------------------- Table HorariosReservados ----------------------------------
 -- La tabla HorariosReservados almacena los horarios bloqueados debido a citas reservadas.
 CREATE TABLE HorariosReservados (
-	citaID INT PRIMARY KEY IDENTITY(1,1),
+	citaID INT PRIMARY KEY,
     dia DATE,
     horaInicio VARCHAR(5) CHECK (horaInicio LIKE '[0-2][0-9]:[0-5][0-9]'),
     horaFinal VARCHAR(5) CHECK (horaFinal LIKE '[0-2][0-9]:[0-5][0-9]'),
@@ -147,7 +147,7 @@ CREATE TABLE HorariosReservados (
 -- ------------------------------------- Table DetallesCita ----------------------------------
 -- La tabla DetallesCita almacena los detalles de cada cita, incluidos los servicios seleccionados.
 create table DetallesCita (
-	citaID INT PRIMARY KEY IDENTITY(1,1),
+	citaID INT PRIMARY KEY,
     servicioID INT,
     CONSTRAINT fk_DetallesCita_citaID FOREIGN KEY (citaID) REFERENCES Citas(citaID),
     CONSTRAINT fk_DetallesCita_servicioID FOREIGN KEY (servicioID) REFERENCES Servicios(servicioID)

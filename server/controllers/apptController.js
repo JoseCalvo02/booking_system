@@ -141,3 +141,78 @@ export const getAllAppointments = async () => {
         throw new Error(error);
     }
 }
+
+// Función para crear una cita
+export const bookAppointment = async (appointmentData) => {
+    try {
+        // Inicia una transacción
+        const appointment = await prisma.$transaction(async (prisma) => {
+            // Obtener los datos de la cita
+            const { clienteID, servicio, cupon, fecha, estilista, hora } = appointmentData;
+            // Obtener el ID del servicio
+            const serviceId = servicio.servicioID;
+            // Verificar si existe un cupon
+            const couponId = cupon ? cupon.cuponCanjeadoID : null;
+            // Obtener el ID del estilista
+            const stylistId = estilista;
+            // Obtener la fecha y hora de la cita
+            const appointmentDate = new Date(fecha);
+            const [startTime, endTime] = hora.split('-');
+            // Calcular los puntos a generar (10% del precio del servicio)
+            const servicioPrecio = servicio.precio;
+            const puntosGenerados = Math.floor(servicioPrecio * 0.1);
+
+            // Crear la cita en la tabla Citas
+            const appointment = await prisma.Citas.create({
+                data: {
+                    clienteID,
+                    estilistaID: stylistId,
+                    estadoID: 1,
+                }
+            });
+
+            // Crear el horario reservado en la tabla HorariosReservados
+            await prisma.HorariosReservados.create({
+                data: {
+                    citaID: appointment.citaID,
+                    dia: appointmentDate,
+                    horaInicio: startTime,
+                    horaFinal: endTime,
+                }
+            });
+
+            // Crear los detalles de la cita en la tabla DetallesCita
+            await prisma.DetallesCita.create({
+                data: {
+                    citaID: appointment.citaID,
+                    servicioID: serviceId,
+                }
+            });
+
+            // Generar puntos para el cliente en la tabla PuntosClientes
+            await prisma.PuntosClientes.create({
+                data: {
+                    clienteID,
+                    puntosAcumulados: puntosGenerados,
+                    puntosCanjeados: 0,
+                }
+            });
+
+            // Si hay un cupón, actualizar su estado a "Canjeado" en la tabla CuponesCanjeados
+            if (couponId) {
+                await prisma.CuponesCanjeados.update({
+                    where: { cuponCanjeadoID: couponId },
+                    data: { estado: "Canjeado" }
+                });
+            }
+
+            // Devolver la cita creada
+            return appointment;
+        });
+
+        return appointment;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}

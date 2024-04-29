@@ -8,7 +8,7 @@ datasource db {
 }
 
 model ActividadCliente {
-  actividadID    Int       @id(map: "PK__Activida__E4EF869453E3E960") @default(autoincrement())
+  actividadID    Int       @id(map: "PK__Activida__E4EF86949D5C9E6E") @default(autoincrement())
   clienteID      Int?
   ultimaConexion DateTime? @db.DateTime
   ultimaCitaID   Int?
@@ -44,7 +44,7 @@ model BloqueoHorarios {
 }
 
 model Citas {
-  citaID                               Int                 @id(map: "PK__Citas__A9534FEC2F99141B") @default(autoincrement())
+  citaID                               Int                 @id(map: "PK__Citas__A9534FEC28AA7349") @default(autoincrement())
   clienteID                            Int?
   estilistaID                          Int?
   comentarios                          String?             @db.VarChar(150)
@@ -65,7 +65,7 @@ model EstadoCita {
 }
 
 model HistorialCitas {
-  historialCitasID Int       @id(map: "PK__Historia__1E8361EE389232A0") @default(autoincrement())
+  historialCitasID Int       @id(map: "PK__Historia__1E8361EEE1FE5EFD") @default(autoincrement())
   clienteID        Int?
   citaID           Int?
   Citas            Citas?    @relation(fields: [citaID], references: [citaID], onDelete: NoAction, onUpdate: NoAction, map: "fk_HistorialCitas_citaID")
@@ -94,7 +94,7 @@ model Horarios {
 }
 
 model HorariosReservados {
-  citaID     Int       @id(map: "PK__Horarios__A9534FEC05618C4D") @default(autoincrement())
+  citaID     Int       @id(map: "PK__Horarios__A9534FEC2C93A3E3")
   dia        DateTime? @db.Date
   horaInicio String?   @db.VarChar(5)
   horaFinal  String?   @db.VarChar(5)
@@ -199,7 +199,7 @@ model sysdiagrams {
 }
 
 model DetallesCita {
-  citaID     Int        @id(map: "PK__Detalles__A9534FECFF0A163D") @default(autoincrement())
+  citaID     Int        @id(map: "PK__Detalles__A9534FEC71F7F018")
   servicioID Int?
   Citas      Citas      @relation(fields: [citaID], references: [citaID], onUpdate: NoAction, map: "fk_DetallesCita_citaID")
   Servicios  Servicios? @relation(fields: [servicioID], references: [servicioID], onDelete: NoAction, onUpdate: NoAction, map: "fk_DetallesCita_servicioID")

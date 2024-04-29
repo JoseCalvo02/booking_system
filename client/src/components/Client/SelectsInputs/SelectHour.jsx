@@ -2,10 +2,9 @@ import React, { useState, useEffect  } from 'react';
 
 import { roundServiceDuration } from '../../../utils/dateUtils';
 
-const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylistBlocks }) => {
+const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylistBlocks, selectedTimeSlot, setSelectedTimeSlot }) => {
     // Estados para almacenar los datos de los estilistas y horarios disponibles
     const [availableTimeSlots, setAvailableTimeSlots] = useState([]);
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
 
     useEffect(() => {
         // Función para generar los segmentos de tiempo disponibles

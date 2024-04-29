@@ -44,4 +44,17 @@ router.get("/all", async (req, res) => {
     }
 });
 
+// Ruta para crear una cita
+router.post("/create/appoitnment", async (req, res) => {
+    try {
+        const appointmentData = req.body;
+        const appointment = await appt.bookAppointment(appointmentData);
+
+        res.status(200).json({ appointment, message: "Cita creada exitosamente" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Exportar el router
 export default router;
