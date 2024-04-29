@@ -20,10 +20,10 @@ function ServicesContent() {
                     <div className="p-6">
                         <div className="flex items-center justify-between mb-2">
                             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                Manicure
+                                Manicure Mujeres
                             </p>
                             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                ₡ 15,000
+                                ₡ 8,000
                             </p>
                         </div>
                         <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">
@@ -46,10 +46,10 @@ function ServicesContent() {
                     <div className="p-6">
                         <div className="flex items-center justify-between mb-2">
                             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                Pedicure
+                                Pedicure Gel A
                             </p>
                             <p className="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
-                                ₡ 15,000
+                                ₡ 12,750
                             </p>
                         </div>
                         <p className="block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75">

@@ -9,11 +9,11 @@ export default function Services() {
             <div className='max-w-[1240px] mx-auto grid md:grid-cols-3 gap-8'>
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
-                    <h2 className='py-8 text-2xl font-bold text-center '>Esmaltado en Gel OPI</h2>
-                    <p className='text-4xl font-bold text-center'>₡11,500</p>
+                    <h2 className='py-8 text-2xl font-bold text-center '>Manicure Mujeres</h2>
+                    <p className='text-4xl font-bold text-center'>₡8,000</p>
                     <div className='font-medium text-center'>
                         <p className='py-2 mx-8 mt-8 border-b'>Duracion: 60 min</p>
-                        <p className='py-2 mx-8 border-b'>Protección sobre uña natural</p>
+                        <p className='py-2 mx-8 border-b'>Protección Natural de Uñas</p>
                         <p className='py-2 mx-8 border-b'>Los precios pueden variar</p>
                     </div>
                     <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
@@ -23,11 +23,11 @@ export default function Services() {
                 {/* Segunda tarjeta */}
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
-                    <h2 className='py-8 text-2xl font-bold text-center '>Manicure Spa</h2>
-                    <p className='text-4xl font-bold text-center'>₡21,500</p>
+                    <h2 className='py-8 text-2xl font-bold text-center '>Manicure Gel X</h2>
+                    <p className='text-4xl font-bold text-center'>₡9,000</p>
                     <div className='font-medium text-center'>
-                        <p className='py-2 mx-8 mt-8 border-b'>Duracion: 90 min</p>
-                        <p className='py-2 mx-8 border-b'>Manicure a base de sales</p>
+                        <p className='py-2 mx-8 mt-8 border-b'>Duracion: 60 min</p>
+                        <p className='py-2 mx-8 border-b'>Manicure con gel especial</p>
                         <p className='py-2 mx-8 border-b'>Incluye crema y mascarilla</p>
                     </div>
                     <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
@@ -37,12 +37,12 @@ export default function Services() {
                 {/* Tercer tarjeta */}
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
-                    <h2 className='py-8 text-2xl font-bold text-center'>Adicional Luminary</h2>
-                    <p className='text-4xl font-bold text-center'>₡8,000</p>
+                    <h2 className='py-8 text-2xl font-bold text-center'>Diseño de Cejas</h2>
+                    <p className='text-4xl font-bold text-center'>₡7,500</p>
                     <div className='font-medium text-center'>
-                        <p className='py-2 mx-8 mt-8 border-b'>Duración: 15 min</p>
-                        <p className='py-2 mx-8 border-b'>Resistencia a la uña natural</p>
-                        <p className='py-2 mx-8 border-b'>Protección extra sobre la uña</p>
+                        <p className='py-2 mx-8 mt-8 border-b'>Duración: 25 min</p>
+                        <p className='py-2 mx-8 border-b'>Se realiza con Cera</p>
+                        <p className='py-2 mx-8 border-b'>Incluye mascarilla</p>
                     </div>
                     <Link className='px-6 py-3 mx-auto my-6' to="/auth?signIn=true">
                         <button className='bg-primary w-[200px] rounded-md font-medium my-6 mx-auto px-6 py-3 hover:bg-primary_h'>Comenzemos</button>
