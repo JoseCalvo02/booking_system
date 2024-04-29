@@ -42,3 +42,31 @@ export const formatDate = (dateString) => {
     // Formatear la fecha manualmente
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
 };
+
+// Función para redondear la duración del servicio a intervalos de 30 minutos o 1 hora
+export const roundServiceDuration = (serviceTimeEstimate) => {
+    let [hours, minutes] = serviceTimeEstimate.split(':');
+    let parseMin = parseInt(minutes);
+    let parseHour = parseInt(hours);
+
+    // Redondear la duración del servicio a intervalos de 30 minutos o 1 hora
+    if (minutes === '00' || minutes === '30') {
+        return serviceTimeEstimate;
+    }
+
+    // Redondear a intervalos de 1 hora o 30 minutos, si los minutos son mayores a 30 redondear a la hora siguiente
+    if (parseMin > 30) {
+        parseHour += 1;
+        parseMin = 0;
+    } else {
+        parseMin = 30;
+    }
+
+    const totalMinutes = (parseHour * 60) + parseMin;
+
+    // Calcular la duración redondeada en formato HH:MM
+    const roundedDurationHours = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+    const roundedDurationMinutes = String(totalMinutes % 60).padStart(2, '0');
+
+    return `${roundedDurationHours}:${roundedDurationMinutes}`;
+};
