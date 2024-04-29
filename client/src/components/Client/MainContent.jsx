@@ -4,6 +4,7 @@ import { getRedeemedCoupons } from '../../../api/couponApi';
 import { getScheduleByDateAndStylist } from '../../../api/scheduleApi';
 import { getBlocksByDateAndStylist } from '../../../api/blockApi';
 import { bookAppointment } from '../../../api/apptApi';
+import CitaReservadaModal from '../Modals/Appointments/CitaReservadaModal';
 
 import DateInput from './SelectsInputs/DateInput';
 import SelectService from './SelectsInputs/SelectService';
@@ -71,6 +72,9 @@ function MainContent() {
         };
 
         bookAppointment(appointmentData);
+
+        // Mostrar el modal de cita reservada
+        CitaReservadaModal();
 
         // Reiniciar los estados a sus valores iniciales o vacíos
         setSelectedService('');
