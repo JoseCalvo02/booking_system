@@ -40,23 +40,6 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
             // Iterar desde la hora de inicio hasta la hora final y agregar los segmentos disponibles
             let currentTime = startDateTime;
             while (currentTime < endDateTime) {
-                // Encontrar el próximo tiempo disponible después del bloqueo más temprano
-                const nextAvailableTime = blockedTimeRanges.reduce((nextTime, [blockStart, blockEnd]) => {
-                    // Si el bloque termina después del tiempo actual y es el más temprano hasta ahora, actualizar el próximo tiempo disponible
-                    if (blockEnd > currentTime && (nextTime === null || blockStart < nextTime)) {
-                        return blockEnd;
-                    }
-                    return nextTime;
-                }, null);
-
-                // Si hay un próximo tiempo disponible después del bloqueo, establecer currentTime en ese momento
-                if (nextAvailableTime !== null) {
-                    currentTime = new Date(nextAvailableTime);
-                } else {
-                    // Si no hay próximo tiempo disponible después del bloqueo, salir del bucle
-                    break;
-                }
-
                 // Calcular el tiempo final sumando el tiempo estimado del servicio
                 let endTime = new Date(currentTime.getTime() + serviceTimeInMinutes * 60000); // Convertir minutos a milisegundos
 
@@ -83,6 +66,16 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
                     const formattedStartTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     const formattedEndTime = endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     availableSlots.push(`${formattedStartTime}-${formattedEndTime}`)
+                    // Establecer el tiempo actual en el tiempo final del bloque
+                    currentTime = endTime;
+                } else {
+                    // Si hay solapamiento, establecer el tiempo actual en el tiempo final del bloque
+                    currentTime = blockedTimeRanges.reduce((nextTime, [blockStart, blockEnd]) => {
+                        if (blockEnd > currentTime && (nextTime === null || blockStart < nextTime)) {
+                            return blockEnd;
+                        }
+                        return nextTime;
+                    }, null);
                 }
             }
 
