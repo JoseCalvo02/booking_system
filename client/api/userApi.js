@@ -170,3 +170,19 @@ export const getUserStats = async () => {
         throw new Error(`No se pudieron obtener las estadísticas de los usuarios: ${error.response.data.error || error.message}`);
     }
 }
+
+// Funcion para obtener las estilistas trabajando en un dia especifico
+export const getWorkingStylistsByDate = async (date) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/stylists/${date}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response.data;
+    } catch (error) {
+        throw new Error(`No se pudieron obtener las estilistas trabajando en la fecha especificada: ${error.response.data.error || error.message}`);
+    }
+}

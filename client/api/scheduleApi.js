@@ -85,7 +85,7 @@ export const getWeeklySchedules = async () => {
 export const getSchedulesByDate = async (date) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axiosInstance.get(`${API_URL}/date/${date}`, {
+        const response = await axiosInstance.get(`${API_URL}/date/all/${date}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -93,5 +93,21 @@ export const getSchedulesByDate = async (date) => {
         return response.data;
     } catch (error) {
         throw new Error('Error al obtener el horario: ' + error.message);
+    }
+}
+
+// Funcion para obtener los horarios por fecha y estilista
+export const getScheduleByDateAndStylist = async (date, stylistId) => {
+    try {
+        const data = { stylistId, date };
+        const token = localStorage.getItem('token');
+        const response = await axiosInstance.get(`${API_URL}/date/stylist`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Error al obtener los horarios: ' + error.message);
     }
 }

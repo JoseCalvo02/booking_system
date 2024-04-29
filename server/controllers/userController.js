@@ -322,3 +322,42 @@ export const getUsersStats = async () => {
         throw new Error('Error de servidor');
     }
 };
+
+// Función para obtener las estilistas trabajando en un horario específico
+export const getWorkingStylistsByDate = async (date) => {
+    try {
+        const formattedDate = new Date(date);
+        // Obtener las estilistas trabajando en la fecha especificada
+        const stylists = await prisma.$transaction(async (prisma) => {
+            const workingStylists = await prisma.Horarios.findMany({
+                where: {
+                    fecha: formattedDate
+                },
+                select: {
+                    estilistaID: true
+                }
+            });
+
+            const stylistDetails = await Promise.all(workingStylists.map(async (stylist) => {
+                const stylistData = await prisma.Usuarios.findUnique({
+                    where: {
+                        usuarioID: stylist.estilistaID
+                    },
+                    select: {
+                        usuarioID: true,
+                        nombre: true,
+                        apellidos: true,
+                    }
+                });
+                return stylistData;
+            }));
+
+            return stylistDetails;
+        });
+
+        return stylists;
+    } catch (error) {
+        console.error("Error en getWorkingStylistsByDate:", error);
+        throw new Error('Error de servidor');
+    }
+};

@@ -64,7 +64,6 @@ export const getApptsStats = async (date) => {
         const year = new Date(date).getFullYear();
         const month = new Date(date).getMonth() + 1;
         const day = new Date(date).getUTCDate();
-        console.log(year, month, day);
 
         // Obtener las citas del mes actual
         const stats = await prisma.$transaction(async (prisma) => {

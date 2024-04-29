@@ -92,7 +92,7 @@ router.put("/password/:userId", async (req, res) => {
     }
 });
 
-// Funcion para cambiar el estado de un usuario (activar o desactivar)
+// Ruta para cambiar el estado de un usuario (activar o desactivar)
 router.put("/status/:userId", async (req, res) => {
     try {
         const { userId } = req.params; // Obtener el userId de los parámetros de la URL
@@ -108,7 +108,7 @@ router.put("/status/:userId", async (req, res) => {
     }
 });
 
-// Funcion para cambiar el rol de un usuario
+// Ruta para cambiar el rol de un usuario
 router.put("/role/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
@@ -123,7 +123,7 @@ router.put("/role/:userId", async (req, res) => {
     }
 });
 
-// Funcion para obtener los stats de los usuarios
+// Ruta para obtener los stats de los usuarios
 router.get("/stats", async (req, res) => {
     try {
         const stats = await Users.getUsersStats();
@@ -132,6 +132,19 @@ router.get("/stats", async (req, res) => {
     } catch (error) {
         console.error("Error:", error);
         res.status(500).json({ error: 'Error al obtener los stats de los usuarios' });
+    }
+});
+
+// Ruta para obtener las estilistas trabajando en un horario específico
+router.get("/stylists/:date", async (req, res) => {
+    try {
+        const { date } = req.params;
+        const stylists = await Users.getWorkingStylistsByDate(date);
+
+        res.status(200).json(stylists);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: 'Error al obtener las estilistas' });
     }
 });
 

@@ -145,3 +145,22 @@ export const getSchedulesByDate = async (date) => {
         throw new Error('Error al obtener los horarios: ' + error.message);
     }
 }
+
+// Función para obtener el horario de un estilista en una fecha específica
+export const getScheduleByDateAndStylist = async (stylistId, date) => {
+    try {
+        stylistId = parseInt(stylistId);
+        const schedule = await prisma.Horarios.findFirst({
+            where: {
+                estilistaID: stylistId,
+                fecha: new Date(date)
+            }
+        });
+
+        // Enviar respuesta
+        return schedule;
+    } catch (error) {
+        console.error('Error al obtener el horario:', error.message);
+        throw new Error('Error al obtener el horario: ' + error.message);
+    }
+}

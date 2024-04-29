@@ -77,7 +77,7 @@ router.get('/weekly', async (req, res) => {
 });
 
 // Ruta para obtener los horarios por fecha
-router.get('/date/:date', async (req, res) => {
+router.get('/date/all/:date', async (req, res) => {
     try {
         const { date } = req.params;
         const schedules = await schedule.getSchedulesByDate(date);
@@ -87,5 +87,20 @@ router.get('/date/:date', async (req, res) => {
         res.status(500).json({ message: 'Error al obtener los horarios' });
     }
 });
+
+// Ruta para obtener los horarios de un estilista en una fecha específica
+router.get('/date/stylist', async (req, res) => {
+    try {
+        const { stylistId, date } = req.query;
+        console.log(stylistId, date);
+
+        const stylistSchedule = await schedule.getScheduleByDateAndStylist(stylistId, date);
+        res.json(stylistSchedule);
+    } catch (error) {
+        console.error('Error al obtener el horario:', error.message);
+        res.status(500).json({ message: 'Error al obtener el horario' });
+    }
+});
+
 
 export default router;
