@@ -10,7 +10,6 @@ export default function Services() {
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
                     <h2 className='py-8 text-2xl font-bold text-center '>Manicure Mujeres</h2>
-                    <p className='text-4xl font-bold text-center'>₡8,000</p>
                     <div className='font-medium text-center'>
                         <p className='py-2 mx-8 mt-8 border-b'>Duracion: 60 min</p>
                         <p className='py-2 mx-8 border-b'>Protección Natural de Uñas</p>
@@ -24,7 +23,6 @@ export default function Services() {
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
                     <h2 className='py-8 text-2xl font-bold text-center '>Manicure Gel X</h2>
-                    <p className='text-4xl font-bold text-center'>₡9,000</p>
                     <div className='font-medium text-center'>
                         <p className='py-2 mx-8 mt-8 border-b'>Duracion: 60 min</p>
                         <p className='py-2 mx-8 border-b'>Manicure con gel especial</p>
@@ -38,7 +36,6 @@ export default function Services() {
                 <div className='flex flex-col w-full p-4 py-20 my-4 text-white duration-300 bg-gray-900 rounded-lg shadow-2xl hover:scale-105'>
                     <FaShopify className='w-20 mx-auto mt-[-3rem]' size={40} />
                     <h2 className='py-8 text-2xl font-bold text-center'>Diseño de Cejas</h2>
-                    <p className='text-4xl font-bold text-center'>₡7,500</p>
                     <div className='font-medium text-center'>
                         <p className='py-2 mx-8 mt-8 border-b'>Duración: 25 min</p>
                         <p className='py-2 mx-8 border-b'>Se realiza con Cera</p>
