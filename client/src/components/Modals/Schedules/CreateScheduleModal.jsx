@@ -12,7 +12,7 @@ export const CreateScheduleModal = async(stylist, currentDate, setSchedule, week
         input: 'radio',
         inputOptions: {
             daily: 'Diario',
-            weekly: 'Semanal'
+            //weekly: 'Semanal'
         },
         confirmButtonText: 'Continuar',
         showCancelButton: true,
