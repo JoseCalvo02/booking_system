@@ -34,17 +34,17 @@ const SelectHour = ({ selectedStylist, selectedService, stylistSchedule, stylist
             const blockedTimeRanges = stylistBlocks.map(block => {
                 const [blockStartHour, blockStartMinute] = block.horaInicio.split(':');
                 const [blockEndHour, blockEndMinute] = block.horaFinal.split(':');
-            
+
                 // Obtener la fecha real de los bloqueos
                 const blockStartDateTime = new Date(block.fecha);
                 console.log(blockStartHour, blockStartMinute)
                 console.log(blockEndHour, blockEndMinute);
                 blockStartDateTime.setHours(parseInt(blockStartHour), parseInt(blockStartMinute), 0, 0);
                 console.log(blockStartDateTime);
-            
+
                 const blockEndDateTime = new Date(block.fecha);
                 blockEndDateTime.setHours(parseInt(blockEndHour), parseInt(blockEndMinute), 0, 0);
-            
+
                 return [blockStartDateTime, blockEndDateTime];
             });
 

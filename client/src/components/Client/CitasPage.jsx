@@ -108,7 +108,7 @@ function CitasPage() {
                                     </td>
                                     <td className="px-6 md:px-8 ">
                                         <div className="flex items-center">
-                                            <p>{cita.nombreServicio}</p>
+                                            <p>{cita.DetallesCita.Servicios.nombreServicio}</p>
                                         </div>
                                     </td>
                                     <td className="px-6 md:px-8 ">

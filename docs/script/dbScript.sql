@@ -146,9 +146,8 @@ CREATE TABLE HorariosReservados (
 
 -- ------------------------------------- Table DetallesCita ----------------------------------
 -- La tabla DetallesCita almacena los detalles de cada cita, incluidos los servicios seleccionados.
-create table DetallesCita  (
-    detalleID INT PRIMARY KEY IDENTITY(1,1),
-    citaID INT,
+create table DetallesCita (
+	citaID INT PRIMARY KEY IDENTITY(1,1),
     servicioID INT,
     CONSTRAINT fk_DetallesCita_citaID FOREIGN KEY (citaID) REFERENCES Citas(citaID),
     CONSTRAINT fk_DetallesCita_servicioID FOREIGN KEY (servicioID) REFERENCES Servicios(servicioID)

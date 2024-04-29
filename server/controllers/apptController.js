@@ -11,7 +11,7 @@ export const getAppointments = async (userId) => {
             where: {
                 clienteID: userId,
                 estadoID: 1
-            }, 
+            },
             include: {
                 HorariosReservados: true,
                 DetallesCita: {
@@ -21,7 +21,6 @@ export const getAppointments = async (userId) => {
                 }
             }
         });
-        console.log(appointments.DetallesCita);
 
         // Obtener el nombre del estilista
         const appointmentsWithNames = await Promise.all(appointments.map(async (appointment) => {
@@ -37,14 +36,12 @@ export const getAppointments = async (userId) => {
             };
         }));
 
-
         return appointmentsWithNames;
     } catch (error) {
         console.log(error);
         throw new Error(error);
     }
 }
-
 
 // Función para cancelar una cita cancelAppointment
 export const cancelAppointment = async (req, res) => {
